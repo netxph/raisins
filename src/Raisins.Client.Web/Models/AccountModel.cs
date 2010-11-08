@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Raisins.Services;
+using System.Web.Mvc;
 
 namespace Raisins.Client.Web.Models
 {
@@ -15,9 +16,24 @@ namespace Raisins.Client.Web.Models
         public long ID { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
-
-        public static AccountModel[] FindAll()
+        public string SelectedBeneficiary { get; set; }
+        public IEnumerable<SelectListItem> BeneficiaryOptions 
         {
+            get
+            {
+                Beneficiary[] beneficiaries = Beneficiary.FindAll();
+                List<SelectListItem> optionList = new List<SelectListItem>();
+
+                foreach(Beneficiary b in beneficiaries)
+                {
+                    optionList.Add(new SelectListItem { Value = b.ID.ToString(), Text = b.Name });
+                }
+                return optionList.ToArray();
+            }
+        }
+        
+        public static AccountModel[] FindAll()
+        {            
             Account[] accounts = Account.FindAll();
             List<AccountModel> models = new List<AccountModel>();
 

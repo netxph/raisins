@@ -43,7 +43,7 @@ namespace Raisins.Client.Web.Models
             }
 
             //sort
-            
+            return models.ToArray();
         }
 
         #endregion

@@ -3,6 +3,7 @@
 @{
     View.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+	BeneficiaryModel[] Beneficiaries = (BeneficiaryModel[])ViewData["Beneficiaries"];
 }
 
 <h2>Create</h2>
@@ -12,23 +13,8 @@
 
         <fieldset>
             <legend>Fields</legend>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.ID)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.ID)
-                @Html.ValidationMessageFor(model => model.ID)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
-            
+            @Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
+
             <div class="editor-label">
                 @Html.LabelFor(model => model.Amount)
             </div>
@@ -38,11 +24,11 @@
             </div>
             
             <div class="editor-label">
-                @Html.LabelFor(model => model.Location)
+                @Html.LabelFor(model => model.BeneficiaryID)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(model => model.Location)
-                @Html.ValidationMessageFor(model => model.Location)
+                @Html.TextBoxFor(model => model.BeneficiaryID)
+                @Html.ValidationMessageFor(model => model.BeneficiaryID)
             </div>
             
             <div class="editor-label">
@@ -59,6 +45,32 @@
             <div class="editor-field">
                 @Html.TextBoxFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ID)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.ID)
+                @Html.ValidationMessageFor(model => model.ID)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Location)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Location)
+                @Html.ValidationMessageFor(model => model.Location)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+
+				
             </div>
             
             <p>

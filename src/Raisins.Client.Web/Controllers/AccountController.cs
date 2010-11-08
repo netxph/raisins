@@ -30,6 +30,8 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
+            ViewData["Beneficiaries"] = BeneficiaryModel.GetStatistics();
+
             return View(new AccountModel());
         } 
 
