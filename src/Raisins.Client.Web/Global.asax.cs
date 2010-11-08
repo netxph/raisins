@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Castle.ActiveRecord.Framework.Config;
+using Castle.ActiveRecord;
+using Raisins.Services;
+using Castle.ActiveRecord.Framework;
 
 namespace Raisins.Client.Web
 {
@@ -35,6 +39,10 @@ namespace Raisins.Client.Web
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            //initialize database
+            IConfigurationSource config = ActiveRecordSectionHandler.Instance;
+            ActiveRecordStarter.Initialize(config, typeof(Beneficiary), typeof(Account), typeof(Ticket));
         }
     }
 }
