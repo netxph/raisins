@@ -1,9 +1,18 @@
-﻿@model dynamic
+﻿@model IEnumerable<Raisins.Client.Web.Models.BeneficiaryModel>
 
 @{
-	View.Title = "Index";
+	View.Title = "Current Tally";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-	<h2>@ViewHelper.Title</h2>
-	@ViewHelper.Description
+	<h1>@View.Title</h1>
+
+	@foreach(var item in Model)
+	{
+		<div>
+			@item.Name<br>
+			@item.Description<br>
+			Total Votes: @item.Votes<br>
+			Amount Earned: @item.TotalAmount
+		</div>
+	}

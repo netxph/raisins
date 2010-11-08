@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
+using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -14,7 +15,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(BeneficiaryModel.GetStatistics());
         }
 
     }

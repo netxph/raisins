@@ -3,24 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Raisins.Services;
+using NHibernate.Criterion;
 
 namespace Raisins.Client.Web.Models
 {
-    public class BeneficiaryModel
-    {
+	public class BeneficiaryModel
+	{
 
-        public BeneficiaryModel()
-        {
+		#region Constructors
 
-        }
+		public BeneficiaryModel()
+		{
 
-        public long ID { get; set; }
+		}
 
-        public string Name { get; set; }
+		#endregion
 
-        public string Description { get; set; }
+		#region Properties
 
-        public static BeneficiaryModel[] FindAll()
+		public long ID { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public int Votes { get; set; }
+		public float TotalAmount { get; set; }
+	
+		#endregion
+
+        #region Operations
+
+        public static BeneficiaryModel[] GetStatistics()
         {
             Beneficiary[] beneficiaries = Beneficiary.FindAll();
 
@@ -31,8 +42,13 @@ namespace Raisins.Client.Web.Models
                 models.Add(ToModel(beneficiary));
             }
 
-            return models.ToArray();
+            //sort
+            
         }
+
+        #endregion
+
+        #region Helper methods
 
         protected static BeneficiaryModel ToModel(Beneficiary data)
         {
@@ -40,6 +56,8 @@ namespace Raisins.Client.Web.Models
             model.Description = data.Description;
             model.ID = data.ID;
             model.Name = data.Name;
+            model.TotalAmount = data.Accounts.Sum(account => account.Amount);
+            model.Votes = 0;
 
             return model;
         }
@@ -54,10 +72,7 @@ namespace Raisins.Client.Web.Models
             return data;
         }
 
-        public static void Save(BeneficiaryModel model)
-        {
-            Beneficiary data = ToData(model);
-            data.Save();
-        }
-    }
+        #endregion
+
+	}
 }

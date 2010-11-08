@@ -18,9 +18,6 @@ namespace Raisins.Services
         [Property]
         public string Name { get; set; }
 
-        [Property]
-        public long AccountID { get; set; }
-
         [BelongsTo("AccountID")]
         public Account Account { get; set; }
     }

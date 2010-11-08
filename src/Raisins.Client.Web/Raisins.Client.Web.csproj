@@ -82,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BeneficiaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -133,8 +132,6 @@
   <ItemGroup>
     <None Include="Views\Account\Create.cshtml" />
     <None Include="Views\Account\Index.cshtml" />
-    <None Include="Views\Beneficiary\Create.cshtml" />
-    <None Include="Views\Beneficiary\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
