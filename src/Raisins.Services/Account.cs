@@ -27,9 +27,6 @@ namespace Raisins.Services
         [Property]
         public string Email { get; set; }
 
-        [Property]
-        public long BeneficiaryID { get; set; }
-
         [BelongsTo("BeneficiaryID")]
         public Beneficiary Beneficiary { get; set; }
 

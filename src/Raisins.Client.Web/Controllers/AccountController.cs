@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -13,7 +14,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(AccountModel.FindAll());
         }
 
         //
@@ -29,18 +30,18 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new AccountModel());
         } 
 
         //
         // POST: /Account/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(AccountModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                AccountModel.Save(model);
 
                 return RedirectToAction("Index");
             }

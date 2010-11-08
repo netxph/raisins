@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Raisins.Client.Web.Models.AccountModel>
+
+@{
+    View.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <table>
+        <tr>
+            <th></th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Currency
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                ID
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Name
+            </th>
+        </tr>
+
+    @foreach (var item in Model) {
+    
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+            <td>
+                @item.Amount
+            </td>
+            <td>
+                @item.Currency
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                @item.Location
+            </td>
+            <td>
+                @item.Name
+            </td>
+        </tr>
+    
+    }
+
+    </table>
+
+

@@ -88,6 +88,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ViewHelper.cs" />
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\BeneficiaryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -130,6 +131,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Account\Create.cshtml" />
+    <None Include="Views\Account\Index.cshtml" />
     <None Include="Views\Beneficiary\Create.cshtml" />
     <None Include="Views\Beneficiary\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
