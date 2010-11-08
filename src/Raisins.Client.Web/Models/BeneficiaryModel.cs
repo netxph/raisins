@@ -54,5 +54,10 @@ namespace Raisins.Client.Web.Models
             return data;
         }
 
+        public static void Save(BeneficiaryModel model)
+        {
+            Beneficiary data = ToData(model);
+            data.Save();
+        }
     }
 }

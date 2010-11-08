@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Controllers
 {
-    public class BeneficiaryController : Controller
+    public class AccountController : Controller
     {
         //
-        // GET: /Beneficiary/
+        // GET: /Account/
 
         public ActionResult Index()
         {
-            return View(BeneficiaryModel.FindAll());
+            return View();
         }
 
         //
-        // GET: /Beneficiary/Details/5
+        // GET: /Account/Details/5
 
         public ActionResult Details(int id)
         {
@@ -26,22 +25,22 @@ namespace Raisins.Client.Web.Controllers
         }
 
         //
-        // GET: /Beneficiary/Create
+        // GET: /Account/Create
 
         public ActionResult Create()
         {
-            return View(new BeneficiaryModel());
+            return View();
         } 
 
         //
-        // POST: /Beneficiary/Create
+        // POST: /Account/Create
 
         [HttpPost]
-        public ActionResult Create(BeneficiaryModel model)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                BeneficiaryModel.Save(model);
+                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
@@ -52,7 +51,7 @@ namespace Raisins.Client.Web.Controllers
         }
         
         //
-        // GET: /Beneficiary/Edit/5
+        // GET: /Account/Edit/5
  
         public ActionResult Edit(int id)
         {
@@ -60,7 +59,7 @@ namespace Raisins.Client.Web.Controllers
         }
 
         //
-        // POST: /Beneficiary/Edit/5
+        // POST: /Account/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -78,7 +77,7 @@ namespace Raisins.Client.Web.Controllers
         }
 
         //
-        // GET: /Beneficiary/Delete/5
+        // GET: /Account/Delete/5
  
         public ActionResult Delete(int id)
         {
@@ -86,7 +85,7 @@ namespace Raisins.Client.Web.Controllers
         }
 
         //
-        // POST: /Beneficiary/Delete/5
+        // POST: /Account/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
