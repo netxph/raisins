@@ -14,7 +14,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            return View(AccountModel.FindAll());
+            return View(AccountService.FindAll());
         }
 
         //
@@ -30,7 +30,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewData["Beneficiaries"] = BeneficiaryModel.GetStatistics();
+            ViewData["Beneficiaries"] = BeneficiaryService.FindAll();
 
             return View(new AccountModel());
         } 
@@ -43,7 +43,7 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-                AccountModel.Save(model);
+                AccountService.Save(model);
 
                 return RedirectToAction("Index");
             }

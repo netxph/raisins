@@ -1,87 +1,87 @@
 ﻿@model Raisins.Client.Web.Models.AccountModel
 
 @{
-    View.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	View.Title = "Create";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 	BeneficiaryModel[] Beneficiaries = (BeneficiaryModel[])ViewData["Beneficiaries"];
 }
 
 <h2>Create</h2>
 
-    @using (Html.BeginForm()) {
-        @Html.ValidationSummary(true)
+	@using (Html.BeginForm()) {
+		@Html.ValidationSummary(true)
 
-        <fieldset>
-            <legend>Fields</legend>
-            @Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
+		<fieldset>
+			<legend>Fields</legend>
+			@Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Amount)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Amount)
-                @Html.ValidationMessageFor(model => model.Amount)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.BeneficiaryID)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.BeneficiaryID)
-                @Html.ValidationMessageFor(model => model.BeneficiaryID)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Currency)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Currency)
-                @Html.ValidationMessageFor(model => model.Currency)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Email)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.ID)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.ID)
-                @Html.ValidationMessageFor(model => model.ID)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Location)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Location)
-                @Html.ValidationMessageFor(model => model.Location)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Amount)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Amount)
+				@Html.ValidationMessageFor(model => model.Amount)
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.BeneficiaryID)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.BeneficiaryID)
+				@Html.ValidationMessageFor(model => model.BeneficiaryID)
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Currency)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Currency)
+				@Html.ValidationMessageFor(model => model.Currency)
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Email)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Email)
+				@Html.ValidationMessageFor(model => model.Email)
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.ID)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.ID)
+				@Html.ValidationMessageFor(model => model.ID)
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Location)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Location)
+				@Html.ValidationMessageFor(model => model.Location)
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Name)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Name)
+				@Html.ValidationMessageFor(model => model.Name)
 
 				
-            </div>
-            
-            <p>
-                <input type="submit" value="Create" />
-            </p>
-        </fieldset>
+			</div>
+			
+			<p>
+				<input type="submit" value="Create" />
+			</p>
+		</fieldset>
 
-    }
+	}
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+	<div>
+		@Html.ActionLink("Back to List", "Index")
+	</div>
 
 
