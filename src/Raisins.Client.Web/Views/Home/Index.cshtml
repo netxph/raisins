@@ -9,10 +9,10 @@
 
 	@foreach(var item in Model)
 	{
-		<div>
-			@item.Name<br>
-			@item.Description<br>
-			Total Votes: @item.Detail.Votes<br>
-			Amount Earned: @item.Detail.TotalAmount
+		<div class="beneficiary">
+			<h2>@item.Name</h2>
+			<p class="subtitle">@item.Description</p>
+			<p class="votes">Total Votes: @item.Detail.Votes</p>
+			<p class="amount">Amount Earned: @string.Format("{0:0.00}", item.Detail.TotalAmount)</p>
 		</div>
 	}

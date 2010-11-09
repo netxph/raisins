@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Castle.ActiveRecord;
+using Castle.ActiveRecord.Queries;
 
 namespace Raisins.Services
 {
@@ -16,7 +17,7 @@ namespace Raisins.Services
         public string Name { get; set; }
 
         [Property]
-        public float Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [Property]
         public string Location { get; set; }

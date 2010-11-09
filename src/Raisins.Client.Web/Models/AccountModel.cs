@@ -10,7 +10,7 @@ namespace Raisins.Client.Web.Models
     public class AccountModel
     {
 
-        public float Amount { get; set; }
+        public decimal Amount { get; set; }
         public long BeneficiaryID { get; set; }
         public string Currency { get; set; }
         public string Email { get; set; }

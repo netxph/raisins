@@ -1,1 +1,74 @@
-﻿
+﻿body {
+	background-color: #FF6F2F;
+	font-family: Sans-Serif;
+}
+
+#header {
+	width: 800px;
+	margin: 10px auto 10px auto;
+	background-color: White;
+	border: 1px solid Gray;
+	padding: 15px 15px 15px 15px;
+}
+
+#header h1 {
+	font-size: 32px;
+	color: Gray;
+}
+
+#header p {
+	font-size: 12px;
+}
+
+#container {
+	width: 800px;
+	background-color: White;
+	margin: 0 auto 0 auto;
+	border: 1px solid Gray;
+	padding: 15px 15px 15px 15px;
+}
+
+#container h1 {
+	font-size: 24px;
+	color: Gray;
+	text-align: right;
+}
+
+#container h2 {
+	font-size: 20px;
+	color: Black;
+	text-align: right;
+}
+
+#footer p {
+	text-align: center;
+	padding: 10px 10px 10px 10px;
+	font-size: 10px;
+}
+
+.beneficiary {
+	width: 80%;
+	margin: 10px auto 0 auto;
+	background-color: #D6FFD6;
+	padding: 15px 15px 15px 15px;
+	border: 1px solid Gray;
+}
+
+.beneficiary p.subtitle {
+	text-align: right;
+	font-size: 10px;
+}
+
+.beneficiary p.votes {
+	color: #990000;
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.beneficiary p.amount {
+	color: #009800;
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+}

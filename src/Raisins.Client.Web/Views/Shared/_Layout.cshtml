@@ -2,13 +2,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<link href="Content/Reset.css" rel="stylesheet" type="text/css">
-	<link href="Content/Main.css" rel="stylesheet" type="text/css">
+	<link href="/Content/Reset.css" rel="stylesheet" type="text/css">
+	<link href="/Content/Main.css" rel="stylesheet" type="text/css">
 	<title>@ViewHelper.Title @ViewHelper.Version - [@ViewHelper.Description]</title>
 </head>
 <body>
-	<div>
+    <div id="header">
+        <h1>@ViewHelper.Title</h1>
+        <p>@ViewHelper.Description</p>
+    </div>
+	<div id="container">
 		@RenderBody()
 	</div>
+    <div id="footer">
+        <p>Created by Marc Vitalis and Jaja Abayon.</p>
+    </div>
 </body>
 </html>

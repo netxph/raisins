@@ -19,11 +19,15 @@ namespace Raisins.Client.Web.Models
 
             foreach (Beneficiary beneficiary in beneficiaries)
             {
-                models.Add(ToModel(beneficiary));
+                BeneficiaryModel model = ToModel(beneficiary);
 
                 BeneficiaryDetailModel detail = new BeneficiaryDetailModel();
-                detail.TotalAmount = beneficiary.Accounts.Sum(account => account.Amount);
-                detail.Votes = 0;
+                detail.TotalAmount = beneficiary.GetTotalAmount();
+                detail.Votes = beneficiary.GetTotalVotes();
+
+                model.Detail = detail;
+
+                models.Add(model);
             }
 
             return models.ToArray();

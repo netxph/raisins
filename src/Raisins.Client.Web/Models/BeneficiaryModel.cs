@@ -20,8 +20,8 @@ namespace Raisins.Client.Web.Models
 	public class BeneficiaryDetailModel
 	{
 
-		public float TotalAmount { get; set; }
-		public int Votes { get; set; }
+		public decimal TotalAmount { get; set; }
+		public long Votes { get; set; }
 
 	}
 
