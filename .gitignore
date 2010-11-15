@@ -5,3 +5,5 @@
 /bin/
 
 **/**/*.user
+*.cache
+*.gpState

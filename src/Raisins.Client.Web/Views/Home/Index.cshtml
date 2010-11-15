@@ -4,8 +4,13 @@
 	View.Title = "Current Tally";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 	<h1>@View.Title</h1>
+
+    <ul>
+        <li>@Html.ActionLink("Add payment", "Create", "Account")</li>
+        <li><a href="#">Review Payments</a></li>
+        <li><a href="#">View Tickets</a></li>
+    </ul>
 
 	@foreach(var item in Model)
 	{
