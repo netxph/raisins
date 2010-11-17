@@ -1,19 +1,16 @@
-﻿@model IEnumerable<Raisins.Client.Web.Models.BeneficiaryModel>
+﻿@model Raisins.Client.Web.Models.BeneficiaryModel
 
 @{
 	View.Title = "Current Tally";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 	<h1>@View.Title</h1>
 
-	@foreach(var item in Model)
-	{
-		<div class="beneficiary">
-			<h2>@item.Name</h2>
-			<p class="subtitle">@item.Description</p>
-			<p class="votes">Total Votes: @item.Detail.Votes</p>
-			<p class="amount">Amount Earned: @string.Format("{0:0.00}", item.Detail.TotalAmount)</p>
-		</div>
-	}
+	
+	<div class="beneficiary">
+	    <h2>@Model.Name</h2>
+		<p class="subtitle">@Model.Description</p>
+		<p class="votes">Total Votes: @Model.Detail.Votes</p>
+		<p class="amount">Amount Earned: @string.Format("{0:0.00}", Model.Detail.TotalAmount)</p>
+	</div>
+	

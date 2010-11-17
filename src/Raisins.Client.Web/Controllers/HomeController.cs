@@ -15,7 +15,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            return View(BeneficiaryService.GetStatistics());
+            return View(BeneficiaryService.GetStatistics(User.Identity.Name.ToLower()));
         }
 
     }

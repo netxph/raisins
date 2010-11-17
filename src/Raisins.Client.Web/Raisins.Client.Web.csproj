@@ -92,6 +92,8 @@
     <Compile Include="Models\PaymentService.cs" />
     <Compile Include="Models\BeneficiaryModel.cs" />
     <Compile Include="Models\BeneficiaryService.cs" />
+    <Compile Include="Models\SettingModel.cs" />
+    <Compile Include="Models\SettingService.cs" />
     <Compile Include="Models\TicketModel.cs" />
     <Compile Include="Models\TicketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

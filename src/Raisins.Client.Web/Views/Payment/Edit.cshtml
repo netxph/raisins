@@ -42,7 +42,7 @@
                 @Html.LabelFor(model => model.Amount) 
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(model => model.Amount) 
+                @Html.EditorFor(model => model.Amount)
 				<label>@Model.Currency</label>
                 @Html.ValidationMessageFor(model => model.Amount)
             </div>

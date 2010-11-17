@@ -43,7 +43,7 @@ namespace Raisins.Client.Web.Models
             Payment.DeleteAll(idsToDelete);
         }
 
-        public static PaymentModel GetAccount(long id)
+        public static PaymentModel GetPayment(long id)
         {
             return ToModel(Payment.Find(id));
         }

@@ -33,6 +33,20 @@ namespace Raisins.Client.Web.Models
             return models.ToArray();
         }
 
+        public static BeneficiaryModel GetStatistics(string userName)
+        {
+            var beneficiary = Beneficiary.FindSetting(userName);
+
+            BeneficiaryModel model = ToModel(beneficiary);
+            BeneficiaryDetailModel detail = new BeneficiaryDetailModel();
+            detail.TotalAmount = beneficiary.GetTotalAmount();
+            detail.Votes = beneficiary.GetTotalVotes();
+
+            model.Detail = detail;
+
+            return model;
+        }
+
         public static BeneficiaryModel[] FindAll()
         {
             Beneficiary[] beneficiaries = Beneficiary.FindAll();

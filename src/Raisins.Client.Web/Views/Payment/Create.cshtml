@@ -13,12 +13,12 @@
 
 		<fieldset>
 			<legend>Enter Payment Information below:</legend>
-			<div class="editor-label">
+			@*<div class="editor-label">
 				Team
 			</div>
 			<div class="editor-field">
 				@Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
-			</div>
+			</div>*@
 
 			<div class="editor-label">
 				@Html.LabelFor(model => model.Name)
@@ -32,7 +32,7 @@
 				@Html.LabelFor(model => model.Amount)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(model => model.Amount)
+				@Html.EditorFor(model => model.Amount)
 				<label>@Model.Currency</label>
 				@Html.ValidationMessageFor(model => model.Amount)
 			</div>

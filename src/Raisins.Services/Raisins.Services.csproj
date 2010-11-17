@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Payment.cs" />
     <Compile Include="Beneficiary.cs" />
+    <Compile Include="Setting.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
