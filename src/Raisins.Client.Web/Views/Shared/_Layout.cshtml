@@ -1,21 +1,29 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<link href="/Content/Reset.css" rel="stylesheet" type="text/css">
-	<link href="/Content/Main.css" rel="stylesheet" type="text/css">
-	<title>@ViewHelper.Title @ViewHelper.Version - [@ViewHelper.Description]</title>
-</head>
-<body>
+  <head>
+    <link href="/Content/Reset.css" rel="stylesheet" type="text/css">
+    <link href="/Content/Main.css" rel="stylesheet" type="text/css">
+    <title>@ViewHelper.Title @ViewHelper.Version - [@ViewHelper.Description]</title>
+  </head>
+  <body>
     <div id="header">
-        <h1>@ViewHelper.Title</h1>
-        <p>@ViewHelper.Description</p>
+
+      <h1>@ViewHelper.Title</h1>
+      <p>@ViewHelper.Description</p>
     </div>
-	<div id="container">
-		@RenderBody()
-	</div>
+
+    <div id="container">
+       <ul id="menu">
+        <li><a href="#">Home</a>
+        <li>@Html.ActionLink("Add payment", "Create", "Account")</li>
+        <li><a href="#">Review Payments</a></li>
+        <li><a href="#">View Tickets</a></li>
+      </ul>
+      @RenderBody()
+    </div>
     <div id="footer">
-        <p>Created by Marc Vitalis and Jaja Abayon.</p>
+      <p>Created by Marc Vitalis and Jaja Abayon.</p>
     </div>
-</body>
+  </body>
 </html>
