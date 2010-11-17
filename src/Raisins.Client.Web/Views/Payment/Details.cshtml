@@ -1,0 +1,36 @@
+﻿@model Raisins.Client.Web.Models.PaymentModel
+
+@{
+    View.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>Details</h2>
+
+    <fieldset>
+        <legend>This is the Payment Record that you selected to delete:</legend>
+        
+        <div class="display-label">Amount</div>
+        <div class="display-field">@String.Format("{0:0,0.00}", Model.Amount)</div>
+        
+        <div class="display-label">Team</div>
+        <div class="display-field">@Model.BeneficiaryID</div>
+        
+        <div class="display-label">Currency</div>
+        <div class="display-field">@Model.Currency</div>
+        
+        <div class="display-label">Email</div>
+        <div class="display-field">@Model.Email</div>
+        
+        <div class="display-label">Location</div>
+        <div class="display-field">@Model.Location</div>
+        
+        <div class="display-label">Name</div>
+        <div class="display-field">@Model.Name</div>
+        
+    </fieldset>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -13,5 +13,8 @@
     <add
         key="connection.connection_string"
         value="Data Source=(local);Initial Catalog=Raisins10;Integrated Security=SSPI" />
+    <add 
+        key="proxyfactory.factory_class" 
+        value="NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle" />
   </config>
 </activerecord>

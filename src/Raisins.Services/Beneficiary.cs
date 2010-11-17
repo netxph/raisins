@@ -21,18 +21,18 @@ namespace Raisins.Services
         public string Description { get; set; }
 
         [HasMany]
-        public IList<Account> Accounts { get; set; }
+        public IList<Payment> Payments { get; set; }
 
         public decimal GetTotalAmount()
         {
-            ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Account), "select sum(account.Amount) from Account account where account.Beneficiary = ?", this);
+            ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount) from Payment payment where payment.Beneficiary = ?", this);
 
             return query.Execute();
         }
 
         public long GetTotalVotes()
         {
-            ScalarQuery<long> query = new ScalarQuery<long>(typeof(Ticket), "select count(ticket) from Ticket ticket where ticket.Account.Beneficiary = ?", this);
+            ScalarQuery<long> query = new ScalarQuery<long>(typeof(Ticket), "select count(ticket) from Ticket ticket where ticket.Payment.Beneficiary = ?", this);
 
             return query.Execute();
         }

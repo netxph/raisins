@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Raisins.Client.Web.Models.AccountModel>
+﻿@model IEnumerable<Raisins.Client.Web.Models.PaymentModel>
 
 @{
 	View.Title = "Index";
@@ -15,39 +15,42 @@
 		<tr>
 			<th></th>
 			<th>
-				Amount
+				Name
 			</th>
-			<th>
-				Currency
-			</th>
+			<!--
 			<th>
 				Email
 			</th>
+			
 			<th>
 				ID
 			</th>
 			<th>
 				Location
 			</th>
+			-->
 			<th>
-				Name
+				Amount
 			</th>
+			<!--
+			<th>
+				Currency
+			</th>
+			-->
 		</tr>
 
 	@foreach (var item in Model) {
 	
 		<tr>
 			<td>
-				@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-				@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-				@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+				@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+				<!--@Html.ActionLink("Details", "Details", new { id=item.ID }) |-->
+				@Html.ActionLink("Delete", "Delete", new { id=item.ID })
 			</td>
 			<td>
-				@item.Amount
+				@item.Name
 			</td>
-			<td>
-				@item.Currency
-			</td>
+			<!--
 			<td>
 				@item.Email
 			</td>
@@ -57,14 +60,18 @@
 			<td>
 				@item.Location
 			</td>
+			-->
 			<td>
-				@item.Name
+				@string.Format("{0:0,0.00}", @item.Amount) @item.Currency
 			</td>
+			<!--
+			<td>
+				@item.Currency
+			</td>
+			-->
 		</tr>
 	
 	}
-	
-	@DateTime.Now
 	
 	</table>
 

@@ -42,7 +42,7 @@ namespace Raisins.Client.Web
 
             //initialize database
             IConfigurationSource config = ActiveRecordSectionHandler.Instance;
-            ActiveRecordStarter.Initialize(config, typeof(Beneficiary), typeof(Account), typeof(Ticket));
+            ActiveRecordStarter.Initialize(config, typeof(Beneficiary), typeof(Payment), typeof(Ticket));
         }
     }
 }

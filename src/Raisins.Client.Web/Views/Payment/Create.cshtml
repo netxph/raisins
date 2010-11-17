@@ -1,4 +1,4 @@
-﻿@model Raisins.Client.Web.Models.AccountModel
+﻿@model Raisins.Client.Web.Models.PaymentModel
 
 @{
 	View.Title = "Create";
@@ -8,29 +8,36 @@
 
 <h2>Create</h2>
 
-	@using (Html.BeginForm()) {
+	@using (Html.BeginForm("Create", "Payment", FormMethod.Post, new { id = "myRaisinsForm" } )) {
 		@Html.ValidationSummary(true)
 
 		<fieldset>
-			<legend>Fields</legend>
-			@Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
+			<legend>Enter Payment Information below:</legend>
+			<div class="editor-label">
+				Team
+			</div>
+			<div class="editor-field">
+				@Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Name)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Name)
+				@Html.ValidationMessageFor(model => model.Name)
+			</div>
 
 			<div class="editor-label">
 				@Html.LabelFor(model => model.Amount)
 			</div>
 			<div class="editor-field">
 				@Html.TextBoxFor(model => model.Amount)
+				<label>@Model.Currency</label>
 				@Html.ValidationMessageFor(model => model.Amount)
 			</div>
 			
-			<div class="editor-label">
-				@Html.LabelFor(model => model.BeneficiaryID)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.BeneficiaryID)
-				@Html.ValidationMessageFor(model => model.BeneficiaryID)
-			</div>
-			
+			<!--
 			<div class="editor-label">
 				@Html.LabelFor(model => model.Currency)
 			</div>
@@ -38,7 +45,7 @@
 				@Html.TextBoxFor(model => model.Currency)
 				@Html.ValidationMessageFor(model => model.Currency)
 			</div>
-			
+
 			<div class="editor-label">
 				@Html.LabelFor(model => model.Email)
 			</div>
@@ -48,30 +55,13 @@
 			</div>
 			
 			<div class="editor-label">
-				@Html.LabelFor(model => model.ID)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.ID)
-				@Html.ValidationMessageFor(model => model.ID)
-			</div>
-			
-			<div class="editor-label">
 				@Html.LabelFor(model => model.Location)
 			</div>
 			<div class="editor-field">
 				@Html.TextBoxFor(model => model.Location)
 				@Html.ValidationMessageFor(model => model.Location)
 			</div>
-			
-			<div class="editor-label">
-				@Html.LabelFor(model => model.Name)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.Name)
-				@Html.ValidationMessageFor(model => model.Name)
-
-				
-			</div>
+			-->
 			
 			<p>
 				<input type="submit" value="Create" />

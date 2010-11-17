@@ -18,7 +18,7 @@ namespace Raisins.Services
         [Property]
         public string Name { get; set; }
 
-        [BelongsTo("AccountID")]
-        public Account Account { get; set; }
+        [BelongsTo("PaymentID")]
+        public Payment Payment { get; set; }
     }
 }

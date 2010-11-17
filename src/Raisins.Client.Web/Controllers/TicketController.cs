@@ -7,18 +7,18 @@ using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Controllers
 {
-    public class AccountController : Controller
+    public class TicketController : Controller
     {
         //
-        // GET: /Account/
+        // GET: /Ticket/
 
         public ActionResult Index()
         {
-            return View(AccountService.FindAll());
+            return View(TicketService.FindAll());
         }
 
         //
-        // GET: /Account/Details/5
+        // GET: /Ticket/Details/5
 
         public ActionResult Details(int id)
         {
@@ -26,24 +26,22 @@ namespace Raisins.Client.Web.Controllers
         }
 
         //
-        // GET: /Account/Create
+        // GET: /Ticket/Create
 
         public ActionResult Create()
         {
-            ViewData["Beneficiaries"] = BeneficiaryService.FindAll();
-
-            return View(new AccountModel());
+            return View(new TicketModel());
         } 
 
         //
-        // POST: /Account/Create
+        // POST: /Ticket/Create
 
         [HttpPost]
-        public ActionResult Create(AccountModel model)
+        public ActionResult Create(TicketModel model)
         {
             try
             {
-                AccountService.Save(model);
+                TicketService.Save(model);
 
                 return RedirectToAction("Index");
             }
@@ -54,7 +52,7 @@ namespace Raisins.Client.Web.Controllers
         }
         
         //
-        // GET: /Account/Edit/5
+        // GET: /Ticket/Edit/5
  
         public ActionResult Edit(int id)
         {
@@ -62,7 +60,7 @@ namespace Raisins.Client.Web.Controllers
         }
 
         //
-        // POST: /Account/Edit/5
+        // POST: /Ticket/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -80,7 +78,7 @@ namespace Raisins.Client.Web.Controllers
         }
 
         //
-        // GET: /Account/Delete/5
+        // GET: /Ticket/Delete/5
  
         public ActionResult Delete(int id)
         {
@@ -88,7 +86,7 @@ namespace Raisins.Client.Web.Controllers
         }
 
         //
-        // POST: /Account/Delete/5
+        // POST: /Ticket/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

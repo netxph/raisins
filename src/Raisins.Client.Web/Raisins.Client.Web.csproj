@@ -81,16 +81,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ViewHelper.cs" />
-    <Compile Include="Models\AccountModel.cs" />
-    <Compile Include="Models\AccountService.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\PaymentService.cs" />
     <Compile Include="Models\BeneficiaryModel.cs" />
     <Compile Include="Models\BeneficiaryService.cs" />
+    <Compile Include="Models\TicketModel.cs" />
+    <Compile Include="Models\TicketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +126,9 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Raisins.Services\Raisins.Services.csproj">
@@ -132,10 +137,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Account\Create.cshtml" />
-    <None Include="Views\Account\Index.cshtml" />
+    <None Include="Views\Payment\Create.cshtml" />
+    <None Include="Views\Payment\Delete.cshtml" />
+    <None Include="Views\Payment\Details.cshtml" />
+    <None Include="Views\Payment\Edit.cshtml" />
+    <None Include="Views\Payment\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Ticket\Create.cshtml" />
+    <None Include="Views\Ticket\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

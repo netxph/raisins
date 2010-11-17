@@ -8,7 +8,7 @@ using Castle.ActiveRecord.Queries;
 namespace Raisins.Services
 {
     [ActiveRecord]
-    public class Account : ActiveRecordBase<Account>
+    public class Payment : ActiveRecordBase<Payment>
     {
         [PrimaryKey(PrimaryKeyType.Identity)]
         public long ID { get; set; }
@@ -27,6 +27,9 @@ namespace Raisins.Services
 
         [Property]
         public string Email { get; set; }
+
+        [Property]
+        public bool Locked { get; set; }
 
         [BelongsTo("BeneficiaryID")]
         public Beneficiary Beneficiary { get; set; }
