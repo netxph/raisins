@@ -43,7 +43,7 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-                SettingModel setting = SettingService.GetSetting(User.Identity.Name.ToLower());
+                SettingModel setting = SettingService.GetSetting(User.Identity.Name.ToLowerInvariant());
 
                 model.Currency = setting.Currency;
                 model.Location = setting.Location;

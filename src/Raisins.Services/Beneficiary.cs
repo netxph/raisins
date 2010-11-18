@@ -48,7 +48,7 @@ namespace Raisins.Services
             {
                 foreach (var setting in beneficiary.Settings)
                 {
-                    if (setting.UserName == userName)
+                    if (string.Compare(setting.UserName, userName, true) == 0)
                     {
                         return beneficiary;
                     }

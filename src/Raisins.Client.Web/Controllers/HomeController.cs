@@ -12,10 +12,21 @@ namespace Raisins.Client.Web.Controllers
     {
         //
         // GET: /Home/
-
+        
         public ActionResult Index()
         {
-            return View(BeneficiaryService.GetStatistics(User.Identity.Name.ToLower()));
+            BeneficiaryModel model = null;
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                model = BeneficiaryService.GetStatistics(Request.ServerVariables["LOGON_USER"]);
+                
+            }
+            else
+            {
+                model = BeneficiaryService.GetStatistics(User.Identity.Name.ToLowerInvariant());
+            }
+            return View(model);
         }
 
     }
