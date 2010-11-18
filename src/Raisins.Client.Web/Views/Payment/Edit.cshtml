@@ -3,7 +3,6 @@
 @{
     View.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
-	BeneficiaryModel[] Beneficiaries = (BeneficiaryModel[])ViewData["Beneficiaries"];
 }
 
 <h2>Edit</h2>
@@ -12,23 +11,6 @@
         
         <fieldset>
             <legend>Modify the Payment Details</legend>
-            
-			<!--
-			<div class="editor-label">
-                @Html.LabelFor(model => model.ID)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.ID)
-                @Html.ValidationMessageFor(model => model.ID)
-            </div>
-			-->
-			
-			<div class="editor-label">
-				Team
-			</div>
-			<div class="editor-field">
-				@Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
-			</div>
 
 			<div class="editor-label">
                 @Html.LabelFor(model => model.Name)
@@ -47,41 +29,7 @@
                 @Html.ValidationMessageFor(model => model.Amount)
             </div>
             
-			<!--
-            <div class="editor-label">
-                @Html.LabelFor(model => model.BeneficiaryID)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.BeneficiaryID)
-                @Html.ValidationMessageFor(model => model.BeneficiaryID)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Currency)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Currency)
-                @Html.ValidationMessageFor(model => model.Currency)
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Email)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-                        
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Location)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Location)
-                @Html.ValidationMessageFor(model => model.Location)
-            </div>
-			-->
-
-            <p>
+			<p>
                 <input type="submit" value="Save" />
             </p>
         </fieldset>

@@ -30,8 +30,6 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewData["Beneficiaries"] = BeneficiaryService.FindAll();
-
             return View(new PaymentModel());
         } 
 
@@ -43,7 +41,16 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-                SettingModel setting = SettingService.GetSetting(User.Identity.Name.ToLowerInvariant());
+                SettingModel setting = null;
+
+                if (!User.Identity.IsAuthenticated)
+                {
+                    setting = SettingService.GetSetting(Request.ServerVariables["LOGON_USER"]);
+                }
+                else
+                {
+                    setting = SettingService.GetSetting(User.Identity.Name);
+                } 
 
                 model.Currency = setting.Currency;
                 model.Location = setting.Location;
@@ -64,7 +71,6 @@ namespace Raisins.Client.Web.Controllers
  
         public ActionResult Edit(long id)
         {
-            ViewData["Beneficiaries"] = BeneficiaryService.FindAll();
             return View(PaymentService.GetPayment(id));
         }
 
@@ -76,6 +82,13 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
+
+                PaymentModel original = PaymentService.GetPayment(model.ID);
+
+                model.Currency = original.Currency;
+                model.Location = original.Location;
+                model.BeneficiaryID = original.BeneficiaryID;
+
                 PaymentService.Update(model);
  
                 return RedirectToAction("Index");
@@ -91,7 +104,6 @@ namespace Raisins.Client.Web.Controllers
  
         public ActionResult Delete(long id)
         {
-            ViewData["Beneficiaries"] = BeneficiaryService.FindAll();
             return View(PaymentService.GetPayment(id));
         }
 

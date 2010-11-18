@@ -44,31 +44,14 @@
 		<tr>
 			<td>
 				@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-				<!--@Html.ActionLink("Details", "Details", new { id=item.ID }) |-->
 				@Html.ActionLink("Delete", "Delete", new { id=item.ID })
 			</td>
 			<td>
 				@item.Name
 			</td>
-			<!--
-			<td>
-				@item.Email
-			</td>
-			<td>
-				@item.ID
-			</td>
-			<td>
-				@item.Location
-			</td>
-			-->
 			<td>
 				@string.Format("{0:0.00}", @item.Amount) @item.Currency
 			</td>
-			<!--
-			<td>
-				@item.Currency
-			</td>
-			-->
 		</tr>
 	
 	}

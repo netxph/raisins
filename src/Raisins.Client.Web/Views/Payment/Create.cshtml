@@ -3,7 +3,6 @@
 @{
 	View.Title = "Create";
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	BeneficiaryModel[] Beneficiaries = (BeneficiaryModel[])ViewData["Beneficiaries"];
 }
 
 <h2>Create</h2>
@@ -13,13 +12,6 @@
 
 		<fieldset>
 			<legend>Enter Payment Information below:</legend>
-			@*<div class="editor-label">
-				Team
-			</div>
-			<div class="editor-field">
-				@Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
-			</div>*@
-
 			<div class="editor-label">
 				@Html.LabelFor(model => model.Name)
 			</div>

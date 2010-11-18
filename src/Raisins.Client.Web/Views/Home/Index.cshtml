@@ -5,8 +5,15 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 	<h1>@View.Title</h1>
-
 	
+	<div>
+	<ul>
+		<li><a href="Payment/Create">Enter Payment Information</a></li>
+		<li><a href="Payment">Payment Management</a></li>
+	</ul>
+	
+	</div>
+		
 	<div class="beneficiary">
 	    <h2>@Model.Name</h2>
 		<p class="subtitle">@Model.Description</p>
