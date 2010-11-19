@@ -41,6 +41,11 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
+                if (model.Amount <= 0 || model.Amount % 50 != 0)
+                {
+                    return RedirectToAction("Create");
+                }
+
                 SettingModel setting = null;
 
                 if (!User.Identity.IsAuthenticated)
@@ -82,6 +87,10 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
+                if (model.Amount <= 0 || model.Amount % 50 != 0)
+                {
+                    return RedirectToAction("Edit");
+                }
 
                 PaymentModel original = PaymentService.GetPayment(model.ID);
 
