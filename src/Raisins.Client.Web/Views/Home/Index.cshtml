@@ -8,8 +8,10 @@
 	
 	<div>
 	<ul>
-		<li><a href="Payment/Create">Enter Payment Information</a></li>
-		<li><a href="Payment">Payment Management</a></li>
+		<li>@Html.ActionLink("Enter Payment Information", "Create", "Payment")</li>
+		<li>@Html.ActionLink("Payment Management", "Index", "Payment")</li>
+
+        
 	</ul>
 	
 	</div>
