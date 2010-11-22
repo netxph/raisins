@@ -13,9 +13,6 @@ namespace Raisins.Services
         public int ID { get; set; }
 
         [Property]
-        public string UserName { get; set; }
-
-        [Property]
         public string Currency { get; set; }
 
         [Property]
@@ -24,5 +21,8 @@ namespace Raisins.Services
         [BelongsTo("BeneficiaryID")]
         public Beneficiary Beneficiary { get; set; }
 
+        [BelongsTo("AccountID")]
+        public Account Account { get; set; }
+        
     }
 }

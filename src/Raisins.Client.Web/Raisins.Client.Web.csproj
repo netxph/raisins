@@ -81,6 +81,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -88,6 +89,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ViewHelper.cs" />
+    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\AccountService.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\PaymentService.cs" />
     <Compile Include="Models\BeneficiaryModel.cs" />
@@ -139,6 +142,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Views\Payment\Create.cshtml" />
     <None Include="Views\Payment\Delete.cshtml" />
     <None Include="Views\Payment\Details.cshtml" />
@@ -146,6 +150,7 @@
     <None Include="Views\Payment\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Views\Ticket\Create.cshtml" />
     <None Include="Views\Ticket\Index.cshtml" />
   </ItemGroup>

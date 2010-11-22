@@ -22,19 +22,31 @@ namespace Raisins.Services.Console
 
             qa.Create();
 
-            Setting vitalim = new Setting();
+            Account vitalim = new Account();
             vitalim.UserName = "corp\\vitalim";
-            vitalim.Location = "PHL";
-            vitalim.Currency = "PHP";
-            vitalim.Beneficiary = reservations;
+            vitalim.Password = "test";
 
             vitalim.Create();
 
-            Setting abayona = new Setting();
+            Account abayona = new Account();
             abayona.UserName = "corp\\abayona";
-            abayona.Location = "PHL";
-            abayona.Currency = "PHP";
-            abayona.Beneficiary = qa;
+            abayona.Password = "test";
+
+            vitalim.Create();
+
+            Setting vitalimSetting = new Setting();
+            vitalimSetting.Account = vitalim;
+            vitalimSetting.Location = "PHL";
+            vitalimSetting.Currency = "PHP";
+            vitalimSetting.Beneficiary = reservations;
+
+            vitalimSetting.Create();
+
+            Setting abayonaSetting = new Setting();
+            abayonaSetting.Account = abayona;
+            abayonaSetting.Location = "PHL";
+            abayonaSetting.Currency = "PHP";
+            abayonaSetting.Beneficiary = qa;
 
             abayona.Create();
         }

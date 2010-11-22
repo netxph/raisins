@@ -1,18 +1,32 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿@{
+    var securityLink = Html.ActionLink("Login", "Login", "Account");
+
+    if (!string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
+    {
+        securityLink = Html.ActionLink("Welcome " + HttpContext.Current.User.Identity.Name, "Logout", "Account");    
+    }
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<link href="http://mnlportal/HMS/Raisins2010/Content/Reset.css" rel="stylesheet" type="text/css"/>
-	<link href="http://mnlportal/HMS/Raisins2010/Content/Main.css" rel="stylesheet" type="text/css"/>
+	<link href="/Content/Reset.css" rel="stylesheet" type="text/css"/>
+	<link href="/Content/Main.css" rel="stylesheet" type="text/css"/>
 	<title>@ViewHelper.Title @ViewHelper.Version - [@ViewHelper.Description]</title>
 </head>
 <body>
+    <div id="login">
+    <p>
+        @Html.Partial("_LoginPartial")
+    </p>
+    </div>
     <div id="header">
         <h1>@ViewHelper.Title</h1>
         <p>@ViewHelper.Description</p>
     </div>
 	<div id="container">
-        Welcome @User.Identity.Name
+        
 		@RenderBody()
 	</div>
     <div id="footer">

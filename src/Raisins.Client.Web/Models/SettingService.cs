@@ -23,7 +23,7 @@ namespace Raisins.Client.Web.Models
             model.ID = data.ID;
             model.Currency = data.Currency;
             model.Location = data.Location;
-            model.UserName = data.UserName;
+            model.UserName = data.Account.UserName;
             model.BeneficiaryID = data.Beneficiary.ID;
 
             return model;

@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="Beneficiary.cs" />
     <Compile Include="Setting.cs" />

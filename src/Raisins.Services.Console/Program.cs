@@ -13,7 +13,7 @@ namespace Raisins.Services.Console
         {
             XmlConfigurationSource source = new XmlConfigurationSource("config.xml");
 
-            ActiveRecordStarter.Initialize(source, typeof(Beneficiary), typeof(Payment), typeof(Ticket), typeof(Setting));
+            ActiveRecordStarter.Initialize(source, typeof(Beneficiary), typeof(Payment), typeof(Ticket), typeof(Account), typeof(Setting));
 
             try
             {

@@ -77,3 +77,19 @@
 {
     color: #f00;
 }
+
+#login {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#login p {
+    width: 100%;
+    text-align: right;
+}
+
+#login p a {
+    text-decoration: none;
+    color: Black;
+}
