@@ -46,16 +46,7 @@ namespace Raisins.Client.Web.Controllers
                     return RedirectToAction("Create");
                 }
 
-                SettingModel setting = null;
-
-                if (!User.Identity.IsAuthenticated)
-                {
-                    setting = SettingService.GetSetting(Request.ServerVariables["LOGON_USER"]);
-                }
-                else
-                {
-                    setting = SettingService.GetSetting(User.Identity.Name);
-                } 
+                SettingModel setting = SettingService.GetSetting(HttpContext.User.Identity.Name);
 
                 model.Currency = setting.Currency;
                 model.Location = setting.Location;

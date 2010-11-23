@@ -17,10 +17,21 @@ namespace Raisins.Client.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(AccountModel model)
+        public ActionResult Login(AccountModel model, string returnUrl)
         {
-            AccountService.Logon(model.UserName, model.Password);
-            return RedirectToAction("Index", "Home");
+            if (AccountService.Logon(model.UserName, model.Password))
+            {
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View();
         }
 
         public ActionResult Logout()

@@ -12,11 +12,14 @@ namespace Raisins.Services
         [PrimaryKey(PrimaryKeyType.Identity)]
         public int ID { get; set; }
 
-        [Property]
-        public string Currency { get; set; }
+        [BelongsTo("CurrencyID")]
+        public Currency Currency { get; set; }
 
         [Property]
         public string Location { get; set; }
+
+        [Property]
+        public PaymentClass Class { get; set; }
 
         [BelongsTo("BeneficiaryID")]
         public Beneficiary Beneficiary { get; set; }

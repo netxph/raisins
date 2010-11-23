@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Raisins.Client.Web.Models.BeneficiaryModel>
+@{
+    View.Title = "Team Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>@View.Title</h1>
+@foreach (var beneficiary in Model)
+{ 
+<div class="beneficiary">
+    <h2>@beneficiary.Name</h2>
+    <p class="subtitle">
+        @beneficiary.Description
+    </p>
+    <p class="votes">
+        Total Votes: @beneficiary.Detail.Votes
+    </p>
+    <p class="amount">
+        Amount Earned: @string.Format("{0:0.00}", beneficiary.Detail.TotalAmount)
+    </p>
+</div>
+}

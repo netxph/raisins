@@ -11,40 +11,43 @@ namespace Raisins.Client.Web.Models
 
         #region Operations
 
-        public static BeneficiaryModel[] GetStatistics()
+        public static BeneficiaryModel[] GetStatistics(string userName)
         {
-            Beneficiary[] beneficiaries = Beneficiary.FindAll();
-
             List<BeneficiaryModel> models = new List<BeneficiaryModel>();
 
-            foreach (Beneficiary beneficiary in beneficiaries)
+            var setting = Account.FindUser(userName).Settings.FirstOrDefault();
+
+            if (setting != null && setting.Beneficiary != null)
             {
-                BeneficiaryModel model = ToModel(beneficiary);
-
-                BeneficiaryDetailModel detail = new BeneficiaryDetailModel();
-                detail.TotalAmount = beneficiary.GetTotalAmount();
-                detail.Votes = beneficiary.GetTotalVotes();
-
-                model.Detail = detail;
+                var model = ToModel(setting.Beneficiary);
+                model.Detail = getDetails(setting.Beneficiary);
 
                 models.Add(model);
+            }
+            else
+            { 
+                //load all
+                var beneficiaries = Beneficiary.FindAll();
+
+                foreach (var beneficiary in beneficiaries)
+                {
+                    var model = ToModel(beneficiary);
+                    model.Detail = getDetails(beneficiary);
+
+                    models.Add(model);
+                }
             }
 
             return models.ToArray();
         }
 
-        public static BeneficiaryModel GetStatistics(string userName)
+        private static BeneficiaryDetailModel getDetails(Beneficiary beneficiary)
         {
-            var beneficiary = Beneficiary.FindSetting(userName);
-
-            BeneficiaryModel model = ToModel(beneficiary);
             BeneficiaryDetailModel detail = new BeneficiaryDetailModel();
             detail.TotalAmount = beneficiary.GetTotalAmount();
             detail.Votes = beneficiary.GetTotalVotes();
 
-            model.Detail = detail;
-
-            return model;
+            return detail;
         }
 
         public static BeneficiaryModel[] FindAll()

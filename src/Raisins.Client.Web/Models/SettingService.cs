@@ -11,9 +11,7 @@ namespace Raisins.Client.Web.Models
 
         public static SettingModel GetSetting(string userName)
         {
-            Beneficiary beneficiary = Beneficiary.FindSetting(userName);
-
-            return ToModel(beneficiary.Settings[0]);
+            return ToModel(Account.FindUser(userName).Settings[0]);
         }
 
         public static SettingModel ToModel(Setting data)
@@ -21,7 +19,7 @@ namespace Raisins.Client.Web.Models
 
             SettingModel model = new SettingModel();
             model.ID = data.ID;
-            model.Currency = data.Currency;
+            model.Currency = data.Currency.CurrencyCode;
             model.Location = data.Location;
             model.UserName = data.Account.UserName;
             model.BeneficiaryID = data.Beneficiary.ID;

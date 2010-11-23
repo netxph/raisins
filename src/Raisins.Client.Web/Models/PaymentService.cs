@@ -56,7 +56,7 @@ namespace Raisins.Client.Web.Models
         {
             PaymentModel model = new PaymentModel();
             model.Amount = data.Amount;
-            model.Currency = data.Currency;
+            model.Currency = data.Currency.CurrencyCode;
             model.Email = data.Email;
             model.ID = data.ID;
             model.BeneficiaryID = data.Beneficiary.ID;
@@ -70,7 +70,7 @@ namespace Raisins.Client.Web.Models
         {
             Payment data = new Payment();
             data.Amount = model.Amount;
-            data.Currency = model.Currency;
+            //data.Currency = model.Currency;
             data.Email = model.Email;
             data.ID = model.ID;
             data.Location = model.Location;

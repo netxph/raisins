@@ -1,25 +1,8 @@
-﻿@model Raisins.Client.Web.Models.BeneficiaryModel
-
-@{
-	View.Title = "Current Tally";
+﻿@{
+	View.Title = "Home Page";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 	<h1>@View.Title</h1>
 	
-	<div>
-	<ul>
-		<li>@Html.ActionLink("Enter Payment Information", "Create", "Payment")</li>
-		<li>@Html.ActionLink("Payment Management", "Index", "Payment")</li>
-
-        
-	</ul>
-	
-	</div>
-		
-	<div class="beneficiary">
-	    <h2>@Model.Name</h2>
-		<p class="subtitle">@Model.Description</p>
-		<p class="votes">Total Votes: @Model.Detail.Votes</p>
-		<p class="amount">Amount Earned: @string.Format("{0:0.00}", Model.Detail.TotalAmount)</p>
-	</div>
+	<h2>Fund raising main page goes here.</h2>
 	

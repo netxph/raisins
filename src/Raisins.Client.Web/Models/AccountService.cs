@@ -3,21 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using Raisins.Services;
 
 namespace Raisins.Client.Web.Models
 {
     public class AccountService
     {
 
-        public static void Logon(string userId, string password)
+        public static bool Logon(string userId, string password)
         {
-            FormsAuthentication.SetAuthCookie(userId, false);    
+            bool result = Account.Authenticate(userId, password);
+
+            if (result)
+            {
+                FormsAuthentication.SetAuthCookie(userId, false);
+            }
+
+            return result;
         }
 
         public static void Logout()
         {
             FormsAuthentication.SignOut();
         }
-
     }
 }

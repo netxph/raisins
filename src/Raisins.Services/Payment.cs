@@ -22,8 +22,8 @@ namespace Raisins.Services
         [Property]
         public string Location { get; set; }
 
-        [Property]
-        public string Currency { get; set; }
+        [BelongsTo("CurrencyID")]
+        public Currency Currency { get; set; }
 
         [Property]
         public string Email { get; set; }
@@ -31,11 +31,25 @@ namespace Raisins.Services
         [Property]
         public bool Locked { get; set; }
 
+        [Property]
+        public PaymentClass Class { get; set; }
+
         [BelongsTo("BeneficiaryID")]
         public Beneficiary Beneficiary { get; set; }
 
         [HasMany]
         public IList<Ticket> Tickets { get; set; }
 
+        [BelongsTo("AccountID")]
+        public Account CreatedAccount { get; set; }
+
+    }
+
+    public enum PaymentClass
+    { 
+        NotSpecified,
+        Internal,
+        Foreign,
+        External
     }
 }

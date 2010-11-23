@@ -78,18 +78,18 @@
     color: #f00;
 }
 
-#login {
-    width: 800px;
-    margin-left: auto;
+#menucontainer {
+    width: 820px;
     margin-right: auto;
+    margin-left: auto;
+    padding: 0px 15px 0px 15px;
 }
 
-#login p {
-    width: 100%;
-    text-align: right;
-}
-
-#login p a {
-    text-decoration: none;
-    color: Black;
+#menu li
+{
+display: block;
+list-style-type: none;
+text-align: center;
+float: right;
+padding-left: 10px;
 }

@@ -2,53 +2,100 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Raisins.Services.Console
 {
     public class DBHelper
     {
 
+        
+
         public static void Seed()
         {
-            Beneficiary reservations = new Beneficiary();
-            reservations.Name = "Reservations";
-            reservations.Description = "Reservations Team";
+            Beneficiary team1 = new Beneficiary()
+            {
+                Name = "Team1",
+                Description = "The Awesome Team",
+            };
 
-            reservations.Create();
+            team1.Create();
 
-            Beneficiary qa = new Beneficiary();
-            qa.Name = "QA";
-            qa.Description = "QA Team";
+            Beneficiary team2 = new Beneficiary()
+            {
+                Name = "Team2",
+                Description = "The Magnificent Team",
+            };
 
-            qa.Create();
+            team2.Create();
 
-            Account vitalim = new Account();
-            vitalim.UserName = "corp\\vitalim";
-            vitalim.Password = "test";
+            Currency usd = new Currency()
+            {
+                CurrencyCode = "USD",
+                Ratio = 1
+            };
+
+            usd.Create();
+
+            Currency php = new Currency()
+            {
+                CurrencyCode = "PHP",
+                Ratio = 50
+            };
+
+            php.Create();
+
+            string adminSalt = Account.GetSalt();
+            Account admin = new Account()
+            {
+                UserName = "admin",
+                Salt = adminSalt,
+                Password = Account.GetHash("P@ssw0rd!1", adminSalt),
+            };
+
+            admin.Create();
+
+            string vitalimSalt = Account.GetSalt();
+            Account vitalim = new Account()
+            {
+                UserName = "vitalim",
+                Salt = vitalimSalt,
+                Password = Account.GetHash("ra151n5", vitalimSalt)
+            };
 
             vitalim.Create();
 
-            Account abayona = new Account();
-            abayona.UserName = "corp\\abayona";
-            abayona.Password = "test";
-
-            vitalim.Create();
-
-            Setting vitalimSetting = new Setting();
-            vitalimSetting.Account = vitalim;
-            vitalimSetting.Location = "PHL";
-            vitalimSetting.Currency = "PHP";
-            vitalimSetting.Beneficiary = reservations;
+            Setting vitalimSetting = new Setting()
+            {
+                Location = "PH",
+                Account = vitalim,
+                Beneficiary = team1,
+                Class = PaymentClass.Internal,
+                Currency = php
+            };
 
             vitalimSetting.Create();
 
-            Setting abayonaSetting = new Setting();
-            abayonaSetting.Account = abayona;
-            abayonaSetting.Location = "PHL";
-            abayonaSetting.Currency = "PHP";
-            abayonaSetting.Beneficiary = qa;
+            string abayonaSalt = Account.GetSalt();
+            Account abayona = new Account()
+            {
+                UserName = "abayona",
+                Salt = abayonaSalt,
+                Password = Account.GetHash("ra151n5", abayonaSalt)
+            };
 
             abayona.Create();
+
+            //Setting abayonaSetting = new Setting()
+            //{
+            //    Location = "PH",
+            //    Account = abayona,
+            //    Class = PaymentClass.Foreign,
+            //    Currency = usd
+            //};
+
+            //abayonaSetting.Create();
+
         }
 
     }
