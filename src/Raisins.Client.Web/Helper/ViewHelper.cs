@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Configuration;
+using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Helper
 {
@@ -22,6 +23,12 @@ namespace Raisins.Client.Web.Helper
         public static string Version
         {
             get { return ConfigurationManager.AppSettings["app.version"]; }
+        }
+
+        public static List<BeneficiaryModel> GetBeneficiaryAccordingToClass(SettingModel settingModel)
+        {
+            List<BeneficiaryModel> beneficiaries = new List<BeneficiaryModel>();
+            return beneficiaries;
         }
 
     }

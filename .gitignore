@@ -2,6 +2,7 @@
 *.swp
 **/**/bin/
 **/**/obj/
+**/**/Content/*.flv
 /bin/
 
 **/**/*.user

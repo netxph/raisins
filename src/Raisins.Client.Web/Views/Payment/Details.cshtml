@@ -17,7 +17,7 @@
         <div class="display-field">@Model.BeneficiaryID</div>
         
         <div class="display-label">Currency</div>
-        <div class="display-field">@Model.Currency</div>
+        <div class="display-field">@Model.Currency.CurrencyCode</div>
         
         <div class="display-label">Email</div>
         <div class="display-field">@Model.Email</div>
@@ -32,5 +32,5 @@
 
     <p>
         @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "Create")
     </p>

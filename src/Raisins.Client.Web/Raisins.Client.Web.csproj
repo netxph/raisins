@@ -89,6 +89,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Validator.cs" />
     <Compile Include="Helper\ViewHelper.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AccountService.cs" />
@@ -150,6 +151,8 @@
   <ItemGroup>
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Home\Player.cshtml" />
+    <Content Include="Views\Home\Team.cshtml" />
     <None Include="Views\Payment\Create.cshtml" />
     <None Include="Views\Payment\Delete.cshtml" />
     <None Include="Views\Payment\Details.cshtml" />
@@ -159,6 +162,7 @@
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Shared\_TeamTemplate.cshtml" />
     <None Include="Views\Ticket\Create.cshtml" />
     <None Include="Views\Ticket\Index.cshtml" />
   </ItemGroup>

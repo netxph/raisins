@@ -1,15 +1,17 @@
 ﻿@{
-    View.Title = "Watch Video";
+    View.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>@View.Title</h1>
-<br />
-
-<div id="player">
+<div id="banner">
+    <img src="/Content/banner.jpg" alt="banner" />
 </div>
-
-<script type="text/javascript">
-    flowplayer("player", "http://builds.flowplayer.netdna-cdn.com/44576/30156/flowplayer-3.2.5-0.swf",
-	{ "clip": { "url": "http://vod01.netdna.com/vod/demo.flowplayer/Extremists.flv" }, "plugins": { "rtmp": { "netConnectionUrl": "rtmp://rtmp01.hddn.com/fpplay", "url": "http://builds.flowplayer.netdna-cdn.com/flowplayer.rtmp-3.2.3.swf"}} }
-);
-</script>
+<br />
+<div id="content">
+    <h1>S0uth - Sub zer0 Ultimate Top Hit</h1>
+    <br />
+    <p>A Video Showdown for the Benefit of the HMS Highschool Scholars</p>
+    <br />
+    <h1>S0uth website now up!</h1>
+    <br />
+    <p>We'd like to know what you think. For team leaders, you can now send us your customized main page.</p>
+</div>

@@ -1,0 +1,23 @@
+﻿@{
+    View.Title = "Watch Video";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string baseUrl = string.Format("http://{0}", HttpContext.Current.Request.Url.Host);
+    if (!HttpContext.Current.Request.Url.IsDefaultPort)
+    {
+        baseUrl += ":" + HttpContext.Current.Request.Url.Port.ToString();
+    }
+
+    var video = string.Format("{0}/Content/{1}", baseUrl, Request.QueryString["video"]);
+}
+<h1>@View.Title</h1>
+<br />
+
+<div id="player">
+</div>
+
+<script type="text/javascript">
+    flowplayer("player", "/Content/flowplayer-3.2.5-0.swf",
+	{ "clip": { "url": "@video" }, "plugins": { "rtmp": { "netConnectionUrl": "rtmp://rtmp01.hddn.com/fpplay", "url": "/Content/flowplayer-3.2.5-0.swf"}} }
+);
+</script>

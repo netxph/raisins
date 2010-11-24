@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Queries;
+using NHibernate.Criterion;
+
 
 namespace Raisins.Services
 {
@@ -42,6 +44,11 @@ namespace Raisins.Services
 
         [BelongsTo("AccountID")]
         public Account CreatedAccount { get; set; }
+
+        public static IEnumerable<Payment> FindPaymentByUser(string userName)
+        {
+            return Payment.FindAll().Where(payment => payment.CreatedAccount.UserName == userName);
+        }
 
     }
 

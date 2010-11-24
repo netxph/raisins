@@ -18,5 +18,15 @@ namespace Raisins.Client.Web.Controllers
             return View();
         }
 
+        public ActionResult Player()
+        {
+            return View();
+        }
+
+        public ActionResult Team()
+        {
+            return View();
+        }
+
     }
 }

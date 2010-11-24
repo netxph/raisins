@@ -4,6 +4,11 @@
 	color: #563B1D;
 }
 
+a {
+    text-decoration: None;
+    color: #563B1D;
+}
+
 #clear {
     clear: both;
 }
@@ -27,11 +32,6 @@
     padding-bottom: 5px;
     padding-top: 50px;
     float: right;
-}
-
-#menu ul li a {
-    text-decoration: none;
-    color: #563B1D;
 }
 
 #header {

@@ -3,6 +3,8 @@
 @{
 	View.Title = "Create";
 	Layout = "~/Views/Shared/_Layout.cshtml";
+    var ExistingPayments = ViewData["ExistingPayments"] as IEnumerable<PaymentModel>;
+    var ErrorList = ViewData["Exceptions"] as IEnumerable<string>;
 }
 
 <h2>Create</h2>
@@ -10,6 +12,18 @@
 	@using (Html.BeginForm("Create", "Payment", FormMethod.Post, new { id = "myRaisinsForm" } )) {
 		@Html.ValidationSummary(true)
 
+     <div class="field-validation-error">
+     @if (ErrorList != null)
+     {
+         foreach (var error in ErrorList)
+         {
+			<span>
+                @error
+            </span>
+         }
+     }
+     </div>
+     
 		<fieldset>
 			<legend>Enter Payment Information below:</legend>
 			<div class="editor-label">
@@ -25,19 +39,58 @@
 			</div>
 			<div class="editor-field">
 				@Html.EditorFor(model => model.Amount)
-				<label>@Model.Currency</label>
+				<label>@Model.Currency.CurrencyCode</label>
 				@Html.ValidationMessageFor(model => model.Amount)
 			</div>
-			
+            
+			<div class="editor-label">
+				@Html.LabelFor(model => model.Email)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => model.Email)
+				@Html.ValidationMessageFor(model => model.Email)
+			</div>
+
 			<p>
 				<input type="submit" value="Create" />
 			</p>
 		</fieldset>
+     
+     <table>
+		<tr>
+			<th></th>
+			<th>
+				Name
+			</th>
+			<th>
+				Amount
+			</th>
+			<th>
+				Email
+			</th>
+		</tr>
+
+	@foreach (var item in ExistingPayments) {
+	
+		<tr>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+				@Html.ActionLink("Delete", "Delete", new { id=item.ID })
+			</td>
+			<td>
+				@item.Name
+			</td>
+			<td>
+				@string.Format("{0:0.00}", @item.Amount) @item.Currency.CurrencyCode
+			</td>
+            <td>
+				@item.Email
+			</td>
+		</tr>
+     
+ }
+	
+	</table>
 
 	}
-
-	<div>
-		@Html.ActionLink("Back to List", "Index")
-	</div>
-
 
