@@ -1,8 +1,15 @@
 ﻿@{
-	View.Title = "Home Page";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    View.Title = "Watch Video";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-	<h1>@View.Title</h1>
-	
-	<h2>Fund raising main page goes here.</h2>
-	
+<h1>@View.Title</h1>
+<br />
+
+<div id="player">
+</div>
+
+<script type="text/javascript">
+    flowplayer("player", "http://builds.flowplayer.netdna-cdn.com/44576/30156/flowplayer-3.2.5-0.swf",
+	{ "clip": { "url": "http://vod01.netdna.com/vod/demo.flowplayer/Extremists.flv" }, "plugins": { "rtmp": { "netConnectionUrl": "rtmp://rtmp01.hddn.com/fpplay", "url": "http://builds.flowplayer.netdna-cdn.com/flowplayer.rtmp-3.2.3.swf"}} }
+);
+</script>

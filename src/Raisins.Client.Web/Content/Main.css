@@ -131,3 +131,8 @@
 {
     color: #f00;
 }
+
+#player {
+    width: 420px;
+    height: 260px;
+}
