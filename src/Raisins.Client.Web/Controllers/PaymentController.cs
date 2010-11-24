@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Raisins.Client.Web.Models;
+using Raisins.Client.Web.Helper;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -30,7 +31,22 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
-            return View(new PaymentModel());
+            ViewData["ExistingPayments"] = PaymentService.FindAllByUser(HttpContext.User.Identity.Name);
+            
+            PaymentModel model = new PaymentModel();
+            SettingModel setting = SettingService.GetSetting(HttpContext.User.Identity.Name);
+
+            if (setting == null)
+            {
+                return RedirectToAction("Create");
+            }
+
+            model.Currency = setting.Currency;
+            model.Location = setting.Location;
+            model.BeneficiaryID = setting.BeneficiaryID;
+            model.Class = setting.Class;
+
+            return View(model);
         } 
 
         //
@@ -41,20 +57,41 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-                if (model.Amount <= 0 || model.Amount % 50 != 0)
+                SettingModel setting = SettingService.GetSetting(HttpContext.User.Identity.Name);
+                model.Currency = setting.Currency;
+                model.Location = setting.Location;
+                model.BeneficiaryID = setting.BeneficiaryID;
+                model.Class = setting.Class;
+
+                ViewData["ExistingPayments"] = PaymentService.FindAllByUser(HttpContext.User.Identity.Name);
+
+                if (setting == null)
                 {
                     return RedirectToAction("Create");
                 }
 
-                SettingModel setting = SettingService.GetSetting(HttpContext.User.Identity.Name);
+                List<string> errorList = new List<string>();
+                if (!Validator.IsAmountValid(model.Amount))
+                {
+                    errorList.Add("Please enter an amount that's greater than 0.");
+                }
 
-                model.Currency = setting.Currency;
-                model.Location = setting.Location;
-                model.BeneficiaryID = setting.BeneficiaryID;
+                if (setting != null && setting.Currency != null && !Validator.IsAmountWithinRatio(setting.Currency.Ratio, model.Amount))
+                {
+                    errorList.Add("Please enter an amount that's divisible by "+setting.Currency.Ratio);
+                }
+
+                if (errorList.Count > 0)
+                {
+                    ViewData["Exceptions"] = errorList;
+                    return View(model);
+                }
 
                 PaymentService.Save(model);
 
-                return RedirectToAction("Index");
+                model = new PaymentModel();
+
+                return RedirectToAction("Create");
             }
             catch
             {
@@ -78,20 +115,42 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-                if (model.Amount <= 0 || model.Amount % 50 != 0)
+
+                SettingModel setting = SettingService.GetSetting(HttpContext.User.Identity.Name);
+
+                if (setting == null)
                 {
                     return RedirectToAction("Edit");
+                }
+
+                List<string> errorList = new List<string>();
+                if (!Validator.IsAmountValid(model.Amount))
+                {
+                    errorList.Add("Please enter an amount that's greater than 0.");
+                }
+
+                if (setting != null && setting.Currency != null && !Validator.IsAmountWithinRatio(setting.Currency.Ratio, model.Amount))
+                {
+                    errorList.Add("Please enter an amount that's divisible by " + setting.Currency.Ratio);
+                }
+
+                if (errorList.Count > 0)
+                {
+                    ViewData["Exceptions"] = errorList;
+                    return View();
                 }
 
                 PaymentModel original = PaymentService.GetPayment(model.ID);
 
                 model.Currency = original.Currency;
+                model.Email = original.Email;
                 model.Location = original.Location;
                 model.BeneficiaryID = original.BeneficiaryID;
 
                 PaymentService.Update(model);
  
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
+
             }
             catch
             {
@@ -117,7 +176,7 @@ namespace Raisins.Client.Web.Controllers
             {
                 PaymentService.Delete(id);
  
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
             catch
             {

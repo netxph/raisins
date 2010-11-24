@@ -11,19 +11,30 @@ namespace Raisins.Client.Web.Models
 
         public static SettingModel GetSetting(string userName)
         {
-            return ToModel(Account.FindUser(userName).Settings[0]);
+            Account account = Account.FindUser(userName);
+
+            Setting setting = null;
+            if (account.Settings != null && account.Settings.Count > 0)
+            {
+                setting = account.Settings[0];
+            }
+            
+            return ToModel(setting);
         }
 
         public static SettingModel ToModel(Setting data)
         {
-
-            SettingModel model = new SettingModel();
-            model.ID = data.ID;
-            model.Currency = data.Currency.CurrencyCode;
-            model.Location = data.Location;
-            model.UserName = data.Account.UserName;
-            model.BeneficiaryID = data.Beneficiary.ID;
-
+            SettingModel model = null;
+            if (data != null)
+            {
+                model = new SettingModel();
+                model.ID = data.ID;
+                model.Currency = data.Currency;
+                model.Location = data.Location;
+                model.UserName = data.Account.UserName;
+                model.BeneficiaryID = data.Beneficiary.ID;
+                model.Class = data.Class;
+            }
             return model;
 
         }

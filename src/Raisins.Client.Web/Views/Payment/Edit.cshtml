@@ -25,9 +25,26 @@
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Amount)
-				<label>@Model.Currency</label>
+				<label>@Model.Currency.CurrencyCode</label>
                 @Html.ValidationMessageFor(model => model.Amount)
             </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Email)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+            @if (Model.Class.ToString().CompareTo("NotSpecified") == 0)
+            {
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Amount)
+				    <label>@Model.Currency.CurrencyCode</label>
+                    @Html.ValidationMessageFor(model => model.Amount)
+                </div>
+            }
             
 			<p>
                 <input type="submit" value="Save" />
@@ -37,7 +54,7 @@
     }
 
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "Create")
     </div>
 
 

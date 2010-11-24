@@ -27,7 +27,7 @@ namespace Raisins.Client.Web.Models
         public static void Save(PaymentModel model)
         {
             Payment data = ToData(model);
-
+            data.CreatedAccount = Account.FindUser(HttpContext.Current.User.Identity.Name);
             data.Save();
         }
 
@@ -48,6 +48,19 @@ namespace Raisins.Client.Web.Models
             return ToModel(Payment.Find(id));
         }
 
+        public static PaymentModel[] FindAllByUser(string userName)
+        {
+            List<PaymentModel> results = new List<PaymentModel>();
+            var payments = Payment.FindPaymentByUser(userName);
+
+            foreach (var payment in payments)
+            {
+                results.Add(ToModel(payment));
+            }
+
+            return results.ToArray();
+        }
+
         #endregion
 
         #region Helper methods
@@ -56,12 +69,20 @@ namespace Raisins.Client.Web.Models
         {
             PaymentModel model = new PaymentModel();
             model.Amount = data.Amount;
-            model.Currency = data.Currency.CurrencyCode;
+            if (data.Currency == null)
+            {
+                model.Currency = null;
+            }
+            else
+            {
+                model.Currency = data.Currency;
+            }
             model.Email = data.Email;
             model.ID = data.ID;
             model.BeneficiaryID = data.Beneficiary.ID;
             model.Location = data.Location;
             model.Name = data.Name;
+            model.Class = data.Class;
 
             return model;
         }
@@ -70,13 +91,14 @@ namespace Raisins.Client.Web.Models
         {
             Payment data = new Payment();
             data.Amount = model.Amount;
-            //data.Currency = model.Currency;
+            data.Currency = model.Currency;
             data.Email = model.Email;
             data.ID = model.ID;
             data.Location = model.Location;
             data.Name = model.Name;
 
             data.Beneficiary = Beneficiary.Find(model.BeneficiaryID);
+            data.Class = model.Class;
 
             return data;
         }

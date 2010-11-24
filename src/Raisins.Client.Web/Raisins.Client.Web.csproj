@@ -89,6 +89,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Validator.cs" />
     <Compile Include="Helper\ViewHelper.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AccountService.cs" />
