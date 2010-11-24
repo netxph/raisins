@@ -1,4 +1,4 @@
-﻿<ul id="menu">
+﻿<ul>
     @if (Request.IsAuthenticated)
     {
         <li>Welcome <b>@Context.User.Identity.Name</b>! [ @Html.ActionLink("Log Off", "Logout", "Account")]</li>

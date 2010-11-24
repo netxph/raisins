@@ -1,51 +1,105 @@
 ﻿body {
-	background-color: #FF6F2F;
-	font-family: Sans-Serif;
+	background-color: #D3C599;
+	font-family: Georgia, "New Century Schoolbook", "Nimbus Roman No9 L", serif;
+	color: #563B1D;
+}
+
+#clear {
+    clear: both;
+}
+
+#main {
+    border: 1px solid #B49C51;
+    background-color: White;
+    margin: 5px auto 0px auto;
+    width: 800px;
+}
+
+#menu {
+    width: 800px;
+    margin: 0 auto 0 auto;
+}
+
+#menu ul li {
+    display: inline;
+    list-style-type: none;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    padding-top: 50px;
+    float: right;
+}
+
+#menu ul li a {
+    text-decoration: none;
+    color: #563B1D;
 }
 
 #header {
-	width: 800px;
-	margin: 10px auto 10px auto;
-	background-color: White;
-	border: 1px solid Gray;
-	padding: 15px 15px 15px 15px;
+    padding: 30px 30px 30px 30px;
 }
 
 #header h1 {
-	font-size: 32px;
-	color: Gray;
+    font-size: 32px;
 }
 
-#header p {
-	font-size: 12px;
-}
-
-#container {
-	width: 800px;
-	background-color: White;
-	margin: 0 auto 0 auto;
-	border: 1px solid Gray;
-	padding: 15px 15px 15px 15px;
-}
-
-#container h1 {
-	font-size: 24px;
-	color: Gray;
-	text-align: right;
-}
-
-#container h2 {
-	font-size: 20px;
-	color: Black;
-	text-align: right;
+#footer {
+    width: 800px;
+    margin: 5px auto 0px auto;
 }
 
 #footer p {
-	text-align: center;
-	padding: 10px 10px 10px 10px;
-	font-size: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
 }
 
+#container {
+    padding: 0px 30px 30px 30px;
+    overflow: auto;
+}
+
+#container div.left {
+    width: 60%;
+    float: left;
+}
+
+#container div.right {
+    width: 39%;
+    float: left;
+    background-color: #D3C599;
+    border: 1px solid #563B1D;
+}
+
+#container div.right ul li img {
+    float: left;
+}
+
+#container div.right ul li h3 {
+    padding-left: 75px;
+}
+
+#container div.right ul li.bottom {
+    background-color: #563B1D;
+    color: White;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+#container div.right ul li.bottom h3 {
+    padding: 5px 5px 5px 5px;
+}
+
+#container div.right ul li p {
+    padding-left: 75px;
+}
+
+#container div.right ul li {
+    padding: 5px 10px 5px 10px;
+    width: 100%;
+    float: left;
+}
+
+/* page specific css */
 .beneficiary {
 	width: 80%;
 	margin: 10px auto 0 auto;
@@ -76,20 +130,4 @@
 .field-validation-error
 {
     color: #f00;
-}
-
-#menucontainer {
-    width: 820px;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 0px 15px 0px 15px;
-}
-
-#menu li
-{
-display: block;
-list-style-type: none;
-text-align: center;
-float: right;
-padding-left: 10px;
 }

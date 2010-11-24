@@ -1,38 +1,40 @@
 ﻿@{
-    var securityLink = Html.ActionLink("Login", "Login", "Account");
-
-    if (!string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
-    {
-        securityLink = Html.ActionLink("Welcome " + HttpContext.Current.User.Identity.Name, "Logout", "Account");    
-    }
+    
 }
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<link href="/Content/Reset.css" rel="stylesheet" type="text/css"/>
-	<link href="/Content/Main.css" rel="stylesheet" type="text/css"/>
-	<title>@ViewHelper.Title @ViewHelper.Version - [@ViewHelper.Description]</title>
+    <link href="/Content/Reset.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Main.css" rel="stylesheet" type="text/css" />
+    <title>@ViewHelper.Title [@ViewHelper.Description]</title>
 </head>
 <body>
-    <div id="menucontainer">
+    <div id="menu">
         @Html.Partial("_LoginPartial")
     </div>
-    <div style="clear:both;"></div>
-    <div id="header">
-        <h1>@ViewHelper.Title</h1>
-        <p>@ViewHelper.Description</p>
-    </div>
-	<div id="container">
+    <div style="clear:both" />
+    <div id="main">
         
-		@RenderBody()
-	</div>
+        <div id="header">
+            <h1>@ViewHelper.Title</h1>
+            <p>@ViewHelper.Description</p>
+        </div>
+        <div id="container">
+            <div class="left">
+                @RenderBody()
+            </div>
+            <div class="right">
+                @Html.Partial("_Sidebar")
+            </div>
+        </div>
+    </div>
     <div id="footer">
-        <p>Created by Marc Vitalis and Jaja Abayon.</p>
-		<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
-		<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js" type="text/javascript"></script>
-		<script src="@Url.Content("/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <p>
+            Created by Marc Vitalis and Jaja Abayon.</p>
+        <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+        <script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"
+            type="text/javascript"></script>
+        <script src="@Url.Content("/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
     </div>
 </body>
 </html>
