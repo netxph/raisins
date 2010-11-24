@@ -32,14 +32,10 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult Create()
         {
             ViewData["ExistingPayments"] = PaymentService.FindAllByUser(HttpContext.User.Identity.Name);
+            ViewData["Beneficiaries"] = BeneficiaryService.FindByUser(HttpContext.User.Identity.Name);
             
             PaymentModel model = new PaymentModel();
             SettingModel setting = SettingService.GetSetting(HttpContext.User.Identity.Name);
-
-            if (setting == null)
-            {
-                return RedirectToAction("Create");
-            }
 
             model.Currency = setting.Currency;
             model.Location = setting.Location;
@@ -58,17 +54,6 @@ namespace Raisins.Client.Web.Controllers
             try
             {
                 SettingModel setting = SettingService.GetSetting(HttpContext.User.Identity.Name);
-                model.Currency = setting.Currency;
-                model.Location = setting.Location;
-                model.BeneficiaryID = setting.BeneficiaryID;
-                model.Class = setting.Class;
-
-                ViewData["ExistingPayments"] = PaymentService.FindAllByUser(HttpContext.User.Identity.Name);
-
-                if (setting == null)
-                {
-                    return RedirectToAction("Create");
-                }
 
                 List<string> errorList = new List<string>();
                 if (!Validator.IsAmountValid(model.Amount))
@@ -83,7 +68,16 @@ namespace Raisins.Client.Web.Controllers
 
                 if (errorList.Count > 0)
                 {
+                    model.Currency = setting.Currency;
+                    model.Location = setting.Location;
+                    model.BeneficiaryID = setting.BeneficiaryID;
+                    model.Class = setting.Class;
+
+                    ViewData["ExistingPayments"] = PaymentService.FindAllByUser(HttpContext.User.Identity.Name);
+                    ViewData["Beneficiaries"] = BeneficiaryService.FindByUser(HttpContext.User.Identity.Name);
+
                     ViewData["Exceptions"] = errorList;
+
                     return View(model);
                 }
 
@@ -115,7 +109,6 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-
                 SettingModel setting = SettingService.GetSetting(HttpContext.User.Identity.Name);
 
                 if (setting == null)
@@ -137,7 +130,7 @@ namespace Raisins.Client.Web.Controllers
                 if (errorList.Count > 0)
                 {
                     ViewData["Exceptions"] = errorList;
-                    return View();
+                    return View(PaymentService.GetPayment(model.ID));
                 }
 
                 PaymentModel original = PaymentService.GetPayment(model.ID);

@@ -86,15 +86,15 @@ namespace Raisins.Services.Console
 
             abayona.Create();
 
-            //Setting abayonaSetting = new Setting()
-            //{
-            //    Location = "PH",
-            //    Account = abayona,
-            //    Class = PaymentClass.Foreign,
-            //    Currency = usd
-            //};
+            Setting abayonaSetting = new Setting()
+            {
+                Location = "PH",
+                Account = abayona,
+                Class = PaymentClass.Foreign,
+                Currency = usd
+            };
 
-            //abayonaSetting.Create();
+            abayonaSetting.Create();
 
         }
 

@@ -50,6 +50,34 @@ namespace Raisins.Client.Web.Models
             return detail;
         }
 
+        public static BeneficiaryModel[] FindByUser(string userName)
+        {
+            List<BeneficiaryModel> models = new List<BeneficiaryModel>();
+
+            var setting = Account.FindUser(userName).Settings.FirstOrDefault();
+
+            if (setting != null && setting.Beneficiary != null)
+            {
+                var model = ToModel(setting.Beneficiary);
+
+                models.Add(model);
+            }
+            else
+            {
+                //load all
+                var beneficiaries = Beneficiary.FindAll();
+
+                foreach (var beneficiary in beneficiaries)
+                {
+                    var model = ToModel(beneficiary);
+
+                    models.Add(model);
+                }
+            }
+
+            return models.ToArray();
+        }
+
         public static BeneficiaryModel[] FindAll()
         {
             Beneficiary[] beneficiaries = Beneficiary.FindAll();

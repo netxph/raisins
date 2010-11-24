@@ -32,7 +32,12 @@ namespace Raisins.Client.Web.Models
                 model.Currency = data.Currency;
                 model.Location = data.Location;
                 model.UserName = data.Account.UserName;
-                model.BeneficiaryID = data.Beneficiary.ID;
+                
+                if (data.Beneficiary != null)
+                {
+                    model.BeneficiaryID = data.Beneficiary.ID;
+                }
+
                 model.Class = data.Class;
             }
             return model;

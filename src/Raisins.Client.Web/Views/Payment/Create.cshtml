@@ -5,6 +5,7 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
     var ExistingPayments = ViewData["ExistingPayments"] as IEnumerable<PaymentModel>;
     var ErrorList = ViewData["Exceptions"] as IEnumerable<string>;
+    var Beneficiaries = ViewData["Beneficiaries"] as IEnumerable<BeneficiaryModel>;
 }
 
 <h2>Create</h2>
@@ -26,6 +27,13 @@
      
 		<fieldset>
 			<legend>Enter Payment Information below:</legend>
+            <div class="editor-label">
+				@Html.LabelFor(model => model.BeneficiaryID)
+			</div>
+			<div class="editor-field">
+				@Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
+				@Html.ValidationMessageFor(model => model.Name)
+			</div>
 			<div class="editor-label">
 				@Html.LabelFor(model => model.Name)
 			</div>
@@ -87,7 +95,6 @@
 				@item.Email
 			</td>
 		</tr>
-     
  }
 	
 	</table>

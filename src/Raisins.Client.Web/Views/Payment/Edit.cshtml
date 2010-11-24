@@ -3,11 +3,25 @@
 @{
     View.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var ExistingPayments = ViewData["ExistingPayments"] as IEnumerable<PaymentModel>;
+    var ErrorList = ViewData["Exceptions"] as IEnumerable<string>;
 }
 
 <h2>Edit</h2>
     @using (Html.BeginForm()) {
         @Html.ValidationSummary(true)
+        
+        <div class="field-validation-error">
+     @if (ErrorList != null)
+     {
+         foreach (var error in ErrorList)
+         {
+			<span>
+                @error
+            </span>
+         }
+     }
+     </div>
         
         <fieldset>
             <legend>Modify the Payment Details</legend>
@@ -37,15 +51,6 @@
                 @Html.ValidationMessageFor(model => model.Email)
             </div>
 
-            @if (Model.Class.ToString().CompareTo("NotSpecified") == 0)
-            {
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Amount)
-				    <label>@Model.Currency.CurrencyCode</label>
-                    @Html.ValidationMessageFor(model => model.Amount)
-                </div>
-            }
-            
 			<p>
                 <input type="submit" value="Save" />
             </p>

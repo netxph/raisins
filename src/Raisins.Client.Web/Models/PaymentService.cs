@@ -26,8 +26,12 @@ namespace Raisins.Client.Web.Models
 
         public static void Save(PaymentModel model)
         {
+            Account account = Account.FindUser(HttpContext.Current.User.Identity.Name);
+
             Payment data = ToData(model);
-            data.CreatedAccount = Account.FindUser(HttpContext.Current.User.Identity.Name);
+            data.Currency = account.Settings.FirstOrDefault().Currency;
+            data.CreatedAccount = account;
+            
             data.Save();
         }
 
