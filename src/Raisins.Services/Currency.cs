@@ -19,5 +19,8 @@ namespace Raisins.Services
         [Property]
         public decimal Ratio { get; set; }
 
+        [Property]
+        public decimal ExchangeRate { get; set; }
+
     }
 }
