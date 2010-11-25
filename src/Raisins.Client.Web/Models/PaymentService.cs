@@ -36,7 +36,7 @@ namespace Raisins.Client.Web.Models
                 data.Location = setting.Location;
                 data.Currency = setting.Currency;
                 data.Class = setting.Class;
-                data.CreatedAccount = account;
+                data.CreatedBy = account;
             }
             
             data.Save();

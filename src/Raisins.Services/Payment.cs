@@ -36,18 +36,24 @@ namespace Raisins.Services
         [Property]
         public PaymentClass Class { get; set; }
 
+        [Property]
+        public string Remarks { get; set; }
+
+        [BelongsTo("AuditedAccountID")]
+        public Account AuditedBy { get; set; }
+
         [BelongsTo("BeneficiaryID")]
         public Beneficiary Beneficiary { get; set; }
 
         [HasMany]
         public IList<Ticket> Tickets { get; set; }
 
-        [BelongsTo("AccountID")]
-        public Account CreatedAccount { get; set; }
+        [BelongsTo("CreatedAccountID")]
+        public Account CreatedBy { get; set; }
 
         public static Payment[] FindByUser(string userName)
         {
-            return Payment.FindAll().Where(payment => payment.CreatedAccount.UserName == userName).ToArray();
+            return Payment.FindAll().Where(payment => payment.CreatedBy.UserName == userName).ToArray();
         }
 
     }
