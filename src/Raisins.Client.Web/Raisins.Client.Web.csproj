@@ -157,6 +157,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\Player.cshtml" />
     <Content Include="Views\Home\Team.cshtml" />
+    <Content Include="Views\Home\Pages.cshtml" />
     <None Include="Views\Payment\Create.cshtml" />
     <None Include="Views\Payment\Delete.cshtml" />
     <None Include="Views\Payment\Details.cshtml" />

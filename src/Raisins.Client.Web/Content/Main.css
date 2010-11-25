@@ -161,3 +161,22 @@ a {
 #payments div.item a {
     font-size: 10px;
 }
+
+#pages ol ol {
+    list-style-type: lower-alpha;
+    padding-left: 35px;
+}
+
+#pages ol {
+    list-style-type: decimal;
+}
+
+#pages li {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#pages p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

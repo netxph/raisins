@@ -8,7 +8,7 @@
         baseUrl += ":" + HttpContext.Current.Request.Url.Port.ToString();
     }
 
-    var video = string.Format("{0}/Content/{1}", baseUrl, Request.QueryString["video"]);
+    var video = string.Format("{0}{1}/{2}", baseUrl, Url.Content("~/Content/"), Request.QueryString["video"]);
 }
 <h1>@View.Title</h1>
 <br />
@@ -17,7 +17,7 @@
 </div>
 
 <script type="text/javascript">
-    flowplayer("player", "/Content/flowplayer-3.2.5-0.swf",
-	{ "clip": { "url": "@video" }, "plugins": { "rtmp": { "netConnectionUrl": "rtmp://rtmp01.hddn.com/fpplay", "url": "/Content/flowplayer-3.2.5-0.swf"}} }
+    flowplayer("player", "@Url.Content("~/Content/flowplayer-3.2.5-0.swf")",
+	{ "clip": { "url": "@video" }, "plugins": { "rtmp": { "netConnectionUrl": "rtmp://rtmp01.hddn.com/fpplay", "url": "@Url.Content("~/Content/flowplayer-3.2.5-0.swf")"}} }
 );
 </script>
