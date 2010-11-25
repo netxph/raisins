@@ -12,7 +12,6 @@ namespace Raisins.Services
     [ActiveRecord]
     public class Account : ActiveRecordBase<Account>
     {
-
         [PrimaryKey(PrimaryKeyType.Identity)]
         public int ID { get; set; }
 

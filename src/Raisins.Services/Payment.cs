@@ -45,9 +45,9 @@ namespace Raisins.Services
         [BelongsTo("AccountID")]
         public Account CreatedAccount { get; set; }
 
-        public static IEnumerable<Payment> FindPaymentByUser(string userName)
+        public static Payment[] FindByUser(string userName)
         {
-            return Payment.FindAll().Where(payment => payment.CreatedAccount.UserName == userName);
+            return Payment.FindAll().Where(payment => payment.CreatedAccount.UserName == userName).ToArray();
         }
 
     }

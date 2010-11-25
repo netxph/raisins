@@ -3,9 +3,8 @@
 @{
 	View.Title = "Create";
 	Layout = "~/Views/Shared/_Layout.cshtml";
-    var ExistingPayments = ViewData["ExistingPayments"] as IEnumerable<PaymentModel>;
-    var ErrorList = ViewData["Exceptions"] as IEnumerable<string>;
-    var Beneficiaries = ViewData["Beneficiaries"] as IEnumerable<BeneficiaryModel>;
+
+    var Beneficiaries = ViewHelper.Beneficiaries;
 }
 
 <h2>Create</h2>
@@ -13,91 +12,42 @@
 	@using (Html.BeginForm("Create", "Payment", FormMethod.Post, new { id = "myRaisinsForm" } )) {
 		@Html.ValidationSummary(true)
 
-     <div class="field-validation-error">
-     @if (ErrorList != null)
-     {
-         foreach (var error in ErrorList)
-         {
-			<span>
-                @error
-            </span>
-         }
-     }
-     </div>
      
-		<fieldset>
-			<legend>Enter Payment Information below:</legend>
-            <div class="editor-label">
-				@Html.LabelFor(model => model.BeneficiaryID)
-			</div>
-			<div class="editor-field">
-				@Html.DropDownListFor(model => model.BeneficiaryID, new SelectList(Beneficiaries, "ID", "Name"))
-				@Html.ValidationMessageFor(model => model.Name)
-			</div>
-			<div class="editor-label">
-				@Html.LabelFor(model => model.Name)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.Name)
-				@Html.ValidationMessageFor(model => model.Name)
-			</div>
-
-			<div class="editor-label">
-				@Html.LabelFor(model => model.Amount)
-			</div>
-			<div class="editor-field">
-				@Html.EditorFor(model => model.Amount)
-				<label>@Model.Currency.CurrencyCode</label>
-				@Html.ValidationMessageFor(model => model.Amount)
-			</div>
-            
-			<div class="editor-label">
-				@Html.LabelFor(model => model.Email)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(model => model.Email)
-				@Html.ValidationMessageFor(model => model.Email)
-			</div>
-
-			<p>
-				<input type="submit" value="Create" />
-			</p>
-		</fieldset>
      
-     <table>
-		<tr>
-			<th></th>
-			<th>
-				Name
-			</th>
-			<th>
-				Amount
-			</th>
-			<th>
-				Email
-			</th>
-		</tr>
+        <div class="forms">
+             <p>
+                @Html.Label(Model.Class.ToString())
+                @Html.HiddenFor(model => model.Class)
+            </p>
 
-	@foreach (var item in ExistingPayments) {
-	
-		<tr>
-			<td>
-				@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-				@Html.ActionLink("Delete", "Delete", new { id=item.ID })
-			</td>
-			<td>
-				@item.Name
-			</td>
-			<td>
-				@string.Format("{0:0.00}", @item.Amount) @item.Currency.CurrencyCode
-			</td>
-            <td>
-				@item.Email
-			</td>
-		</tr>
- }
-	
-	</table>
+            <p>
+                @Html.LabelFor(model => model.Beneficiary)
+                @Html.DropDownListFor(model => model.Beneficiary, new SelectList(Beneficiaries, "Name", "Name"))
+                @Html.ValidationMessageFor(model => model.Beneficiary)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Name)
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Amount)
 
+                @Html.Label(string.Format("({0})", Model.Currency))
+                @Html.HiddenFor(model => model.Currency)
+
+                @Html.EditorFor(model => model.Amount)
+                @Html.ValidationMessageFor(model => model.Amount)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Email)
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </p>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </div>
 	}
 
+    @Html.ActionLink("Show List", "Index")        

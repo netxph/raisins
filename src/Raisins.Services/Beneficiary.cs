@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Castle.ActiveRecord;
 using Castle.ActiveRecord.Queries;
+using NHibernate.Criterion;
 
 namespace Raisins.Services
 {
@@ -37,5 +38,9 @@ namespace Raisins.Services
             return query.Execute();
         }
 
+        public static Beneficiary FindByName(string name)
+        {
+            return FindFirst(Expression.Eq("Name", name));
+        }
     }
 }

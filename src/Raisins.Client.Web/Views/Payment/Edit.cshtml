@@ -3,63 +3,48 @@
 @{
     View.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var ExistingPayments = ViewData["ExistingPayments"] as IEnumerable<PaymentModel>;
-    var ErrorList = ViewData["Exceptions"] as IEnumerable<string>;
+    
+    var Beneficiaries = ViewHelper.Beneficiaries;
 }
 
 <h2>Edit</h2>
     @using (Html.BeginForm()) {
         @Html.ValidationSummary(true)
-        
-        <div class="field-validation-error">
-     @if (ErrorList != null)
-     {
-         foreach (var error in ErrorList)
-         {
-			<span>
-                @error
-            </span>
-         }
-     }
-     </div>
-        
-        <fieldset>
-            <legend>Modify the Payment Details</legend>
 
-			<div class="editor-label">
+        <div class="forms">
+            <p>
+                @Html.Label(Model.Class.ToString())
+                @Html.HiddenFor(model => model.Class)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Beneficiary)
+                @Html.DropDownListFor(model => model.Beneficiary, new SelectList(Beneficiaries, "Name", "Name"))
+                @Html.ValidationMessageFor(model => model.Beneficiary)
+            </p>
+            <p>
                 @Html.LabelFor(model => model.Name)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Name)
+                @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
-            </div>
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Amount)
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Amount) 
-            </div>
-            <div class="editor-field">
+                @Html.Label(string.Format("({0})", Model.Currency))
+                @Html.HiddenFor(model => model.Currency)
+
                 @Html.EditorFor(model => model.Amount)
-				<label>@Model.Currency.CurrencyCode</label>
                 @Html.ValidationMessageFor(model => model.Amount)
-            </div>
-
-            <div class="editor-label">
+            </p>
+            <p>
                 @Html.LabelFor(model => model.Email)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Email)
+                @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
-            </div>
-
-			<p>
+            </p>
+            <p>
                 <input type="submit" value="Save" />
             </p>
-        </fieldset>
-
+        </div>
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Create")
-    </div>
-
+    @Html.ActionLink("Show List", "Index")        
 

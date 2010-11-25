@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using Raisins.Client.Web.Models;
+using Raisins.Services;
 
 namespace Raisins.Client.Web.Helper
 {
@@ -25,10 +26,10 @@ namespace Raisins.Client.Web.Helper
             get { return ConfigurationManager.AppSettings["app.version"]; }
         }
 
-        public static List<BeneficiaryModel> GetBeneficiaryAccordingToClass(SettingModel settingModel)
+        //resources specific models
+        public static BeneficiaryModel[] Beneficiaries
         {
-            List<BeneficiaryModel> beneficiaries = new List<BeneficiaryModel>();
-            return beneficiaries;
+            get { return BeneficiaryService.FindByUser(HttpContext.Current.User.Identity.Name); }
         }
 
     }

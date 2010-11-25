@@ -5,57 +5,33 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-	<h2>Index</h2>
+	<h2>Payment List</h2>
 
-	<p>
-		@Html.ActionLink("Create New", "Create")
-	</p>
-
-	<table>
-		<tr>
-			<th></th>
-			<th>
-				Name
-			</th>
-			<!--
-			<th>
-				Email
-			</th>
-			
-			<th>
-				ID
-			</th>
-			<th>
-				Location
-			</th>
-			-->
-			<th>
-				Amount
-			</th>
-			<!--
-			<th>
-				Currency
-			</th>
-			-->
-		</tr>
-
-	@foreach (var item in Model) {
-	
-		<tr>
-			<td>
-				@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-				@Html.ActionLink("Delete", "Delete", new { id=item.ID })
-			</td>
-			<td>
-				@item.Name
-			</td>
-			<td>
-				@string.Format("{0:0.00}", @item.Amount) @item.Currency.CurrencyCode
-			</td>
-		</tr>
-	
-	}
-	
-	</table>
+	<div id="payments">
+    @foreach (var item in Model)
+    { 
+        <div class="item">
+        <span class="beneficiary">
+            @item.Beneficiary
+        </span>
+        <br />
+        <span class="class">
+            @item.Class.ToString()
+        </span>
+        <br />
+        <br />
+        <span class="name">
+            @item.Name
+        </span>
+        <span class="amount">
+            @string.Format("{0} ({1})", item.Amount.ToString("0.00"), item.Currency)
+        </span>
+        <br />
+        <br />
+        @Html.ActionLink("[Delete]", "Delete", new { id = item.ID })
+        @Html.ActionLink("[Edit]", "Edit", new { id = item.ID })
+        </div>
+    }
+    </div>
 
 

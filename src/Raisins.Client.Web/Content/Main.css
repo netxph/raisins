@@ -100,7 +100,7 @@ a {
 }
 
 /* page specific css */
-.beneficiary {
+.left div.beneficiary {
 	width: 80%;
 	margin: 10px auto 0 auto;
 	background-color: #D6FFD6;
@@ -108,19 +108,19 @@ a {
 	border: 1px solid Gray;
 }
 
-.beneficiary p.subtitle {
+.left div.beneficiary p.subtitle {
 	text-align: right;
 	font-size: 10px;
 }
 
-.beneficiary p.votes {
+.left div.beneficiary p.votes {
 	color: #990000;
 	font-size: 20px;
 	text-align: center;
 	font-weight: bold;
 }
 
-.beneficiary p.amount {
+.left div.beneficiary p.amount {
 	color: #009800;
 	font-size: 20px;
 	text-align: center;
@@ -135,4 +135,15 @@ a {
 #player {
     width: 420px;
     height: 260px;
+}
+
+#payments div.item {
+    border: 1px solid #563B1D;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 90%;
+}
+
+#payments div.item span.beneficiary {
+    font-weight: bold;
 }

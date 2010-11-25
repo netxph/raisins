@@ -13,7 +13,7 @@ namespace Raisins.Client.Web.Models
 
         public static PaymentModel[] FindAll()
         {
-            Payment[] payments = Payment.FindAll();
+            Payment[] payments = Payment.FindByUser(HttpContext.Current.User.Identity.Name);
             List<PaymentModel> models = new List<PaymentModel>();
 
             foreach (Payment payment in payments)
@@ -26,11 +26,18 @@ namespace Raisins.Client.Web.Models
 
         public static void Save(PaymentModel model)
         {
-            Account account = Account.FindUser(HttpContext.Current.User.Identity.Name);
-
             Payment data = ToData(model);
-            data.Currency = account.Settings.FirstOrDefault().Currency;
-            data.CreatedAccount = account;
+            
+            //assign settings specific items
+            Account account = Account.FindUser(HttpContext.Current.User.Identity.Name);
+            Setting setting = account.Settings.FirstOrDefault();
+            if (setting != null)
+            {
+                data.Location = setting.Location;
+                data.Currency = setting.Currency;
+                data.Class = setting.Class;
+                data.CreatedAccount = account;
+            }
             
             data.Save();
         }
@@ -55,7 +62,7 @@ namespace Raisins.Client.Web.Models
         public static PaymentModel[] FindAllByUser(string userName)
         {
             List<PaymentModel> results = new List<PaymentModel>();
-            var payments = Payment.FindPaymentByUser(userName);
+            var payments = Payment.FindByUser(userName);
 
             foreach (var payment in payments)
             {
@@ -65,6 +72,22 @@ namespace Raisins.Client.Web.Models
             return results.ToArray();
         }
 
+        public static PaymentModel CreateNew()
+        {
+            PaymentModel model = new PaymentModel();
+            
+            //load settings
+            Setting setting = Account.FindUser(HttpContext.Current.User.Identity.Name).Settings.FirstOrDefault();
+
+            if (setting != null)
+            {
+                model.Currency = setting.Currency.CurrencyCode;
+                model.Class = setting.Class;
+            }
+
+            return model;
+        }
+
         #endregion
 
         #region Helper methods
@@ -72,21 +95,14 @@ namespace Raisins.Client.Web.Models
         protected static PaymentModel ToModel(Payment data)
         {
             PaymentModel model = new PaymentModel();
-            model.Amount = data.Amount;
-            if (data.Currency == null)
-            {
-                model.Currency = null;
-            }
-            else
-            {
-                model.Currency = data.Currency;
-            }
-            model.Email = data.Email;
+
             model.ID = data.ID;
-            model.BeneficiaryID = data.Beneficiary.ID;
-            model.Location = data.Location;
-            model.Name = data.Name;
+            model.Amount = data.Amount;
             model.Class = data.Class;
+            model.Email = data.Email;
+            model.Name = data.Name;
+            model.Currency = data.Currency.CurrencyCode;
+            model.Beneficiary = data.Beneficiary.Name;
 
             return model;
         }
@@ -95,19 +111,19 @@ namespace Raisins.Client.Web.Models
         {
             Payment data = new Payment();
             data.Amount = model.Amount;
-            data.Currency = model.Currency;
             data.Email = model.Email;
             data.ID = model.ID;
-            data.Location = model.Location;
             data.Name = model.Name;
-
-            data.Beneficiary = Beneficiary.Find(model.BeneficiaryID);
-            data.Class = model.Class;
+            data.Beneficiary = Beneficiary.FindByName(model.Beneficiary);
 
             return data;
         }
 
         #endregion
 
+
+
+
+        
     }
 }
