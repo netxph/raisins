@@ -103,9 +103,9 @@ a {
 .left div.beneficiary {
 	width: 80%;
 	margin: 10px auto 0 auto;
-	background-color: #D6FFD6;
+	background-color: #D3C599;
 	padding: 15px 15px 15px 15px;
-	border: 1px solid Gray;
+	border: 1px solid #563B1D;
 }
 
 .left div.beneficiary p.subtitle {
@@ -113,15 +113,19 @@ a {
 	font-size: 10px;
 }
 
+.left div.beneficiary p.footer {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
 .left div.beneficiary p.votes {
-	color: #990000;
 	font-size: 20px;
 	text-align: center;
 	font-weight: bold;
 }
 
 .left div.beneficiary p.amount {
-	color: #009800;
 	font-size: 20px;
 	text-align: center;
 	font-weight: bold;
@@ -142,8 +146,18 @@ a {
     margin-bottom: 5px;
     margin-top: 5px;
     width: 90%;
+    padding: 5px 5px 5px 5px;
+    font-size: 12px;
+}
+
+#payments div.item:hover {
+    background-color: #D3C599;
 }
 
 #payments div.item span.beneficiary {
     font-weight: bold;
+}
+
+#payments div.item a {
+    font-size: 10px;
 }

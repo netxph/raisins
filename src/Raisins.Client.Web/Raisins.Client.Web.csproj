@@ -104,6 +104,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\flowplayer-3.2.4.min.js" />
+    <Content Include="Content\flowplayer-3.2.5-0.swf" />
+    <Content Include="Content\jquery-1.4.2.min.js" />
+    <Content Include="Content\jquery.validate.min.js" />
     <Content Include="Content\Main.css" />
     <Content Include="Content\Reset.css" />
     <Content Include="Content\team1.jpg" />

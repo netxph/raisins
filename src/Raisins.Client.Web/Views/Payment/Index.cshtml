@@ -6,20 +6,15 @@
 }
 
 	<h2>Payment List</h2>
-
+    <br />
+    @Html.ActionLink("Create new", "Create")
 	<div id="payments">
     @foreach (var item in Model)
     { 
         <div class="item">
         <span class="beneficiary">
-            @item.Beneficiary
+            @item.Beneficiary - @item.Class.ToString()
         </span>
-        <br />
-        <span class="class">
-            @item.Class.ToString()
-        </span>
-        <br />
-        <br />
         <span class="name">
             @item.Name
         </span>
@@ -27,8 +22,7 @@
             @string.Format("{0} ({1})", item.Amount.ToString("0.00"), item.Currency)
         </span>
         <br />
-        <br />
-        @Html.ActionLink("[Delete]", "Delete", new { id = item.ID })
+        @Html.ActionLink("[Del]", "Delete", new { id = item.ID })
         @Html.ActionLink("[Edit]", "Edit", new { id = item.ID })
         </div>
     }
