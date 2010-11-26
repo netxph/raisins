@@ -13,7 +13,18 @@ namespace Raisins.Client.Web.Models
 
         public static PaymentModel[] FindAll()
         {
-            Payment[] payments = Payment.FindByUser(HttpContext.Current.User.Identity.Name);
+            var account = Account.FindUser(HttpContext.Current.User.Identity.Name);
+
+            Payment[] payments = null;
+            if (account.Role.RoleType == RoleType.User)
+            {
+                payments = Payment.FindByUser(HttpContext.Current.User.Identity.Name);
+            }
+            else
+            {
+                payments = Payment.FindByBeneficiary(account.Settings.First().Beneficiary.Name);
+            }
+            
             List<PaymentModel> models = new List<PaymentModel>();
 
             foreach (Payment payment in payments)
@@ -72,6 +83,29 @@ namespace Raisins.Client.Web.Models
             return results.ToArray();
         }
 
+        public static void LockAll()
+        {
+            var account = Account.FindUser(HttpContext.Current.User.Identity.Name);
+            var payments = Payment.FindByBeneficiary(account.Settings.First().Beneficiary.Name);
+
+            foreach (var payment in payments)
+            {
+                if (!payment.Locked)
+                {
+                    payment.Locked = true;
+                    payment.AuditedBy = account;
+                    payment.Update();
+
+                    generateTicket(payment);
+                }
+            }
+        }
+
+        private static void generateTicket(Payment payment)
+        {
+            //TODO: add logic for generating tickets
+        }
+
         public static PaymentModel CreateNew()
         {
             PaymentModel model = new PaymentModel();
@@ -103,6 +137,7 @@ namespace Raisins.Client.Web.Models
             model.Name = data.Name;
             model.Currency = data.Currency.CurrencyCode;
             model.Beneficiary = data.Beneficiary.Name;
+            model.Locked = data.Locked;
 
             return model;
         }
@@ -120,6 +155,8 @@ namespace Raisins.Client.Web.Models
         }
 
         #endregion
+
+
 
 
 

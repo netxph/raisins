@@ -27,7 +27,7 @@ namespace Raisins.Services.SecurityConsole
 
             XmlConfigurationSource source = new XmlConfigurationSource("config.xml");
 
-            ActiveRecordStarter.Initialize(source, typeof(Beneficiary), typeof(Payment), typeof(Currency), typeof(Ticket), typeof(Account), typeof(Setting));
+            ActiveRecordStarter.Initialize(source, typeof(Beneficiary), typeof(Payment), typeof(Currency), typeof(Ticket), typeof(Account), typeof(Role), typeof(Setting));
 
             _comboBeneficiary.ItemsSource = Beneficiary.FindAll();
             _comboBeneficiary.DisplayMemberPath = "Name";

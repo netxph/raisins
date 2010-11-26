@@ -3,18 +3,26 @@
 @{
 	View.Title = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
+    var RoleType = ViewHelper.RoleType;
+    var RoleLink = @Html.ActionLink("Create new", "Create");
+
+    if (RoleType == Raisins.Services.RoleType.Auditor)
+    {
+        RoleLink = @Html.ActionLink("Lock All", "LockAll");
+    }
 }
 
 	<h2>Payment List</h2>
     <hr />
     <br />
-    @Html.ActionLink("Create new", "Create")
+    @RoleLink
+
 	<div id="payments">
     @foreach (var item in Model)
     { 
         <div class="item">
         <span class="beneficiary">
-            @item.Beneficiary - @item.Class.ToString()
+            @item.Beneficiary - @item.Class.ToString():
         </span>
         <span class="name">
             @item.Name
@@ -22,9 +30,13 @@
         <span class="amount">
             @string.Format("{0} ({1})", item.Amount.ToString("0.00"), item.Currency)
         </span>
+        
+        @if (!item.Locked && RoleType != Raisins.Services.RoleType.Auditor)
+        { 
         <br />
         @Html.ActionLink("[Del]", "Delete", new { id = item.ID })
         @Html.ActionLink("[Edit]", "Edit", new { id = item.ID })
+        }
         </div>
     }
     </div>

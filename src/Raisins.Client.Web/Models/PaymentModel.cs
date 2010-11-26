@@ -32,5 +32,7 @@ namespace Raisins.Client.Web.Models
         
         public PaymentClass Class { get; set; }
 
+        public bool Locked { get; set; }
+
     }
 }

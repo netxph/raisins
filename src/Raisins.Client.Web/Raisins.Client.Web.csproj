@@ -159,7 +159,6 @@
     <Content Include="Views\Home\Team.cshtml" />
     <Content Include="Views\Home\Pages.cshtml" />
     <None Include="Views\Payment\Create.cshtml" />
-    <None Include="Views\Payment\Delete.cshtml" />
     <None Include="Views\Payment\Details.cshtml" />
     <None Include="Views\Payment\Edit.cshtml" />
     <None Include="Views\Payment\Index.cshtml" />

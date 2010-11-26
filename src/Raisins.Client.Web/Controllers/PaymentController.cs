@@ -84,9 +84,15 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            PaymentModel model = PaymentService.GetPayment(id);
+            try
+            {
+                PaymentService.Delete(id);
+            }
+            catch
+            {
+            }
 
-            return View(model);
+            return RedirectToAction("Index");
         }
 
         //
@@ -105,6 +111,13 @@ namespace Raisins.Client.Web.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult LockAll()
+        {
+            PaymentService.LockAll();
+
+            return RedirectToAction("Index");
         }
     }
 }

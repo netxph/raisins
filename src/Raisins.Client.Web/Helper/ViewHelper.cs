@@ -32,5 +32,10 @@ namespace Raisins.Client.Web.Helper
             get { return BeneficiaryService.FindByUser(HttpContext.Current.User.Identity.Name); }
         }
 
+        public static RoleType RoleType
+        {
+            get { return Account.FindUser(HttpContext.Current.User.Identity.Name).Role.RoleType; }
+        }
+
     }
 }

@@ -154,6 +154,7 @@ a {
     width: 90%;
     padding: 5px 5px 5px 5px;
     font-size: 12px;
+    font-family: Monospace;
 }
 
 #payments div.item:hover {
@@ -162,6 +163,10 @@ a {
 
 #payments div.item span.beneficiary {
     font-weight: bold;
+}
+
+#payments div.item span.amount {
+    float:right;
 }
 
 #payments div.item a {

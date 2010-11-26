@@ -65,6 +65,7 @@
     <Compile Include="Currency.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="Beneficiary.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

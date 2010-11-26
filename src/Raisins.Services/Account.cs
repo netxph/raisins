@@ -27,6 +27,9 @@ namespace Raisins.Services
         [HasMany]
         public IList<Setting> Settings { get; set; }
 
+        [OneToOne]
+        public Role Role { get; set; }
+
         public static string GetSalt()
         {
             string path = Path.GetRandomFileName();

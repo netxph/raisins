@@ -76,6 +76,14 @@ namespace Raisins.Services.Console
 
             vitalimSetting.Create();
 
+            Role vitalimRole = new Role()
+            {
+                Account = vitalim,
+                RoleType = RoleType.User
+            };
+
+            vitalimRole.Create();
+
             string abayonaSalt = Account.GetSalt();
             Account abayona = new Account()
             {
@@ -95,6 +103,43 @@ namespace Raisins.Services.Console
             };
 
             abayonaSetting.Create();
+
+            Role abayonaRole = new Role()
+            {
+                Account = abayona,
+                RoleType = RoleType.User
+            };
+
+            abayonaRole.Create();
+
+            string auditSalt = Account.GetSalt();
+            Account audit = new Account()
+            {
+                UserName = "audit",
+                Salt = auditSalt,
+                Password = Account.GetHash("ra151n5", auditSalt)
+            };
+
+            audit.Create();
+
+            Setting auditSetting = new Setting()
+            {
+                Location = "PH",
+                Account = audit,
+                Beneficiary = team1,
+                Class = PaymentClass.Internal,
+                Currency = php
+            };
+
+            auditSetting.Create();
+
+            Role auditRole = new Role()
+            {
+                Account = audit,
+                RoleType = RoleType.Auditor
+            };
+
+            auditRole.Create();
 
         }
 

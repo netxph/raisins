@@ -53,9 +53,13 @@ namespace Raisins.Services
 
         public static Payment[] FindByUser(string userName)
         {
-            return Payment.FindAll().Where(payment => payment.CreatedBy.UserName == userName).ToArray();
+            return Payment.FindAll().Where(payment => payment.CreatedBy.UserName == userName).OrderByDescending(payment => payment.ID).ToArray();
         }
 
+        public static Payment[] FindByBeneficiary(string beneficiary)
+        {
+            return Payment.FindAll().Where(payment => payment.Beneficiary.Name == beneficiary).OrderByDescending(payment => payment.ID).ToArray();
+        }
     }
 
     public enum PaymentClass
