@@ -7,7 +7,9 @@
     var Beneficiaries = ViewHelper.Beneficiaries;
 }
 
-<h2>Create</h2>
+<h2>Create - @Html.Label(Model.Class.ToString())</h2>
+<hr />
+
 
 	@using (Html.BeginForm("Create", "Payment", FormMethod.Post, new { id = "myRaisinsForm" } )) {
 		@Html.ValidationSummary(true)
@@ -15,11 +17,8 @@
      
      
         <div class="forms">
-             <p>
-                @Html.Label(Model.Class.ToString())
-                @Html.HiddenFor(model => model.Class)
-            </p>
 
+            @Html.HiddenFor(model => model.Class)
             <p>
                 @Html.LabelFor(model => model.Beneficiary)
                 @Html.DropDownListFor(model => model.Beneficiary, new SelectList(Beneficiaries, "Name", "Name"))
@@ -32,22 +31,23 @@
             </p>
             <p>
                 @Html.LabelFor(model => model.Amount)
+                @Html.EditorFor(model => model.Amount)
 
-                @Html.Label(string.Format("({0})", Model.Currency))
+                @string.Format("({0})", Model.Currency)
                 @Html.HiddenFor(model => model.Currency)
 
-                @Html.EditorFor(model => model.Amount)
                 @Html.ValidationMessageFor(model => model.Amount)
+
             </p>
             <p>
                 @Html.LabelFor(model => model.Email)
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
             </p>
-            <p>
-                <input type="submit" value="Save" />
+            <p class="submit">
+                <input type="submit" value="Save" /> | or @Html.ActionLink("Show List", "Index")
             </p>
         </div>
 	}
 
-    @Html.ActionLink("Show List", "Index")        
+    
