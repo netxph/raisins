@@ -26,7 +26,7 @@ namespace Raisins.Services
 
         public decimal GetTotalAmount()
         {
-            ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount) from Payment payment where payment.Beneficiary = ?", this);
+            ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount * payment.Currency.ExchangeRate) from Payment payment where payment.Beneficiary = ?", this);
 
             return query.Execute();
         }

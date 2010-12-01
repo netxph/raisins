@@ -157,6 +157,16 @@ a {
     font-family: Monospace;
 }
 
+#payments div.lockitem {
+    border: 1px solid #FF3A3A;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 90%;
+    padding: 5px 5px 5px 5px;
+    font-size: 12px;
+    font-family: Monospace;
+}
+
 #payments div.item:hover {
     background-color: #D3C599;
 }
@@ -170,6 +180,22 @@ a {
 }
 
 #payments div.item a {
+    font-size: 10px;
+}
+
+#payments div.lockitem:hover {
+    background-color: #D3C599;
+}
+
+#payments div.lockitem span.beneficiary {
+    font-weight: bold;
+}
+
+#payments div.lockitem span.amount {
+    float:right;
+}
+
+#payments div.lockitem a {
     font-size: 10px;
 }
 

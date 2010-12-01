@@ -60,6 +60,7 @@ namespace Raisins.Services
         {
             return Payment.FindAll().Where(payment => payment.Beneficiary.Name == beneficiary).OrderByDescending(payment => payment.ID).ToArray();
         }
+
     }
 
     public enum PaymentClass

@@ -37,5 +37,10 @@ namespace Raisins.Client.Web.Helper
             get { return Account.FindUser(HttpContext.Current.User.Identity.Name).Role.RoleType; }
         }
 
+        public static string GetItemClass(PaymentModel payment)
+        {
+            return payment.Locked ? "lockitem" : "item";
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Raisins.Services;
+using Castle.ActiveRecord;
 
 namespace Raisins.Client.Web.Models
 {
@@ -85,25 +86,49 @@ namespace Raisins.Client.Web.Models
 
         public static void LockAll()
         {
-            var account = Account.FindUser(HttpContext.Current.User.Identity.Name);
-            var payments = Payment.FindByBeneficiary(account.Settings.First().Beneficiary.Name);
+            TransactionScope transaction = new TransactionScope();
 
-            foreach (var payment in payments)
+            try
             {
-                if (!payment.Locked)
-                {
-                    payment.Locked = true;
-                    payment.AuditedBy = account;
-                    payment.Update();
+                var account = Account.FindUser(HttpContext.Current.User.Identity.Name);
+                var payments = Payment.FindByBeneficiary(account.Settings.First().Beneficiary.Name);
 
-                    generateTicket(payment);
+                foreach (var payment in payments)
+                {
+                    if (!payment.Locked)
+                    {
+                        payment.Locked = true;
+                        payment.AuditedBy = account;
+
+                        generateTicket(payment);
+
+                        payment.Update();
+                    }
                 }
+            }
+            catch
+            {
+                transaction.VoteRollBack();
+                throw;
+            }
+            finally
+            {
+                transaction.Dispose();
             }
         }
 
         private static void generateTicket(Payment payment)
         {
-            //TODO: add logic for generating tickets
+            int ticketCount = Convert.ToInt32(payment.Amount / payment.Currency.Ratio);
+
+            List<Ticket> tickets = new List<Ticket>();
+
+            for (int i = 0; i < ticketCount; i++)
+            {
+                Ticket ticket = new Ticket() { Name = payment.Name };
+                ticket.Payment = payment;
+                ticket.Save();
+            }
         }
 
         public static PaymentModel CreateNew()
