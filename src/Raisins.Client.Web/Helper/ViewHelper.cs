@@ -32,6 +32,35 @@ namespace Raisins.Client.Web.Helper
             get { return BeneficiaryService.FindByUser(HttpContext.Current.User.Identity.Name); }
         }
 
+        public static PaymentClassOption[] ClassOptions
+        {
+            get
+            {
+                Setting setting = Account.FindUser(HttpContext.Current.User.Identity.Name).Settings.FirstOrDefault();
+
+                if (setting != null)
+                {
+                    if (setting.Class == PaymentClass.Internal)
+                    {
+                        return new List<PaymentClassOption>()
+                        {
+                            new PaymentClassOption() { ID = (int)PaymentClass.Internal, Name = PaymentClass.Internal.ToString() },
+                            new PaymentClassOption() { ID = (int)PaymentClass.External, Name = PaymentClass.External.ToString() }
+                        }.ToArray();
+                    }
+                    else
+                    {
+                        return new List<PaymentClassOption>()
+                        {
+                            new PaymentClassOption() { ID = (int)setting.Class, Name = setting.Class.ToString() }
+                        }.ToArray();
+                    }
+                }
+
+                return null;
+            }
+        }
+
         public static RoleType RoleType
         {
             get { return Account.FindUser(HttpContext.Current.User.Identity.Name).Role.RoleType; }
@@ -41,6 +70,14 @@ namespace Raisins.Client.Web.Helper
         {
             return payment.Locked ? "lockitem" : "item";
         }
+
+    }
+
+    public class PaymentClassOption
+    {
+
+        public int ID { get; set; }
+        public string Name { get; set; }
 
     }
 }

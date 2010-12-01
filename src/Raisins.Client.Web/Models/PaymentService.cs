@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Raisins.Services;
 using Castle.ActiveRecord;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Raisins.Client.Web.Models
 {
@@ -25,7 +26,7 @@ namespace Raisins.Client.Web.Models
             {
                 payments = Payment.FindByBeneficiary(account.Settings.First().Beneficiary.Name);
             }
-            
+
             List<PaymentModel> models = new List<PaymentModel>();
 
             foreach (Payment payment in payments)
@@ -39,7 +40,7 @@ namespace Raisins.Client.Web.Models
         public static void Save(PaymentModel model)
         {
             Payment data = ToData(model);
-            
+
             //assign settings specific items
             Account account = Account.FindUser(HttpContext.Current.User.Identity.Name);
             Setting setting = account.Settings.FirstOrDefault();
@@ -47,11 +48,11 @@ namespace Raisins.Client.Web.Models
             {
                 data.Location = setting.Location;
                 data.Currency = setting.Currency;
-                data.Class = setting.Class;
                 data.CreatedBy = account;
             }
-            
+
             data.Save();
+
         }
 
         public static void Update(PaymentModel modelToBeUpdated)
@@ -134,7 +135,7 @@ namespace Raisins.Client.Web.Models
         public static PaymentModel CreateNew()
         {
             PaymentModel model = new PaymentModel();
-            
+
             //load settings
             Setting setting = Account.FindUser(HttpContext.Current.User.Identity.Name).Settings.FirstOrDefault();
 
@@ -163,6 +164,7 @@ namespace Raisins.Client.Web.Models
             model.Currency = data.Currency.CurrencyCode;
             model.Beneficiary = data.Beneficiary.Name;
             model.Locked = data.Locked;
+            model.Remarks = data.Remarks;
 
             return model;
         }
@@ -174,7 +176,9 @@ namespace Raisins.Client.Web.Models
             data.Email = model.Email;
             data.ID = model.ID;
             data.Name = model.Name;
+            data.Class = model.Class;
             data.Beneficiary = Beneficiary.FindByName(model.Beneficiary);
+            data.Remarks = model.Remarks;
 
             return data;
         }
@@ -186,6 +190,6 @@ namespace Raisins.Client.Web.Models
 
 
 
-        
+
     }
 }

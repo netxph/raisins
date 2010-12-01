@@ -39,6 +39,11 @@
         @Html.ActionLink("[Del]", "Delete", new { id = item.ID })
         @Html.ActionLink("[Edit]", "Edit", new { id = item.ID })
         }
+        else
+        {
+        <br />
+        @Html.ActionLink("[Tickets]", "Show", "Ticket",  new { id = item.ID }, null)
+        }
         </div>
     }
     </div>

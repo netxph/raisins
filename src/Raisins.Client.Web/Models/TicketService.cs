@@ -24,10 +24,17 @@ namespace Raisins.Client.Web.Models
             return models.ToArray();
         }
 
-        public static void Save(TicketModel model)
+        public static TicketModel[] FindByPayment(long id)
         {
-            //Ticket data = ToData(model);
-            //data.Save();
+            var tickets = Payment.Find(id).Tickets.ToArray();
+            List<TicketModel> models = new List<TicketModel>();
+
+            foreach (var ticket in tickets)
+            {
+                models.Add(ToModel(ticket));
+            }
+
+            return models.ToArray();
         }
 
         #endregion
@@ -51,5 +58,7 @@ namespace Raisins.Client.Web.Models
         }
         #endregion
 
+
+        
     }
 }

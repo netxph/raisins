@@ -226,6 +226,15 @@ a {
     display: block
 }
 
+.forms span.field-validation-error {
+    font-size: 9px;
+}
+
+.validation-summary-errors {
+    font-size: 10px;
+    color: Red;
+}
+
 .forms p {
     padding: 5px 5px 5px 5px;
 }

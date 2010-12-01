@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Raisins.Client.Web.Models;
 using Raisins.Client.Web.Helper;
+using System.ComponentModel.DataAnnotations;
+using Raisins.Services;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -40,12 +42,25 @@ namespace Raisins.Client.Web.Controllers
         // POST: /Account/Create
 
         [HttpPost]
-        public ActionResult Create(PaymentModel model)
+        public ActionResult Create(PaymentModel model, FormCollection collection)
         {
             try
             {
-                PaymentService.Save(model);
-                return RedirectToAction("Create");
+                model.Class = (PaymentClass)Enum.Parse(typeof(PaymentClass),collection["Class"]);
+
+                IEnumerable<ValidationResult> validationResult = null;
+
+                if (model.TryValidate(out validationResult))
+                {
+                    PaymentService.Save(model);
+                    return RedirectToAction("Create");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Payment has invalid fields");
+                }
+
+                return View(model);
             }
             catch
             {
@@ -67,13 +82,26 @@ namespace Raisins.Client.Web.Controllers
         // POST: /Account/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(PaymentModel model)
+        public ActionResult Edit(PaymentModel model, FormCollection collection)
         {
 
             try
             {
-                PaymentService.Update(model);
-                return RedirectToAction("Create");
+                model.Class = (PaymentClass)Enum.Parse(typeof(PaymentClass), collection["Class"]);
+
+                IEnumerable<ValidationResult> validationResult = null;
+
+                if (model.TryValidate(out validationResult))
+                {
+                    PaymentService.Update(model);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Payment has invalid fields");
+                }
+
+                return View(model);
             }
             catch
             {

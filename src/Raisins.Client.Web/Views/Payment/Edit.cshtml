@@ -3,7 +3,7 @@
 @{
     View.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+    var ClassOptions = ViewHelper.ClassOptions;
     var Beneficiaries = ViewHelper.Beneficiaries;
 }
 
@@ -18,7 +18,11 @@
      
         <div class="forms">
 
-            @Html.HiddenFor(model => model.Class)
+            <p>
+                @Html.LabelFor(model => model.Class)
+                @Html.DropDownListFor(model => model.Class, new SelectList(ClassOptions, "Name", "Name"))
+                @Html.ValidationMessageFor(model => model.Class)
+            </p>
             <p>
                 @Html.LabelFor(model => model.Beneficiary)
                 @Html.DropDownListFor(model => model.Beneficiary, new SelectList(Beneficiaries, "Name", "Name"))
@@ -43,6 +47,11 @@
                 @Html.LabelFor(model => model.Email)
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
+            </p>
+            <p>
+                @Html.LabelFor(model => model.Remarks)
+                @Html.TextAreaFor(model => model.Remarks) 
+                @Html.ValidationMessageFor(model => model.Remarks)
             </p>
             <p class="submit">
                 <input type="submit" value="Save" /> | or @Html.ActionLink("Show List", "Index")
