@@ -37,6 +37,9 @@ namespace Raisins.Services.SecurityConsole
 
             _comboClass.ItemsSource = Enum.GetValues(typeof(PaymentClass));
             _comboClass.SelectedIndex = 0;
+
+            _comboRole.ItemsSource = Enum.GetValues(typeof(RoleType));
+            _comboRole.SelectedIndex = 0;
         }
 
         
@@ -55,8 +58,13 @@ namespace Raisins.Services.SecurityConsole
             setting.Location = _textLocation.Text;
             setting.Class = (PaymentClass)Enum.Parse(typeof(PaymentClass), _comboClass.SelectedValue.ToString());
 
+            Role role = new Role();
+            role.Account = account;
+            role.RoleType = (RoleType)Enum.Parse(typeof(RoleType), _comboRole.SelectedValue.ToString());
+
             account.Create();
             setting.Create();
+            role.Create();
 
             MessageBox.Show("User added.");
         }
