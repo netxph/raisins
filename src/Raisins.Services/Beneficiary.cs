@@ -31,6 +31,13 @@ namespace Raisins.Services
             return query.Execute();
         }
 
+        public decimal GetLockedAmount()
+        {
+            ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount * payment.Currency.ExchangeRate) from Payment payment where payment.Beneficiary = ? and payment.Locked = true", this);
+
+            return query.Execute();
+        }
+
         public long GetTotalVotes()
         {
             ScalarQuery<long> query = new ScalarQuery<long>(typeof(Ticket), "select count(ticket) from Ticket ticket where ticket.Payment.Beneficiary = ?", this);
@@ -42,5 +49,6 @@ namespace Raisins.Services
         {
             return FindFirst(Expression.Eq("Name", name));
         }
+        
     }
 }

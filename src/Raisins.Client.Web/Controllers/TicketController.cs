@@ -11,6 +11,13 @@ namespace Raisins.Client.Web.Controllers
     {
         public ActionResult Show(long id)
         {
+            ViewData["PaymentID"] = id;
+
+            return View(TicketService.FindByPayment(id));
+        }
+
+        public ActionResult Print(long id)
+        {
             return View(TicketService.FindByPayment(id));
         }
     }

@@ -141,9 +141,17 @@ namespace Raisins.Client.Web.Controllers
             }
         }
 
+        public ActionResult LockLocal()
+        {
+            PaymentService.Lock(PaymentClass.Internal);
+            PaymentService.Lock(PaymentClass.External);
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult LockAll()
         {
-            PaymentService.LockAll();
+            PaymentService.Lock();
 
             return RedirectToAction("Index");
         }

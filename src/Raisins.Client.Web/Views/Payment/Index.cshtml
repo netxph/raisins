@@ -4,20 +4,19 @@
 	View.Title = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
     var RoleType = ViewHelper.RoleType;
-    var RoleLink = @Html.ActionLink("Create new", "Create");
-
-    if (RoleType == Raisins.Services.RoleType.Auditor)
-    {
-        RoleLink = @Html.ActionLink("Lock All", "LockAll");
-    }
-    
-    string itemClass = null;
 }
 
 	<h2>Payment List</h2>
     <hr />
     <br />
-    @RoleLink
+    @if (RoleType == Raisins.Services.RoleType.User)
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+    else
+    {
+        <span>@Html.ActionLink("Lock Local", "LockLocal") | or @Html.ActionLink("Lock All", "LockAll")</span>
+    }
 
 	<div id="payments">
     @foreach (var item in Model)
@@ -39,7 +38,7 @@
         @Html.ActionLink("[Del]", "Delete", new { id = item.ID })
         @Html.ActionLink("[Edit]", "Edit", new { id = item.ID })
         }
-        else
+        else if (item.Locked)
         {
         <br />
         @Html.ActionLink("[Tickets]", "Show", "Ticket",  new { id = item.ID }, null)

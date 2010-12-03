@@ -61,6 +61,11 @@ namespace Raisins.Services
             return Payment.FindAll().Where(payment => payment.Beneficiary.Name == beneficiary).OrderByDescending(payment => payment.ID).ToArray();
         }
 
+        public static Payment[] FindForLocking(string beneficiary, PaymentClass paymentClass)
+        {
+            return Payment.FindAll().Where(payment => payment.Beneficiary.Name == beneficiary && !payment.Locked && payment.Class == paymentClass).OrderByDescending(payment => payment.ID).ToArray();
+        }
+
     }
 
     public enum PaymentClass

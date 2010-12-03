@@ -21,6 +21,7 @@ namespace Raisins.Client.Web.Models
 	{
 
 		public decimal TotalAmount { get; set; }
+        public decimal LockedAmount { get; set; }
 		public long Votes { get; set; }
 
 	}

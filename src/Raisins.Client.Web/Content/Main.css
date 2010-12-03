@@ -137,6 +137,12 @@ a {
 	font-weight: bold;
 }
 
+.left div.beneficiary p.lockedamount {
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
 .field-validation-error
 {
     color: #f00;
@@ -242,4 +248,55 @@ a {
 .forms p.submit
 {
     margin-left: 6.5em;
+}
+
+#tickets div.item {
+    margin-top: 5px;
+}
+
+#tickets div.item span.code {
+    font-weight: bold;
+}
+
+#print {
+    background-color: White;
+    color: Black;
+}
+
+#printticket {
+    width: 750px;
+}
+
+#printticket div.item {
+    border: 1px solid black;
+    margin-top: 5px;
+    margin-left: 20px;
+    width: 333px;
+    height: 200px;
+    float: left;
+    background-image: url('ticket.jpg');
+}
+
+#printticket div.item span.code {
+    float: right;
+    padding-right: 5px;
+}
+
+#printticket div.item p.name {
+    float: left;
+    padding-top: 4em;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    padding-left: 3em;
+    display: block;
+}
+
+#printticket div.item p.vote {
+    float: left;
+    text-align: center;
+    width: 100%;
+    padding-left: 4em;
+    font-size: 11px;
+    display: block;
 }

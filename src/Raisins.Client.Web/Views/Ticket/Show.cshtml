@@ -3,15 +3,19 @@
 @{
     View.Title = "Show";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var PaymentID = (long)ViewData["PaymentID"];
 }
 
 <h2>Show Tickets</h2>
     <hr />
     <br />
-
 <p>
-    @Html.ActionLink("Back to Payment", "Index", "Payment")
+<!--
+    @Html.ActionLink("Email Tickets", "Email") | or
+-->
+    @Html.ActionLink("View Printer Friendly", "Print", new { id = PaymentID })
 </p>
+<br />
 <div id="tickets">
 @foreach (var item in Model) {
     <div class="item">

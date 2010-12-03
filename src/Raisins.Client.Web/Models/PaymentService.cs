@@ -85,18 +85,25 @@ namespace Raisins.Client.Web.Models
             return results.ToArray();
         }
 
-        public static void LockAll()
+        public static void Lock()
+        {
+            Lock(PaymentClass.Internal);
+            Lock(PaymentClass.External);
+            Lock(PaymentClass.Foreign);
+        }
+
+        public static void Lock(PaymentClass paymentClass)
         {
             TransactionScope transaction = new TransactionScope();
 
             try
             {
                 var account = Account.FindUser(HttpContext.Current.User.Identity.Name);
-                var payments = Payment.FindByBeneficiary(account.Settings.First().Beneficiary.Name);
+                var payments = Payment.FindForLocking(account.Settings.First().Beneficiary.Name, paymentClass);
 
                 foreach (var payment in payments)
                 {
-                    if (!payment.Locked)
+                    if (!payment.Locked && payment.Class == paymentClass)
                     {
                         payment.Locked = true;
                         payment.AuditedBy = account;
@@ -191,5 +198,7 @@ namespace Raisins.Client.Web.Models
 
 
 
+
+        
     }
 }

@@ -169,6 +169,8 @@
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\Shared\_TeamTemplate.cshtml" />
     <Content Include="Views\Ticket\Show.cshtml" />
+    <Content Include="Views\Ticket\Print.cshtml" />
+    <Content Include="Views\Shared\_Print.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
