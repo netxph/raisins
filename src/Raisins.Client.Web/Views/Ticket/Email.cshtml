@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Raisins.Client.Web.Models.TicketModel>
+@{
+    Layout = "~/Views/Shared/_Print.cshtml";
+    View.Title = "Email Tickets";
+}
+
+@Html.ActionLink("Email More Tickets", "Index", "Payment")
+
+<div>
+@{
+    string toEmailAddress = ViewData["toEmailAddress"] as string;
+    
+    if (string.IsNullOrEmpty(toEmailAddress) || string.IsNullOrWhiteSpace(toEmailAddress))
+    {
+        
+        <h3>Email could not be sent.</h3>
+        <p>
+            The system has encountered a problem and could not send a copy of the purchased tickets to the email on record. 
+            A possible reason is that there is no valid email address on record. 
+            As an alternative, kindly save a copy of the printer friendly version of your tickets.
+         </p>
+    }
+    else
+    {
+        <p>To: @toEmailAddress</p>
+        <p>From: noreply@foodforhungryminds.com</p>
+        <p>Subject: Purchased Tickets from the Food for Hungry Minds School</p>
+        <p>
+            Dear Donor,
+
+            Thank you for purchasing n tickets as part of the High School fund raising for the Food for Hungry Minds Students. 
+            Below are your tickets serving as raffle entries to win amazing prices.
+        </p>
+        
+        foreach (var item in Model)
+        {
+            <div class="item">
+                <span class="code">@item.TicketCode</span>
+                <p class="name">@item.Name</p>
+                <p class="vote">(1 Ticket)</p>
+            </div>
+        }
+    }
+}
+
+</div>

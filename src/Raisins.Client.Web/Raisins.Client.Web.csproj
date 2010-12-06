@@ -57,6 +57,7 @@
     <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\lib\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages" />
     <Reference Include="System.Web.Helpers" />
@@ -93,6 +94,7 @@
     <Compile Include="Helper\ViewHelper.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AccountService.cs" />
+    <Compile Include="Models\EmailService.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\PaymentService.cs" />
     <Compile Include="Models\BeneficiaryModel.cs" />
@@ -171,6 +173,7 @@
     <Content Include="Views\Ticket\Show.cshtml" />
     <Content Include="Views\Ticket\Print.cshtml" />
     <Content Include="Views\Shared\_Print.cshtml" />
+    <Content Include="Views\Ticket\Email.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

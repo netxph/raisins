@@ -20,5 +20,17 @@ namespace Raisins.Client.Web.Controllers
         {
             return View(TicketService.FindByPayment(id));
         }
+
+        public ActionResult Email(long id)
+        {
+            PaymentModel payment = PaymentService.GetPayment(id);
+            TicketModel[] ticketModelList = TicketService.FindByPayment(id);
+            if (payment != null && !string.IsNullOrEmpty(payment.Email) && !string.IsNullOrWhiteSpace(payment.Email))
+            {
+                ViewData["toEmailAddress"] = payment.Email;
+                EmailService.SendEmail(ticketModelList, payment.Email);
+            }
+            return View(ticketModelList);
+        }
     }
 }

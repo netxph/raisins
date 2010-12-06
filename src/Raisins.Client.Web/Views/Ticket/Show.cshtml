@@ -10,9 +10,9 @@
     <hr />
     <br />
 <p>
-<!--
-    @Html.ActionLink("Email Tickets", "Email") | or
--->
+
+    @Html.ActionLink("Email Tickets", "Email", new { id = PaymentID }) | or
+
     @Html.ActionLink("View Printer Friendly", "Print", new { id = PaymentID })
 </p>
 <br />
