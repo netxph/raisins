@@ -66,6 +66,12 @@ namespace Raisins.Services
             return Payment.FindAll().Where(payment => payment.Beneficiary.Name == beneficiary && !payment.Locked && payment.Class == paymentClass).OrderByDescending(payment => payment.ID).ToArray();
         }
 
+        public bool IsForwarded()
+        {
+            MailLog log = MailLog.FindAll(Expression.Eq("PaymentID", ID)).Where(mailLog => mailLog.IsSuccessful).FirstOrDefault();
+
+            return log != null;
+        }
     }
 
     public enum PaymentClass
