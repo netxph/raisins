@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Raisins.Client.Web.Models;
+using Raisins.Services;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -25,11 +26,33 @@ namespace Raisins.Client.Web.Controllers
         {
             PaymentModel payment = PaymentService.GetPayment(id);
             TicketModel[] ticketModelList = TicketService.FindByPayment(id);
-            if (payment != null && !string.IsNullOrEmpty(payment.Email) && !string.IsNullOrWhiteSpace(payment.Email))
+
+            try
             {
-                ViewData["toEmailAddress"] = payment.Email;
-                EmailService.SendEmail(ticketModelList, payment.Email);
+                if (payment != null && !string.IsNullOrEmpty(payment.Email) && !string.IsNullOrWhiteSpace(payment.Email))
+                {
+                    ViewData["toEmailAddress"] = payment.Email;
+                    EmailService.SendEmail(ticketModelList, payment.Email, payment);
+                    
+                    MailLog mailLog = new MailLog();
+                    mailLog.IsSuccessful = true;
+                    mailLog.LastSent = DateTime.UtcNow;
+                    mailLog.Payment = PaymentService.ToData(payment);
+
+                    mailLog.Save();
+                }
             }
+            catch (Exception ex)
+            {
+                ViewData["toEmailAddress"] = null;
+
+                MailLog mailLog = new MailLog();
+                mailLog.IsSuccessful = false;
+                mailLog.LastSent = DateTime.UtcNow;
+                mailLog.Payment = PaymentService.ToData(payment);
+                mailLog.Save();
+            }
+
             return View(ticketModelList);
         }
     }

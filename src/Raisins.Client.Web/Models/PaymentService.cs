@@ -176,7 +176,7 @@ namespace Raisins.Client.Web.Models
             return model;
         }
 
-        protected static Payment ToData(PaymentModel model)
+        public static Payment ToData(PaymentModel model)
         {
             Payment data = new Payment();
             data.Amount = model.Amount;

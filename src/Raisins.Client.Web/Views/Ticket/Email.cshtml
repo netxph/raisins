@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<Raisins.Client.Web.Models.TicketModel>
 @{
-    Layout = "~/Views/Shared/_Print.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     View.Title = "Email Tickets";
 }
-
-@Html.ActionLink("Email More Tickets", "Index", "Payment")
 
 <div>
 @{
@@ -22,7 +20,7 @@
     }
     else
     {
-        <p>To: @toEmailAddress</p>
+        @*<p>To: @toEmailAddress</p>
         <p>From: noreply@foodforhungryminds.com</p>
         <p>Subject: Purchased Tickets from the Food for Hungry Minds School</p>
         <p>
@@ -30,17 +28,20 @@
 
             Thank you for purchasing n tickets as part of the High School fund raising for the Food for Hungry Minds Students. 
             Below are your tickets serving as raffle entries to win amazing prices.
-        </p>
-        
-        foreach (var item in Model)
+        </p>*@
+    <p>The following ticket numbers have been sent to @toEmailAddress:</p>
+    <br />
+    <ul>
+        @foreach (var item in Model)
         {
-            <div class="item">
-                <span class="code">@item.TicketCode</span>
-                <p class="name">@item.Name</p>
-                <p class="vote">(1 Ticket)</p>
-            </div>
+            <li>
+                <span class="code">@item.TicketCode - @item.Name</span>
+            </li>
         }
+    </ul>
     }
 }
 
+<br />
+<p>@Html.ActionLink("Email More Tickets", "Index", "Payment")</p>
 </div>

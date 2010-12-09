@@ -24,7 +24,7 @@ namespace Raisins.Client.Web.Models
 
         public static string EmailSubject { get { return ConfigurationManager.AppSettings["app.emailSubject"]; } }
 
-        public static void SendEmail(TicketModel[] tickets, string toAddress)
+        public static void SendEmail(TicketModel[] tickets, string toAddress, PaymentModel payment)
         {
 
             try
@@ -33,68 +33,103 @@ namespace Raisins.Client.Web.Models
                 {
                     email.Subject = EmailSubject;
                     email.IsBodyHtml = true;
-                    email.Body = FormatEmailBody(tickets);
+                    email.Body = FormatEmailBody(tickets, payment.Name);
                     email.To.Add(toAddress);
                     email.From = new MailAddress(FromAddress);
+                    
+                    string[] fileNames = CreateTicketImages(tickets);
+                    foreach (string fileName in fileNames)
+                    {
+                        email.Attachments.Add(new Attachment(fileName));
+                    }
 
                     using (SmtpClient client = new SmtpClient(SMTPHost))
                     {
                         client.Send(email);
                     }
                 }
-
             }
             catch (Exception ex)
             {
-
+                throw ex;   
             }
         }
 
-        public static string FormatEmailBody(TicketModel[] tickets)
+        public static string FormatEmailBody(TicketModel[] tickets, string paymentName)
         {
-
+            //string[] fileNames = CreateTicketImages(tickets);
             StringBuilder sb = new StringBuilder();
 
             sb.Append("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>");
             sb.Append("<html><head><title>Tickets Purchased from the Food for Hungry Minds School</title></head>");
             sb.Append("<body>");
+            sb.Append("<p>");
+            sb.Append("Dear " + paymentName + ",");
+            sb.Append("</p>");
+
+            sb.Append("<p>");
+            sb.Append("Thank you for supporting the Food for Hungry Minds School. Your donation will be used for the high school scholarship funds of the HMS students.");
+            sb.Append("</p>");
+
+            sb.Append("<p>");
+            sb.Append("Attached are the tickets. Kindly take note of the number on each ticket's upper-right hand corner. These numbers are still being validated against our records, but do remember that these numbers will uniquely identify you for the raffling of prizes on Dec 15 2010 (internal voters) and Dec 23 2010 (external voters).");
+            sb.Append("</p>");
+
+            sb.Append("<p>");
+            sb.Append("Again, our sincerest thanks for your kind donation.");
+            sb.Append("</p>");
+
+            sb.Append("<p>");
+            sb.Append("Regards,");
+            sb.Append("</p>");
+
+            sb.Append("<p>");
+            sb.Append("The Food for Hungry Minds Committee, Manila");
+            sb.Append("</p>");
+
+            sb.Append("<p>");
+            sb.Append("This is an auto-generated email. For inquiries, Please visit our web site at <a href='www.foodforhungryminds.org/'> http://www.foodforhungryminds.org/</a>.");
+            sb.Append("</p>");
+
+            //sb.Append("<table>");
+
+            //int ticketCount = tickets.Length;
             
-            sb.Append("<table>");
+            //if (ticketCount > 0)
+            //{
 
-            int ticketCount = tickets.Length;
-            
-            if (ticketCount > 0)
-            {
+            //    for (int i = 0; i < ticketCount; i++)
+            //    {
+            //        TicketModel ticket = tickets[i];
 
-                for (int i = 0; i < ticketCount; i++)
-                {
-                    TicketModel ticket = tickets[i];
+            //        if ((i + 1) % NUMBER_OF_COLUMNS == 1)
+            //        {
+            //            sb.Append("<tr>");
+            //        }
 
-                    if ((i + 1) % NUMBER_OF_COLUMNS == 1)
-                    {
-                        sb.Append("<tr>");
-                    }
+            //        string tdColspan = TD_COLSPAN[0];
+            //        if (i + 1 > NUMBER_OF_COLUMNS && i + 1 == ticketCount)
+            //        {
+            //            tdColspan = TD_COLSPAN[(i + 1) % NUMBER_OF_COLUMNS];
+            //        }
 
-                    string tdColspan = TD_COLSPAN[0];
-                    if (i + 1 > NUMBER_OF_COLUMNS && i + 1 == ticketCount)
-                    {
-                        tdColspan = TD_COLSPAN[(i + 1) % NUMBER_OF_COLUMNS];
-                    }
+            //        sb.Append(tdColspan);
 
-                    sb.Append(tdColspan);
+            //        //string imageFileName = CreateTicketImage(ticket.TicketCode, ticket.Name);
                     
-                    sb.Append("<img src='" + CreateTicketImage(ticket.TicketCode, ticket.Name) + "' />");
+            //        //sb.Append("<img src='" + imageFileName + "' alt='" + imageFileName + "' />");
+            //        sb.Append("<img src='" + fileNames[i] + "' alt='" + fileNames[i] + "' />");
 
-                    sb.Append("</td>");
+            //        sb.Append("</td>");
 
-                    if ((i + 1) % NUMBER_OF_COLUMNS == 0 || i + 1 == ticketCount)
-                    {
-                        sb.Append("</tr>");
-                    }
-                }
+            //        if ((i + 1) % NUMBER_OF_COLUMNS == 0 || i + 1 == ticketCount)
+            //        {
+            //            sb.Append("</tr>");
+            //        }
+            //    }
 
-            }
-            sb.Append("</table>");
+            //}
+            //sb.Append("</table>");
 
             sb.Append("</body>");
             sb.Append("</html>");
@@ -102,9 +137,22 @@ namespace Raisins.Client.Web.Models
             return sb.ToString();
         }
 
+        public static string[] CreateTicketImages(TicketModel[] tickets)
+        {
+            
+            List<string> fileNames = new List<string>();
+            
+            foreach (TicketModel ticket in tickets)
+            {
+                fileNames.Add(CreateTicketImage(ticket.TicketCode, ticket.Name));
+            }
+            
+            return fileNames.ToArray();
+        }
+
         public static string CreateTicketImage(string ticketCode, string ticketName)
         {
-            string fileName = "D:\\"+ ticketCode + ".png";
+            string fileName = "D:\\"+ ticketCode + ".jpg";
 
             Bitmap myBitmap = new Bitmap("D:\\ticket1.jpg");
             Graphics g = Graphics.FromImage(myBitmap);
@@ -130,4 +178,5 @@ namespace Raisins.Client.Web.Models
 
         }
     }
+
 }
