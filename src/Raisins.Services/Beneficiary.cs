@@ -49,6 +49,22 @@ namespace Raisins.Services
         {
             return FindFirst(Expression.Eq("Name", name));
         }
-        
+
+
+        public Dictionary<string, decimal> GetCurrencyAmount()
+        {
+            Dictionary<string, decimal> currencyAmount = new Dictionary<string, decimal>();
+
+            Currency[] currencies = Currency.FindAll();
+
+            foreach (var currency in currencies)
+            {
+                ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount * payment.Currency.ExchangeRate) from Payment payment where payment.Beneficiary = ? and payment.Locked = true and payment.Currency = ?", this, currency);
+
+                currencyAmount.Add(currency.CurrencyCode, query.Execute());
+            }
+
+            return currencyAmount;
+        }
     }
 }

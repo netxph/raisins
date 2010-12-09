@@ -47,6 +47,7 @@ namespace Raisins.Client.Web.Models
             detail.TotalAmount = beneficiary.GetTotalAmount();
             detail.Votes = beneficiary.GetTotalVotes();
             detail.LockedAmount = beneficiary.GetLockedAmount();
+            detail.CurrencyAmount = beneficiary.GetCurrencyAmount();
 
             return detail;
         }

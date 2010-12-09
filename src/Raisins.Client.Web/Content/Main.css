@@ -143,6 +143,12 @@ a {
 	font-weight: bold;
 }
 
+.left div.beneficiary p.currencyamount {
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
 .field-validation-error
 {
     color: #f00;
