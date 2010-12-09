@@ -23,11 +23,11 @@ namespace Raisins.Client.Web.Models
                     email.IsBodyHtml = true;
                     email.Body = FormatEmailBody(tickets);
                     email.To.Add(toAddress);
-                    email.From = new MailAddress("noreply@localhost.com");
+                    email.From = new MailAddress("noreply@navitaire.com");
 
-                    using (SmtpClient client = new SmtpClient("127.0.0.1", 25))
+                    using (SmtpClient client = new SmtpClient("192.168.23.73"))
                     {
-                        client.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
+                        //client.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
                         client.Send(email);
                     }
                 }
