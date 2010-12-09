@@ -274,7 +274,7 @@ a {
     width: 333px;
     height: 200px;
     float: left;
-    background-image: url('ticket.jpg');
+    background-image: url('http://mnlportal/HMS/Raisins2010/Content/ticket.jpg');
 }
 
 #printticket div.item span.code {
