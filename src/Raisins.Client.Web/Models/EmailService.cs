@@ -72,7 +72,7 @@ namespace Raisins.Client.Web.Models
             sb.Append("</p>");
 
             sb.Append("<p>");
-            sb.Append("Attached are the tickets. Kindly take note of the number on each ticket's upper-right hand corner. These numbers are still being validated against our records, but do remember that these numbers will uniquely identify you for the raffling of prizes on Dec 15 2010 (internal voters) and Dec 23 2010 (external voters).");
+            sb.Append("Attached are the tickets. Kindly take note of the number on each ticket's upper-right hand corner.  This number is the unique identifier for the ticket you purchased which will be included during the raffling of the prizes on Dec 15 2010 (internal voters) and Dec 23 2010 (external voters).");
             sb.Append("</p>");
 
             sb.Append("<p>");
@@ -152,9 +152,9 @@ namespace Raisins.Client.Web.Models
 
         public static string CreateTicketImage(string ticketCode, string ticketName)
         {
-            string fileName = "D:\\"+ ticketCode + ".jpg";
+            string fileName = "C:\\Tickets\\"+ ticketCode + ".jpg";
 
-            Bitmap myBitmap = new Bitmap("D:\\ticket1.jpg");
+            Bitmap myBitmap = new Bitmap("C:\\ticket1.jpg");
             Graphics g = Graphics.FromImage(myBitmap);
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
