@@ -2,13 +2,16 @@
 
 @{
 	View.Title = "Index";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Payment.cshtml";
     var RoleType = ViewHelper.RoleType;
+    decimal CashOnHand = (decimal)ViewData["CashOnHand"];
 }
 
 	<h2>Payment List</h2>
     <hr />
     <br />
+    <span class="cashonhand">Cash on hand: @CashOnHand.ToString("0.00") PHP</span>
+
     @if (RoleType == Raisins.Services.RoleType.User)
     {
         @Html.ActionLink("Create New", "Create")
@@ -16,6 +19,7 @@
     else
     {
         <span>@Html.ActionLink("Lock Local", "LockLocal") | or @Html.ActionLink("Lock All", "LockAll")</span>
+        <span class="right">Filter By: @Html.ActionLink("All", "Index") | @Html.ActionLink("Not Locked", "Index", new { Locked = false }) | @Html.ActionLink("Locked", "Index", new { Locked = true })</span>
     }
 
 	<div id="payments">
@@ -41,7 +45,7 @@
         else if (item.Locked)
         {
         <br />
-        @Html.ActionLink("[Tickets]", "Show", "Ticket",  new { id = item.ID }, null)
+        @Html.ActionLink("[Tickets]", "Show", "Ticket", new { id = item.ID }, null)
         }
         </div>
     }

@@ -155,6 +155,23 @@ namespace Raisins.Client.Web.Models
             return model;
         }
 
+        public static decimal GetCashOnHand()
+        {
+            var account = Account.FindUser(HttpContext.Current.User.Identity.Name);
+            decimal cash = 0M;
+
+            if (account.Role.RoleType == RoleType.User)
+            {
+                cash = Payment.GetCashOnHand(HttpContext.Current.User.Identity.Name);
+            }
+            else
+            {
+                cash = Payment.GetCashOnHand(account.Settings.First().Beneficiary.ID);
+            }
+
+            return cash;
+        }
+
         #endregion
 
         #region Helper methods
@@ -191,6 +208,8 @@ namespace Raisins.Client.Web.Models
         }
 
         #endregion
+
+
 
 
 

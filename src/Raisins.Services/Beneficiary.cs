@@ -59,9 +59,14 @@ namespace Raisins.Services
 
             foreach (var currency in currencies)
             {
-                ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount * payment.Currency.ExchangeRate) from Payment payment where payment.Beneficiary = ? and payment.Locked = true and payment.Currency = ?", this, currency);
+                ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount) from Payment payment where payment.Beneficiary = ? and payment.Currency = ?", this, currency);
 
-                currencyAmount.Add(currency.CurrencyCode, query.Execute());
+                decimal amount = query.Execute();
+
+                if (amount != 0M)
+                {
+                    currencyAmount.Add(currency.CurrencyCode, amount);
+                }
             }
 
             return currencyAmount;

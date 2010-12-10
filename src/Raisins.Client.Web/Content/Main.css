@@ -58,6 +58,10 @@ a {
     overflow: auto;
 }
 
+#container div.full {
+    width: 100%;
+}
+
 #container div.left {
     width: 55%;
     float: left;
@@ -144,9 +148,8 @@ a {
 }
 
 .left div.beneficiary p.currencyamount {
-	font-size: 20px;
+	font-size: 16px;
 	text-align: center;
-	font-weight: bold;
 }
 
 .field-validation-error
@@ -163,7 +166,7 @@ a {
     border: 1px solid #563B1D;
     margin-bottom: 5px;
     margin-top: 5px;
-    width: 90%;
+    width: 100%;
     padding: 5px 5px 5px 5px;
     font-size: 12px;
     font-family: Monospace;
@@ -173,7 +176,7 @@ a {
     border: 1px solid #FF3A3A;
     margin-bottom: 5px;
     margin-top: 5px;
-    width: 90%;
+    width: 100%;
     padding: 5px 5px 5px 5px;
     font-size: 12px;
     font-family: Monospace;
@@ -305,4 +308,14 @@ a {
     padding-left: 4em;
     font-size: 11px;
     display: block;
+}
+
+.full span.right {
+    float: right;
+}
+
+.full span.cashonhand {
+    font-weight: bold;
+    display: block;
+    padding-bottom: 15px;
 }

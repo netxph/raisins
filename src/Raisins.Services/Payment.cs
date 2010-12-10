@@ -72,6 +72,20 @@ namespace Raisins.Services
 
             return log != null;
         }
+
+        public static decimal GetCashOnHand(string userName)
+        {
+            ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount * payment.Currency.ExchangeRate) from Payment payment where payment.CreatedBy.UserName = ? and payment.Locked = false", userName);
+
+            return query.Execute();
+        }
+
+        public static decimal GetCashOnHand(long beneficiaryID)
+        {
+            ScalarQuery<decimal> query = new ScalarQuery<decimal>(typeof(Payment), "select sum(payment.Amount * payment.Currency.ExchangeRate) from Payment payment where payment.Beneficiary.ID = ? and payment.Locked = false", beneficiaryID);
+
+            return query.Execute();
+        }
     }
 
     public enum PaymentClass

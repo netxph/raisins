@@ -17,7 +17,20 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            return View(PaymentService.FindAll());
+            PaymentModel[] models = PaymentService.FindAll().OrderBy(payment => payment.Currency).ToArray();
+
+            ViewData["CashOnHand"] = PaymentService.GetCashOnHand();
+
+            if (Request.QueryString["Locked"] == "True")
+            {
+                models = models.Where(payment => payment.Locked).ToArray();
+            }
+            else if (Request.QueryString["Locked"] == "False")
+            {
+                models = models.Where(payment => !payment.Locked).ToArray();
+            }
+
+            return View(models);
         }
 
         //
