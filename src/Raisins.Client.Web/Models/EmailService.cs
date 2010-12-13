@@ -220,7 +220,7 @@ namespace Raisins.Client.Web.Models
             if (paymentClass == PaymentClass.Internal)
             {
                 sb.Append("<p>");
-                sb.Append("You can also view the tickets <a href='http://localhost:3000/Ticket/Print/" + paymentID +"'>online</a>.");
+                sb.Append("You can also view all your tickets in a single page <a href='http://localhost:3000/Ticket/Print/" + paymentID +"'>online</a>.");
                 sb.Append("</p>");
             }
 
