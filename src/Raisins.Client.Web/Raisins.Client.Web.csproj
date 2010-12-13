@@ -48,6 +48,9 @@
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\..\lib\log4net.dll</HintPath>
     </Reference>
@@ -56,6 +59,9 @@
     </Reference>
     <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\lib\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>..\..\lib\PdfSharp.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -99,6 +105,7 @@
     <Compile Include="Models\PaymentService.cs" />
     <Compile Include="Models\BeneficiaryModel.cs" />
     <Compile Include="Models\BeneficiaryService.cs" />
+    <Compile Include="Models\PDFDocument.cs" />
     <Compile Include="Models\SettingModel.cs" />
     <Compile Include="Models\SettingService.cs" />
     <Compile Include="Models\TicketModel.cs" />
