@@ -15,6 +15,7 @@ using PdfSharp.Drawing;
 using System.Diagnostics;
 using System.IO;
 using System.Drawing.Imaging;
+using Raisins.Services;
 
 namespace Raisins.Client.Web.Models
 {
@@ -29,12 +30,12 @@ namespace Raisins.Client.Web.Models
         public const int X_PIXELS_SPACING = 0;
         
         public const int Y_PIXELS_SPACING = 0;
-
-        public const string TICKET_RANGE_STRING = "Your ticket number(s) are from {0} - {1}.";
         
         public static string[] TD_COLSPAN = new string[3] { "<td>", "<td colspan='3'>", "<td colspan='2'>" };
 
         public static string SMTPHost { get { return ConfigurationManager.AppSettings["app.smtpHost"]; } }
+
+        public static int SMTPPort { get { return Convert.ToInt16(ConfigurationManager.AppSettings["app.smtpPort"]); } }
 
         public static string FromAddress { get { return ConfigurationManager.AppSettings["app.fromAddress"]; } }
 
@@ -42,6 +43,15 @@ namespace Raisins.Client.Web.Models
 
         public static string BaseTicketImage { get { return ConfigurationManager.AppSettings["app.baseTicketImage"]; } }
 
+        public static string PDFInfo { get { return ConfigurationManager.AppSettings["app.pdfInfo"]; } }
+
+        public static string PDFFileName { get { return ConfigurationManager.AppSettings["app.pdfFileName"]; } }
+
+        public static int TicketHeight { get { return Convert.ToInt16(ConfigurationManager.AppSettings["app.ticketHeight"]); } }
+
+        public static int TicketWidth { get { return Convert.ToInt16(ConfigurationManager.AppSettings["app.ticketWidth"]); } }
+
+        public static int BatchSize { get { return Convert.ToInt16(ConfigurationManager.AppSettings["app.emailBatchSize"]); } }
 
         /// <summary>
         /// Break a <see cref="List{T}"/> into multiple chunks. The <paramref name="list="/> is cleared out and the items are moved
@@ -75,29 +85,32 @@ namespace Raisins.Client.Web.Models
 
             try
             {
-                tickets.ToList<TicketModel>().Clear();
-                using (MailMessage email = new MailMessage())
+                List<List<TicketModel>> emailBatches = BreakIntoChunks<TicketModel>(tickets.ToList<TicketModel>(), BatchSize);
+                foreach (List<TicketModel> emailBatch in emailBatches)
                 {
-                    email.Subject = EmailSubject;
-                    email.IsBodyHtml = true;
-                    email.Body = FormatEmailBody(tickets, payment.Name);
-                    email.To.Add(toAddress);
-                    email.From = new MailAddress(FromAddress);
-
-                    //Old code supporting ticket images as attachments
-
-                    //string[] fileNames = CreateTicketImages(tickets);
-                    //foreach (string fileName in fileNames)
-                    //{
-                    //    email.Attachments.Add(new Attachment(fileName));
-                    //}
-
-
-                    email.Attachments.Add(new Attachment(CreatePDFFile(tickets)));
-
-                    using (SmtpClient client = new SmtpClient(SMTPHost, 2525))
+                    using (MailMessage email = new MailMessage())
                     {
-                        client.Send(email);
+                        email.Subject = EmailSubject;
+                        email.IsBodyHtml = true;
+                        email.Body = FormatEmailBody(emailBatch.ToArray<TicketModel>(), payment.Name, payment.Class, payment.ID);
+                        email.To.Add(toAddress);
+                        email.From = new MailAddress(FromAddress);
+
+                        //Old code supporting ticket images as attachments
+
+                        //string[] fileNames = CreateTicketImages(tickets);
+                        //foreach (string fileName in fileNames)
+                        //{
+                        //    email.Attachments.Add(new Attachment(fileName));
+                        //}
+
+
+                        email.Attachments.Add(new Attachment(CreatePDFFile(emailBatch.ToArray<TicketModel>())));
+
+                        using (SmtpClient client = new SmtpClient(SMTPHost, SMTPPort))
+                        {
+                            client.Send(email);
+                        }
                     }
                 }
             }
@@ -109,16 +122,11 @@ namespace Raisins.Client.Web.Models
 
         public static string CreatePDFFile(TicketModel[] tickets)
         {
-            string filename = String.Format("D:\\Tickets\\Food for Hungry Minds Ticket Purchase_{0}.pdf", Guid.NewGuid().ToString("D").ToUpper());
+            string filename = String.Format(PDFFileName, Guid.NewGuid().ToString("D").ToUpper());
             PdfDocument pdf = new PdfDocument();
-            pdf.Info.Title = "Tickets from the Food for Hungry Minds High School Education";
+            pdf.Info.Title = PDFInfo;
             XGraphics gfx = XGraphics.FromPdfPage(pdf.AddPage());
             
-            //XRect rect = new XRect(new XPoint(), gfx.PageSize);
-            //rect.Inflate(-10, -15);
-            //XFont font = new XFont("Georgia", 14, XFontStyle.Bold);
-            //gfx.DrawString(String.Format(TICKET_RANGE_STRING, tickets[0].TicketCode, tickets[tickets.Length - 1].TicketCode), font, XBrushes.MidnightBlue, rect, XStringFormats.TopCenter);
-
             double x = 0;//135;
             double y = 0;//95;
             double yIncrement = 0;
@@ -130,10 +138,6 @@ namespace Raisins.Client.Web.Models
             stringFormatCenter.LineAlignment = StringAlignment.Center;
 
             TicketModel ticket;
-
-            //iTextSharp.text.Document document = new iTextSharp.text.Document();
-            //iTextSharp.text.pdf.PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create));
-            //document.Open();
 
             for (int i = 0; i < tickets.Length; i++)
             {
@@ -152,56 +156,41 @@ namespace Raisins.Client.Web.Models
 
                 using (Image ticketBitmap = new Bitmap(BaseTicketImage))
                 {
-
                     using (Graphics g = Graphics.FromImage(ticketBitmap))
-                        {
-                            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                            g.DrawString(ticket.TicketCode, new Font("Georgia", 10), Brushes.Black, new Rectangle(0, 0, 325, 35), stringFormatFar);
-                            g.DrawString(ticket.Name + "\n(1 Ticket)", new Font("Georgia", 10), Brushes.Black, new RectangleF(0, 0, 400, 200), stringFormatCenter);
-                            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                        }
-
-                        // Old ticket code for handling two-column tickets. TICKETS_PER_COLUMN is 2.
-
-                        if (i % TICKETS_PER_COLUMN == 0)
-                        {
-                            x = X_PIXELS_SPACING;
-                            y = Y_PIXELS_SPACING + (yIncrement);
-                            yIncrement += 110;//ticketBitmap.PhysicalDimension.Height;
-                        }
-                        else
-                        {
-                            x += 180; //X_PIXELS_SPACING + ticketBitmap.PhysicalDimension.Width;
-                        }
-
-                        //MemoryStream imageStream = new MemoryStream();
-                        //ticketBitmap.Save(imageStream, ImageFormat.Jpeg);
-
-                        //byte[] imageContent = new Byte[imageStream.Length];
-                        //imageStream.Position = 0;
-                        //imageStream.Read(imageContent, 0, (int)imageStream.Length);
-
-                        //iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(imageContent);
-                    
-
-                        //x = 135;
-                        gfx.DrawImage(ticketBitmap, x, y, 180, 110);
-                        //y += ticketBitmap.PhysicalDimension.Height;
-                        //document.Add(image);
-                        
+                    {
+                        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                        g.DrawString(ticket.TicketCode, new Font("Georgia", 10), Brushes.Black, new Rectangle(0, 0, 325, 35), stringFormatFar);
+                        g.DrawString(ticket.Name + "\n(1 Ticket)", new Font("Georgia", 10), Brushes.Black, new RectangleF(0, 0, 400, 200), stringFormatCenter);
+                        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
                     }
-                
+
+                    // Old ticket code for handling two-column tickets. TICKETS_PER_COLUMN is 2.
+
+                    if (i % TICKETS_PER_COLUMN == 0)
+                    {
+                        x = X_PIXELS_SPACING;
+                        y = Y_PIXELS_SPACING + (yIncrement);
+                        yIncrement += TicketHeight;//ticketBitmap.PhysicalDimension.Height;
+                    }
+                    else
+                    {
+                        x += TicketWidth; //X_PIXELS_SPACING + ticketBitmap.PhysicalDimension.Width;
+                    }
+
+                    //x = 135;
+                    gfx.DrawImage(ticketBitmap, x, y, TicketWidth, TicketHeight);
+                    //y += ticketBitmap.PhysicalDimension.Height; 
+                }
             }
-            //document.Close();
 
             pdf.Save(filename);
             //Uncomment next line if needed to see PDF file already
-            Process.Start(filename);
+            //Process.Start(filename);
 
             return filename;
         }
 
-        public static string FormatEmailBody(TicketModel[] tickets, string paymentName)
+        public static string FormatEmailBody(TicketModel[] tickets, string paymentName, PaymentClass paymentClass, long paymentID )
         {
             //string[] fileNames = CreateTicketImages(tickets);
             StringBuilder sb = new StringBuilder();
@@ -218,8 +207,22 @@ namespace Raisins.Client.Web.Models
             sb.Append("</p>");
 
             sb.Append("<p>");
-            sb.Append("Attached are the tickets. Kindly take note of the number on each ticket's upper-right hand corner.  This number is the unique identifier for the ticket you purchased which will be included during the raffling of the prizes on Dec 15 2010 (internal voters) and Dec 23 2010 (external voters).");
+            sb.Append("Attached is the PDF file containing the tickets with the following ticket numbers:");
+            sb.Append("<ul>");
+            foreach (TicketModel ticket in tickets)
+            {
+                sb.Append(String.Format("<li>{0}</li>", ticket.TicketCode));
+            }
+            sb.Append("</ul>");
+            sb.Append("Kindly take note of the number on each ticket's upper-right hand corner.  This number is the unique identifier for the ticket you purchased which will be included during the raffling of the prizes on Dec 15 2010 (internal voters) and Dec 23 2010 (external voters).");
             sb.Append("</p>");
+
+            if (paymentClass == PaymentClass.Internal)
+            {
+                sb.Append("<p>");
+                sb.Append("You can also view the tickets <a href='http://localhost:3000/Ticket/Print/" + paymentID +"'>online</a>.");
+                sb.Append("</p>");
+            }
 
             sb.Append("<p>");
             sb.Append("Again, our sincerest thanks for your kind donation.");
