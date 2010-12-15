@@ -214,7 +214,7 @@ namespace Raisins.Client.Web.Models
                 sb.Append(String.Format("<li>{0}</li>", ticket.TicketCode));
             }
             sb.Append("</ul>");
-            sb.Append("Kindly take note of the number on each ticket's upper-right hand corner.  This number is the unique identifier for the ticket you purchased which will be included during the raffling of the prizes on Dec 15 2010 (internal voters) and Dec 23 2010 (external voters).");
+            sb.Append("Kindly take note of the number on each ticket's upper-right hand corner.  This number is the unique identifier for the ticket you purchased which will be included during the raffling of the prizes on Dec 15 2010 (Navitaire voters) and Dec 23 2010 (non-Navitaire voters).");
             sb.Append("</p>");
 
             if (paymentClass == PaymentClass.Internal)
