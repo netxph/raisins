@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Web;
 using Raisins.Services;
-using Castle.ActiveRecord;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Castle.ActiveRecord;
 
 namespace Raisins.Client.Web.Models
 {

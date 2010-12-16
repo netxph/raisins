@@ -7273,6 +7273,16 @@
             Votes to commit the transaction
             </summary>
         </member>
+        <member name="M:Castle.ActiveRecord.TransactionScope.OpenSession(NHibernate.ISessionFactory,NHibernate.IInterceptor)">
+            <summary>
+            If the <see cref="P:Castle.ActiveRecord.Framework.Scopes.AbstractScope.WantsToCreateTheSession"/> returned
+            <c>true</c> then this method is invoked to allow
+            the scope to create a properly configured session
+            </summary>
+            <param name="sessionFactory">From where to open the session</param>
+            <param name="interceptor">the NHibernate interceptor</param>
+            <returns>the newly created session</returns>
+        </member>
         <member name="M:Castle.ActiveRecord.TransactionScope.IsKeyKnown(System.Object)">
             <summary>
             This method is invoked when the

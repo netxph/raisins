@@ -1,5 +1,6 @@
 *.suo
 *.swp
+**/**/Bin/
 **/**/bin/
 **/**/obj/
 **/**/Content/*.flv

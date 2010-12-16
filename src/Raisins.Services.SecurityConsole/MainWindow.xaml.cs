@@ -24,7 +24,7 @@ namespace Raisins.Services.SecurityConsole
         public MainWindow()
         {
             InitializeComponent();
-
+            
             XmlConfigurationSource source = new XmlConfigurationSource("config.xml");
 
             ActiveRecordStarter.Initialize(source, typeof(Beneficiary), typeof(Payment), typeof(Currency), typeof(Ticket), typeof(Account), typeof(Role), typeof(Setting));
