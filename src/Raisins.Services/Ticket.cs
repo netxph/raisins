@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Castle.ActiveRecord;
+using NHibernate.Criterion;
 
 namespace Raisins.Services
 {
@@ -21,6 +22,9 @@ namespace Raisins.Services
         [BelongsTo("PaymentID")]
         public Payment Payment { get; set; }
 
+        [OneToOne]
+        public WinnerLog WinnerLog { get; set; }
+
         public override void Save()
         {
             base.Save();
@@ -34,5 +38,12 @@ namespace Raisins.Services
 
             base.Save();
         }
+
+        public static Ticket[] FindAllByPaymentClass(PaymentClass paymentClass)
+        {
+            return FindAll().Where(ticket => ticket.Payment.Class == paymentClass).ToArray();
+        }
+
+        
     }
 }

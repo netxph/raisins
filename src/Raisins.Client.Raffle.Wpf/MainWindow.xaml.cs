@@ -23,5 +23,10 @@ namespace Raisins.Client.Raffle.Wpf
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

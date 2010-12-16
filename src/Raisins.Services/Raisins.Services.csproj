@@ -70,6 +70,7 @@
     <Compile Include="Setting.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WinnerLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.xml">

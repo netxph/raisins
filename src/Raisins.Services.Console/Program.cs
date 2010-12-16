@@ -13,15 +13,15 @@ namespace Raisins.Services.Console
         {
             XmlConfigurationSource source = new XmlConfigurationSource("config.xml");
 
-            ActiveRecordStarter.Initialize(source, typeof(Beneficiary), typeof(Payment), typeof(Currency), typeof(Ticket), typeof(Account), typeof(Role), typeof(Setting), typeof(MailLog));
-
+            //ActiveRecordStarter.Initialize(source, typeof(Beneficiary), typeof(Payment), typeof(Currency), typeof(Ticket), typeof(Account), typeof(Role), typeof(Setting), typeof(MailLog), typeof(WinnerLog));
+            ActiveRecordStarter.Initialize(source, typeof(WinnerLog));
             try
             {
                 ActiveRecordStarter.CreateSchema();
                 System.Console.WriteLine("Database schema created.");
 
-                DBHelper.Seed();
-                System.Console.WriteLine("Database seeded.");
+                //DBHelper.Seed();
+                //System.Console.WriteLine("Database seeded.");
             }
             catch (Exception ex)
             {
