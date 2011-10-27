@@ -1,12 +1,26 @@
 ﻿body {
-	background-color: #D3C599;
-	font-family: Georgia, "New Century Schoolbook", "Nimbus Roman No9 L", serif;
-	color: #563B1D;
+	/*background-color: #D3C599;*/
+	font-family: Calibri, Century Gothic, Verdana, sanserif;
+	color: #000000;
+	background-image: url('bg_stars.jpg');
+	background-repeat: repeat;
+	color: #FFFFFF;
 }
 
 a {
-    text-decoration: None;
-    color: #563B1D;
+    /*text-decoration: None;*/
+    text-shadow: 1px 2px 5px silver;
+    color: inherit;
+    text-decoration: none;
+    /*color: #563B1D;*/
+}
+
+a : visited{
+    /*text-decoration: None;*/
+    text-shadow: 1px 2px 5px silver;
+    color: inherit;
+    text-decoration: none;
+    /*color: #563B1D;*/
 }
 
 #clear {
@@ -14,10 +28,24 @@ a {
 }
 
 #main {
-    border: 1px solid #B49C51;
-    background-color: White;
+    /*border: 1px solid #B49C51;*/
+    border: 1px solid white;
+    border-width: 1px 1px 0px 0px;
+    /*background-color: White;*/
+    background-color: Silver;
+    color: Black;
     margin: 5px auto 0px auto;
     width: 800px;
+    
+    /*border radius across different browsers except IE 7 and lower*/
+    -webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 #menu {
@@ -33,6 +61,7 @@ a {
     padding-top: 50px;
     float: right;
 }
+
 
 #header {
     padding: 30px 30px 30px 30px;
@@ -54,8 +83,13 @@ a {
 }
 
 #container {
-    padding: 0px 30px 30px 30px;
+    /*padding: 0px 30px 30px 30px;
+    overflow: auto;*/
+    height: 100%;
+    width: 100%;
+    padding: 0px;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 #container div.full {
@@ -64,8 +98,9 @@ a {
 
 #container div.left {
     width: 55%;
-    float: left;
-    margin-right: 30px;
+    /*float: left;*/
+    float: right;
+    /*margin-right: 30px;*/
 }
 
 #container div.left h2 {
@@ -75,8 +110,22 @@ a {
 #container div.right {
     width: 40%;
     float: left;
-    background-color: #D3C599;
-    border: 1px solid #563B1D;
+    /*background-color: #D3C599;
+    border: 1px solid #563B1D;*/
+    background-color: transparent;
+    color: Black;
+}
+
+#container div.right ul li
+{
+	display: inline;
+    list-style-type: none;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    padding-top: 50px;
+    float: right;
+  /*  transparent: 0.5; */
+    cursor: pointer; cursor: hand;
 }
 
 #container div.right ul li img {
@@ -88,10 +137,22 @@ a {
 }
 
 #container div.right ul li.bottom {
-    background-color: #563B1D;
-    color: White;
+    /*background-color: #563B1D;
+    color: White;*/
+    background-color: Black;
+    color: Yellow;
     padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 5px 0px 0px;
+    
+    border: 1px white solid;
+    border-width: 1px 1px 0px 0px;
+    
+    /*border radius across different browsers except IE 7 and lower*/
+    -webkit-border-top-right-radius: 5px;
+	
+	-moz-border-radius-topright: 5px;
+	
+	border-top-right-radius: 5px;
 }
 
 #container div.right ul li.bottom h3 {
