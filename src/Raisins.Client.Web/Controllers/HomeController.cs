@@ -16,5 +16,10 @@ namespace Raisins.Client.Web.Controllers
             return View();
         }
 
+        public ActionResult Pages()
+        {
+            return View();
+        }
+
     }
 }

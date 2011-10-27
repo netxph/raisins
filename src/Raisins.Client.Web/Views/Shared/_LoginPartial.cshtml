@@ -4,13 +4,13 @@
         <li>Welcome <b>@Context.User.Identity.Name</b>! [ @Html.ActionLink("Log Off", "Logout", "Account")]</li>
         <li>@Html.ActionLink("Payments", "Index", "Payment")</li>
         <li>@Html.ActionLink("Summary", "Index", "Admin")</li>
-        <li>@Html.ActionLink("Mechanics", "Pages", "Home", new { template = "mechanics" }, null)</li>
+        <li>@Html.ActionLink("Mechanics", "Pages", "Home", new { template = "template" }, null)</li>
         <li>@Html.ActionLink("Home", "Index", "Home")</li>
     }
     else
     {
         <li>[ @Html.ActionLink("Log On", "Login", "Account") ]</li>
-        <li>@Html.ActionLink("Mechanics", "Pages", "Home", new { template = "mechanics" }, null)</li>
+        <li>@Html.ActionLink("Mechanics", "Pages", "Home", new { template = "template" }, null)</li>
         <li>@Html.ActionLink("Home", "Index", "Home")</li>
     }
 </ul>
