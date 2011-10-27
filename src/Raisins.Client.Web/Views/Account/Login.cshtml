@@ -1,13 +1,14 @@
 ﻿@model Raisins.Client.Web.Models.AccountModel
 
 @{
-    View.Title = "Login";
+    ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Login</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
     <fieldset>
         <div class="editor-label">
@@ -31,4 +32,3 @@
         </p>
     </fieldset>
 }
-

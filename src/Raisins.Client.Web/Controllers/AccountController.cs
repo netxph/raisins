@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Raisins.Client.Web.Models;
+using System.Web.Security;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -19,27 +20,30 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost]
         public ActionResult Login(AccountModel model, string returnUrl)
         {
-            if (AccountService.Logon(model.UserName, model.Password))
-            {
-                if (Url.IsLocalUrl(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
+            FormsAuthentication.SetAuthCookie(model.UserName, false);
+            return RedirectToAction("Index", "Home");
 
-            return View();
+            //if (AccountService.Logon(model.UserName, model.Password))
+            //{
+            //    if (Url.IsLocalUrl(returnUrl))
+            //    {
+            //        return Redirect(returnUrl);
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Index", "Home");
+            //    }
+            //}
+
+            //return View();
         }
 
         public ActionResult Logout()
         {
-            AccountService.Logout();
+            FormsAuthentication.SignOut();
+            //AccountService.Logout();
 
             return RedirectToAction("Index", "Home");
         }
-
     }
 }
