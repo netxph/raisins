@@ -20,12 +20,13 @@
             <p>Fund-raising application</p>
         </div>
         <div id="container">
-            <div class="left">
-                @RenderBody()
-            </div>
             <div class="right">
                 @Html.Partial("_Sidebar")
             </div>
+            <div class="left">
+                @RenderBody()
+            </div>
+            
         </div>
     </div>
     <div id="footer">

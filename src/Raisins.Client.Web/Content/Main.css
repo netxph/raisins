@@ -29,13 +29,15 @@ a : visited{
 
 #main {
     /*border: 1px solid #B49C51;*/
-    border: 1px solid white;
+    /*border: 1px solid white;/**/
     border-width: 1px 1px 0px 0px;
     /*background-color: White;*/
-    background-color: Silver;
+    background-color: white;
     color: Black;
     margin: 5px auto 0px auto;
-    width: 800px;
+    /*width: 800px;*/
+    min-width: 800px;
+    max-width: 1000px;
     
     /*border radius across different browsers except IE 7 and lower*/
     -webkit-border-top-left-radius: 5px;
@@ -46,6 +48,8 @@ a : visited{
 	
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+	
+	border-right: 1px orangered solid;
 }
 
 #menu {
@@ -56,15 +60,46 @@ a : visited{
 #menu ul li {
     display: inline;
     list-style-type: none;
-    padding-left: 20px;
+    /*padding-left: 20px;
     padding-bottom: 5px;
-    padding-top: 50px;
+    padding-top: 50px;*/
     float: right;
+    background: cadetblue;
+    border-radius: 10px 10px 0px 0px;
+    padding: 10px;
 }
 
 
-#header {
+#header 
+{
     padding: 30px 30px 30px 30px;
+    background: darkred; /* for non-css3 browsers */
+	/*border: 1px solid white;/**/
+
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='firebrick', endColorstr='maroon'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(firebrick), to(maroon)); /* for webkit browsers */
+	background: -moz-linear-gradient(firebrick,  darkred,  maroon); /* for firefox 3.6+ */ 
+
+	/*border radius across different browsers except IE 7 and lower*/
+    -webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	
+	border-bottom: 1px orangered solid;
+	
+	color: white;
+	/*font-family: Monotype Corsiva, Lucida Handwrting, Lucida Calligraphy, Script MT Bold;/**/
+	
+	/*box-shadow*/
+	-moz-box-shadow: 5px 5px 5px black;
+   -webkit-box-shadow: 5px 5px 5px black;
+	box-shadow: 5px 5px 5px black;
+
 }
 
 #header h1 {
@@ -88,8 +123,13 @@ a : visited{
     height: 100%;
     width: 100%;
     padding: 0px;
-    overflow: auto;
-    overflow-x: hidden;
+    overflow: hidden; /* no scroll bar*/
+    
+    
+    background: maroon;
+	/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='darkblue', endColorstr='cornflowerblue'); /* for IE */
+	/*background: -webkit-gradient(linear, left top, left bottom, from(darkblue), to(cornflowerblue)); /* for webkit browsers */
+	/*background: -moz-linear-gradient(darkblue,  cornflowerblue); /* for firefox 3.6+ */ 
 }
 
 #container div.full {
@@ -99,8 +139,28 @@ a : visited{
 #container div.left {
     width: 55%;
     /*float: left;*/
-    float: right;
+    float: left;
     /*margin-right: 30px;*/
+	/*border: 1px solid white;/**/
+	color: silver;
+	margin-left: 10px;
+}
+
+#container div.left h1 {
+
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='dodgerblue', endColorstr='CadetBlue '); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(dodgerblue), to(CadetBlue )); /* for webkit browsers */
+	background: -moz-linear-gradient(dodgerblue,  CadetBlue ); /* for firefox 3.6+ */ 
+	color: darkblue;
+	border-radius: 5px 0px 0px 5px;
+	padding: 5px;
+	width: 100%;
+	/*box-shadow*/
+	-moz-box-shadow: 0 0 5px black;
+   -webkit-box-shadow: 0 0 5px black;
+	box-shadow: 0 0 5px black;
+
+	
 }
 
 #container div.left h2 {
@@ -108,7 +168,7 @@ a : visited{
 }
 
 #container div.right {
-    width: 40%;
+    width: 43%;
     float: left;
     /*background-color: #D3C599;
     border: 1px solid #563B1D;*/
@@ -120,12 +180,31 @@ a : visited{
 {
 	display: inline;
     list-style-type: none;
-    padding-left: 20px;
-    padding-bottom: 5px;
-    padding-top: 50px;
-    float: right;
-  /*  transparent: 0.5; */
-    cursor: pointer; cursor: hand;
+    padding: 10px 0px 10px 5px;
+    float: right;    
+    background: orangered; /* for non-css3 browsers */
+
+    width: 100%;
+    float: left;
+
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='orange', endColorstr='orangered'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(orange), to(orangered)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  orange,  orangered); /* for firefox 3.6+ */ 
+    
+	/*border radius across different browsers except IE 7 and lower*/
+    -webkit-border-bottom-right-radius: 5px;
+	-webkit-border-top-right-radius: 5px;/**/
+	
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-topright: 5px;/**/
+	
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;/**/
+	
+	/*box-shadow*/
+	-moz-box-shadow: 0 5px 5px black;
+   -webkit-box-shadow: 0 5px 5px black;
+	box-shadow: 0 5px 5px black;
 }
 
 #container div.right ul li img {
@@ -139,19 +218,18 @@ a : visited{
 #container div.right ul li.bottom {
     /*background-color: #563B1D;
     color: White;*/
-    background-color: Black;
+    background: black;
+    filter: none;/* for IE */
     color: Yellow;
     padding: 0px 0px 0px 0px;
     margin: 0px 5px 0px 0px;
     
     border: 1px white solid;
-    border-width: 1px 1px 0px 0px;
+    border-width: 1px 1px 0px 0px;/**/
     
     /*border radius across different browsers except IE 7 and lower*/
     -webkit-border-top-right-radius: 5px;
-	
 	-moz-border-radius-topright: 5px;
-	
 	border-top-right-radius: 5px;
 }
 
@@ -161,12 +239,6 @@ a : visited{
 
 #container div.right ul li p {
     padding-left: 75px;
-}
-
-#container div.right ul li {
-    padding: 5px 10px 5px 10px;
-    width: 100%;
-    float: left;
 }
 
 /* page specific css */
