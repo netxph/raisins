@@ -1,2 +1,13 @@
 h1. Raisins
-Navitaire Fund-raising
+
+h2. Raffle ticket application
+
+Raisins is a raffle ticket template application that manages and records payments and generating ticket numbers.
+
+h3. Features
+
+* Vote tracking
+* Page tempates
+* Payment monitoring
+* Raffle
+* User management
