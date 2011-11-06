@@ -3,74 +3,51 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //var RoleType = ViewHelper.RoleType;
+    decimal CashOnHand = (decimal)ViewData["CashOnHand"];
 }
+<h2>Payment List</h2>
+    <hr />
+    <br />
+    <span class="cashonhand">Cash on hand: @CashOnHand.ToString("0.00") PHP</span>
 
-<h2>Index</h2>
+    @*@if (RoleType == Raisins.Services.RoleType.User)*@
+    @if(true)
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+    else
+    {
+        <span>@Html.ActionLink("Lock Local", "LockLocal") | or @Html.ActionLink("Lock Internal International", "LockExternalUS") | or @Html.ActionLink("Lock All", "LockAll")</span>
+        <span class="right">Filter By: @Html.ActionLink("All", "Index") | @Html.ActionLink("Not Locked", "Index", new { Locked = false }) | @Html.ActionLink("Locked", "Index", new { Locked = true })</span>
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            Amount
-        </th>
-        <th>
-            Beneficiary
-        </th>
-        <th>
-            Currency
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Location
-        </th>
-        <th>
-            Remarks
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Locked
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Beneficiary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Currency)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Locked)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+	<div id="payments">
+    @foreach (var item in Model)
+    { 
+        <div class="item">
+        <span class="beneficiary">
+            @item.Beneficiary - @item.Class.ToString():
+        </span>
+        <span class="name">
+            @item.Name
+        </span>
+        <span class="amount">
+            @string.Format("{0} ({1})", item.Amount.ToString("0.00"), item.Currency)
+        </span>
+        
+        @*@if (!item.Locked && RoleType != Raisins.Services.RoleType.Auditor)*@
+        @if (true)
+        { 
+        <br />
+        @Html.ActionLink("[Del]", "Delete", new { id = item.ID })
+        @Html.ActionLink("[Edit]", "Edit", new { id = item.ID })
+        }
+        else if (item.Locked)
+        {
+        <br />
+        @Html.ActionLink("[Tickets]", "Show", "Ticket", new { id = item.ID }, null)
+        }
+        </div>
+    }
+    </div>
