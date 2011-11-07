@@ -14,9 +14,8 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            //PaymentModel[] models = PaymentService.FindAll().OrderBy(payment => payment.Currency).ToArray();
-            PaymentModel[] models = new PaymentModel[] { };
-
+            Payment[] models = null;//PaymentService.FindAll().OrderBy(payment => payment.Currency).ToArray();
+            
             //ViewData["CashOnHand"] = PaymentService.GetCashOnHand();
             ViewData["CashOnHand"] = 0.0m;
 
