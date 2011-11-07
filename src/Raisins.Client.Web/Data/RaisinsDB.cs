@@ -16,5 +16,6 @@ namespace Raisins.Client.Web.Data
         public DbSet<WinnerLog> WinnerLogs { get; set; }
         public DbSet<Beneficiary> Beneficiaries { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Setting> Settings { get; set; }
     }
 }

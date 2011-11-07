@@ -76,6 +76,7 @@
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\WinnerLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

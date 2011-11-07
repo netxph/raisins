@@ -14,10 +14,9 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            Payment[] models = null;//PaymentService.FindAll().OrderBy(payment => payment.Currency).ToArray();
+            Payment[] models = Payment.GetAll();
             
-            //ViewData["CashOnHand"] = PaymentService.GetCashOnHand();
-            ViewData["CashOnHand"] = 0.0m;
+            ViewData["CashOnHand"] = Payment.GetCashOnHand(HttpContext.User.Identity.Name);
 
             if (Request.QueryString["Locked"] == "True")
             {

@@ -24,6 +24,7 @@ namespace Raisins.Client.Web.Controllers
             if (Account.Login(model.UserName, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, false);
+
                 return RedirectToAction("Index", "Home");
             }
 

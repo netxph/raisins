@@ -17,6 +17,7 @@ namespace Raisins.Client.Web.Models
         public string Password { get; set; }
         public string Salt { get; set; }
         public Role Role { get; set; }
+        public Setting Setting { get; set; }
 
         public static bool Login(string userName, string password)
         {
@@ -61,6 +62,13 @@ namespace Raisins.Client.Web.Models
             string path = Path.GetRandomFileName();
             path = path.Replace(".", ""); // Remove period.
             return path;
+        }
+
+        public static Account FindUser(string userName)
+        {
+            var db = new RaisinsDB();
+
+            return db.Accounts.FirstOrDefault((account) => account.UserName == userName);
         }
     }
 }

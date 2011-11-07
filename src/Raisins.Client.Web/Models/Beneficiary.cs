@@ -7,7 +7,7 @@ namespace Raisins.Client.Web.Models
 {
     public class Beneficiary
     {
-        public long BeneficiaryID { get; set; }
+        public int BeneficiaryID { get; set; }
 
         public string Name { get; set; }
 
