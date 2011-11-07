@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Raisins.Client.Web.Models;
 using System.Web.Security;
+using Raisins.Client.Web.Data;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -12,30 +13,21 @@ namespace Raisins.Client.Web.Controllers
     {
         public ActionResult Login()
         {
-            AccountModel model = new AccountModel();
+            Account model = new Account();
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Login(AccountModel model, string returnUrl)
+        public ActionResult Login(Account model, string returnUrl)
         {
-            FormsAuthentication.SetAuthCookie(model.UserName, false);
-            return RedirectToAction("Index", "Home");
+            if (Account.Login(model.UserName, model.Password))
+            {
+                FormsAuthentication.SetAuthCookie(model.UserName, false);
+                return RedirectToAction("Index", "Home");
+            }
 
-            //if (AccountService.Logon(model.UserName, model.Password))
-            //{
-            //    if (Url.IsLocalUrl(returnUrl))
-            //    {
-            //        return Redirect(returnUrl);
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //}
-
-            //return View();
+            return View();
         }
 
         public ActionResult Logout()

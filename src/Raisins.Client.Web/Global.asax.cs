@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Data.Entity;
+using Raisins.Client.Web.Data;
 
 namespace Raisins.Client.Web
 {
@@ -31,6 +33,8 @@ namespace Raisins.Client.Web
 
         protected void Application_Start()
         {
+            Database.SetInitializer<RaisinsDB>(new RaisinsInitializer());
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
