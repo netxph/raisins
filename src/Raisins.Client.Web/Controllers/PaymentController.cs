@@ -43,6 +43,9 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Beneficiaries = Beneficiary.GetAll(HttpContext.User.Identity.Name);
+            ViewBag.Currencies = Currency.GetAll(HttpContext.User.Identity.Name);
+
             return View();
         } 
 
@@ -50,7 +53,7 @@ namespace Raisins.Client.Web.Controllers
         // POST: /Payment/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Payment payment)
         {
             try
             {

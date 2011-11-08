@@ -40,13 +40,13 @@
         @if (true)
         { 
         <br />
-        @Html.ActionLink("[Del]", "Delete", new { id = item.ID })
-        @Html.ActionLink("[Edit]", "Edit", new { id = item.ID })
+        @Html.ActionLink("[Del]", "Delete", new { id = item.PaymentID })
+        @Html.ActionLink("[Edit]", "Edit", new { id = item.PaymentID })
         }
         else if (item.Locked)
         {
         <br />
-        @Html.ActionLink("[Tickets]", "Show", "Ticket", new { id = item.ID }, null)
+        @Html.ActionLink("[Tickets]", "Show", "Ticket", new { id = item.PaymentID }, null)
         }
         </div>
     }

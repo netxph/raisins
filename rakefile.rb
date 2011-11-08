@@ -21,3 +21,8 @@ desc 'rebuild'
 task :rebuild do
   sh 'msbuild /t:clean;rebuild'
 end
+
+desc 'clear db'
+task :cleardb do
+  rm 'src/Raisins.Client.Web/App_Data/RaisinsDB.sdf'
+end

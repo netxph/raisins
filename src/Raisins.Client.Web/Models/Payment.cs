@@ -10,6 +10,8 @@ namespace Raisins.Client.Web.Models
     public class Payment
     {
 
+        #region Properties
+
         public long PaymentID { get; set; }
 
         public string Name { get; set; }
@@ -35,34 +37,48 @@ namespace Raisins.Client.Web.Models
         public Account CreatedBy { get; set; }
 
         public Beneficiary Beneficiary { get; set; }
+ 
+        #endregion
+
+        #region Methods
 
         public static Payment[] GetAll()
         {
             var db = new RaisinsDB();
 
-            return db.Payments.OrderBy((payment) => payment.Currency).ToArray();
+            return db.Payments.OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
         }
 
         public static decimal GetCashOnHand(string userName)
         {
+            decimal result = 0.0m;
+
             var db = new RaisinsDB();
 
             var account = Account.FindUser(userName);
 
-            if (((RoleType)account.Role.RoleType) == RoleType.User)
+            if (((RoleType)account.RoleType) == RoleType.User)
             {
-                return db.Payments
+                result = db.Payments
                     .Where((payment) => payment.CreatedBy.UserName == userName && !payment.Locked)
-                    .Sum((payment) => payment.Amount * payment.Currency.ExchangeRate);
+                    .Select(payment => payment.Amount * payment.Currency.ExchangeRate)
+                    .DefaultIfEmpty()
+                    .Sum();
             }
             else
             {
-                return db.Payments
+                result = db.Payments
                     .Where((payment) => payment.Beneficiary.BeneficiaryID == account.Setting.BeneficiaryID && !payment.Locked)
-                    .Sum((payment) => payment.Amount * payment.Currency.ExchangeRate);
+                    .Select(payment => payment.Amount * payment.Currency.ExchangeRate)
+                    .DefaultIfEmpty()
+                    .Sum();
             }
 
+            return result;
+
         }
+
+        #endregion
     }
 
     public enum PaymentClass

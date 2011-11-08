@@ -16,7 +16,7 @@ namespace Raisins.Client.Web.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
-        public Role Role { get; set; }
+        public int RoleType { get; set; }
         public Setting Setting { get; set; }
 
         public static bool Login(string userName, string password)
@@ -70,5 +70,6 @@ namespace Raisins.Client.Web.Models
 
             return db.Accounts.FirstOrDefault((account) => account.UserName == userName);
         }
+
     }
 }

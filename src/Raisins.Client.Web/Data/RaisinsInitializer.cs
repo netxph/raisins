@@ -28,10 +28,9 @@ namespace Raisins.Client.Web.Data
                 UserName = "admin",
                 Salt = salt,
                 Password = Account.GetHash("r@isin5", salt),
-                Role = role
+                RoleType = (int)RoleType.Administrator
             };
 
-            context.Roles.Add(role);
             context.Accounts.Add(adminAccount);
 
             doDevelopmentSeeds(context);
@@ -46,13 +45,6 @@ namespace Raisins.Client.Web.Data
             };
 
             context.Beneficiaries.Add(beneficiary);
-
-            Role userRole = new Role()
-            {
-                RoleType = (int)RoleType.User
-            };
-
-            context.Roles.Add(userRole);
 
             Currency currency = new Currency()
             {
@@ -73,7 +65,7 @@ namespace Raisins.Client.Web.Data
                 UserName = "vitalim",
                 Salt = salt,
                 Password = Account.GetHash("P@ssw0rd!1", salt),
-                Role = userRole,
+                RoleType = (int)RoleType.User,
                 Setting = new Setting() { BeneficiaryID = beneficiaryId, Class = (int)PaymentClass.Internal, CurrencyID = currencyId, Location = "PH" }
             };
 
