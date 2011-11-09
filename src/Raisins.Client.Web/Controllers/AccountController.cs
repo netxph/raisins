@@ -37,7 +37,6 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            //AccountService.Logout();
 
             return RedirectToAction("Index", "Home");
         }

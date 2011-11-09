@@ -16,8 +16,8 @@ namespace Raisins.Client.Web.Controllers
         {
             Payment[] models = Payment.GetAll();
             
-            ViewBag.CashOnHand = Payment.GetCashOnHand(HttpContext.User.Identity.Name);
-            ViewBag.RoleTypeIsUser = Account.FindUser(HttpContext.User.Identity.Name).RoleType == (int)RoleType.User;
+            ViewBag.CashOnHand = Payment.GetCashOnHand();
+            ViewBag.RoleTypeIsUser = Account.CurrentUser.RoleType == (int)RoleType.User;
 
             if (Request.QueryString["Locked"] == "True")
             {
@@ -44,8 +44,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Beneficiaries = Beneficiary.GetAll(HttpContext.User.Identity.Name);
-            ViewBag.Currencies = Currency.GetAll(HttpContext.User.Identity.Name);
+            ViewHelper.GetPaymentReferences(this);
 
             return View();
         } 
@@ -58,23 +57,9 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-                var user = Account.FindUser(HttpContext.User.Identity.Name);
+                
 
-
-                if (user != null)
-                {
-                    payment.CreatedBy = user;
-
-                    if (user.Setting != null)
-                    {
-                        payment.Location = user.Setting.Location;
-                    }
-                }
-
-                payment.Beneficiary = Beneficiary.Get(payment.Beneficiary.BeneficiaryID);
-                payment.Currency = Currency.Get(payment.Currency.CurrencyID);
-
-                Payment.Add(payment);
+                Payment.CreateNew(payment);
 
                 return RedirectToAction("Index");
             }
@@ -91,19 +76,23 @@ namespace Raisins.Client.Web.Controllers
         {
             var model = Payment.Get(id);
 
-            return View();
+            ViewHelper.GetPaymentReferences(this);
+
+            return View(model);
         }
 
         //
         // POST: /Payment/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Payment payment)
         {
             try
             {
-                // TODO: Add update logic here
- 
+                payment.PaymentID = id;
+
+                Payment.Update(payment);
+
                 return RedirectToAction("Index");
             }
             catch

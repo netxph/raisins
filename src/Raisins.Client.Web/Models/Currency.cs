@@ -21,13 +21,11 @@ namespace Raisins.Client.Web.Models
             return RaisinsDB.Instance.Currencies.Where(currency => currency.CurrencyID == id).FirstOrDefault();
         }
 
-        public static Currency[] GetAll(string userName)
+        public static Currency[] GetAll()
         {
-            var account = Account.FindUser(userName);
-
-            if (account.Setting != null && account.Setting.BeneficiaryID > 0)
+            if (Account.CurrentUser.Setting != null && Account.CurrentUser.Setting.BeneficiaryID > 0)
             {
-                return new Currency[] { Get(account.Setting.CurrencyID) };
+                return new Currency[] { Get(Account.CurrentUser.Setting.CurrencyID) };
             }
             else
             {

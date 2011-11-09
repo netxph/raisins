@@ -1,18 +1,13 @@
 ﻿@using Raisins.Client.Web.Models
-
 @model Raisins.Client.Web.Models.Payment
 @{
     ViewBag.Title = "Add Payment";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
     //view objects
-    var beneficiaries = new SelectList(new List<Beneficiary>(ViewBag.Beneficiaries), "BeneficiaryID", "Name");
-    var currencies = new SelectList(new List<Currency>(ViewBag.Currencies), "CurrencyID", "CurrencyCode");
-
-    var classValues = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
-                 select new { ID = (int)e, Name = e.ToString() };
-
-    var paymentClasses = new SelectList(classValues, "ID", "Name");
+    var beneficiaries = new SelectList(ViewBag.Beneficiaries, "BeneficiaryID", "Name");
+    var currencies = new SelectList(ViewBag.Currencies, "CurrencyID", "CurrencyCode");
+    var paymentClasses = new SelectList(ViewBag.Classes, "ID", "Name");
 }
 <h2>@ViewBag.Title</h2>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -21,51 +16,35 @@
 {
     @Html.ValidationSummary(true)
     <fieldset>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Beneficiary)
-        </div>
-        <div class="editor-field">
+        <p>
+            @Html.LabelFor(model => model.Beneficiary)<br />
             @Html.DropDownListFor(model => model.Beneficiary.BeneficiaryID, beneficiaries)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Class)
-        </div>
-        <div class="editor-field">
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Class)<br />
             @Html.DropDownListFor(model => model.Class, paymentClasses)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Email)<br />
             @Html.EditorFor(model => model.Email)
             @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Amount)
-        </div>
-        <div class="editor-field">
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
             @Html.DropDownListFor(model => model.Currency.CurrencyID, currencies)
             @Html.EditorFor(model => model.Amount)
             @Html.ValidationMessageFor(model => model.Amount)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Remarks)
-        </div>
-        <div class="editor-field">
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
             @Html.EditorFor(model => model.Remarks)
             @Html.ValidationMessageFor(model => model.Remarks)
-        </div>
-
+        </p>
         <p>
             <input type="submit" value="Save" />
         </p>

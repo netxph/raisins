@@ -21,13 +21,11 @@ namespace Raisins.Client.Web.Models
             return RaisinsDB.Instance.Beneficiaries.Where(beneficiary => beneficiary.BeneficiaryID == id).FirstOrDefault();
         }
 
-        public static Beneficiary[] GetAll(string userName)
+        public static Beneficiary[] GetAll()
         {
-            var account = Account.FindUser(userName);
-
-            if (account.Setting != null && account.Setting.BeneficiaryID > 0)
+            if (Account.CurrentUser.Setting != null && Account.CurrentUser.Setting.BeneficiaryID > 0)
             {
-                return new Beneficiary[] { Get(account.Setting.BeneficiaryID) };
+                return new Beneficiary[] { Get(Account.CurrentUser.Setting.BeneficiaryID) };
             }
             else
             {

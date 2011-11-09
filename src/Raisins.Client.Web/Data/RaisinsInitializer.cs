@@ -70,6 +70,17 @@ namespace Raisins.Client.Web.Data
             };
 
             context.Accounts.Add(userAccount);
+
+            userAccount = new Account()
+            {
+                UserName = "delosrd",
+                Salt = salt,
+                Password = Account.GetHash("delosrd", salt),
+                RoleType = (int)RoleType.User,
+                Setting = new Setting() { BeneficiaryID = beneficiaryId, Class = (int)PaymentClass.Internal, CurrencyID = currencyId, Location = "PH" }
+            };
+
+            context.Accounts.Add(userAccount);
         }
 
     }

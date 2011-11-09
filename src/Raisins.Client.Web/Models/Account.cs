@@ -68,5 +68,22 @@ namespace Raisins.Client.Web.Models
             return db.Accounts.Include("Setting").FirstOrDefault((account) => account.UserName == userName);
         }
 
+        static Account _currentUser;
+
+        public static Account CurrentUser 
+        {
+            get
+            {
+                if (_currentUser == null)
+                { 
+                    //try to reload user
+                    _currentUser = FindUser(HttpContext.Current.User.Identity.Name);
+                }
+
+                return _currentUser;
+            }
+            set { _currentUser = value; }
+            
+        }
     }
 }
