@@ -23,9 +23,16 @@ namespace Raisins.Client.Web.Models
 
         public static Beneficiary[] GetAll()
         {
-            if (Account.CurrentUser.Setting != null && Account.CurrentUser.Setting.BeneficiaryID > 0)
+            if (Account.CurrentUser != null)
             {
-                return new Beneficiary[] { Get(Account.CurrentUser.Setting.BeneficiaryID) };
+                if (Account.CurrentUser.Setting != null && Account.CurrentUser.Setting.BeneficiaryID > 0)
+                {
+                    return new Beneficiary[] { Get(Account.CurrentUser.Setting.BeneficiaryID) };
+                }
+                else
+                {
+                    return RaisinsDB.Instance.Beneficiaries.DefaultIfEmpty().ToArray();
+                }
             }
             else
             {
