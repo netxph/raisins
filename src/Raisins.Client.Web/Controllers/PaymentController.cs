@@ -16,7 +16,8 @@ namespace Raisins.Client.Web.Controllers
         {
             Payment[] models = Payment.GetAll();
             
-            ViewData["CashOnHand"] = Payment.GetCashOnHand(HttpContext.User.Identity.Name);
+            ViewBag.CashOnHand = Payment.GetCashOnHand(HttpContext.User.Identity.Name);
+            ViewBag.RoleTypeIsUser = Account.FindUser(HttpContext.User.Identity.Name).RoleType == (int)RoleType.User;
 
             if (Request.QueryString["Locked"] == "True")
             {
@@ -57,7 +58,23 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                var user = Account.FindUser(HttpContext.User.Identity.Name);
+
+
+                if (user != null)
+                {
+                    payment.CreatedBy = user;
+
+                    if (user.Setting != null)
+                    {
+                        payment.Location = user.Setting.Location;
+                    }
+                }
+
+                payment.Beneficiary = Beneficiary.Get(payment.Beneficiary.BeneficiaryID);
+                payment.Currency = Currency.Get(payment.Currency.CurrencyID);
+
+                Payment.Add(payment);
 
                 return RedirectToAction("Index");
             }
@@ -72,6 +89,8 @@ namespace Raisins.Client.Web.Controllers
  
         public ActionResult Edit(int id)
         {
+            var model = Payment.Get(id);
+
             return View();
         }
 
@@ -98,25 +117,10 @@ namespace Raisins.Client.Web.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View();
+            Payment.Delete(id);
+
+            return RedirectToAction("Index");
         }
 
-        //
-        // POST: /Payment/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

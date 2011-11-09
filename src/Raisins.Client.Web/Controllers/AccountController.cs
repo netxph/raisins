@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Raisins.Client.Web.Models;
 using System.Web.Security;
 using Raisins.Client.Web.Data;
+using System.Web.Profile;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -21,7 +22,9 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost]
         public ActionResult Login(Account model, string returnUrl)
         {
-            if (Account.Login(model.UserName, model.Password))
+            var account = Account.Login(model.UserName, model.Password);
+
+            if (account != null)
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, false);
 

@@ -46,7 +46,7 @@ namespace Raisins.Client.Web.Models
         {
             var db = new RaisinsDB();
 
-            return db.Payments.OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+            return db.Payments.Include("Beneficiary").Include("Currency").OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
         }
 
         public static decimal GetCashOnHand(string userName)
@@ -78,7 +78,31 @@ namespace Raisins.Client.Web.Models
 
         }
 
+        public static bool Add(Payment payment)
+        {
+
+            RaisinsDB.Instance.Payments.Add(payment);
+
+            RaisinsDB.Instance.SaveChanges();
+
+            return true;
+        }
+
         #endregion
+
+
+        public static bool Delete(int id)
+        {
+            RaisinsDB.Instance.Payments.Remove(RaisinsDB.Instance.Payments.Where(payment => payment.PaymentID == id).FirstOrDefault());
+            RaisinsDB.Instance.SaveChanges();
+
+            return true;
+        }
+
+        public static Payment Get(int id)
+        {
+            return RaisinsDB.Instance.Payments.Where(payment => payment.PaymentID == id).FirstOrDefault();
+        }
     }
 
     public enum PaymentClass

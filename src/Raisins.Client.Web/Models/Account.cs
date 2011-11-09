@@ -19,12 +19,9 @@ namespace Raisins.Client.Web.Models
         public int RoleType { get; set; }
         public Setting Setting { get; set; }
 
-        public static bool Login(string userName, string password)
+        public static Account Login(string userName, string password)
         {
-            bool result = false;
-
-            RaisinsDB db = new RaisinsDB();
-            var account = db.Accounts.FirstOrDefault(item => item.UserName == userName);
+            var account = Account.FindUser(userName);
 
             if (account != null)
             {
@@ -32,11 +29,11 @@ namespace Raisins.Client.Web.Models
 
                 if (encrypted == account.Password)
                 {
-                    result = true;
+                    return account;
                 }
             }
 
-            return result;
+            return null;
         }
 
         public static string GetHash(string password, string salt)
@@ -68,7 +65,7 @@ namespace Raisins.Client.Web.Models
         {
             var db = new RaisinsDB();
 
-            return db.Accounts.FirstOrDefault((account) => account.UserName == userName);
+            return db.Accounts.Include("Setting").FirstOrDefault((account) => account.UserName == userName);
         }
 
     }
