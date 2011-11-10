@@ -1,26 +1,25 @@
 ﻿body {
-	/*background-color: #D3C599;*/
+	background-color: mistyrose;/**/
 	font-family: Calibri, Century Gothic, Verdana, sanserif;
 	color: #000000;
-	background-image: url('bg_stars.jpg');
-	background-repeat: repeat;
-	color: #FFFFFF;
+	/*background-image: url('bg_stars.jpg');/**/
+	/*background-repeat: repeat;/**/
+	
 }
 
 a {
     /*text-decoration: None;*/
-    text-shadow: 1px 2px 5px silver;
+    text-shadow: orangered 0 5px 6px, orangered 1px 3px 3px;
     color: inherit;
     text-decoration: none;
     /*color: #563B1D;*/
 }
 
-a : visited{
+a : hover{
     /*text-decoration: None;*/
-    text-shadow: 1px 2px 5px silver;
-    color: inherit;
+    text-shadow: orangered 0 5px 6px, orangered 1px 3px 3px;
     text-decoration: none;
-    /*color: #563B1D;*/
+    color: white;
 }
 
 #clear {
@@ -49,12 +48,19 @@ a : visited{
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	
-	border-right: 1px orangered solid;
+	/*border-right: 1px orangered solid;/**/
+	
+	/*box-shadow*/
+	-moz-box-shadow: 2px 5px 5px black;
+   -webkit-box-shadow: 2px 5px 5px black;
+	box-shadow: 2px 5px 5px black;
 }
 
 #menu {
     width: 800px;
     margin: 0 auto 0 auto;
+    margin-top: 80px;
+    font-weight: bold;
 }
 
 #menu ul li {
@@ -64,21 +70,30 @@ a : visited{
     padding-bottom: 5px;
     padding-top: 50px;*/
     float: right;
-    background: cadetblue;
+    background: -webkit-gradient(linear, left top, left bottom, from(orange), to(orangeRed));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='orange', endColorstr='orangeRed'); /* for IE */
+	background: -moz-linear-gradient(firebrick,  orange,  orangeRed); /* for firefox 3.6+ */ 
     border-radius: 10px 10px 0px 0px;
     padding: 10px;
+    /*box-shadow*/
+	-moz-box-shadow: 0px 5px 5px black;
+   -webkit-box-shadow: 0px 5px 5px black;
+	box-shadow: 0px 5px 5px black;
 }
 
 
 #header 
 {
     padding: 30px 30px 30px 30px;
-    background: darkred; /* for non-css3 browsers */
+    background-image: url('logoblack.jpg');
+    background-size: 12em;
+    background-repeat: no-repeat;
+    background-color: Black;
 	/*border: 1px solid white;/**/
 
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='firebrick', endColorstr='maroon'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(firebrick), to(maroon)); /* for webkit browsers */
-	background: -moz-linear-gradient(firebrick,  darkred,  maroon); /* for firefox 3.6+ */ 
+	/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='firebrick', endColorstr='maroon'); /* for IE */
+	/*background: -webkit-gradient(linear, left top, right bottom, from(black), to(dimgray)); /* for webkit browsers */
+	/*background: -moz-linear-gradient(firebrick,  darkred,  maroon); /* for firefox 3.6+ */ 
 
 	/*border radius across different browsers except IE 7 and lower*/
     -webkit-border-top-left-radius: 5px;
@@ -90,16 +105,10 @@ a : visited{
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	
-	border-bottom: 1px orangered solid;
+	border-bottom: 1px white solid;
 	
-	color: white;
+	color: transparent;/* no text visible*/
 	/*font-family: Monotype Corsiva, Lucida Handwrting, Lucida Calligraphy, Script MT Bold;/**/
-	
-	/*box-shadow*/
-	-moz-box-shadow: 5px 5px 5px black;
-   -webkit-box-shadow: 5px 5px 5px black;
-	box-shadow: 5px 5px 5px black;
-
 }
 
 #header h1 {
@@ -148,10 +157,10 @@ a : visited{
 
 #container div.left h1 {
 
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='dodgerblue', endColorstr='CadetBlue '); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(dodgerblue), to(CadetBlue )); /* for webkit browsers */
-	background: -moz-linear-gradient(dodgerblue,  CadetBlue ); /* for firefox 3.6+ */ 
-	color: darkblue;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='black', endColorstr='#333333'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(black), to(#333333)); /* for webkit browsers */
+	background: -moz-linear-gradient(black,  #333333 ); /* for firefox 3.6+ */ 
+	color: lightpink;
 	border-radius: 5px 0px 0px 5px;
 	padding: 5px;
 	width: 100%;
@@ -159,12 +168,20 @@ a : visited{
 	-moz-box-shadow: 0 0 5px black;
    -webkit-box-shadow: 0 0 5px black;
 	box-shadow: 0 0 5px black;
-
-	
 }
 
 #container div.left h2 {
     margin: 5px 5px 5px 5px;
+}
+
+#container div.left #content {
+	padding-bottom: 20px;
+	padding-top: 10px;
+}
+
+#container div.left #banner img {
+	margin-right: 10%;
+	margin-left: 10%;
 }
 
 #container div.right {
