@@ -1,8 +1,12 @@
-﻿<ul>
+﻿@{
+    ViewBag.Beneficiaries = Raisins.Client.Web.Models.Beneficiary.GetAll();
+}
+
+<ul>
     @foreach (var beneficiary in ViewBag.Beneficiaries)
     { 
         <li>
-            <img src="@Url.Content("Content\\" + beneficiary.Name.Replace(" ", "-").ToLower() + ".jpg")" alt="@beneficiary.Name" />
+            <img src="@Url.Content("~/Content/" + beneficiary.Name.Replace(" ", "-").ToLower() + ".jpg")" alt="@beneficiary.Name" />
             <h3>
                 <a href="@Url.Content("~/home/pages?template=" + beneficiary.Name)">@beneficiary.Name</a></h3>
             <p>

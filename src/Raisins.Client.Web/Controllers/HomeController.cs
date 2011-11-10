@@ -14,8 +14,6 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Beneficiaries = Beneficiary.GetAll();
-
             return View();
         }
 

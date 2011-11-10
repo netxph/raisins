@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Data.Entity;
 using Raisins.Client.Web.Data;
+using System.Web.Security;
+using Raisins.Client.Web.Security;
 
 namespace Raisins.Client.Web
 {
@@ -40,5 +42,21 @@ namespace Raisins.Client.Web
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
+
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                
+                UserIdentity identity = new UserIdentity(authTicket.Name);
+
+                UserPrincipal principal = new UserPrincipal(identity);
+                Context.User = principal;
+            }
+        }
+        
     }
 }

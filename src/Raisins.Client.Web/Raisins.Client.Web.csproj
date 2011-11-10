@@ -80,6 +80,8 @@
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\WinnerLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\UserIdentity.cs" />
+    <Compile Include="Security\UserPrincipal.cs" />
     <Compile Include="ViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>

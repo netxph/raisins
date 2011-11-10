@@ -6,6 +6,7 @@ using Raisins.Client.Web.Data;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
+using Raisins.Client.Web.Security;
 
 namespace Raisins.Client.Web.Models
 {
@@ -68,22 +69,19 @@ namespace Raisins.Client.Web.Models
             return db.Accounts.Include("Setting").FirstOrDefault((account) => account.UserName == userName);
         }
 
-        static Account _currentUser;
-
         public static Account CurrentUser 
         {
             get
             {
-                if (_currentUser == null)
-                { 
-                    //try to reload user
-                    _currentUser = FindUser(HttpContext.Current.User.Identity.Name);
+                var identity = HttpContext.Current.User.Identity as UserIdentity;
+
+                if (identity != null)
+                {
+                    return identity.Account;
                 }
 
-                return _currentUser;
+                return null;
             }
-            set { _currentUser = value; }
-            
         }
     }
 }
