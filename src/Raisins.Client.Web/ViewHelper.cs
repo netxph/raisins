@@ -28,5 +28,10 @@ namespace Raisins.Client.Web
             }
         }
 
+        public static string FormatName(string name)
+        {
+            return name.Replace(" ", "-").ToLower();
+        }
+
     }
 }

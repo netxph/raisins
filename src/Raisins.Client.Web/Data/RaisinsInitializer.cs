@@ -81,6 +81,17 @@ namespace Raisins.Client.Web.Data
             };
 
             context.Accounts.Add(userAccount);
+
+            userAccount = new Account()
+            {
+                UserName = "auditor",
+                Salt = salt,
+                Password = Account.GetHash("P@ssw0rd!1", salt),
+                RoleType = (int)RoleType.Auditor,
+                Setting = new Setting() { BeneficiaryID = beneficiaryId, Class = (int)PaymentClass.Internal, CurrencyID = currencyId, Location = "PH" }
+            };
+
+            context.Accounts.Add(userAccount);
         }
 
     }
