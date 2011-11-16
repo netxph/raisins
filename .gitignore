@@ -1,3 +1,10 @@
+#Package files
+Raisins.Client.Web.Publish.xml
+[Pp]ackage/
+
+#Raisins custom pages
+_rs_*.cshtml
+
 #OS junk files
 [Tt]humbs.db
 *.DS_Store

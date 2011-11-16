@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Pages";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    string template = string.Format("_{0}", @Request.QueryString["template"]);
+    string template = string.Format("_rs_{0}", @Request.QueryString["template"]);
 }
 
 <div id="pages">
