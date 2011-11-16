@@ -22,6 +22,11 @@ a : hover{
     color: white;
 }
 
+p
+{
+	text-indent: 20px;
+}
+
 #clear {
     clear: both;
 }
@@ -59,7 +64,7 @@ a : hover{
 #menu {
     width: 800px;
     margin: 0 auto 0 auto;
-    margin-top: 80px;
+    margin-top: 20px;
     font-weight: bold;
 }
 
@@ -86,7 +91,7 @@ a : hover{
 {
     padding: 30px 30px 30px 30px;
     background-image: url('logoblack.jpg');
-    background-size: 12em;
+    background-size: 13em;
     background-repeat: no-repeat;
     background-color: Black;
 	/*border: 1px solid white;/**/
@@ -107,8 +112,17 @@ a : hover{
 	
 	border-bottom: 1px white solid;
 	
-	color: transparent;/* no text visible*/
+	color: dodgerblue;/* no text visible*/
+	height: 90px;
 	/*font-family: Monotype Corsiva, Lucida Handwrting, Lucida Calligraphy, Script MT Bold;/**/
+}
+
+#header span p
+{
+	font-size: 2em;
+	font-weight: bold;
+	font-style: italic;
+	text-indent: 250px;
 }
 
 #header h1 {
@@ -468,4 +482,47 @@ a : hover{
     font-weight: bold;
     display: block;
     padding-bottom: 15px;
+}
+
+span.title
+{
+	font-size: 2em;
+	font-weight: bold;
+	color: white;
+	
+	text-shadow: 0.1em 0.1em 0.2em black;
+	
+}
+
+div.video
+{
+	height: 324px;
+	width: auto;
+	background-color: Black;
+	color: White;
+	margin-left: auto;
+	margin-right:auto;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+p.message
+{
+	color:White;
+	font-size: 1.5em;
+}
+
+#banner
+{
+	height: 420px;
+	width: 500px;
+}
+
+div.mechanics
+{
+	background-color:white;
+	color: Black;
+	overflow: scroll;
+	padding-left:25px;
+	list-style-type:circle;
 }

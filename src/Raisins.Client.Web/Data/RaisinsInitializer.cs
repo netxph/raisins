@@ -40,8 +40,56 @@ namespace Raisins.Client.Web.Data
         {
             Beneficiary beneficiary = new Beneficiary()
             {
-                Name = "Team 1",
-                Description = "The First Team"
+                Name = "pRESents",
+                Description = @"Group 1- Reservations Dev"
+            };
+
+            context.Beneficiaries.Add(beneficiary);
+
+            beneficiary = new Beneficiary()
+            {
+                Name = "Puto Boom Boom",
+                Description = @"Group 2 - NSQA, Ancillary QA, NS PM"
+            };
+
+            context.Beneficiaries.Add(beneficiary);
+
+            beneficiary = new Beneficiary()
+            {
+                Name = "Super Stars",
+                Description = @"Group 3 - Revenue Accounting Dev/QA/PM (PRA, SkyLedger), TS"
+            };
+
+            context.Beneficiaries.Add(beneficiary);
+
+            beneficiary = new Beneficiary()
+            {
+                Name = "HAMazing",
+                Description = @"Group 4 - SkyPrice DEV/QA, Ancillary Dev, Dinsey Dev, BPO, Shared Services (CM, Performance, Automation, NavIP), Imp PM"
+            };
+
+            context.Beneficiaries.Add(beneficiary);
+
+            beneficiary = new Beneficiary()
+            {
+                Name = "Edam and Eve",
+                Description = @"Group 5 - Products, AOPS Dev/QA/PM"
+            };
+
+            context.Beneficiaries.Add(beneficiary);
+
+            beneficiary = new Beneficiary()
+            {
+                Name = "SUS.per Nova",
+                Description = @"Group 6 - SUS Group1 (OC Team1, PRA/SkyLedger/DSS/ESC/Aops/Web, PerfMan/PMO, OC CI/OCMT)"
+            };
+
+            context.Beneficiaries.Add(beneficiary);
+
+            beneficiary = new Beneficiary()
+            {
+                Name = "TreeSUS",
+                Description = @"Group 7 - SUS Group 2 (PM Res, Installs, Non Nav, OC Team2)"
             };
 
             context.Beneficiaries.Add(beneficiary);

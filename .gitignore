@@ -47,3 +47,7 @@ _ReSharper*/
 
 # DB files
 *.sdb
+
+# Video files
+*.flv
+*.avi

@@ -11,7 +11,7 @@
         <li>
             <img src="@Url.Content("~/Content/" + ViewHelper.FormatName(beneficiary.Name) + ".jpg")" alt="@beneficiary.Name" />
             <h3>
-                <a href="@Url.Content("~/home/pages?template=" + ViewHelper.FormatName(beneficiary.Name))"></a></h3>
+                <a href="@Url.Content("~/home/pages?template=" + ViewHelper.FormatName(beneficiary.Name))">@beneficiary.Name</a></h3>
             <p>
                 @beneficiary.Description</p>
         </li>
