@@ -27,7 +27,7 @@
 			@item.Beneficiary.Name - @((Raisins.Client.Web.Models.PaymentClass)item.Class):
 		</span>
 		<span class="name">
-			@item.Name
+			@item.Name [@item.Remarks]
 		</span>
 		<span class="amount">
 			@string.Format("{0} ({1})", item.Amount.ToString("0.00"), item.Currency.CurrencyCode)

@@ -140,6 +140,17 @@ namespace Raisins.Client.Web.Data
             };
 
             context.Accounts.Add(userAccount);
+
+            userAccount = new Account()
+            {
+                UserName = "forex",
+                Salt = salt,
+                Password = Account.GetHash("P@ssw0rd!1", salt),
+                RoleType = (int)RoleType.User,
+                Setting = new Setting() { BeneficiaryID = 0, Class = (int)PaymentClass.Foreign, CurrencyID = 0, Location = "US" }
+            };
+
+            context.Accounts.Add(userAccount);
         }
 
     }
