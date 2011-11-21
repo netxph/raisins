@@ -9,15 +9,6 @@ namespace Raisins.Client.Web.Data
 {
     public class RaisinsDB : DbContext
     {
-
-        public static RaisinsDB Instance
-        {
-            get
-            {
-                return new RaisinsDB();
-            }
-        }
-
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Currency> Currencies { get; set; }

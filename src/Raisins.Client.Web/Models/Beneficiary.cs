@@ -18,11 +18,15 @@ namespace Raisins.Client.Web.Models
 
         public static Beneficiary Get(int id)
         {
-            return RaisinsDB.Instance.Beneficiaries.Where(beneficiary => beneficiary.BeneficiaryID == id).FirstOrDefault();
+            RaisinsDB db = new RaisinsDB();
+
+            return db.Beneficiaries.Where(beneficiary => beneficiary.BeneficiaryID == id).FirstOrDefault();
         }
 
         public static Beneficiary[] GetAllForPayment()
         {
+            
+
             if (Account.CurrentUser != null)
             {
                 if (Account.CurrentUser.Setting != null && Account.CurrentUser.Setting.BeneficiaryID > 0)
@@ -31,7 +35,8 @@ namespace Raisins.Client.Web.Models
                 }
                 else
                 {
-                    return RaisinsDB.Instance.Beneficiaries.DefaultIfEmpty().ToArray();
+                    RaisinsDB db = new RaisinsDB();
+                    return db.Beneficiaries.DefaultIfEmpty().ToArray();
                 }
             }
             else
@@ -42,7 +47,9 @@ namespace Raisins.Client.Web.Models
 
         public static Beneficiary[] GetAll()
         {
-            return RaisinsDB.Instance.Beneficiaries.DefaultIfEmpty().ToArray();
+            RaisinsDB db = new RaisinsDB();
+
+            return db.Beneficiaries.DefaultIfEmpty().ToArray();
         }
     }
 }

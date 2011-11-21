@@ -148,6 +148,8 @@ namespace Raisins.Client.Web.Data
                 Setting = new Setting() { BeneficiaryID = beneficiaryId, Class = (int)PaymentClass.Internal, CurrencyID = currencyId, Location = "PH" }
             };
 
+            context.Accounts.Add(userAccount);
+
             currencyId = context.Currencies.FirstOrDefault(c => c.CurrencyCode == "USD").CurrencyID;
 
             userAccount = new Account()

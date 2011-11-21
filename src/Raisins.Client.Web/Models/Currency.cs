@@ -18,7 +18,9 @@ namespace Raisins.Client.Web.Models
 
         public static Currency Get(int id)
         {
-            return RaisinsDB.Instance.Currencies.Where(currency => currency.CurrencyID == id).FirstOrDefault();
+            RaisinsDB db = new RaisinsDB();
+
+            return db.Currencies.Where(currency => currency.CurrencyID == id).FirstOrDefault();
         }
 
         public static Currency[] GetAllForPayment()
@@ -31,7 +33,8 @@ namespace Raisins.Client.Web.Models
                 }
                 else
                 {
-                    return RaisinsDB.Instance.Currencies.DefaultIfEmpty().ToArray();
+                    RaisinsDB db = new RaisinsDB();
+                    return db.Currencies.DefaultIfEmpty().ToArray();
                 }
             }
             else

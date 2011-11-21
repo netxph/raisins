@@ -13,26 +13,7 @@ namespace Raisins.Client.Web
 
         public static void GetPaymentReferences(PaymentController controller)
         {
-            var beneficiaries = Beneficiary.GetAllForPayment().ToList();
-            var currencies = Currency.GetAllForPayment().ToList();
-
-            controller.ViewBag.Beneficiaries = new SelectList(beneficiaries, "BeneficiaryID", "Name", Account.CurrentUser.Setting.BeneficiaryID);
-            controller.ViewBag.Currencies = new SelectList(currencies, "CurrencyID", "CurrencyCode", Account.CurrentUser.Setting.CurrencyID);
-
-            if (Account.CurrentUser.RoleType == (int)RoleType.User)
-            {
-                var classes = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
-                              where e != PaymentClass.Foreign && e != PaymentClass.NotSpecified
-                              select new { ID = (int)e, Name = e.ToString() };
-
-                controller.ViewBag.Classes = new SelectList(classes, "ID", "Name", Account.CurrentUser.Setting.Class);
-            }
-            else
-            {
-                var classes = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
-                              select new { ID = (int)e, Name = e.ToString() };
-                controller.ViewBag.Classes = new SelectList(classes, "ID", "Name", Account.CurrentUser.Setting.Class);
-            }
+            GetPaymentReferences(controller, null);
         }
 
         public static string FormatName(string name)
@@ -40,5 +21,33 @@ namespace Raisins.Client.Web
             return name.Replace(" ", "-").ToLower();
         }
 
+
+        public static void GetPaymentReferences(PaymentController controller, Payment model)
+        {
+            var beneficiaries = Beneficiary.GetAllForPayment().ToList();
+            var currencies = Currency.GetAllForPayment().ToList();
+
+            int beneficiaryID = model != null ? model.Beneficiary.BeneficiaryID : Account.CurrentUser.Setting.BeneficiaryID;
+            int currencyID = model != null ? model.Currency.CurrencyID : Account.CurrentUser.Setting.CurrencyID;
+            int paymentClass = model != null ? model.Class : Account.CurrentUser.Setting.Class;
+
+            controller.ViewBag.Beneficiaries = new SelectList(beneficiaries, "BeneficiaryID", "Name", beneficiaryID);
+            controller.ViewBag.Currencies = new SelectList(currencies, "CurrencyID", "CurrencyCode", currencyID);
+
+            if (Account.CurrentUser.RoleType == (int)RoleType.User)
+            {
+                var classes = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
+                              where e != PaymentClass.Foreign && e != PaymentClass.NotSpecified
+                              select new { ID = (int)e, Name = e.ToString() };
+
+                controller.ViewBag.Classes = new SelectList(classes, "ID", "Name", paymentClass);
+            }
+            else
+            {
+                var classes = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
+                              select new { ID = (int)e, Name = e.ToString() };
+                controller.ViewBag.Classes = new SelectList(classes, "ID", "Name", paymentClass);
+            }
+        }
     }
 }

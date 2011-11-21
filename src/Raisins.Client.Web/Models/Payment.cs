@@ -44,7 +44,14 @@ namespace Raisins.Client.Web.Models
         {
             var db = new RaisinsDB();
 
-            return db.Payments.Include("Beneficiary").Include("Currency").OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+            if (Account.CurrentUser.RoleType == (int)RoleType.User)
+            {
+                return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.CreatedBy.AccountID == Account.CurrentUser.AccountID).OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+            }
+            else
+            {
+                return db.Payments.Include("Beneficiary").Include("Currency").OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+            }
         }
 
         public static decimal GetCashOnHand()
@@ -74,7 +81,7 @@ namespace Raisins.Client.Web.Models
 
         }
 
-        public static Payment SetDefaults(Payment payment)
+        protected static Payment SetDefaults(Payment payment, RaisinsDB db)
         {
             if (Account.CurrentUser != null)
             {
@@ -86,27 +93,30 @@ namespace Raisins.Client.Web.Models
                 }
             }
 
-            payment.Beneficiary = Beneficiary.Get(payment.Beneficiary.BeneficiaryID);
-            payment.Currency = Currency.Get(payment.Currency.CurrencyID);
+            payment.Beneficiary = db.Beneficiaries.Find(payment.Beneficiary.BeneficiaryID);
+            payment.Currency = db.Currencies.Find(payment.Currency.CurrencyID);
 
             return payment;
         }
 
         public static bool CreateNew(Payment item)
         {
-            SetDefaults(item);
+            RaisinsDB db = new RaisinsDB();
+            SetDefaults(item, db);
 
-            RaisinsDB.Instance.Payments.Add(item);
+            db.Payments.Add(item);
 
-            RaisinsDB.Instance.SaveChanges();
+            db.SaveChanges();
 
             return true;
         }
 
         public static bool Update(Payment item)
         {
-            var payment = Get(item.PaymentID);
-            SetDefaults(item);
+            RaisinsDB db = new RaisinsDB();
+
+            var payment = db.Payments.Where(p => p.PaymentID == item.PaymentID).FirstOrDefault();
+            SetDefaults(item, db);
 
             payment.Beneficiary = item.Beneficiary;
             payment.Amount = item.Amount;
@@ -116,7 +126,7 @@ namespace Raisins.Client.Web.Models
             payment.Email = item.Email;
             payment.Remarks = item.Remarks;
 
-            RaisinsDB.Instance.SaveChanges();
+            db.SaveChanges();
 
             return true;
         }
@@ -126,15 +136,98 @@ namespace Raisins.Client.Web.Models
 
         public static bool Delete(int id)
         {
-            RaisinsDB.Instance.Payments.Remove(RaisinsDB.Instance.Payments.Where(payment => payment.PaymentID == id).FirstOrDefault());
-            RaisinsDB.Instance.SaveChanges();
+            RaisinsDB db = new RaisinsDB();
+
+            db.Payments.Remove(db.Payments.Where(payment => payment.PaymentID == id).FirstOrDefault());
+            db.SaveChanges();
 
             return true;
         }
 
         public static Payment Get(int id)
         {
-            return RaisinsDB.Instance.Payments.Where(payment => payment.PaymentID == id).FirstOrDefault();
+            RaisinsDB db = new RaisinsDB();
+
+            return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.PaymentID == id).FirstOrDefault();
+        }
+
+        public static bool LockLocal()
+        {
+            if (Account.CurrentUser.RoleType == (int)RoleType.Auditor)
+            { 
+                RaisinsDB db = new RaisinsDB();
+
+                var payments = db.Payments.Include("Beneficiary").Include("Currency").Include("Tickets").Where(payment => !payment.Locked && payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID && payment.Class != (int)PaymentClass.Foreign).ToList();
+
+                return Lock(payments, db);
+            }
+
+            return false;
+        }
+
+        public static bool LockForeign()
+        {
+            if (Account.CurrentUser.RoleType == (int)RoleType.Auditor)
+            {
+                RaisinsDB db = new RaisinsDB();
+
+                var payments = db.Payments.Include("Beneficiary").Include("Currency").Include("Tickets").Where(payment => !payment.Locked && payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID && payment.Class == (int)PaymentClass.Foreign).ToList();
+
+                return Lock(payments, db);
+            }
+
+            return false;
+        }
+
+        public static bool LockAll()
+        {
+            if (Account.CurrentUser.RoleType == (int)RoleType.Auditor)
+            {
+                RaisinsDB db = new RaisinsDB();
+
+                var payments = db.Payments.Include("Beneficiary").Include("Currency").Include("Tickets").Where(payment => !payment.Locked && payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID).ToList();
+
+                return Lock(payments, db);
+            }
+
+            return false;
+        }
+
+        protected static bool Lock(IEnumerable<Payment> payments, RaisinsDB db)
+        {
+            foreach (var payment in payments)
+            {
+                payment.Locked = true;
+                payment.AuditedBy = Account.CurrentUser;
+
+                //generate ticket
+                generateTicket(payment);
+
+                db.SaveChanges();
+
+                //generate email
+            }
+
+            return true;
+        }
+
+        private static void generateTicket(Payment payment)
+        {
+            var numOfTickets = (int)Math.Truncate(payment.Amount / payment.Currency.Ratio);
+
+            List<Ticket> tickets = new List<Ticket>();
+
+            for (int i = 0; i < numOfTickets; i++)
+            {
+                //generate code
+                string code = string.Format("{0}{1}-{2}{3}", 
+                    payment.Class.ToString(), 
+                    payment.Beneficiary.BeneficiaryID.ToString("D2"), 
+                    payment.PaymentID.ToString("X4"),
+                    i.ToString("X3"));
+
+                payment.Tickets.Add(new Ticket() { TicketCode = code, Name = payment.Name });
+            }
         }
     }
 

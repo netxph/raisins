@@ -57,11 +57,9 @@ namespace Raisins.Client.Web.Controllers
         {
             try
             {
-                
-
                 Payment.CreateNew(payment);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
             catch
             {
@@ -76,7 +74,7 @@ namespace Raisins.Client.Web.Controllers
         {
             var model = Payment.Get(id);
 
-            ViewHelper.GetPaymentReferences(this);
+            ViewHelper.GetPaymentReferences(this, model);
 
             return View(model);
         }
@@ -107,6 +105,27 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult Delete(int id)
         {
             Payment.Delete(id);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LockLocal()
+        {
+            Payment.LockLocal();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LockForeign()
+        {
+            Payment.LockForeign();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LockAll()
+        {
+            Payment.LockAll();
 
             return RedirectToAction("Index");
         }

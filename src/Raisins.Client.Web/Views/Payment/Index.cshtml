@@ -15,7 +15,7 @@
 	}
 	else
 	{
-		<span>@Html.ActionLink("Lock Local", "LockLocal") | or @Html.ActionLink("Lock Internal International", "LockExternalUS") | or @Html.ActionLink("Lock All", "LockAll")</span>
+		<span>@Html.ActionLink("Lock Local", "LockLocal") | or @Html.ActionLink("Lock International", "LockForeign") | or @Html.ActionLink("Lock All", "LockAll")</span>
 		<span class="right">Filter By: @Html.ActionLink("All", "Index") | @Html.ActionLink("Not Locked", "Index", new { Locked = false }) | @Html.ActionLink("Locked", "Index", new { Locked = true })</span>
 	}
 
@@ -33,7 +33,7 @@
 			@string.Format("{0} ({1})", item.Amount.ToString("0.00"), item.Currency.CurrencyCode)
 		</span>
 		
-		@if (ViewBag.RoleTypeIsUser)
+		@if (ViewBag.RoleTypeIsUser && !item.Locked)
 		{ 
 		<br />
 		@Html.ActionLink("[Del]", "Delete", new { id = item.PaymentID })
