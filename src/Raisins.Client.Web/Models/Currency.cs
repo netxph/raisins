@@ -21,15 +21,22 @@ namespace Raisins.Client.Web.Models
             return RaisinsDB.Instance.Currencies.Where(currency => currency.CurrencyID == id).FirstOrDefault();
         }
 
-        public static Currency[] GetAll()
+        public static Currency[] GetAllForPayment()
         {
-            if (Account.CurrentUser.Setting != null && Account.CurrentUser.Setting.BeneficiaryID > 0)
+            if (Account.CurrentUser.Setting != null)
             {
-                return new Currency[] { Get(Account.CurrentUser.Setting.CurrencyID) };
+                if (Account.CurrentUser.Setting.Class != (int)PaymentClass.Foreign)
+                {
+                    return new Currency[] { Get(Account.CurrentUser.Setting.CurrencyID) };
+                }
+                else
+                {
+                    return RaisinsDB.Instance.Currencies.DefaultIfEmpty().ToArray();
+                }
             }
             else
             {
-                return RaisinsDB.Instance.Currencies.DefaultIfEmpty().ToArray();
+                return null;
             }
         }
     }

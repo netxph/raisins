@@ -96,17 +96,26 @@ namespace Raisins.Client.Web.Data
 
             Currency currency = new Currency()
             {
-                CurrencyCode = "USD",
+                CurrencyCode = "PHP",
                 ExchangeRate = 1.0m,
-                Ratio = 1.0m
+                Ratio = 50.0m
             };
 
             context.Currencies.Add(currency);
+
+            currency = new Currency()
+            {
+                CurrencyCode = "USD",
+                ExchangeRate = 43.0m,
+                Ratio = 1.0m
+            };
+            context.Currencies.Add(currency);
+            
             context.SaveChanges();
 
             string salt = Account.GetSalt();
             int beneficiaryId = context.Beneficiaries.First().BeneficiaryID;
-            int currencyId = context.Currencies.First().CurrencyID;
+            int currencyId = context.Currencies.FirstOrDefault(c => c.CurrencyCode == "PHP").CurrencyID;
 
             Account userAccount = new Account()
             {
@@ -139,6 +148,17 @@ namespace Raisins.Client.Web.Data
                 Setting = new Setting() { BeneficiaryID = beneficiaryId, Class = (int)PaymentClass.Internal, CurrencyID = currencyId, Location = "PH" }
             };
 
+            currencyId = context.Currencies.FirstOrDefault(c => c.CurrencyCode == "USD").CurrencyID;
+
+            userAccount = new Account()
+            {
+                UserName = "forex",
+                Salt = salt,
+                Password = Account.GetHash("P@ssw0rd!1", salt),
+                RoleType = (int)RoleType.User,
+                Setting = new Setting() { BeneficiaryID = 0, Class = (int)PaymentClass.Foreign, CurrencyID = currencyId, Location = "US" }
+            };
+                
             context.Accounts.Add(userAccount);
         }
 

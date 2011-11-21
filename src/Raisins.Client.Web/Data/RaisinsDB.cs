@@ -9,18 +9,12 @@ namespace Raisins.Client.Web.Data
 {
     public class RaisinsDB : DbContext
     {
-        static RaisinsDB _instance = null;
 
         public static RaisinsDB Instance
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new RaisinsDB();
-                }
-
-                return _instance;
+                return new RaisinsDB();
             }
         }
 

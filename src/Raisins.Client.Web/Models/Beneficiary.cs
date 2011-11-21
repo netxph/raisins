@@ -21,7 +21,7 @@ namespace Raisins.Client.Web.Models
             return RaisinsDB.Instance.Beneficiaries.Where(beneficiary => beneficiary.BeneficiaryID == id).FirstOrDefault();
         }
 
-        public static Beneficiary[] GetAll()
+        public static Beneficiary[] GetAllForPayment()
         {
             if (Account.CurrentUser != null)
             {
@@ -36,8 +36,13 @@ namespace Raisins.Client.Web.Models
             }
             else
             {
-                return RaisinsDB.Instance.Beneficiaries.DefaultIfEmpty().ToArray();
+                return null;
             }
+        }
+
+        public static Beneficiary[] GetAll()
+        {
+            return RaisinsDB.Instance.Beneficiaries.DefaultIfEmpty().ToArray();
         }
     }
 }
