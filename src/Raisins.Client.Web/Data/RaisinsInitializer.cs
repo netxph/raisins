@@ -141,6 +141,17 @@ namespace Raisins.Client.Web.Data
 
             userAccount = new Account()
             {
+                UserName = "tester",
+                Salt = salt,
+                Password = Account.GetHash("P@ssw0rd!1", salt),
+                RoleType = (int)RoleType.User,
+                Setting = new Setting() { BeneficiaryID = 3, Class = (int)PaymentClass.Internal, CurrencyID = currencyId, Location = "PH" }
+            };
+
+            context.Accounts.Add(userAccount);
+
+            userAccount = new Account()
+            {
                 UserName = "auditor",
                 Salt = salt,
                 Password = Account.GetHash("P@ssw0rd!1", salt),

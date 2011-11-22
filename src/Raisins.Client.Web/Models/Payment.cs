@@ -85,8 +85,6 @@ namespace Raisins.Client.Web.Models
         {
             if (Account.CurrentUser != null)
             {
-                payment.CreatedBy = Account.CurrentUser;
-
                 if (Account.CurrentUser.Setting != null)
                 {
                     payment.Location = Account.CurrentUser.Setting.Location;
@@ -103,6 +101,8 @@ namespace Raisins.Client.Web.Models
         {
             RaisinsDB db = new RaisinsDB();
             SetDefaults(item, db);
+
+            item.CreatedBy = db.Accounts.FirstOrDefault(account => account.AccountID == Account.CurrentUser.AccountID);
 
             db.Payments.Add(item);
 

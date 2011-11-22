@@ -34,20 +34,19 @@ namespace Raisins.Client.Web
             controller.ViewBag.Beneficiaries = new SelectList(beneficiaries, "BeneficiaryID", "Name", beneficiaryID);
             controller.ViewBag.Currencies = new SelectList(currencies, "CurrencyID", "CurrencyCode", currencyID);
 
+            var classes = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
+                          where e != PaymentClass.NotSpecified
+                          select new { ID = (int)e, Name = e.ToString() };
+
             if (Account.CurrentUser.RoleType == (int)RoleType.User)
             {
-                var classes = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
-                              where e != PaymentClass.Foreign && e != PaymentClass.NotSpecified
-                              select new { ID = (int)e, Name = e.ToString() };
+                if (Account.CurrentUser.Setting.Class != (int)PaymentClass.Foreign)
+                {
+                    classes = classes.Where(c => c.ID != (int)PaymentClass.Foreign);
+                }
+            }
 
-                controller.ViewBag.Classes = new SelectList(classes, "ID", "Name", paymentClass);
-            }
-            else
-            {
-                var classes = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
-                              select new { ID = (int)e, Name = e.ToString() };
-                controller.ViewBag.Classes = new SelectList(classes, "ID", "Name", paymentClass);
-            }
+            controller.ViewBag.Classes = new SelectList(classes, "ID", "Name", paymentClass);
         }
     }
 }
