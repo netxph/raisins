@@ -75,6 +75,7 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Beneficiary.cs" />
     <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\MailLog.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Setting.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="ViewHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\database.txt" />
     <Content Include="Content\banner.jpg" />
     <Content Include="Content\logoblack.jpg" />
     <Content Include="Content\logowhite.jpg" />
@@ -184,9 +186,7 @@
   <ItemGroup>
     <Content Include="Views\Payment\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Payment\Edit.cshtml" />
   </ItemGroup>

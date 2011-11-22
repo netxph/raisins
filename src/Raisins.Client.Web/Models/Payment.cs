@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Raisins.Client.Web.Data;
+using System.Net.Mail;
+using System.Text;
 
 namespace Raisins.Client.Web.Models
 {
@@ -50,7 +52,7 @@ namespace Raisins.Client.Web.Models
             }
             else
             {
-                return db.Payments.Include("Beneficiary").Include("Currency").OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+                return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID).OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
             }
         }
 
@@ -159,7 +161,12 @@ namespace Raisins.Client.Web.Models
 
                 var payments = db.Payments.Include("Beneficiary").Include("Currency").Include("Tickets").Where(payment => !payment.Locked && payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID && payment.Class != (int)PaymentClass.Foreign).ToList();
 
-                return Lock(payments, db);
+                var currentUser = db.Accounts.FirstOrDefault(a => a.AccountID == Account.CurrentUser.AccountID);
+                Lock(payments, currentUser);
+
+                db.SaveChanges();
+
+                return true;
             }
 
             return false;
@@ -173,7 +180,12 @@ namespace Raisins.Client.Web.Models
 
                 var payments = db.Payments.Include("Beneficiary").Include("Currency").Include("Tickets").Where(payment => !payment.Locked && payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID && payment.Class == (int)PaymentClass.Foreign).ToList();
 
-                return Lock(payments, db);
+                var currentUser = db.Accounts.FirstOrDefault(a => a.AccountID == Account.CurrentUser.AccountID);
+                Lock(payments, currentUser);
+
+                db.SaveChanges();
+
+                return true;
             }
 
             return false;
@@ -187,25 +199,78 @@ namespace Raisins.Client.Web.Models
 
                 var payments = db.Payments.Include("Beneficiary").Include("Currency").Include("Tickets").Where(payment => !payment.Locked && payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID).ToList();
 
-                return Lock(payments, db);
+                var currentUser = db.Accounts.FirstOrDefault(a => a.AccountID == Account.CurrentUser.AccountID);
+                Lock(payments, currentUser);
+
+                db.SaveChanges();
+
+                //email
+                foreach (var payment in payments)
+                {
+                    EmailTickets(payment);
+                }
+
+                return true;
             }
 
             return false;
         }
 
-        protected static bool Lock(IEnumerable<Payment> payments, RaisinsDB db)
+        public static bool EmailTickets(Payment payment)
+        {
+            bool isSuccessful;
+            try
+            {
+                StringBuilder messageBuilder = new StringBuilder();
+                messageBuilder.AppendFormat("Hello {0},\r\n\r\n", payment.Name);
+                messageBuilder.AppendLine("Thank you for supporting Pasko 2011.");
+                messageBuilder.AppendLine("These are the ticket number generated for you:");
+                messageBuilder.AppendLine();
+                foreach (var ticket in payment.Tickets)
+                {
+                    messageBuilder.AppendLine(ticket.TicketCode);
+                }
+
+                messageBuilder.AppendLine();
+                messageBuilder.AppendLine("Navitaire Pasko 2011 Committee");
+
+                MailMessage mail = new MailMessage("marc.vitalis@navitaire.com", payment.Email);
+                mail.Subject = "Pasko 2011 Tickets";
+                mail.Body = messageBuilder.ToString();
+
+                SmtpClient client = new SmtpClient("mailhost.navitaire.com", 25);
+                client.Send(mail);
+                isSuccessful = true;
+            }
+            catch
+            {
+                isSuccessful = false;
+            }
+
+            var mailLog = new MailLog()
+            {
+                PaymentID = payment.PaymentID,
+                EmailAddress = payment.Email,
+                IsSuccessful = isSuccessful,
+                TimeStamp = DateTime.UtcNow
+            };
+
+            RaisinsDB db = new RaisinsDB();
+            db.MailLogs.Add(mailLog);
+            db.SaveChanges();
+
+            return isSuccessful;
+        }
+
+        protected static bool Lock(IEnumerable<Payment> payments, Account user)
         {
             foreach (var payment in payments)
             {
                 payment.Locked = true;
-                payment.AuditedBy = Account.CurrentUser;
+                payment.AuditedBy = user;
 
                 //generate ticket
                 generateTicket(payment);
-
-                db.SaveChanges();
-
-                //generate email
             }
 
             return true;
