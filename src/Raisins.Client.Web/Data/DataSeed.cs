@@ -2,40 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.Entity;
 using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Data
 {
-    public class RaisinsInitializer : DropCreateDatabaseIfModelChanges<RaisinsDB>
+    public class DataSeed
     {
 
-        protected override void Seed(RaisinsDB context)
-        {
-            //role
-            Role role = new Role()
-            {
-                RoleType = (int)RoleType.Administrator
-            };
-
-            base.Seed(context);
-
-            string salt = Account.GetSalt();
-
-            var adminAccount = new Account()
-            {
-                UserName = "admin",
-                Salt = salt,
-                Password = Account.GetHash("r@isin5", salt),
-                RoleType = (int)RoleType.Administrator
-            };
-
-            context.Accounts.Add(adminAccount);
-
-            doDevelopmentSeeds(context);
-        }
-
-        private void doDevelopmentSeeds(RaisinsDB context)
+        public static void Start(RaisinsDB context)
         {
             Beneficiary beneficiary = new Beneficiary()
             {
@@ -191,9 +165,13 @@ namespace Raisins.Client.Web.Data
 
             //foreign
             context.Accounts.Add(addUser("santoja", 0, PaymentClass.Foreign, 2, "US", RoleType.User));
+            context.Accounts.Add(addUser("rulllef", 0, PaymentClass.Foreign, 2, "US", RoleType.User));
+
+            context.SaveChanges();
         }
 
-        private Account addUser(string userName, int beneficiaryId, PaymentClass paymentClass, int currencyId, string location, RoleType roleType)
+
+        private static Account addUser(string userName, int beneficiaryId, PaymentClass paymentClass, int currencyId, string location, RoleType roleType)
         {
             var salt = Account.GetSalt();
             var userAccount = new Account()
