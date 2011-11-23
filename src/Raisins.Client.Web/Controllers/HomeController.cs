@@ -22,5 +22,10 @@ namespace Raisins.Client.Web.Controllers
             return View();
         }
 
+        public ActionResult Reports()
+        {
+            return View(Summary.GetSummaryReport());
+        }
+
     }
 }

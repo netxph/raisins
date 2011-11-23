@@ -51,5 +51,19 @@ namespace Raisins.Client.Web.Models
 
             return db.Beneficiaries.DefaultIfEmpty().ToArray();
         }
+
+        public static Beneficiary[] GetAllForReport()
+        {
+            RaisinsDB db = new RaisinsDB();
+
+            if (Account.CurrentUser.RoleType == (int)RoleType.Administrator)
+            {
+                return db.Beneficiaries.Include("Payments").Include("Payments.Tickets").Include("Payments.Currency").ToArray();
+            }
+            else
+            {
+                return db.Beneficiaries.Include("Payments").Include("Payments.Tickets").Include("Payments.Currency").Where(b => b.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID).ToArray();
+            }
+        }
     }
 }

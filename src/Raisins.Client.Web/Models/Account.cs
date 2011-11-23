@@ -83,5 +83,24 @@ namespace Raisins.Client.Web.Models
                 return null;
             }
         }
+
+        public static bool ChangePassword(string oldPassword, string newPassword, string confirmPassword)
+        {
+
+            if (Login(Account.CurrentUser.UserName, oldPassword) != null && newPassword == confirmPassword)
+            {
+                RaisinsDB db = new RaisinsDB();
+                var account = db.Accounts.FirstOrDefault(a => a.UserName == Account.CurrentUser.UserName);
+
+                account.Salt = GetSalt();
+                account.Password = GetHash(newPassword, account.Salt);
+
+                db.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }

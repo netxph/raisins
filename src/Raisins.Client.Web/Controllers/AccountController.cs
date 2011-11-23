@@ -40,5 +40,27 @@ namespace Raisins.Client.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult ChangePassword()
+        {
+            if (Account.CurrentUser == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection form)
+        {
+            if (Account.ChangePassword(form["OldPassword"], form["NewPassword"], form["ConfirmPassword"]))
+            {
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View();
+        }
     }
 }

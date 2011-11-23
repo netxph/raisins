@@ -42,5 +42,17 @@ namespace Raisins.Client.Web.Models
                 return null;
             }
         }
+
+        public static Currency GetGlobalCurrency()
+        {
+            RaisinsDB db = new RaisinsDB();
+            return db.Currencies.FirstOrDefault(c => c.CurrencyCode == "USD");
+        }
+
+        public static Currency GetLocalCurrency()
+        {
+            RaisinsDB db = new RaisinsDB();
+            return db.Currencies.FirstOrDefault(c => c.CurrencyCode == "PHP");
+        }
     }
 }

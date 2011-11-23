@@ -278,6 +278,8 @@ namespace Raisins.Client.Web.Models
 
                 //generate ticket
                 generateTicket(payment);
+
+                EmailTickets(payment.PaymentID);
             }
 
             return true;
