@@ -130,5 +130,11 @@ namespace Raisins.Client.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Email(int id)
+        {
+            Payment.EmailTickets(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }

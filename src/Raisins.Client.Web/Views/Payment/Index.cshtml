@@ -43,7 +43,8 @@
 		{
 		<br />
 		@Html.ActionLink("[Tickets]", "Show", "Ticket", new { id = item.PaymentID }, null)
-		}
+        @Html.ActionLink("[Email]", "Email", "Payment", new { id = item.PaymentID }, null)
+        }
 		</div>
 	}
 	</div>

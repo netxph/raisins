@@ -207,7 +207,7 @@ namespace Raisins.Client.Web.Models
                 //email
                 foreach (var payment in payments)
                 {
-                    EmailTickets(payment);
+                    EmailTickets(payment.PaymentID);
                 }
 
                 return true;
@@ -216,48 +216,55 @@ namespace Raisins.Client.Web.Models
             return false;
         }
 
-        public static bool EmailTickets(Payment payment)
+        public static bool EmailTickets(int id)
         {
-            bool isSuccessful;
-            try
-            {
-                StringBuilder messageBuilder = new StringBuilder();
-                messageBuilder.AppendFormat("Hello {0},\r\n\r\n", payment.Name);
-                messageBuilder.AppendLine("Thank you for supporting Pasko 2011.");
-                messageBuilder.AppendLine("These are the ticket number generated for you:");
-                messageBuilder.AppendLine();
-                foreach (var ticket in payment.Tickets)
-                {
-                    messageBuilder.AppendLine(ticket.TicketCode);
-                }
-
-                messageBuilder.AppendLine();
-                messageBuilder.AppendLine("Navitaire Pasko 2011 Committee");
-
-                MailMessage mail = new MailMessage("marc.vitalis@navitaire.com", payment.Email);
-                mail.Subject = "Pasko 2011 Tickets";
-                mail.Body = messageBuilder.ToString();
-
-                SmtpClient client = new SmtpClient("mailhost.navitaire.com", 25);
-                client.Send(mail);
-                isSuccessful = true;
-            }
-            catch
-            {
-                isSuccessful = false;
-            }
-
-            var mailLog = new MailLog()
-            {
-                PaymentID = payment.PaymentID,
-                EmailAddress = payment.Email,
-                IsSuccessful = isSuccessful,
-                TimeStamp = DateTime.UtcNow
-            };
+            bool isSuccessful = false;
 
             RaisinsDB db = new RaisinsDB();
-            db.MailLogs.Add(mailLog);
-            db.SaveChanges();
+            var payment = db.Payments.Include("Tickets").FirstOrDefault(p => p.PaymentID == id);
+            if (payment != null)
+            {
+                
+                try
+                {
+                    StringBuilder messageBuilder = new StringBuilder();
+                    messageBuilder.AppendFormat("Hello {0},\r\n\r\n", payment.Name);
+                    messageBuilder.AppendLine("Thank you for supporting Pasko 2011.");
+                    messageBuilder.AppendLine("These are the ticket numbers generated for you:");
+                    messageBuilder.AppendLine();
+                    foreach (var ticket in payment.Tickets)
+                    {
+                        messageBuilder.AppendLine(ticket.TicketCode);
+                    }
+
+                    messageBuilder.AppendLine();
+                    messageBuilder.AppendLine("Navitaire Pasko 2011 Committee");
+
+                    MailMessage mail = new MailMessage("marc.vitalis@navitaire.com", payment.Email);
+                    mail.Subject = "Pasko 2011 Tickets";
+                    mail.Body = messageBuilder.ToString();
+
+                    SmtpClient client = new SmtpClient("mailhost.navitaire.com", 25);
+                    client.Send(mail);
+                    isSuccessful = true;
+                }
+                catch
+                {
+                    isSuccessful = false;
+                }
+
+                var mailLog = new MailLog()
+                {
+                    PaymentID = payment.PaymentID,
+                    EmailAddress = payment.Email,
+                    IsSuccessful = isSuccessful,
+                    TimeStamp = DateTime.UtcNow
+                };
+
+
+                db.MailLogs.Add(mailLog);
+                db.SaveChanges();
+            }
 
             return isSuccessful;
         }
