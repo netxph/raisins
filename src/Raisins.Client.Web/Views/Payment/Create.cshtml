@@ -2,7 +2,7 @@
 @model Raisins.Client.Web.Models.Payment
 @{
     ViewBag.Title = "Add Payment";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_PaymentPartial.cshtml";
 
     //view objects
     var beneficiaries = ViewBag.Beneficiaries as SelectList;
@@ -16,38 +16,64 @@
 {
     @Html.ValidationSummary(true)
     <fieldset>
-        <p>
-            @Html.LabelFor(model => model.Beneficiary)<br />
+        <table>
+        <tr>
+            <td>
+            @Html.LabelFor(model => model.Beneficiary)
+            </td>
+            <td>
             @Html.DropDownListFor(model => model.Beneficiary.BeneficiaryID, beneficiaries)
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Class)<br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            @Html.LabelFor(model => model.Class)
+            </td>
+            <td>
             @Html.DropDownListFor(model => model.Class, paymentClasses)
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Name)<br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            @Html.LabelFor(model => model.Name)
+            <td>
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Email)<br />
+        </tr>
+        <tr>
+            <td>
+            @Html.LabelFor(model => model.Email)
+            </td>
+            <td>
             @Html.EditorFor(model => model.Email)
             @Html.ValidationMessageFor(model => model.Email)
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Amount)<br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            @Html.LabelFor(model => model.Amount)
             @Html.DropDownListFor(model => model.Currency.CurrencyID, currencies)
+            </td>
+            <td>
             @Html.EditorFor(model => model.Amount)
             @Html.ValidationMessageFor(model => model.Amount)
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Remarks)<br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            @Html.LabelFor(model => model.Remarks)
+            </td>
+            <td>
             @Html.EditorFor(model => model.Remarks)
             @Html.ValidationMessageFor(model => model.Remarks)
-        </p>
-        <p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
             <input type="submit" value="Save" />
-        </p>
+             </td>
+        </tr>
+        </table>
     </fieldset>
 }
 <div>

@@ -160,7 +160,7 @@ p
 }
 
 #container div.left {
-    width: 55%;
+    width: auto;/*55%;/**/
     /*float: left;*/
     float: left;
     /*margin-right: 30px;*/
@@ -168,6 +168,16 @@ p
 	color: silver;
 	margin-left: 10px;
 }
+
+#container div.left a {
+	color: dodgerblue;
+	text-decoration: underline;
+	text-shadow: none;
+	font-size: large;
+	padding-left: 10px;
+	padding-top:10px;
+}
+
 
 #container div.left h1 {
 
@@ -191,6 +201,8 @@ p
 #container div.left #content {
 	padding-bottom: 20px;
 	padding-top: 10px;
+	width: 550px;
+	float: none;
 }
 
 #container div.left #banner img {
@@ -316,6 +328,25 @@ p
 	text-align: center;
 }
 
+
+.left fieldset 
+{
+	padding: 10px;
+	
+}
+
+.left fieldset input[type="text"]
+{
+	width: 200px;
+	
+}
+
+.left fieldset input[type="text"]
+{
+	width: 200px;
+	
+}
+
 .field-validation-error
 {
     color: #f00;
@@ -326,14 +357,32 @@ p
     height: 260px;
 }
 
+#payments
+{
+	color: White;
+	font-size: small;
+	font-family: Sans-serif;
+	width: 920px;
+}
+
+#payments a
+{
+	color: dodgerblue;
+	text-decoration: underline;
+	text-shadow: none;
+	font-size: small;
+	padding-left: 10px;
+	padding-top:10px;
+}
+
 #payments div.item {
     border: 1px solid #563B1D;
     margin-bottom: 5px;
     margin-top: 5px;
-    width: 100%;
+
     padding: 5px 5px 5px 5px;
-    font-size: 12px;
-    font-family: Monospace;
+    /*font-size: 12px;
+    font-family: Monospace;*/
 }
 
 #payments div.lockitem {
@@ -347,7 +396,7 @@ p
 }
 
 #payments div.item:hover {
-    background-color: #D3C599;
+    background-color: firebrick;
 }
 
 #payments div.item span.beneficiary {
@@ -525,4 +574,5 @@ div.mechanics
 	overflow: scroll;
 	padding-left:25px;
 	list-style-type:circle;
+	width: 520px;
 }

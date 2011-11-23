@@ -186,7 +186,9 @@
   <ItemGroup>
     <Content Include="Views\Payment\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Shared\_PaymentPartial.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Payment\Edit.cshtml" />
   </ItemGroup>
