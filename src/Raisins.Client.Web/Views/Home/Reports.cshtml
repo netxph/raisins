@@ -6,6 +6,15 @@
 <div id="report">
     <h1>
         Collection Reports</h1>
+    <div class="report-summary">
+        <b>
+        Total Cash Remitted (PHP): @ViewBag.TotalRemittedInLocal<br />
+        Total Cash Remitted (USD): @ViewBag.TotalRemittedInGlobal<br />
+        </b>
+
+        Total Cash (PHP): @ViewBag.TotalCashInLocal<br />
+        Total Cash (USD): @ViewBag.TotalCashInGlobal<br />
+    </div>
     @foreach (var item in Model)
     {
         <div class="report-team">

@@ -24,7 +24,13 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Reports()
         {
-            return View(Summary.GetSummaryReport());
+            var summaries = Summary.GetSummaryReport();
+            ViewBag.TotalRemittedInLocal = summaries.Sum(s => s.TotalRemittedInLocal);
+            ViewBag.TotalRemittedInGlobal = summaries.Sum(s => s.TotalRemittedInGlobal);
+            ViewBag.TotalCashInLocal = summaries.Sum(s => s.TotalRemittedInLocal);
+            ViewBag.TotalCashInGlobal = summaries.Sum(s => s.TotalCashInGlobal);
+
+            return View(summaries);
         }
 
     }

@@ -35,8 +35,9 @@ namespace Raisins.Client.Web
 
         protected void Application_Start()
         {
-            Database.SetInitializer<RaisinsDB>(new RaisinsInitializer());
+            //Database.SetInitializer<RaisinsDB>(new RaisinsInitializer());
             //Database.SetInitializer<RaisinsDB>(new RaisinsProdInitializer());
+            Database.SetInitializer<RaisinsDB>(null);
 
             AreaRegistration.RegisterAllAreas();
 

@@ -587,3 +587,8 @@ div.report-team {
   margin: 24px;
   padding: 12px;
 }
+
+div.report-summary {
+  font-size: 24px;
+  text-align: center;
+}
