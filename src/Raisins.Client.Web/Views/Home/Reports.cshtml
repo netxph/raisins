@@ -8,12 +8,12 @@
         Collection Reports</h1>
     <div class="report-summary">
         <b>
-        Total Cash Remitted (PHP): @ViewBag.TotalRemittedInLocal<br />
-        Total Cash Remitted (USD): @ViewBag.TotalRemittedInGlobal<br />
+        Total Cash Remitted (PHP): @ViewBag.TotalRemittedInLocal.ToString("0.00")<br />
+        Total Cash Remitted (USD): @ViewBag.TotalRemittedInGlobal.ToString("0.00")<br />
         </b>
 
-        Total Cash (PHP): @ViewBag.TotalCashInLocal<br />
-        Total Cash (USD): @ViewBag.TotalCashInGlobal<br />
+        Total Cash (PHP): @ViewBag.TotalCashInLocal.ToString("0.00")<br />
+        Total Cash (USD): @ViewBag.TotalCashInGlobal.ToString("0.00")<br />
     </div>
     @foreach (var item in Model)
     {

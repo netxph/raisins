@@ -27,7 +27,7 @@ namespace Raisins.Client.Web.Controllers
             var summaries = Summary.GetSummaryReport();
             ViewBag.TotalRemittedInLocal = summaries.Sum(s => s.TotalRemittedInLocal);
             ViewBag.TotalRemittedInGlobal = summaries.Sum(s => s.TotalRemittedInGlobal);
-            ViewBag.TotalCashInLocal = summaries.Sum(s => s.TotalRemittedInLocal);
+            ViewBag.TotalCashInLocal = summaries.Sum(s => s.TotalCashInLocal);
             ViewBag.TotalCashInGlobal = summaries.Sum(s => s.TotalCashInGlobal);
 
             return View(summaries);
