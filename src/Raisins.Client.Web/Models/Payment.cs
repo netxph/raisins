@@ -177,6 +177,7 @@ namespace Raisins.Client.Web.Models
                 Lock(payments, currentUser);
 
                 db.SaveChanges();
+                EmailTickets(payments);
 
                 return true;
             }
@@ -196,6 +197,7 @@ namespace Raisins.Client.Web.Models
                 Lock(payments, currentUser);
 
                 db.SaveChanges();
+                EmailTickets(payments);
 
                 return true;
             }
@@ -215,17 +217,20 @@ namespace Raisins.Client.Web.Models
                 Lock(payments, currentUser);
 
                 db.SaveChanges();
-
-                //email
-                foreach (var payment in payments)
-                {
-                    EmailTickets(payment.PaymentID);
-                }
+                EmailTickets(payments);
 
                 return true;
             }
 
             return false;
+        }
+
+        public static void EmailTickets(IEnumerable<Payment> payments)
+        {
+            foreach (var payment in payments)
+            {
+                EmailTickets(payment.PaymentID);
+            }
         }
 
         public static bool EmailTickets(int id)
@@ -234,7 +239,7 @@ namespace Raisins.Client.Web.Models
 
             RaisinsDB db = new RaisinsDB();
             var payment = db.Payments.Include("Tickets").FirstOrDefault(p => p.PaymentID == id);
-            if (payment != null)
+            if (payment != null && payment.Tickets != null && payment.Tickets.Count > 0)
             {
 
                 try
@@ -290,8 +295,7 @@ namespace Raisins.Client.Web.Models
 
                 //generate ticket
                 generateTicket(payment);
-
-                EmailTickets(payment.PaymentID);
+                
             }
 
             return true;
