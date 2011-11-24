@@ -1,52 +1,23 @@
 ﻿@model IEnumerable<Raisins.Client.Web.Models.Summary>
-
 @{
     ViewBag.Title = "Reports";
     Layout = "~/Views/Shared/_PaymentPartial.cshtml";
 }
-
-<h2>Reports</h2>
-
-<table>
-    <tr>
-        <th>
-            TotalCashInLocal
-        </th>
-        <th>
-            TotalCashInGlobal
-        </th>
-        <th>
-            TotalRemittedInLocal
-        </th>
-        <th>
-            TotalRemittedInGlobal
-        </th>
-        <th>
-            TotalVotes
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalCashInLocal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalCashInGlobal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalRemittedInLocal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalRemittedInGlobal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalVotes)
-        </td>
-        
-    </tr>
-}
-
-</table>
-@Html.ActionLink("Back to main page.", "Index")
+<div id="report">
+    <h1>
+        Collection Reports</h1>
+    @foreach (var item in Model)
+    {
+        <div class="report-team">
+            <h2>@item.Beneficiary.Name (@item.TotalVotes Votes)</h2>
+            <b>Total Cash Remitted (PHP): @Html.DisplayFor(modelItem => item.TotalRemittedInLocal)<br />
+                Total Cash Remitted (USD): @Html.DisplayFor(modelItem => item.TotalRemittedInGlobal)<br />
+            </b>
+            <br />
+            Total Cash (PHP): @Html.DisplayFor(modelItem => item.TotalCashInLocal)<br />
+            Total Cash (USD): @Html.DisplayFor(modelItem => item.TotalCashInGlobal)<br />
+            <br />
+        </div>
+    }
+    @Html.ActionLink("Back to main page.", "Index")
+</div>

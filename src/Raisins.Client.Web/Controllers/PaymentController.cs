@@ -18,6 +18,7 @@ namespace Raisins.Client.Web.Controllers
             
             ViewBag.CashOnHand = Payment.GetCashOnHand();
             ViewBag.RoleTypeIsUser = Account.CurrentUser.RoleType == (int)RoleType.User;
+            ViewBag.RoleTypeIsAdministrator = Account.CurrentUser.RoleType == (int)RoleType.Administrator;
 
             if (Request.QueryString["Locked"] == "True")
             {

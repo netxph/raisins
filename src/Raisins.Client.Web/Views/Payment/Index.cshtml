@@ -13,7 +13,7 @@
 	{
 		@Html.ActionLink("Create New", "Create")
 	}
-	else
+	else if(!ViewBag.RoleTypeIsAdministrator)
 	{
 		<span>@Html.ActionLink("Lock Local", "LockLocal") | or @Html.ActionLink("Lock International", "LockForeign") | or @Html.ActionLink("Lock All", "LockAll")</span>
 		<span class="right">Filter By: @Html.ActionLink("All", "Index") | @Html.ActionLink("Not Locked", "Index", new { Locked = false }) | @Html.ActionLink("Locked", "Index", new { Locked = true })</span>

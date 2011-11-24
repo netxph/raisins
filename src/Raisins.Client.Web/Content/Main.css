@@ -576,3 +576,14 @@ div.mechanics
 	list-style-type:circle;
 	width: 520px;
 }
+
+#report {
+  width: 970px;
+}
+
+div.report-team {
+  background-color: white;
+  color: black;
+  margin: 24px;
+  padding: 12px;
+}

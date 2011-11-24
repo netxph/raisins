@@ -18,9 +18,9 @@ namespace Raisins.Client.Web.Models
 
         [Required]
         public string Name { get; set; }
-        
+
         [Required]
-        [Range(0.0D, double.MaxValue, ErrorMessage="Amount must be greater than zero")]
+        [Range(0.0D, double.MaxValue, ErrorMessage = "Amount must be greater than zero")]
         public decimal Amount { get; set; }
 
         public string Location { get; set; }
@@ -37,7 +37,7 @@ namespace Raisins.Client.Web.Models
         public ICollection<Ticket> Tickets { get; set; }
         public Account CreatedBy { get; set; }
         public Beneficiary Beneficiary { get; set; }
- 
+
         #endregion
 
         #region Methods
@@ -50,9 +50,13 @@ namespace Raisins.Client.Web.Models
             {
                 return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.CreatedBy.AccountID == Account.CurrentUser.AccountID).OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
             }
-            else
+            else if (Account.CurrentUser.RoleType == (int)RoleType.Auditor)
             {
                 return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID).OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+            }
+            else
+            {
+                return db.Payments.Include("Beneficiary").Include("Currency").OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
             }
         }
 
@@ -70,10 +74,18 @@ namespace Raisins.Client.Web.Models
                     .DefaultIfEmpty()
                     .Sum();
             }
-            else
+            else if (((RoleType)Account.CurrentUser.RoleType) == RoleType.Auditor)
             {
                 result = db.Payments
                     .Where((payment) => payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID && !payment.Locked)
+                    .Select(payment => payment.Amount * payment.Currency.ExchangeRate)
+                    .DefaultIfEmpty()
+                    .Sum();
+            }
+            else
+            {
+                result = db.Payments
+                    .Where((payment) => !payment.Locked)
                     .Select(payment => payment.Amount * payment.Currency.ExchangeRate)
                     .DefaultIfEmpty()
                     .Sum();
@@ -156,7 +168,7 @@ namespace Raisins.Client.Web.Models
         public static bool LockLocal()
         {
             if (Account.CurrentUser.RoleType == (int)RoleType.Auditor)
-            { 
+            {
                 RaisinsDB db = new RaisinsDB();
 
                 var payments = db.Payments.Include("Beneficiary").Include("Currency").Include("Tickets").Where(payment => !payment.Locked && payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID && payment.Class != (int)PaymentClass.Foreign).ToList();
@@ -224,7 +236,7 @@ namespace Raisins.Client.Web.Models
             var payment = db.Payments.Include("Tickets").FirstOrDefault(p => p.PaymentID == id);
             if (payment != null)
             {
-                
+
                 try
                 {
                     StringBuilder messageBuilder = new StringBuilder();
@@ -294,9 +306,9 @@ namespace Raisins.Client.Web.Models
             for (int i = 0; i < numOfTickets; i++)
             {
                 //generate code
-                string code = string.Format("{0}{1}-{2}{3}", 
-                    payment.Class.ToString(), 
-                    payment.Beneficiary.BeneficiaryID.ToString("D2"), 
+                string code = string.Format("{0}{1}-{2}{3}",
+                    payment.Class.ToString(),
+                    payment.Beneficiary.BeneficiaryID.ToString("D2"),
                     payment.PaymentID.ToString("X4"),
                     i.ToString("X3"));
 

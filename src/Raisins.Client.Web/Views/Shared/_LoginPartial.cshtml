@@ -1,4 +1,6 @@
-﻿<ul>
+﻿@using Raisins.Client.Web.Models;
+
+<ul>
     @if (Request.IsAuthenticated)
     {
         <li>Welcome <b>@Context.User.Identity.Name</b>! [ @Html.ActionLink("Log Off", "Logout", "Account")]</li>
