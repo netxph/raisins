@@ -23,6 +23,12 @@ namespace Raisins.Client.Web.Models
             return db.Currencies.Where(currency => currency.CurrencyID == id).FirstOrDefault();
         }
 
+        public static Currency[] GetAll()
+        {
+            RaisinsDB db = new RaisinsDB();
+            return db.Currencies.DefaultIfEmpty().ToArray();
+        }
+
         public static Currency[] GetAllForPayment()
         {
             if (Account.CurrentUser.Setting != null)

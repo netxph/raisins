@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using Raisins.Client.Web.Data;
 using System.Net.Mail;
 using System.Text;
+using System.Net.Mime;
 
 namespace Raisins.Client.Web.Models
 {
@@ -48,15 +49,15 @@ namespace Raisins.Client.Web.Models
 
             if (Account.CurrentUser.RoleType == (int)RoleType.User)
             {
-                return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.CreatedBy.AccountID == Account.CurrentUser.AccountID).OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+                return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.CreatedBy.AccountID == Account.CurrentUser.AccountID).OrderByDescending(p => p.PaymentID).ToArray();
             }
             else if (Account.CurrentUser.RoleType == (int)RoleType.Auditor)
             {
-                return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID).OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+                return db.Payments.Include("Beneficiary").Include("Currency").Where(payment => payment.Beneficiary.BeneficiaryID == Account.CurrentUser.Setting.BeneficiaryID).OrderByDescending(p => p.PaymentID).ToArray();
             }
             else
             {
-                return db.Payments.Include("Beneficiary").Include("Currency").OrderBy(payment => payment.Currency.CurrencyCode).ToArray();
+                return db.Payments.Include("Beneficiary").Include("Currency").OrderByDescending(p => p.PaymentID).ToArray();
             }
         }
 
@@ -238,30 +239,40 @@ namespace Raisins.Client.Web.Models
             bool isSuccessful = false;
 
             RaisinsDB db = new RaisinsDB();
-            var payment = db.Payments.Include("Tickets").FirstOrDefault(p => p.PaymentID == id);
+            var payment = db.Payments.Include("Tickets").Include("Currency").FirstOrDefault(p => p.PaymentID == id);
             if (payment != null && payment.Tickets != null && payment.Tickets.Count > 0)
             {
 
                 try
                 {
                     StringBuilder messageBuilder = new StringBuilder();
-                    messageBuilder.AppendFormat("Hello {0},\r\n\r\n", payment.Name);
-                    messageBuilder.AppendLine("Thank you for supporting Pasko 2011.");
-                    messageBuilder.AppendLine("These are the ticket numbers generated for you:");
+                    
+                    messageBuilder.AppendLine("<h2>Navitaire Pasko 2011</h2>");
                     messageBuilder.AppendLine();
+                    messageBuilder.AppendFormat("<p>Hello <b>{0}</b>,\r\n\r\n</p>", payment.Name);
+                    messageBuilder.AppendLine();
+                    messageBuilder.AppendFormat("<p>This is to confirm that we have received your payment amounting <b>{0} ({1})</b>.</p>", payment.Amount.ToString("0.00"), payment.Currency.CurrencyCode);
+                    messageBuilder.AppendLine("<p>");
+                    messageBuilder.AppendLine("<b>Tickets generated</b>");
+                    messageBuilder.AppendLine("</p>");
+
+                    messageBuilder.AppendLine("<p>");
                     foreach (var ticket in payment.Tickets)
                     {
-                        messageBuilder.AppendLine(ticket.TicketCode);
+                        messageBuilder.AppendFormat("{0}<br>", ticket.TicketCode);
                     }
 
+                    messageBuilder.AppendLine("</p>");
                     messageBuilder.AppendLine();
-                    messageBuilder.AppendLine("Navitaire Pasko 2011 Committee");
+                    messageBuilder.AppendLine("This is a computer generated email, please DO NOT REPLY. For issues and concern please contact your ticket vendor.<br>");
+                    messageBuilder.AppendLine("<i>Navitaire Pasko 2011 Committee</i>");
 
-                    MailMessage mail = new MailMessage("marc.vitalis@navitaire.com", payment.Email);
-                    mail.Subject = "Pasko 2011 Tickets";
+                    MailMessage mail = new MailMessage(AppSettings.TicketSender, payment.Email);
+                    mail.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(messageBuilder.ToString(), Encoding.UTF8, "text/html"));
+                    mail.Subject = "Navitaire Pasko 2011 Tickets";
                     mail.Body = messageBuilder.ToString();
 
-                    SmtpClient client = new SmtpClient("mailhost.navitaire.com", 25);
+                    SmtpClient client = new SmtpClient(AppSettings.SmtpServer, AppSettings.SmtpPort);
                     client.Send(mail);
                     isSuccessful = true;
                 }

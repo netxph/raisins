@@ -48,5 +48,25 @@ namespace Raisins.Client.Web
 
             controller.ViewBag.Classes = new SelectList(classes, "ID", "Name", paymentClass);
         }
+
+        public static void GetAccountReferences(AccountController controller)
+        {
+            var roleTypes = from RoleType e in Enum.GetValues(typeof(RoleType))
+                            select new { ID = (int)e, Name = e.ToString() };
+
+            controller.ViewBag.RoleTypes = new SelectList(roleTypes, "ID", "Name");
+
+            var beneficiaries = Beneficiary.GetAll().ToList();
+            beneficiaries.Insert(0, new Beneficiary() { BeneficiaryID = 0, Name = "All" });
+            controller.ViewBag.Beneficiaries = new SelectList(beneficiaries, "BeneficiaryID", "Name");
+
+            var currencies = Currency.GetAll().ToList();
+            controller.ViewBag.Currencies = new SelectList(currencies, "CurrencyID", "CurrencyCode");
+
+            var classes = from PaymentClass e in Enum.GetValues(typeof(PaymentClass))
+                          select new { ID = (int)e, Name = e.ToString() };
+
+            controller.ViewBag.Classes = new SelectList(classes, "ID", "Name");
+        }
     }
 }

@@ -62,5 +62,33 @@ namespace Raisins.Client.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Create()
+        {
+            if (Account.CurrentUser.RoleType == (int)RoleType.Administrator)
+            {
+                var model = new Account() { Setting = new Setting() };
+
+                ViewHelper.GetAccountReferences(this);
+
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult Create(Account account)
+        {
+            account.Salt = Account.GetSalt();
+            account.Password = Account.GetHash(account.UserName, account.Salt);
+
+            RaisinsDB db = new RaisinsDB();
+            db.Accounts.Add(account);
+
+            db.SaveChanges();    
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
