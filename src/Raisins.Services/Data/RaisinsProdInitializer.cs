@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Devtalk.EF.CodeFirst;
 
-namespace Raisins.Client.Web.Data
+namespace Raisins.Services.Data
 {
     public class RaisinsProdInitializer : BaseDatabaseInitializer<RaisinsDB>
     {

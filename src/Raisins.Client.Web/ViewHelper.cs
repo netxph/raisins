@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Raisins.Client.Web.Models;
+using Raisins.Services.Models;
 using Raisins.Client.Web.Controllers;
 using System.Web.Mvc;
 

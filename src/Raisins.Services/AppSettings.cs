@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 
-namespace Raisins.Client.Web
+namespace Raisins.Services
 {
     public class AppSettings
     {

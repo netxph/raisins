@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Security.Principal;
 
-namespace Raisins.Client.Web.Security
+namespace Raisins.Services.Security
 {
     public class UserPrincipal : IPrincipal
     {

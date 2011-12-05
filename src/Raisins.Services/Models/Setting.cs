@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Raisins.Client.Web.Models
+namespace Raisins.Services.Models
 {
     public class Setting
     {

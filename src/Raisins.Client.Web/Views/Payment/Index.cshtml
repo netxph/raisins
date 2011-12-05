@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Raisins.Client.Web.Models.Payment>
+﻿@model IEnumerable<Raisins.Services.Models.Payment>
 
 @{
 	ViewBag.Title = "Index";
@@ -24,7 +24,7 @@
 	{ 
 		<div class="item">
 		<span class="beneficiary">
-			@item.Beneficiary.Name - @((Raisins.Client.Web.Models.PaymentClass)item.Class):
+			@item.Beneficiary.Name - @((Raisins.Services.Models.PaymentClass)item.Class):
 		</span>
 		<span class="name">
 			@item.Name

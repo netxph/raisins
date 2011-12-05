@@ -10,7 +10,7 @@ using System.Text;
 using System.Xml;
 using System.Linq;
 
-namespace Raisins.Client.Web.Data
+namespace Raisins.Services.Data
 {
     public class BaseDatabaseInitializer<T> : IDatabaseInitializer<T> where T : DbContext
     {

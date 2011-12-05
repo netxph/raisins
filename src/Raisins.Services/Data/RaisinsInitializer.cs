@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-using Raisins.Client.Web.Models;
+using Raisins.Services.Models;
 
-namespace Raisins.Client.Web.Data
+namespace Raisins.Services.Data
 {
     public class RaisinsInitializer : DropCreateDatabaseIfModelChanges<RaisinsDB>
     {

@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Data.Entity;
-using Raisins.Client.Web.Data;
+using Raisins.Services.Data;
 using System.Web.Security;
-using Raisins.Client.Web.Security;
+using Raisins.Services.Security;
 
 namespace Raisins.Client.Web
 {

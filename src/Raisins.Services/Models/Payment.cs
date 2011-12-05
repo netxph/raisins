@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-using Raisins.Client.Web.Data;
+using Raisins.Services.Data;
 using System.Net.Mail;
 using System.Text;
 using System.Net.Mime;
+using Raisins.Services;
 
-namespace Raisins.Client.Web.Models
+namespace Raisins.Services.Models
 {
     public class Payment
     {

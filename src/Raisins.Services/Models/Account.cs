@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Raisins.Client.Web.Data;
+using Raisins.Services.Data;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
-using Raisins.Client.Web.Security;
+using Raisins.Services.Security;
 
-namespace Raisins.Client.Web.Models
+namespace Raisins.Services.Models
 {
     public class Account
     {

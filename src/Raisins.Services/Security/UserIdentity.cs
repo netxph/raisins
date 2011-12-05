@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Security.Principal;
-using Raisins.Client.Web.Models;
+using Raisins.Services.Models;
 
-namespace Raisins.Client.Web.Security
+namespace Raisins.Services.Security
 {
     public class UserIdentity : IIdentity
     {

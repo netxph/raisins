@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Web", "src\Raisins.Client.Web\Raisins.Client.Web.csproj", "{C3D8611E-9603-4AE4-9F41-10B225E7E6BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Services", "src\Raisins.Services\Raisins.Services.csproj", "{F7D41D1C-12AA-46B7-AEAC-63D84BA81559}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{C3D8611E-9603-4AE4-9F41-10B225E7E6BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3D8611E-9603-4AE4-9F41-10B225E7E6BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3D8611E-9603-4AE4-9F41-10B225E7E6BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D41D1C-12AA-46B7-AEAC-63D84BA81559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D41D1C-12AA-46B7-AEAC-63D84BA81559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D41D1C-12AA-46B7-AEAC-63D84BA81559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D41D1C-12AA-46B7-AEAC-63D84BA81559}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
