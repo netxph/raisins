@@ -1,0 +1,21 @@
+﻿<Window x:Class="Raisins.Client.Raffle.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Raisins Raffle" Height="350" Width="525" MinWidth="1024" MinHeight="768" Background="Black">
+    <DockPanel>
+    	<Canvas DockPanel.Dock="Top">
+    		<Image Source="banner.jpg"/>
+		</Canvas>
+    	<Button Content="Draw" Command="{Binding DrawCommand}" DockPanel.Dock="Bottom" FontSize="64" IsDefault="True" />
+    	<Grid>
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+        	<TextBlock Text="{Binding CurrentName}" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="64" Foreground="White" FontWeight="Bold" />
+        	<TextBlock Text="{Binding CurrentTicketCode}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="64" Foreground="White" />
+        	
+		</Grid>
+        
+    </DockPanel>
+</Window>
