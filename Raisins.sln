@@ -1,5 +1,5 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Web", "src\Raisins.Client.Web\Raisins.Client.Web.csproj", "{E7755F66-12F2-4E56-92B9-F9710C154F17}"
 EndProject
