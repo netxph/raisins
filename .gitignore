@@ -5,6 +5,10 @@ Raisins.Client.Web.Publish.xml
 #Raisins custom pages
 _rs_*.cshtml
 
+#database files
+*.mdf
+*.ldf
+
 #OS junk files
 [Tt]humbs.db
 *.DS_Store
