@@ -1,95 +1,65 @@
-﻿using System;
+﻿using Raisins.Client.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Raisins.Services.Models;
 using System.Web.Security;
-using Raisins.Services.Data;
-using System.Web.Profile;
-using Raisins.Services.Models;
 
 namespace Raisins.Client.Web.Controllers
 {
     public class AccountController : Controller
     {
-        public ActionResult Login()
-        {
-            Account model = new Account();
 
+        AccountService _service = null;
+        public AccountService Service 
+        {
+            get
+            {
+                if (_service == null)
+                {
+                    _service = new AccountService();
+                }
+
+                return _service;
+            }
+            set
+            {
+                _service = value;
+            }
+        }
+
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Login(LoginModel model, string returnUrl)
+        {
+            if (ModelState.IsValid && Service.Login(model.UserName, model.Password))
+            {
+                FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                return RedirectToLocal(returnUrl);
+            }
+
+            ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult Login(Account model, string returnUrl)
+        private ActionResult RedirectToLocal(string returnUrl)
         {
-            var account = Account.Login(model.UserName, model.Password);
-
-            if (account != null)
+            if (Url.IsLocalUrl(returnUrl))
             {
-                FormsAuthentication.SetAuthCookie(model.UserName, false);
-
-                return RedirectToAction("Index", "Home");
+                return Redirect(returnUrl);
             }
-
-            return View();
-        }
-
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult ChangePassword()
-        {
-            if (Account.CurrentUser == null)
+            else
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            return View();
         }
 
-        [HttpPost]
-        public ActionResult ChangePassword(FormCollection form)
-        {
-            if (Account.ChangePassword(form["OldPassword"], form["NewPassword"], form["ConfirmPassword"]))
-            {
-                FormsAuthentication.SignOut();
-                return RedirectToAction("Login", "Account");
-            }
-
-            return View();
-        }
-
-        public ActionResult Create()
-        {
-            if (Account.CurrentUser.RoleType == (int)RoleType.Administrator)
-            {
-                var model = new Account() { Setting = new Setting() };
-
-                ViewHelper.GetAccountReferences(this);
-
-                return View(model);
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public ActionResult Create(Account account)
-        {
-            account.Salt = Account.GetSalt();
-            account.Password = Account.GetHash(account.UserName, account.Salt);
-
-            RaisinsDB db = new RaisinsDB();
-            db.Accounts.Add(account);
-
-            db.SaveChanges();    
-
-            return RedirectToAction("Index", "Home");
-        }
     }
 }
