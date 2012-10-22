@@ -8,7 +8,7 @@ using System.Web.Security;
 
 namespace Raisins.Client.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountsController : Controller
     {
 
         AccountService _service = null;

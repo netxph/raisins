@@ -21,7 +21,7 @@ namespace Raisins.Client.Web.Models
             DB = db;
         }
 
-        public RaisinsDB DB { get; set; }
+        protected RaisinsDB DB { get; set; }
 
         public bool Login(string userName, string password)
         {

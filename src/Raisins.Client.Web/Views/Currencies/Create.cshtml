@@ -1,0 +1,51 @@
+﻿@model Raisins.Client.Web.Models.Currency
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Currency</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CurrencyCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CurrencyCode)
+            @Html.ValidationMessageFor(model => model.CurrencyCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ratio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ratio)
+            @Html.ValidationMessageFor(model => model.Ratio)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExchangeRate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExchangeRate)
+            @Html.ValidationMessageFor(model => model.ExchangeRate)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
