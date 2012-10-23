@@ -9,30 +9,24 @@ using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Controllers
 {
+    [Authorize]
     public class BeneficiariesController : Controller
     {
-
-        public BeneficiariesController()
-        {
-            Service = new BeneficiaryService();
-        }
-
-        protected BeneficiaryService Service { get; set; }
 
         //
         // GET: /Beneficiaries/
 
         public ActionResult Index()
         {
-            return View(Service.GetAll());
+            return View(Beneficiary.GetAll());
         }
 
         //
         // GET: /Beneficiaries/Details/5
-
+        [AllowAnonymous]
         public ActionResult Details(int id = 0)
         {
-            Beneficiary beneficiary = Service.Find(id);
+            Beneficiary beneficiary = Beneficiary.Find(id);
             if (beneficiary == null)
             {
                 return HttpNotFound();
@@ -56,7 +50,7 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Service.Add(beneficiary);
+                Beneficiary.Add(beneficiary);
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +62,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Beneficiary beneficiary = Service.Find(id);
+            Beneficiary beneficiary = Beneficiary.Find(id);
             if (beneficiary == null)
             {
                 return HttpNotFound();
@@ -84,7 +78,7 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Service.Edit(beneficiary);
+                Beneficiary.Edit(beneficiary);
                 return RedirectToAction("Index");
             }
             return View(beneficiary);
@@ -95,7 +89,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Beneficiary beneficiary = Service.Find(id);
+            Beneficiary beneficiary = Beneficiary.Find(id);
             if (beneficiary == null)
             {
                 return HttpNotFound();
@@ -109,7 +103,7 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Service.Delete(id);
+            Beneficiary.Delete(id);
             return RedirectToAction("Index");
         }
 

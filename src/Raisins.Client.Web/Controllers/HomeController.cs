@@ -10,7 +10,7 @@ namespace Raisins.Client.Web.Controllers
     {
         //
         // GET: /Home/
-
+        [Authorize()]
         public ActionResult Index()
         {
             return View();

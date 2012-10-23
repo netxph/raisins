@@ -11,19 +11,13 @@ namespace Raisins.Client.Web.Controllers
 {
     public class CurrenciesController : Controller
     {
-        public CurrenciesController()
-        {
-            Service = new CurrencyService();
-        }
-
-        protected CurrencyService Service { get; set; }
 
         //
         // GET: /Currencies/
 
         public ActionResult Index()
         {
-            return View(Service.GetAll());
+            return View(Currency.GetAll());
         }
 
         //
@@ -31,7 +25,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Currency currency = Service.Find(id);
+            Currency currency = Currency.Find(id);
 
             if (currency == null)
             {
@@ -56,7 +50,7 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Service.Add(currency);
+                Currency.Add(currency);
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +62,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Currency currency = Service.Find(id);
+            Currency currency = Currency.Find(id);
 
             if (currency == null)
             {
@@ -86,7 +80,7 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Service.Edit(currency);
+                Currency.Edit(currency);
 
                 return RedirectToAction("Index");
             }
@@ -98,7 +92,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Currency currency = Service.Find(id);
+            Currency currency = Currency.Find(id);
             if (currency == null)
             {
                 return HttpNotFound();
@@ -112,7 +106,7 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Service.Delete(id);
+            Currency.Delete(id);
 
             return RedirectToAction("Index");
         }

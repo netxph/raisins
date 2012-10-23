@@ -12,8 +12,7 @@ namespace Raisins.Client.Web.Models
 
         protected override void Seed(RaisinsDB context)
         {
-            AccountService service = new AccountService(context);
-            service.CreateUser("admin", "R@isin5");
+            Account.CreateUser("admin", "R@isin5");
         }
 
     }
