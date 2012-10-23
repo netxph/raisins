@@ -19,6 +19,7 @@ namespace Raisins.Client.Web.Models
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Beneficiary> Beneficiaries { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Ledger> Ledger { get; set; }
 
     }
 }

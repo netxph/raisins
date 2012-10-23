@@ -122,6 +122,7 @@
     <Compile Include="Controllers\BeneficiariesController.cs" />
     <Compile Include="Controllers\CurrenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -132,6 +133,7 @@
     <Compile Include="Models\DbFactory.cs" />
     <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\Helper.cs" />
+    <Compile Include="Models\Ledger.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\PaymentClass.cs" />
@@ -218,6 +220,21 @@
   <ItemGroup>
     <Content Include="Views\Payments\Delete.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Ledger\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Ledger\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Ledger\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Ledger\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Ledger\Delete.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -234,7 +251,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>17081</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:43567/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
