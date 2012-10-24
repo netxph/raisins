@@ -64,16 +64,12 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult Create(Payment payment)
         {
             Beneficiary selectedBeneficiary = Beneficiary.Find(payment.Beneficiary.ID);
-            payment.Beneficiary.Description = selectedBeneficiary.Description;
-            payment.Beneficiary.Name = selectedBeneficiary.Name;
+            payment.Beneficiary = selectedBeneficiary;
 
             Currency selectedCurrency = Currency.Find(payment.Currency.ID);
-            payment.Currency.CurrencyCode = selectedCurrency.CurrencyCode;
-            payment.Currency.ExchangeRate = selectedCurrency.ExchangeRate;
-            payment.Currency.Ratio = selectedCurrency.Ratio;
+            payment.Currency = selectedCurrency;
 
             payment.Tickets = new List<Ticket>();
-            payment.Tickets.Add(new Ticket() { ID=1L});
 
             if (ModelState.IsValid)
             {
