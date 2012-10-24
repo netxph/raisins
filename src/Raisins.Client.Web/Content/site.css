@@ -42,10 +42,12 @@ div.event-title
     font-size: 72px;
     height: 400px;
     overflow: hidden;
-    text-align: right;
+    position: relative;
 }
 
     div.event-title span
     {
-        
+        position: absolute;
+        bottom: 0;
+        text-align: right;
     }
