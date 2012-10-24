@@ -29,33 +29,37 @@ namespace Raisins.Client.Web.Models
 
         public string Remarks { get; set; }
 
-        public int AuditedByID 
-        { 
-            get 
-            { 
-                #if DEBUG
+        public int AuditedByID
+        {
+            get
+            {
+#if DEBUG
                 if (AuditedBy == null)
                 {
-                    AuditedBy = new Account() { ID = 1, UserName = "admin", Password = "R@isin5"};
+                    AuditedBy = new Account() { ID = 1, UserName = "admin", Password = "R@isin5" };
                 }
-                #endif
-                return AuditedBy.ID; 
+#endif
+                return AuditedBy.ID;
 
-            } 
+            }
         }
-        public int CreatedByID 
-        { 
-            get 
-            { 
-                #if DEBUG
+        public int CreatedByID
+        {
+            get
+            {
+#if DEBUG
                 if (CreatedBy == null)
                 {
                     CreatedBy = new Account() { ID = 1, UserName = "admin", Password = "R@isin5" };
                 }
-                #endif 
-                return CreatedBy.ID; 
-            } 
+#endif
+                return CreatedBy.ID;
+            }
         }
+
+        //public int AuditedByID { get { return AuditedBy.ID; } }
+        //public int CreatedByID { get { return CreatedBy.ID; } }
+
 
         public virtual Account AuditedBy { get; set; }
         public virtual Account CreatedBy { get; set; }

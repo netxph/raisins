@@ -39,6 +39,21 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
+            List<SelectListItem> currencyListItems = new List<SelectListItem>();
+            List<Currency> currencies = Currency.GetAll();
+            foreach (Currency currency in currencies)
+            {
+                currencyListItems.Add(new SelectListItem() { Value=currency.ID.ToString(), Text =currency.CurrencyCode} );
+            }
+            ViewBag.CurrencyIDList = new SelectList(currencyListItems, "Value", "Text");
+
+            List<SelectListItem> beneficiaryListItems = new List<SelectListItem>();
+            List<Beneficiary> beneficiaries = Beneficiary.GetAll();
+            foreach (Beneficiary beneficiary in beneficiaries)
+            {
+                beneficiaryListItems.Add(new SelectListItem() { Value=beneficiary.ID.ToString(), Text=beneficiary.Name});
+            }
+            ViewBag.BeneficiaryIDList = new SelectList(beneficiaryListItems, "Value", "Text");
             return View();
         }
 
@@ -48,6 +63,18 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost]
         public ActionResult Create(Payment payment)
         {
+            Beneficiary selectedBeneficiary = Beneficiary.Find(payment.Beneficiary.ID);
+            payment.Beneficiary.Description = selectedBeneficiary.Description;
+            payment.Beneficiary.Name = selectedBeneficiary.Name;
+
+            Currency selectedCurrency = Currency.Find(payment.Currency.ID);
+            payment.Currency.CurrencyCode = selectedCurrency.CurrencyCode;
+            payment.Currency.ExchangeRate = selectedCurrency.ExchangeRate;
+            payment.Currency.Ratio = selectedCurrency.Ratio;
+
+            payment.Tickets = new List<Ticket>();
+            payment.Tickets.Add(new Ticket() { ID=1L});
+
             if (ModelState.IsValid)
             {
                 db.Payments.Add(payment);
@@ -55,6 +82,21 @@ namespace Raisins.Client.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            List<Currency> currencies = Currency.GetAll();
+            foreach (Currency currency in currencies)
+            {
+                selectListItems.Add(new SelectListItem() { Value = currency.ID.ToString(), Text = currency.CurrencyCode });
+            }
+            ViewBag.CurrencyIDList = new SelectList(selectListItems, "Value", "Text", payment.Currency);
+
+            List<SelectListItem> beneficiaryListItems = new List<SelectListItem>();
+            List<Beneficiary> beneficiaries = Beneficiary.GetAll();
+            foreach (Beneficiary beneficiary in beneficiaries)
+            {
+                beneficiaryListItems.Add(new SelectListItem() { Value = beneficiary.ID.ToString(), Text = beneficiary.Name });
+            }
+            ViewBag.BeneficiaryIDList = new SelectList(beneficiaryListItems, "Value", "Text", payment.Beneficiary);
             return View(payment);
         }
 

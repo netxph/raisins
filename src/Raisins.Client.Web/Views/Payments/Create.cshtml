@@ -13,6 +13,12 @@
         <legend>Payment</legend>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.Beneficiary)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Beneficiary.ID", @ViewBag.BeneficiaryIDList as IEnumerable<SelectListItem>, "")
+        </div>
+        <div class="editor-label">
             @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
@@ -21,11 +27,13 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Amount)
+            @Html.LabelFor(model => model.Amount) 
+            
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Amount)
             @Html.ValidationMessageFor(model => model.Amount)
+            @Html.DropDownList("Currency.ID", @ViewBag.CurrencyIDList as IEnumerable<SelectListItem>, "")
         </div>
 
         <div class="editor-label">
