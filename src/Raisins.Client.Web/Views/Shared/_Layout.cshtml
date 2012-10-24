@@ -2,10 +2,13 @@
 <html>
     <head>
         <title>@ViewBag.Title - Raisins 2012</title>
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
         @Styles.Render("~/Content/css")
     </head>
     <body>
-        <h1>Raisins 2012</h1>
+        <h1 class="app-logo">raisins <span>2012</span></h1>
+        <h6 class="app-logo">a fund-raising event.</h6>
+        <hr />
         @RenderBody()
         @RenderSection("scripts", required: false)
     </body>

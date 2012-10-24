@@ -1,2 +1,51 @@
-﻿body {
+﻿body
+{
+    font-family: 'Open Sans', segoe ui, verdana, arial, sans-serif;
+    color: white;
+    background-color: black;
+    font-size: 14px;
+    width: 1024px;
+    margin: 12px auto;
 }
+
+hr
+{
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: -webkit-linear-gradient(left, #333, #ccc, #333);
+    background-image: -moz-linear-gradient(left, #333, #ccc, #333);
+    background-image: -ms-linear-gradient(left, #333, #ccc, #333);
+    background-image: -o-linear-gradient(left, #333, #ccc, #333);
+}
+
+h1.app-logo
+{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+}
+
+    h1.app-logo span
+    {
+        font-weight: lighter;
+    }
+
+h6.app-logo
+{
+    text-align: right;
+}
+
+div.event-title
+{
+    width: 600px;
+    font-size: 72px;
+    height: 400px;
+    overflow: hidden;
+    text-align: right;
+}
+
+    div.event-title span
+    {
+        
+    }
