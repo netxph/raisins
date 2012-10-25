@@ -120,3 +120,12 @@ ul#teamscontent li
 {
     text-decoration:underline;
 }
+ul#navigation
+{
+}
+ul#navigation li
+{
+    display:block;
+    float:left;
+    padding-left:10px;
+}
