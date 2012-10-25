@@ -27,13 +27,19 @@
             @Html.DisplayNameFor(model => model.Remarks)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AuditedByID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedByID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Locked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Beneficiary.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Currency.CurrencyCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditedBy.UserName)
         </th>
         <th></th>
     </tr>
@@ -56,13 +62,19 @@
             @Html.DisplayFor(modelItem => item.Remarks)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AuditedByID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedByID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Locked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Beneficiary.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AuditedBy.UserName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

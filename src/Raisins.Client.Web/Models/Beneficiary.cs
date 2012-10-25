@@ -19,7 +19,7 @@ namespace Raisins.Client.Web.Models
 
         public static List<Beneficiary> GetAll()
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 return db.Beneficiaries.ToList();
             }
@@ -27,7 +27,7 @@ namespace Raisins.Client.Web.Models
 
         public static Beneficiary Find(int id = 0)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 return db.Beneficiaries.Find(id);
             }
@@ -35,7 +35,7 @@ namespace Raisins.Client.Web.Models
 
         public static Beneficiary Add(Beneficiary Beneficiary)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 db.Beneficiaries.Add(Beneficiary);
                 db.SaveChanges();
@@ -46,7 +46,7 @@ namespace Raisins.Client.Web.Models
 
         public static Beneficiary Edit(Beneficiary Beneficiary)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 db.Entry(Beneficiary).State = EntityState.Modified;
                 db.SaveChanges();
@@ -57,7 +57,7 @@ namespace Raisins.Client.Web.Models
 
         public static void Delete(int id)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 var Beneficiary = Find(id);
 

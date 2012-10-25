@@ -24,7 +24,7 @@ namespace Raisins.Client.Web.Models
 
         public static List<Currency> GetAll()
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 return db.Currencies.ToList();
             }
@@ -32,7 +32,7 @@ namespace Raisins.Client.Web.Models
 
         public static Currency Find(int id = 0)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 return db.Currencies.Find(id);
             }
@@ -40,7 +40,7 @@ namespace Raisins.Client.Web.Models
 
         public static Currency Add(Currency currency)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 db.Currencies.Add(currency);
                 db.SaveChanges();
@@ -51,7 +51,7 @@ namespace Raisins.Client.Web.Models
 
         public static Currency Edit(Currency currency)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 db.Entry(currency).State = EntityState.Modified;
                 db.SaveChanges();
@@ -62,7 +62,7 @@ namespace Raisins.Client.Web.Models
 
         public static void Delete(int id)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 var currency = Find(id);
 

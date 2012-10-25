@@ -62,6 +62,38 @@
             @Html.ValidationMessageFor(model => model.Locked)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BeneficiaryID, "Beneficiary")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("BeneficiaryID", String.Empty)
+            @Html.ValidationMessageFor(model => model.BeneficiaryID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CurrencyID, "Currency")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CurrencyID", String.Empty)
+            @Html.ValidationMessageFor(model => model.CurrencyID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedByID, "CreatedBy")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CreatedByID", String.Empty)
+            @Html.ValidationMessageFor(model => model.CreatedByID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AuditedByID, "AuditedBy")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AuditedByID", String.Empty)
+            @Html.ValidationMessageFor(model => model.AuditedByID)
+        </div>
+
         <p>
             <input type="submit" value="Save" />
         </p>

@@ -122,7 +122,6 @@
     <Compile Include="Controllers\BeneficiariesController.cs" />
     <Compile Include="Controllers\CurrenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,16 +129,17 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Beneficiary.cs" />
     <Compile Include="Models\Currency.cs" />
-    <Compile Include="Models\DbFactory.cs" />
+    <Compile Include="Services\ObjectProvider.cs" />
     <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\Helper.cs" />
-    <Compile Include="Models\Ledger.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\PaymentClass.cs" />
     <Compile Include="Models\RaisinsDB.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\HttpHelper.cs" />
+    <Compile Include="Services\IHttpHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -219,21 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Payments\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Ledger\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Ledger\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Ledger\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Ledger\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Ledger\Delete.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

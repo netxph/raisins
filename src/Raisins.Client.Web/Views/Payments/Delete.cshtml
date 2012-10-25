@@ -46,24 +46,38 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.AuditedByID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AuditedByID)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreatedByID)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CreatedByID)
-    </div>
-
-    <div class="display-label">
          @Html.DisplayNameFor(model => model.Locked)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Locked)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Beneficiary.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Beneficiary.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Currency.CurrencyCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Currency.CurrencyCode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedBy.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedBy.UserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AuditedBy.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AuditedBy.UserName)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

@@ -20,7 +20,7 @@ namespace Raisins.Client.Web.Models
         
         public static bool Login(string userName, string password)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
 
                 var account = db.Accounts.FirstOrDefault(a => a.UserName == userName);
@@ -33,11 +33,10 @@ namespace Raisins.Client.Web.Models
                 return false;
             }
         }
-
-
+        
         public static Account CreateUser(string userName, string password)
         {
-            using (var db = DbFactory.Create())
+            using (var db = ObjectProvider.CreateDB())
             {
                 var salt = Helper.CreateSalt();
 
@@ -45,6 +44,17 @@ namespace Raisins.Client.Web.Models
 
                 db.Accounts.Add(account);
                 db.SaveChanges();
+
+                return db.Accounts.FirstOrDefault(a => a.UserName == userName);
+            }
+        }
+
+        public static Account GetCurrentUser()
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                var http = ObjectProvider.CreateHttpHelper();
+                var userName = http.GetCurrentUserName();
 
                 return db.Accounts.FirstOrDefault(a => a.UserName == userName);
             }

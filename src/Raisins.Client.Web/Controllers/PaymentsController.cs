@@ -9,16 +9,18 @@ using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Controllers
 {
+
+    [Authorize]
     public class PaymentsController : Controller
     {
-        private RaisinsDB db = new RaisinsDB();
-
         //
         // GET: /Payments/
 
         public ActionResult Index()
         {
-            return View(db.Payments.ToList());
+            var payments = Payment.GetAll();
+
+            return View(payments);
         }
 
         //
@@ -26,7 +28,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Payment payment = db.Payments.Find(id);
+            Payment payment = Payment.Find(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -39,21 +41,9 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
-            List<SelectListItem> currencyListItems = new List<SelectListItem>();
-            List<Currency> currencies = Currency.GetAll();
-            foreach (Currency currency in currencies)
-            {
-                currencyListItems.Add(new SelectListItem() { Value=currency.ID.ToString(), Text =currency.CurrencyCode} );
-            }
-            ViewBag.CurrencyIDList = new SelectList(currencyListItems, "Value", "Text");
-
-            List<SelectListItem> beneficiaryListItems = new List<SelectListItem>();
-            List<Beneficiary> beneficiaries = Beneficiary.GetAll();
-            foreach (Beneficiary beneficiary in beneficiaries)
-            {
-                beneficiaryListItems.Add(new SelectListItem() { Value=beneficiary.ID.ToString(), Text=beneficiary.Name});
-            }
-            ViewBag.BeneficiaryIDList = new SelectList(beneficiaryListItems, "Value", "Text");
+            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name");
+            ViewBag.CurrencyID = new SelectList(Currency.GetAll(), "ID", "CurrencyCode");
+            
             return View();
         }
 
@@ -63,36 +53,15 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost]
         public ActionResult Create(Payment payment)
         {
-            Beneficiary selectedBeneficiary = Beneficiary.Find(payment.Beneficiary.ID);
-            payment.Beneficiary = selectedBeneficiary;
-
-            Currency selectedCurrency = Currency.Find(payment.Currency.ID);
-            payment.Currency = selectedCurrency;
-
-            payment.Tickets = new List<Ticket>();
-
             if (ModelState.IsValid)
             {
-                db.Payments.Add(payment);
-                db.SaveChanges();
+                Payment.Add(payment);
                 return RedirectToAction("Index");
             }
 
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
-            List<Currency> currencies = Currency.GetAll();
-            foreach (Currency currency in currencies)
-            {
-                selectListItems.Add(new SelectListItem() { Value = currency.ID.ToString(), Text = currency.CurrencyCode });
-            }
-            ViewBag.CurrencyIDList = new SelectList(selectListItems, "Value", "Text", payment.Currency);
-
-            List<SelectListItem> beneficiaryListItems = new List<SelectListItem>();
-            List<Beneficiary> beneficiaries = Beneficiary.GetAll();
-            foreach (Beneficiary beneficiary in beneficiaries)
-            {
-                beneficiaryListItems.Add(new SelectListItem() { Value = beneficiary.ID.ToString(), Text = beneficiary.Name });
-            }
-            ViewBag.BeneficiaryIDList = new SelectList(beneficiaryListItems, "Value", "Text", payment.Beneficiary);
+            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name", payment.BeneficiaryID);
+            ViewBag.CurrencyID = new SelectList(Currency.GetAll(), "ID", "CurrencyCode", payment.CurrencyID);
+            
             return View(payment);
         }
 
@@ -101,11 +70,14 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Payment payment = db.Payments.Find(id);
+            Payment payment = Payment.Find(id);
             if (payment == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name", payment.BeneficiaryID);
+            ViewBag.CurrencyID = new SelectList(Currency.GetAll(), "ID", "CurrencyCode", payment.CurrencyID);
+
             return View(payment);
         }
 
@@ -117,10 +89,12 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(payment).State = EntityState.Modified;
-                db.SaveChanges();
+                Payment.Edit(payment);
                 return RedirectToAction("Index");
             }
+            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name", payment.BeneficiaryID);
+            ViewBag.CurrencyID = new SelectList(Beneficiary.GetAll(), "ID", "CurrencyCode", payment.CurrencyID);
+            
             return View(payment);
         }
 
@@ -129,7 +103,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Payment payment = db.Payments.Find(id);
+            Payment payment = Payment.Find(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -143,16 +117,9 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Payment payment = db.Payments.Find(id);
-            db.Payments.Remove(payment);
-            db.SaveChanges();
+            Payment.Delete(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }
