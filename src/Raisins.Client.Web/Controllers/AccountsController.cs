@@ -31,6 +31,13 @@ namespace Raisins.Client.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Logoff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

@@ -9,6 +9,15 @@
         <h1 class="app-logo">raisins <span>2012</span></h1>
         <h6 class="app-logo">a fund-raising event.</h6>
         <hr />
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Payments</a></li>
+            <li><a href="#">Mechanics</a></li>
+        </ul>
+
+        @Html.Partial("_LoginPartial")
+        
         @RenderBody()
         @RenderSection("scripts", required: false)
     </body>
