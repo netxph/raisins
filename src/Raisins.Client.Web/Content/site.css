@@ -35,7 +35,10 @@ h6.app-logo
 {
     text-align: right;
 }
-
+div#maincontentarea
+{
+    
+}
 div.event-title
 {
     width: 600px;
@@ -43,6 +46,7 @@ div.event-title
     height: 400px;
     overflow: hidden;
     position: relative;
+    float:left;
 }
 
     div.event-title span
@@ -51,3 +55,27 @@ div.event-title
         bottom: 0;
         text-align: right;
     }
+div#rightcontentarea
+{
+    float:left;
+    width:400px;
+    padding-left: 24px;
+    position:relative;
+}
+#timer,#newscontainer
+{
+    position:relative;
+}
+#timer
+{
+    height:40px;
+    font-size:45px;
+}
+#newscontainer
+{
+    padding-top:30px;
+}
+#newscontainer h2
+{
+    font-size: 40px;
+}
