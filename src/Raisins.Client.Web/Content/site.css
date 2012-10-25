@@ -48,6 +48,7 @@ div.event-title
     overflow: hidden;
     position: relative;
     float:left;
+    background:url("Images/l.jpg") no-repeat 0 0;
 }
 
     div.event-title span
