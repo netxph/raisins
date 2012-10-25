@@ -33,25 +33,25 @@ namespace Raisins.Client.Web.Models
             }
         }
 
-        public static Beneficiary Add(Beneficiary Beneficiary)
+        public static Beneficiary Add(Beneficiary beneficiary)
         {
             using (var db = ObjectProvider.CreateDB())
             {
-                db.Beneficiaries.Add(Beneficiary);
+                db.Beneficiaries.Add(beneficiary);
                 db.SaveChanges();
 
-                return Beneficiary;
+                return beneficiary;
             }
         }
 
-        public static Beneficiary Edit(Beneficiary Beneficiary)
+        public static Beneficiary Edit(Beneficiary beneficiary)
         {
             using (var db = ObjectProvider.CreateDB())
             {
-                db.Entry(Beneficiary).State = EntityState.Modified;
+                db.Entry(beneficiary).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return Beneficiary;
+                return beneficiary;
             }
         }
 

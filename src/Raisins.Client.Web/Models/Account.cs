@@ -17,6 +17,7 @@ namespace Raisins.Client.Web.Models
         public string Password { get; set; }
         public string Salt { get; set; }
 
+        public List<Role> Roles { get; set; }
         
         public static bool Login(string userName, string password)
         {
@@ -34,13 +35,13 @@ namespace Raisins.Client.Web.Models
             }
         }
         
-        public static Account CreateUser(string userName, string password)
+        public static Account CreateUser(string userName, string password, List<Role> roles)
         {
             using (var db = ObjectProvider.CreateDB())
             {
                 var salt = Helper.CreateSalt();
 
-                Account account = new Account() { UserName = userName, Salt = salt, Password = GetHash(password, salt) };
+                Account account = new Account() { UserName = userName, Salt = salt, Password = GetHash(password, salt), Roles = roles };
 
                 db.Accounts.Add(account);
                 db.SaveChanges();
@@ -56,7 +57,7 @@ namespace Raisins.Client.Web.Models
                 var http = ObjectProvider.CreateHttpHelper();
                 var userName = http.GetCurrentUserName();
 
-                return db.Accounts.FirstOrDefault(a => a.UserName == userName);
+                return db.Accounts.Include("Roles").FirstOrDefault(a => a.UserName == userName);
             }
         }
 
@@ -68,5 +69,10 @@ namespace Raisins.Client.Web.Models
             return Encoding.UTF8.GetString(hashedBytes);
         }
 
+
+        public static Account CreateUser(string userName, string password)
+        {
+            return CreateUser(userName, password, new List<Role> { Role.Find("User") });
+        }
     }
 }

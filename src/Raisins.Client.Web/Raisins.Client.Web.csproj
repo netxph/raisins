@@ -127,8 +127,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Beneficiary.cs" />
     <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Services\AuthorizeActivityAttribute.cs" />
     <Compile Include="Services\ObjectProvider.cs" />
     <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\Helper.cs" />
