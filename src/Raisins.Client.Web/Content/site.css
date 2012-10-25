@@ -37,7 +37,8 @@ h6.app-logo
 }
 div#maincontentarea
 {
-    
+    height:auto;
+    position:relative;
 }
 div.event-title
 {
@@ -54,6 +55,7 @@ div.event-title
         position: absolute;
         bottom: 0;
         text-align: right;
+        width:600px;
     }
 div#rightcontentarea
 {
@@ -61,6 +63,7 @@ div#rightcontentarea
     width:400px;
     padding-left: 24px;
     position:relative;
+    height:auto;
 }
 #timer,#newscontainer
 {
@@ -74,6 +77,7 @@ div#rightcontentarea
 #newscontainer
 {
     padding-top:30px;
+    height:auto;
 }
 #newscontainer h2
 {
@@ -101,4 +105,18 @@ ul#teamscontent li
     display:block;
     float:left;
     padding-left:28px;
+}
+.newscontents
+{
+    margin-top:10px;
+}
+.newscontents a
+{
+    font-size: 20px;
+    color: #FFF;
+    text-decoration:none;
+}
+.newscontents a:hover
+{
+    text-decoration:underline;
 }
