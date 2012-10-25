@@ -79,3 +79,26 @@ div#rightcontentarea
 {
     font-size: 40px;
 }
+div#teamscontainer
+{
+    padding-top:30px;
+}
+ul#teamscontent
+{
+    
+}
+ul#teamscontent li img
+{
+    width:180px;
+    border:#FFF solid 1px;
+}
+ul#teamscontent li:first-child
+{
+    padding-left:0;
+}
+ul#teamscontent li
+{
+    display:block;
+    float:left;
+    padding-left:28px;
+}
