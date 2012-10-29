@@ -121,12 +121,34 @@ ul#teamscontent li
 {
     text-decoration:underline;
 }
+#topcontainer
+{
+    width:1024;
+    position:relative;
+    overflow:hidden;
+    height:28px;
+}
 ul#navigation
 {
+    padding-bottom:10px;
+    float:left;
+    position:relative;
 }
 ul#navigation li
 {
     display:block;
     float:left;
     padding-left:10px;
+}
+ul#navigation li a,a#loginLink
+{
+    color:#FFF;
+    font-size:17px;
+    font-family:Tahoma;
+    text-decoration:none;
+    padding:5px;
+}
+ul#navigation li a:hover,a#loginLink:hover
+{
+    background:#CCC;
 }
