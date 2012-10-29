@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Raisins.Client.Web.Models.Beneficiary>
+@{
     ViewBag.Title = "Index";
 }
 
@@ -26,25 +27,12 @@
 
 <div style="clear:both;" id="teamscontainer">
     <ul id="teamscontent">
+        @foreach(var beneficiary in Model)
+        {
         <li>
-            <a href="#"><img src="~/Content/Images/m.jpg" /></a>
-            <h4>Band 1</h4>
+            <a href="@Url.Action("Details", "Beneficiaries", new RouteValueDictionary(new { beneficiary.ID }))"><img src="~/Content/Images/m.jpg" /></a>
+            <h4>@beneficiary.Name</h4>
          </li>
-        <li>
-            <a href="#"><img src="~/Content/Images/m.jpg" /></a>
-            <h4>Band 2</h4>
-        </li>
-        <li>
-            <a href="#"><img src="~/Content/Images/m.jpg" /></a>
-            <h4>Band 3</h4>
-        </li>
-        <li>
-            <a href="#"><img src="~/Content/Images/m.jpg" /></a>
-            <h4>Band 4</h4>
-        </li>
-        <li>
-            <a href="#"><img src="~/Content/Images/m.jpg" /></a>
-            <h4>Band 5</h4>
-        </li>
+        }
     </ul>
 </div>

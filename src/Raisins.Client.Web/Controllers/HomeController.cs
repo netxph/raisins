@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Raisins.Client.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +13,9 @@ namespace Raisins.Client.Web.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-            return View();
+            var beneficiaries = Beneficiary.GetAll();
+
+            return View(beneficiaries);
         }
 
         [Authorize]

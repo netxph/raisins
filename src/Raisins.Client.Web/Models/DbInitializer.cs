@@ -22,7 +22,12 @@ namespace Raisins.Client.Web.Models
 
             Activity.Add(new Activity() { Name = "Beneficiary", Roles = new List<Role>() { Role.Find("Administrator") } });
 
-            Beneficiary.Add(new Beneficiary() { Description = "Reservations Team", ID = 1, Name = "Team Res"});
+            Beneficiary.Add(new Beneficiary() { Description = "The Res Band", ID = 1, Name = "The Res Band"});
+            Beneficiary.Add(new Beneficiary() { Description = "Forever Wassaque", ID = 1, Name = "Forever Wassaque" });
+            Beneficiary.Add(new Beneficiary() { Description = "JNG Project", ID = 1, Name = "JNG Project" });
+            Beneficiary.Add(new Beneficiary() { Description = "The Saboteurs", ID = 1, Name = "The Saboteurs" });
+            Beneficiary.Add(new Beneficiary() { Description = "The Remedy", ID = 1, Name = "The Remedy" });
+
             Currency.Add(new Currency() { CurrencyCode = "PHP", ExchangeRate = 1, ID = 1, Ratio = 1M});
             
         }
