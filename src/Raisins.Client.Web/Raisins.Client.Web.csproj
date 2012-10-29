@@ -148,6 +148,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\JS\scripts.js" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />

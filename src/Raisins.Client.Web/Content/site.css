@@ -99,14 +99,30 @@ ul#teamscontent li img
 }
 ul#teamscontent li:first-child
 {
-    padding-left:0;
+    margin-left:0;
 }
 ul#teamscontent li
 {
     display:block;
     float:left;
-    padding-left:28px;
+    margin-left:28px;
+    position: relative;
 }
+ul#teamscontent li h4
+{
+    z-index:99;
+    width: 162px;
+    height: 39px;
+    position: absolute;
+    top: 75%;
+    left: 0;
+    padding:5px 10px 0;
+    background:#CCC;
+    font-family: tahoma;
+    font-weight: bold;
+    display:none;
+}
+
 .newscontents
 {
     margin-top:10px;
@@ -156,3 +172,4 @@ a#loginLink
 {
     float:right;
 }
+
