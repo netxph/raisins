@@ -152,3 +152,7 @@ ul#navigation li a:hover,a#loginLink:hover
 {
     background:#CCC;
 }
+a#loginLink
+{
+    float:right;
+}
