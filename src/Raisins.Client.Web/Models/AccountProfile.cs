@@ -18,5 +18,13 @@ namespace Raisins.Client.Web.Models
         public List<Beneficiary> Beneficiaries { get; set; }
         public List<Currency> Currencies { get; set; }
 
+        public static AccountProfile Find(int id)
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                return db.Profiles.Find(id);
+            }
+        }
+
     }
 }

@@ -122,6 +122,7 @@
     <Compile Include="Controllers\BeneficiariesController.cs" />
     <Compile Include="Controllers\CurrenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaymentsAPIController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,6 +131,8 @@
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Beneficiary.cs" />
     <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\DataContract.cs" />
+    <Compile Include="Models\DataMember.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\AccountProfile.cs" />
     <Compile Include="Services\AuthorizeActivityAttribute.cs" />

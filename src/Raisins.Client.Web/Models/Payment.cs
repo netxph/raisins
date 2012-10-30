@@ -54,8 +54,20 @@ namespace Raisins.Client.Web.Models
         {
             using (var db = ObjectProvider.CreateDB())
             {
-                var payments = db.Payments.Include(p => p.Beneficiary).Include(p => p.Currency).Include(p => p.CreatedBy).Include(p => p.AuditedBy);
+                Account currentAccount = Account.GetCurrentUser();
+                //List<Beneficiary> beneficiaries = AccountProfile.Find(currentAccount.AccountProfileID).Beneficiaries;
+                int[] beneficiaries = null;
+                try
+                {
+                    beneficiaries = AccountProfile.Find(currentAccount.AccountProfileID).Beneficiaries.Select(b => b.ID).ToArray<int>();
+                }
+                catch (Exception)
+                {
+                    beneficiaries = new int[] { 1 };
+                }
 
+                var payments = db.Payments.Include(p => p.Beneficiary).Include(p => p.Currency).Include(p => p.CreatedBy).Include(p => p.AuditedBy).Where(p => beneficiaries.Contains(p.BeneficiaryID));
+                
                 return payments.ToList();
             }
         }
