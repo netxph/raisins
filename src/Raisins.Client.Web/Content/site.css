@@ -38,8 +38,6 @@ h6.app-logo
 div#maincontentarea
 {
     height:auto;
-    width: 1024px;
-    overflow:hidden;
     position:relative;
 }
 div.event-title
@@ -79,9 +77,8 @@ div#rightcontentarea
 }
 #newscontainer
 {
-    padding-top: 20px;
-    height: 304px;
-    overflow-y: auto;
+    padding-top:20px;
+    height:auto;
 }
 #newscontainer h2
 {
