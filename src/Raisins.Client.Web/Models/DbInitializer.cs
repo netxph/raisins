@@ -17,10 +17,27 @@ namespace Raisins.Client.Web.Models
             Role.Add(new Role() { Name = "Manager" });
             Role.Add(new Role() { Name = "User" });
 
-            Account.CreateUser("admin", "P@ssw0rd!1", new List<Role>()  { Role.Find("Administrator") });
-            Account.CreateUser("netxph", "P@ssw0rd!1", new List<Role>() { Role.Find("User") });
+            Account.CreateUser("admin", "P@ssw0rd!1",
+                new List<Role>()  
+                { 
+                    Role.Find("Administrator") 
+                }, new AccountProfile() 
+                {
+                    Name = "Administrator",
+                    Beneficiaries = Beneficiary.GetAll(),
+                    Currencies = Currency.GetAll()
+                });
 
-            Activity.Add(new Activity() { Name = "Beneficiary", Roles = new List<Role>() { Role.Find("Administrator") } });
+            Activity.Add(new Activity() 
+            { 
+                Name = "Payment", 
+                Roles = new List<Role>() 
+                { 
+                    Role.Find("Administrator"),
+                    Role.Find("Accountant"),
+                    Role.Find("User")
+                } 
+            });
 
             Beneficiary.Add(new Beneficiary() { Description = "The Res Band", ID = 1, Name = "The Res Band"});
             Beneficiary.Add(new Beneficiary() { Description = "Forever Wassaque", ID = 1, Name = "Forever Wassaque" });

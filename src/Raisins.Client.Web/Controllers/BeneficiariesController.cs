@@ -10,7 +10,7 @@ using Raisins.Client.Web.Services;
 
 namespace Raisins.Client.Web.Controllers
 {
-    [AuthorizeActivity("Beneficiary")]
+    [Authorize]
     public class BeneficiariesController : Controller
     {
 

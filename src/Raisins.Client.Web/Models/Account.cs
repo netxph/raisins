@@ -17,7 +17,10 @@ namespace Raisins.Client.Web.Models
         public string Password { get; set; }
         public string Salt { get; set; }
 
+        public int AccountProfileID { get; set; }
+
         public List<Role> Roles { get; set; }
+        public virtual AccountProfile Profile { get; set; }
         
         public static bool Login(string userName, string password)
         {
@@ -35,13 +38,13 @@ namespace Raisins.Client.Web.Models
             }
         }
         
-        public static Account CreateUser(string userName, string password, List<Role> roles)
+        public static Account CreateUser(string userName, string password, List<Role> roles, AccountProfile profile)
         {
             using (var db = ObjectProvider.CreateDB())
             {
                 var salt = Helper.CreateSalt();
 
-                Account account = new Account() { UserName = userName, Salt = salt, Password = GetHash(password, salt), Roles = roles };
+                Account account = new Account() { UserName = userName, Salt = salt, Password = GetHash(password, salt), Roles = roles, Profile = profile };
 
                 db.Accounts.Add(account);
                 db.SaveChanges();
@@ -72,7 +75,7 @@ namespace Raisins.Client.Web.Models
 
         public static Account CreateUser(string userName, string password)
         {
-            return CreateUser(userName, password, new List<Role> { Role.Find("User") });
+            return CreateUser(userName, password, new List<Role> { Role.Find("User") }, new AccountProfile());
         }
     }
 }

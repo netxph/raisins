@@ -23,6 +23,10 @@ namespace Raisins.Client.Web.Models
             modelBuilder.Entity<Payment>().HasOptional(p => p.AuditedBy).WithMany().HasForeignKey(p => p.AuditedByID);
 
             modelBuilder.Entity<Account>().HasMany(a => a.Roles).WithMany();
+            modelBuilder.Entity<Account>().HasRequired(a => a.Profile).WithMany().HasForeignKey(a => a.AccountProfileID);
+
+            modelBuilder.Entity<AccountProfile>().HasMany(ap => ap.Currencies).WithMany();
+            modelBuilder.Entity<AccountProfile>().HasMany(ap => ap.Beneficiaries).WithMany();
 
             modelBuilder.Entity<Activity>().HasMany(a => a.Roles).WithMany();
 
@@ -35,6 +39,7 @@ namespace Raisins.Client.Web.Models
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<AccountProfile> Profiles { get; set; }
 
     }
 }
