@@ -15,10 +15,13 @@
         <hr />
         <div id="topcontainer">
         <ul id="navigation">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Payments</a></li>
-            <li><a href="#">Mechanics</a></li>
+            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+            @if(Request.IsAuthenticated)
+            {
+            <li><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></li>
+            <li><a href="@Url.Action("Index", "Payments")">Payments</a></li>
+            }
+            <li><a href="@Url.Action("Mechanics", "Home")">Mechanics</a></li>
         </ul>
 
         @Html.Partial("_LoginPartial")
