@@ -6,7 +6,7 @@
 <div id="maincontentarea">
     <div class="event-title"><span>JAM FOR HUNGRY MINDS</span></div>
     <div id="rightcontentarea">
-        <span id="timer">05:21:23:24</span>
+        <span id="timer" time="1355223600"></span>
         <div id="newscontainer">
             <h2>News</h2>
             <div class="newscontents">
@@ -31,7 +31,7 @@
         {
         <li>
             <a href="@Url.Action("Details", "Beneficiaries", new RouteValueDictionary(new { beneficiary.ID }))"><img src="~/Content/Images/m.jpg" /></a>
-            <h4>@beneficiary.Name</h4>
+            <h4><span>@beneficiary.Name</span></h4>
          </li>
         }
     </ul>

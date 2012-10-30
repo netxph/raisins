@@ -8,4 +8,14 @@
         }
 
     );
+
+    $("#timer").kkcountdown({
+        dayText: ':',
+        daysText: ':',
+        hoursText: ':',
+        minutesText: ':',
+        secondsText: '',
+        displayZeroDays: false,
+        oneDayClass: 'one-day'
+    });
 });
