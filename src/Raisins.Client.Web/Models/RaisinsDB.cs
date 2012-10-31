@@ -12,7 +12,7 @@ namespace Raisins.Client.Web.Models
         public RaisinsDB()
             : base("Default")
         {
-
+            base.Configuration.ProxyCreationEnabled = false;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

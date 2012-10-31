@@ -2,27 +2,46 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>Manage</h2>
+<h2>Manage Payments</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Beneficiary</th>
+            <th>Name</th>
+            <th>Currency</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: payments">
+        <tr>
+            <td data-bind="text: Beneficiary.Name" />
+            <td data-bind="text: Name" />
+            <td data-bind="text: Currency.CurrencyCode" />
+            <td data-bind="text: Amount.toFixed(2)" />
+        </tr>
+    </tbody>
+</table>
 
 @section scripts {
 
     <script type="text/javascript">
 
+        function PaymentsViewModel() {
+            var self = this;
+
+            self.payments = ko.observableArray();
+
+            $.getJSON("/api/payments", self.payments);
+        }
+
         $(function () {
-            var viewModel = {
-                payments: ko.observableArray([])
-            };
+            ko.applyBindings(new PaymentsViewModel());
+        })
 
-            ko.applyBindings(viewModel);
-
-            $.getJSON("/api/Payments", function (data) {
-                var p = ko.mapping.FromJS(data)();
-                viewModel.payments(p);
-            });
-        });
 
     </script>
 
 }
-    
-    
+
+

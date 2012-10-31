@@ -17,6 +17,7 @@ namespace Raisins.Client.Web.Controllers
 
         //
         // GET: /Payments/Manage
+        [AllowAnonymous]
         public ActionResult Manage()
         {
             return View();
