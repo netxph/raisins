@@ -14,6 +14,14 @@ namespace Raisins.Client.Web.Controllers
     [Authorize]
     public class PaymentsController : Controller
     {
+
+        //
+        // GET: /Payments/Manage
+        public ActionResult Manage()
+        {
+            return View();
+        }
+
         //
         // GET: /Payments/
 

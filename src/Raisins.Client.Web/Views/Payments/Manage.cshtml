@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Manage</h2>
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+            var viewModel = {
+                payments: ko.observableArray([])
+            };
+
+            ko.applyBindings(viewModel);
+
+            $.getJSON("/api/Payments", function (data) {
+                var p = ko.mapping.FromJS(data)();
+                viewModel.payments(p);
+            });
+        });
+
+    </script>
+
+}
+    
+    
