@@ -38,6 +38,8 @@ h6.app-logo
 div#maincontentarea
 {
     height:auto;
+    width: 1024px;
+    overflow:hidden;
     position:relative;
 }
 div.event-title
@@ -77,8 +79,9 @@ div#rightcontentarea
 }
 #newscontainer
 {
-    padding-top:20px;
-    height:auto;
+    padding-top: 20px;
+    height: 304px;
+    overflow-y: auto;
 }
 #newscontainer h2
 {
@@ -110,7 +113,6 @@ ul#teamscontent li
 }
 ul#teamscontent li h4
 {
-    z-index:99;
     width: 162px;
     height: 39px;
     position: absolute;
@@ -161,6 +163,8 @@ ul#navigation li
     display:block;
     float:left;
     padding-left:10px;
+    position:relative;
+    padding-top:5px;
 }
 ul#navigation li a,a#loginLink
 {
@@ -174,8 +178,40 @@ ul#navigation li a:hover,a#loginLink:hover
 {
     background:#CCC;
 }
-a#loginLink
+div#loglinks
 {
     float:right;
+    padding-top: 5px;
 }
-
+a#loginLink
+{
+    
+}
+div#bandbanner 
+{
+    width: 1024px;
+}
+div#bandbanner img
+{
+    margin: auto;
+    position: relative;
+    display: block;
+}
+div#bandinfo
+{
+    position: relative;
+    width:1024px;
+    overflow:hidden;
+    display:block;
+}
+div#bandinfo #bandname
+{
+    width:400px;
+    /*background:#8B8787;*/
+}
+div#bandinfo #bandname h2
+{
+    font-size:3em;
+    font-weight:bold;
+    margin:10px 0;
+}

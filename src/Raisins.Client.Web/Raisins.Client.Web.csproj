@@ -152,6 +152,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Images\l.jpg" />
+    <Content Include="Content\Images\m.jpg" />
+    <Content Include="Content\Images\rsz_jng.jpg" />
+    <Content Include="Content\Images\rsz_poster.jpg" />
+    <Content Include="Content\Images\rsz_remedy_with_their_manager.jpg" />
+    <Content Include="Content\Images\rsz_resbandlandscape.jpg" />
+    <Content Include="Content\Images\rsz_thesaboteurs-landscape.jpg" />
     <Content Include="Content\JS\scripts.js" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\site.css" />
