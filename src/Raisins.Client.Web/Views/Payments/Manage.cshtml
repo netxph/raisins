@@ -3,7 +3,7 @@
 }
 
 <h2>Manage Payments</h2>
-
+<div class="image" data-bind="visible: loading"></div>
 <table>
     <thead>
         <tr>
@@ -31,8 +31,12 @@
             var self = this;
 
             self.payments = ko.observableArray();
+            self.loading = ko.observable(true);
 
+
+            //loading data
             $.getJSON("/api/payments", self.payments);
+            this.loading(false);
         }
 
         $(function () {

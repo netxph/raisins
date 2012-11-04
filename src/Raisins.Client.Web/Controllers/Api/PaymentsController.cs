@@ -19,6 +19,8 @@ namespace Raisins.Client.Web.Controllers.Api
         // GET api/Payments
         public IEnumerable<Payment> GetPayments()
         {
+            System.Threading.Thread.Sleep(3000);
+
             var payments = db.Payments.Include(p => p.Beneficiary).Include(p => p.Currency).Include(p => p.CreatedBy).Include(p => p.AuditedBy);
             return payments.AsEnumerable();
         }
