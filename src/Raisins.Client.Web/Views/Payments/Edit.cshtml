@@ -78,22 +78,6 @@
             @Html.ValidationMessageFor(model => model.CurrencyID)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreatedByID, "CreatedBy")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("CreatedByID", String.Empty)
-            @Html.ValidationMessageFor(model => model.CreatedByID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AuditedByID, "AuditedBy")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("AuditedByID", String.Empty)
-            @Html.ValidationMessageFor(model => model.AuditedByID)
-        </div>
-
         <p>
             <input type="submit" value="Save" />
         </p>

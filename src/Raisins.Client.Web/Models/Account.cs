@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -46,6 +47,10 @@ namespace Raisins.Client.Web.Models
 
                 Account account = new Account() { UserName = userName, Salt = salt, Password = GetHash(password, salt), Roles = roles, Profile = profile };
 
+                roles.SetState(db, EntityState.Modified);
+                profile.Beneficiaries.SetState(db, EntityState.Modified);
+                profile.Currencies.SetState(db, EntityState.Modified);
+                
                 db.Accounts.Add(account);
                 db.SaveChanges();
 
@@ -60,7 +65,7 @@ namespace Raisins.Client.Web.Models
                 var http = ObjectProvider.CreateHttpHelper();
                 var userName = http.GetCurrentUserName();
 
-                return db.Accounts.Include("Roles").FirstOrDefault(a => a.UserName == userName);
+                return db.Accounts.Include("Roles").Include("Profile").Include("Profile.Beneficiaries").Include("Profile.Currencies").FirstOrDefault(a => a.UserName == userName);
             }
         }
 

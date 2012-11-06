@@ -4,108 +4,31 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Locked)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Beneficiary.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Currency.CurrencyCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AuditedBy.UserName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Locked)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Beneficiary.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AuditedBy.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
+@Html.ActionLink("Create New", "Create") | @Html.ActionLink("Lock all", "LockAll") | @Html.ActionLink("Lock Local", "LockLocal") | @Html.ActionLink("Lock International", "LockInternational")
+<table id="payment-grid">
+    <thead>
+        <tr>
+            <th class="controls"></th>
+            <th class="beneficiary">Band Voted</th>
+            <th class="name">Name</th>
+            <th class="currency">Currency</th>
+            <th class="amount">Actual Amount</th>
+            <th class="votes">Votes</th>
+            <th class="total">Converted Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model)
+        { 
+            <tr>
+                <td class="controls">@Html.ActionLink("Edit", "Edit", new { ID = payment.ID }) | @Html.ActionLink("Delete", "Delete", new { ID = payment.ID })</td>
+                <td class="beneficiary">@Html.DisplayFor(model => payment.Beneficiary.Name)</td>
+                <td class="name">@Html.DisplayFor(model => payment.Name)</td>
+                <td class="currency">@Html.DisplayFor(model => payment.Currency.CurrencyCode)</td>
+                <td class="amount">@Html.DisplayFor(model => payment.Amount)</td>
+                <td class="votes">@(Math.Floor(payment.Amount / payment.Currency.Ratio))</td>
+                <td class="total">@((payment.Amount * payment.Currency.ExchangeRate).ToString("0.00"))</td>
+            </tr>
+        }
+    </tbody>
 </table>
-
-
-<div id="payments"></div>
-<script type="text/javascript" language="javascript">
-//        listPayments(function (payments) {
-//            var strPayments="";
-//            $.each(payments, function (index, payment) {
-//                strPayments += "<div>" + payment.Title + "</div>";
-//            });
-//            $("#payments").html(strPayments);
-// 
-//        });
-// 
-//        function listPayments(callback) {
-//            $.ajax({
-//                url: "/api/PaymentsAPI",
-//                data: {},
-//                type: "GET",
-//                contentType: "application/json;charset=utf-8",
-//            }).then(function(payments){
-//                callback(payments);
-//            });
-//        }
-</script>

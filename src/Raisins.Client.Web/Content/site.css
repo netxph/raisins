@@ -31,23 +31,26 @@ h1.app-logo
         font-weight: lighter;
     }
 
- div.image {
-  width:36px;
-  height:36px;
-  background-image:url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA%3D%3D);
+div.image
+{
+    width: 36px;
+    height: 36px;
+    background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA%3D%3D);
 }
 
 h6.app-logo
 {
     text-align: right;
 }
+
 div#maincontentarea
 {
-    height:auto;
+    height: auto;
     width: 1024px;
-    overflow:hidden;
-    position:relative;
+    overflow: hidden;
+    position: relative;
 }
+
 div.event-title
 {
     width: 600px;
@@ -55,8 +58,8 @@ div.event-title
     height: 400px;
     overflow: hidden;
     position: relative;
-    float:left;
-    background:url("Images/l.jpg") no-repeat 0 0;
+    float: left;
+    background: url("Images/l.jpg") no-repeat 0 0;
 }
 
     div.event-title span
@@ -64,160 +67,223 @@ div.event-title
         position: absolute;
         bottom: 0;
         text-align: right;
-        width:600px;
+        width: 600px;
     }
+
 div#rightcontentarea
 {
-    float:left;
-    width:400px;
+    float: left;
+    width: 400px;
     padding-left: 24px;
-    position:relative;
-    height:auto;
+    position: relative;
+    height: auto;
 }
-#timer,#newscontainer
+
+#timer, #newscontainer
 {
-    position:relative;
+    position: relative;
 }
+
 #timer
 {
-    height:40px;
-    font-size:62px;
+    height: 40px;
+    font-size: 62px;
 }
+
 #newscontainer
 {
     padding-top: 20px;
     height: 304px;
     overflow-y: auto;
 }
-#newscontainer h2
-{
-    font-size: 40px;
-}
+
+    #newscontainer h2
+    {
+        font-size: 40px;
+    }
+
 div#teamscontainer
 {
-    padding-top:30px;
+    padding-top: 30px;
 }
+
 ul#teamscontent
 {
-    
 }
-ul#teamscontent li img
-{
-    width:180px;
-    border:#FFF solid 1px;
-}
-ul#teamscontent li:first-child
-{
-    margin-left:0;
-}
-ul#teamscontent li
-{
-    display:block;
-    float:left;
-    margin-left:28px;
-    position: relative;
-}
-ul#teamscontent li h4
-{
-    width: 162px;
-    height: 39px;
-    position: absolute;
-    top: 75%;
-    left: 0;
-    padding:5px 10px 0;
-    background:#FFF;
-    display:none;
-	filter: alpha(opacity=70);
-	opacity: 0.7;
-}
-ul#teamscontent li h4 span
-{
-    font-weight:bold;
-    color:#000;
-    font-family: tahoma;
-    font-weight: bold;
-}
+
+    ul#teamscontent li img
+    {
+        width: 180px;
+        border: #FFF solid 1px;
+    }
+
+    ul#teamscontent li:first-child
+    {
+        margin-left: 0;
+    }
+
+    ul#teamscontent li
+    {
+        display: block;
+        float: left;
+        margin-left: 28px;
+        position: relative;
+    }
+
+        ul#teamscontent li h4
+        {
+            width: 162px;
+            height: 39px;
+            position: absolute;
+            top: 75%;
+            left: 0;
+            padding: 5px 10px 0;
+            background: #FFF;
+            display: none;
+            filter: alpha(opacity=70);
+            opacity: 0.7;
+        }
+
+            ul#teamscontent li h4 span
+            {
+                font-weight: bold;
+                color: #000;
+                font-family: tahoma;
+                font-weight: bold;
+            }
+
 .newscontents
 {
-    margin-top:10px;
+    margin-top: 10px;
 }
-.newscontents a
-{
-    font-size: 20px;
-    color: #FFF;
-    text-decoration:none;
-}
-.newscontents a:hover
-{
-    text-decoration:underline;
-}
+
+    .newscontents a
+    {
+        font-size: 20px;
+        color: #FFF;
+        text-decoration: none;
+    }
+
+        .newscontents a:hover
+        {
+            text-decoration: underline;
+        }
+
 #topcontainer
 {
-    width:1024;
-    position:relative;
-    overflow:hidden;
-    height:28px;
+    width: 1024px;
+    position: relative;
+    overflow: hidden;
+    height: 28px;
 }
+
 ul#navigation
 {
-    padding-bottom:10px;
-    float:left;
-    position:relative;
+    padding-bottom: 10px;
+    float: left;
+    position: relative;
 }
-ul#navigation li
-{
-    display:block;
-    float:left;
-    padding-left:10px;
-    position:relative;
-    padding-top:5px;
-}
-ul#navigation li a,a#loginLink
-{
-    color:#FFF;
-    font-size:17px;
-    font-family:Tahoma;
-    text-decoration:none;
-    padding:5px;
-}
-ul#navigation li a:hover,a#loginLink:hover
-{
-    background:#CCC;
-}
+
+    ul#navigation li
+    {
+        display: block;
+        float: left;
+        padding-left: 10px;
+        position: relative;
+        padding-top: 5px;
+    }
+
+        ul#navigation li a, a#loginLink
+        {
+            color: #FFF;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Tahoma;
+            text-decoration: none;
+            padding: 5px;
+        }
+
+            ul#navigation li a:hover, a#loginLink:hover
+            {
+                background: #CCC;
+            }
+
 div#loglinks
 {
-    float:right;
+    float: right;
     padding-top: 5px;
 }
+
 a#loginLink
 {
-    
 }
-div#bandbanner 
+
+div#bandbanner
 {
     width: 1024px;
 }
-div#bandbanner img
-{
-    margin: auto;
-    position: relative;
-    display: block;
-}
+
+    div#bandbanner img
+    {
+        margin: auto;
+        position: relative;
+        display: block;
+    }
+
 div#bandinfo
 {
     position: relative;
-    width:1024px;
-    overflow:hidden;
-    display:block;
+    width: 1024px;
+    overflow: hidden;
+    display: block;
 }
-div#bandinfo #bandname
+
+    div#bandinfo #bandname
+    {
+        width: 400px;
+        /*background:#8B8787;*/
+    }
+
+        div#bandinfo #bandname h2
+        {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+table#payment-grid
 {
-    width:400px;
-    /*background:#8B8787;*/
+    margin: 36px;
+    width: 100%;
 }
-div#bandinfo #bandname h2
-{
-    font-size:3em;
-    font-weight:bold;
-    margin:10px 0;
-}
+
+    table#payment-grid th
+    {
+        text-align: left;
+        font-size: 20px;
+    }
+
+    table#payment-grid .beneficiary
+    {
+        width: 20%;
+    }
+
+    table#payment-grid .name
+    {
+        width: 20%;
+    }
+
+    table#payment-grid .amount
+    {
+        text-align: right;
+    }
+
+    table#payment-grid .votes
+    {
+        text-align: right;
+    }
+
+    table#payment-grid .total
+    {
+        text-align: right;
+    }

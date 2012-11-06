@@ -20,7 +20,7 @@ namespace Raisins.Client.Web.Services
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             var account = Account.GetCurrentUser();
-            return Activity.IsInRole(ActivityName, account.Roles);
+            return Activity.IsInRole(ActivityName, account.Roles.ToList());
         }
 
     }
