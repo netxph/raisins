@@ -94,6 +94,8 @@ namespace Raisins.Client.Web.Models
         {
             using (var db = ObjectProvider.CreateDB())
             {
+                payment.CreatedByID = Account.GetCurrentUser().ID;
+
                 db.Entry(payment).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -111,5 +113,48 @@ namespace Raisins.Client.Web.Models
             }
         }
 
+        public static void LockAll()
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                Account currentAccount = Account.GetCurrentUser();
+
+                var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
+
+                var payments = db.Payments
+                    .Include(p => p.Beneficiary)
+                    .Include(p => p.Currency)
+                    .Include(p => p.CreatedBy)
+                    .Include(p => p.AuditedBy)
+                    .Where(p => beneficiaryIds.Contains(p.BeneficiaryID));
+
+                foreach (var payment in payments)
+                {
+                    if (!payment.Locked)
+                    {
+                        db.Entry(payment).State = EntityState.Modified;
+
+                        payment.Locked = true;
+                        payment.AuditedByID = Account.GetCurrentUser().ID;
+                        payment.Tickets = generateTickets(payment);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        private static List<Ticket> generateTickets(Payment payment)
+        {
+            List<Ticket> tickets = new List<Ticket>();
+            int count = Convert.ToInt32(Math.Floor(payment.Amount / payment.Currency.Ratio));
+
+            for (int i = 0; i < count; i++)
+            {
+                tickets.Add(new Ticket() { Name = payment.Name, TicketCode = string.Format("{0}{1}{2}", payment.BeneficiaryID.ToString("00"), payment.ID.ToString("X").PadLeft(5, '0'), i.ToString("00000")) });
+            }
+
+            return tickets;
+        }
     }
 }

@@ -4,74 +4,46 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Payment</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Amount)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Amount)
-            @Html.ValidationMessageFor(model => model.Amount)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Location)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Location)
-            @Html.ValidationMessageFor(model => model.Location)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Remarks)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Remarks)
-            @Html.ValidationMessageFor(model => model.Remarks)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BeneficiaryID, "Beneficiary")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("BeneficiaryID", String.Empty)
-            @Html.ValidationMessageFor(model => model.BeneficiaryID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CurrencyID, "Currency")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("CurrencyID", String.Empty)
-            @Html.ValidationMessageFor(model => model.CurrencyID)
-        </div>
+        <legend>New Payment</legend>
 
         <p>
-            <input type="submit" value="Create" />
+            Team Name<br />
+            @Html.DropDownList("BeneficiaryID")
         </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
     </fieldset>
+
+    <p>
+        <input type="submit" value="Create" />
+    </p>
 }
 
 <div>

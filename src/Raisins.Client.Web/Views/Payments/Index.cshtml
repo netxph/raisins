@@ -4,7 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-@Html.ActionLink("Create New", "Create") | @Html.ActionLink("Lock all", "LockAll") | @Html.ActionLink("Lock Local", "LockLocal") | @Html.ActionLink("Lock International", "LockInternational")
+<ul>
+    <li>@Html.ActionLink("Create New", "Create")</li>
+    <li>@Html.ActionLink("Lock all", "LockAll")</li>
+    <li>@Html.ActionLink("Lock Local", "LockLocal")</li>
+    <li>@Html.ActionLink("Lock International", "LockInternational")</li>
+</ul>
 <table id="payment-grid">
     <thead>
         <tr>
@@ -21,13 +26,26 @@
         @foreach (var payment in Model)
         { 
             <tr>
-                <td class="controls">@Html.ActionLink("Edit", "Edit", new { ID = payment.ID }) | @Html.ActionLink("Delete", "Delete", new { ID = payment.ID })</td>
+                <td class="controls">
+                    <ul>
+                        @if(!payment.Locked)
+                        {
+                        <li>@Html.ActionLink("Edit", "Edit", new { ID = payment.ID }) </li>
+                        <li>@Html.ActionLink("Delete", "Delete", new { ID = payment.ID })</li>
+                        }
+                        else
+                        {
+                        <li>@Html.ActionLink("Email", "Email", new { ID = payment.ID })</li>
+                        }
+                    </ul>
+                </td>
                 <td class="beneficiary">@Html.DisplayFor(model => payment.Beneficiary.Name)</td>
                 <td class="name">@Html.DisplayFor(model => payment.Name)</td>
                 <td class="currency">@Html.DisplayFor(model => payment.Currency.CurrencyCode)</td>
                 <td class="amount">@Html.DisplayFor(model => payment.Amount)</td>
                 <td class="votes">@(Math.Floor(payment.Amount / payment.Currency.Ratio))</td>
-                <td class="total">@((payment.Amount * payment.Currency.ExchangeRate).ToString("0.00"))</td>
+                <td class="total">@((payment.Amount * payment.Currency.ExchangeRate).ToString("0.00"))
+                </td>
             </tr>
         }
     </tbody>

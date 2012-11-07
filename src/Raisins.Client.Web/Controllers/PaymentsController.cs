@@ -15,6 +15,13 @@ namespace Raisins.Client.Web.Controllers
     public class PaymentsController : Controller
     {
 
+        public ActionResult LockAll()
+        {
+            Payment.LockAll();
+
+            return RedirectToAction("Index");
+        }
+
         //
         // GET: /Payments/Manage
         [AllowAnonymous]
@@ -51,8 +58,8 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name");
-            ViewBag.CurrencyID = new SelectList(Currency.GetAll(), "ID", "CurrencyCode");
+            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(Currency.GetAll(), "ID", "CurrencyCode", 1);
             
             return View();
         }
