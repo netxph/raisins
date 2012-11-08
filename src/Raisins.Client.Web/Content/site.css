@@ -286,3 +286,17 @@ table#payment-grid
     {
         text-align: right;
     }
+ul#bandmembers
+{
+    overflow:hidden;
+}
+ul#bandmembers li
+{
+    height:auto;
+    position:relative;
+    float: left;
+    display: block;
+    margin-bottom: 10px;
+    width: 230px;
+    padding: 10px;
+}
