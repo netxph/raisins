@@ -24,5 +24,9 @@ namespace Raisins.Client.Web.Controllers
             return View();
         }
 
+        public ActionResult Mechanics()
+        {
+            return View();
+        }
     }
 }

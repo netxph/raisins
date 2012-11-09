@@ -1,7 +1,7 @@
 ﻿body
 {
     font-family: 'Open Sans', segoe ui, verdana, arial, sans-serif;
-    color: white;
+    color: darkgoldenrod;
     background-color: black;
     font-size: 14px;
     width: 1024px;
@@ -159,7 +159,7 @@ ul#teamscontent
     .newscontents a
     {
         font-size: 20px;
-        color: #FFF;
+        color: darkgoldenrod;
         text-decoration: none;
     }
 
@@ -194,7 +194,7 @@ ul#navigation
 
         ul#navigation li a, a#loginLink
         {
-            color: #FFCC00;
+            color: darkgoldenrod;
             font-size: 20px;
             font-weight: bold;
             font-family: Tahoma;

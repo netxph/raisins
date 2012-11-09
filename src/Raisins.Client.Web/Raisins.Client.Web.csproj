@@ -151,6 +151,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Images\facebook.jpg" />
+    <Content Include="Content\Images\fhms.JPG" />
     <Content Include="Content\Images\l.jpg" />
     <Content Include="Content\Images\m.jpg" />
     <Content Include="Content\Images\photo1.jpg" />
@@ -322,6 +324,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Payments\Manage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Mechanics.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
