@@ -31,7 +31,7 @@
         {
         <li>
             <a href="@Url.Action("Details", "Beneficiaries", new RouteValueDictionary(new { beneficiary.ID }))">
-                <img src="~/Content/Images/m.jpg" />
+                <img src="@Url.Content("~/Content/Images/photo" + beneficiary.ID + ".jpg")" />
                 <h4><span>@beneficiary.Name</span></h4>
             </a>
          </li>

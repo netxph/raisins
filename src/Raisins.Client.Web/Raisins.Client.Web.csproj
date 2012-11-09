@@ -153,6 +153,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\Images\l.jpg" />
     <Content Include="Content\Images\m.jpg" />
+    <Content Include="Content\Images\photo1.jpg" />
+    <Content Include="Content\Images\photo2.jpg" />
+    <Content Include="Content\Images\photo3.jpg" />
+    <Content Include="Content\Images\photo4.jpg" />
+    <Content Include="Content\Images\photo5.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
