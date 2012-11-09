@@ -138,7 +138,7 @@ ul#teamscontent
             top: 75%;
             left: 0;
             padding: 5px 10px 0;
-            background: #FFF;
+            background: #000;
             display: none;
             filter: alpha(opacity=70);
             opacity: 0.7;
@@ -146,10 +146,9 @@ ul#teamscontent
 
             ul#teamscontent li h4 span
             {
-                font-weight: bold;
-                color: #000;
+                font-weight: bold !important;
+                color: #FFCC00;
                 font-family: tahoma;
-                font-weight: bold;
             }
 
 .newscontents
@@ -195,7 +194,7 @@ ul#navigation
 
         ul#navigation li a, a#loginLink
         {
-            color: #FFF;
+            color: #FFCC00;
             font-size: 20px;
             font-weight: bold;
             font-family: Tahoma;
@@ -205,7 +204,8 @@ ul#navigation
 
             ul#navigation li a:hover, a#loginLink:hover
             {
-                background: #CCC;
+                background: #FFCC00;
+                color:#000;
             }
 
 div#loglinks
