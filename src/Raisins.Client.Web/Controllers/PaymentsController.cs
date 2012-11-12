@@ -58,8 +58,8 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name", 1);
-            ViewBag.CurrencyID = new SelectList(Currency.GetAll(), "ID", "CurrencyCode", 1);
+            ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 1);
             
             return View();
         }
@@ -76,8 +76,8 @@ namespace Raisins.Client.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name", payment.BeneficiaryID);
-            ViewBag.CurrencyID = new SelectList(Currency.GetAll(), "ID", "CurrencyCode", payment.CurrencyID);
+            ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 1);
             
             return View(payment);
         }
@@ -92,8 +92,8 @@ namespace Raisins.Client.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name", payment.BeneficiaryID);
-            ViewBag.CurrencyID = new SelectList(Currency.GetAll(), "ID", "CurrencyCode", payment.CurrencyID);
+            ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 1);
 
             return View(payment);
         }
@@ -109,8 +109,8 @@ namespace Raisins.Client.Web.Controllers
                 Payment.Edit(payment);
                 return RedirectToAction("Index");
             }
-            ViewBag.BeneficiaryID = new SelectList(Beneficiary.GetAll(), "ID", "Name", payment.BeneficiaryID);
-            ViewBag.CurrencyID = new SelectList(Beneficiary.GetAll(), "ID", "CurrencyCode", payment.CurrencyID);
+            ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 1);
             
             return View(payment);
         }
