@@ -292,11 +292,9 @@ ul#bandmembers
 }
 ul#bandmembers li
 {
-    height:auto;
-    position:relative;
-    float: left;
-    display: block;
-    margin-bottom: 10px;
-    width: 230px;
-    padding: 10px;
+    
+}
+#links
+{
+    text-align:center;
 }
