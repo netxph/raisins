@@ -5,11 +5,16 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
+using System.Text;
+using System.Net.Mail;
 
 namespace Raisins.Client.Web.Models
 {
     public class Payment
     {
+
+        public static string EmailTemplate { get; set; }
 
         [Key]
         public int ID { get; set; }
@@ -137,11 +142,38 @@ namespace Raisins.Client.Web.Models
                         payment.Locked = true;
                         payment.AuditedByID = Account.GetCurrentUser().ID;
                         payment.Tickets = generateTickets(payment);
+
+                        emailTickets(payment.Email, payment.Tickets);
                     }
                 }
 
                 db.SaveChanges();
             }
+        }
+
+        private static void emailTickets(string email, List<Ticket> tickets)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var ticket in tickets)
+            {
+                builder.Append(ticket.TicketCode);
+                builder.AppendLine("<br />");
+            }
+
+            string content = string.Format(Templates.EMAIL, builder.ToString());
+
+            try
+            {
+                MailMessage message = new MailMessage("no-reply@navitaire.com", email);
+                message.Body = content;
+                message.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Send(message);
+            }
+            catch { }
+
         }
 
         private static List<Ticket> generateTickets(Payment payment)
