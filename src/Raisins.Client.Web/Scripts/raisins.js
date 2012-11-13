@@ -30,4 +30,5 @@
         });
         group.height(tallest);
     }
+$('video,audio').mediaelementplayer();
 });

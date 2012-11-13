@@ -250,7 +250,22 @@ div#bandinfo
             font-weight: bold;
             margin: 10px 0;
         }
-
+    div#bandinfo h3
+    {
+        border-bottom: 1px solid;
+        border-top: 1px solid;
+        font-size: 28px;
+        padding: 5px 0;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    div#bandvideo
+    {
+        width:480px;
+        height:320px;
+        border:1px solid;
+        margin:0 auto 10px;
+    }
 table#payment-grid
 {
     width: 100%;
@@ -292,9 +307,60 @@ ul#bandmembers
 }
 ul#bandmembers li
 {
-    
+    margin-bottom:10px;
 }
 #links
 {
     text-align:center;
+}
+
+
+/*************MECHANICS*****************/
+div#mechanics
+{
+    padding:10px 0;
+}
+div#mechanics h2
+{
+    padding:10px 0;
+    font-size:26px;
+    font-weight:bold;
+}
+div#mechanics h3
+{
+    padding:5px 0;
+    font-size:20px;
+    font-weight:bold;
+}
+div#mechanics ol
+{
+    list-style-type:decimal;
+    list-style-position:inside;
+}
+div#mechanics ol li
+{
+    margin:10px 20px;
+}
+div#mechanics table
+{
+    margin:10px 0;
+}
+div#mechanics table tr,td
+{
+    border:1px solid;
+}
+div#mechanics table thead 
+{
+    font-weight:bold;
+    font-size:14px;
+    text-align:center;
+}
+div#mechanics table td
+{
+    padding:5px 10px;
+}
+div#mechanics img
+{
+    border:2px solid;
+    margin:10px;
 }

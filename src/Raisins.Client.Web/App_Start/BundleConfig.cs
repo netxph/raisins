@@ -12,11 +12,10 @@ namespace Raisins.Client.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
 
-            bundles.Add(new StyleBundle("~/content/css").Include("~/Content/reset.css", "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/content/css").Include("~/Content/reset.css", "~/Content/site.css", "~/Scripts/mediaelement/mediaelementplayer.css"));
             bundles.Add(new ScriptBundle("~/scripts/knockout").Include("~/Scripts/knockout-2.2.0.js"));
             bundles.Add(new ScriptBundle("~/scripts/jquery").Include("~/Scripts/jquery-*"));
-            bundles.Add(new ScriptBundle("~/scripts/raisins").Include("~/Scripts/kkcountdown.js", "~/Scripts/raisins.js", "~/Scripts/mediaelement/raisins.js"));
-
+            bundles.Add(new ScriptBundle("~/scripts/raisins").Include("~/Scripts/kkcountdown.js", "~/Scripts/mediaelement/mediaelement-and-player.js", "~/Scripts/raisins.js"));
         }
 
     }

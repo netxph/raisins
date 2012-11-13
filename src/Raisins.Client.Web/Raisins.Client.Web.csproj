@@ -222,6 +222,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\Videos\JNG  Project - Dare You to Move.mp4" />
+    <Content Include="Content\Videos\Remedy - Meant to Live.mp4" />
+    <Content Include="Content\Videos\res.mp4" />
+    <Content Include="Content\Videos\The Middle - The Saboteurs.mp4" />
     <Content Include="Scripts\jquery-1.8.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
