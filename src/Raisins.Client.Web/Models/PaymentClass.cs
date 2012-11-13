@@ -9,6 +9,7 @@ namespace Raisins.Client.Web.Models
     {
 
         Local,
+        External,
         Foreign
 
     }

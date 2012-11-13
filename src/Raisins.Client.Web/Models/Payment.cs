@@ -35,8 +35,7 @@ namespace Raisins.Client.Web.Models
 
         public List<Ticket> Tickets { get; set; }
 
-        [EnumDataType(typeof(PaymentClass))]
-        public PaymentClass Class { get; set; }
+        public int ClassID { get; set; }
         
         public bool Locked { get; set; }
 
@@ -183,7 +182,7 @@ namespace Raisins.Client.Web.Models
 
             for (int i = 0; i < count; i++)
             {
-                tickets.Add(new Ticket() { Name = payment.Name, TicketCode = string.Format("{0}{1}{2}", payment.BeneficiaryID.ToString("00"), payment.ID.ToString("X").PadLeft(5, '0'), i.ToString("00000")) });
+                tickets.Add(new Ticket() { Name = payment.Name, TicketCode = string.Format("{0}{1}{2}{3}", payment.ClassID.ToString("00"), payment.BeneficiaryID.ToString("00"), payment.ID.ToString("X").PadLeft(5, '0'), i.ToString("00000")) });
             }
 
             return tickets;
