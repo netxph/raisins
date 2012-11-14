@@ -82,5 +82,6 @@ namespace Raisins.Client.Web.Models
         {
             return CreateUser(userName, password, new List<Role> { Role.Find("User") }, new AccountProfile());
         }
+
     }
 }
