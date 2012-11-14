@@ -223,15 +223,19 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <Content Include="Content\Videos\JNG  Project - Dare You to Move.mp4" />
-    <Content Include="Content\Videos\Remedy - Meant to Live.mp4" />
+    <Content Include="Content\Videos\jng.mp4" />
+    <Content Include="Content\Videos\remedy.mp4" />
     <Content Include="Content\Videos\res.mp4" />
-    <Content Include="Content\Videos\The Middle - The Saboteurs.mp4" />
+    <Content Include="Content\Videos\saboteurs.mp4" />
     <Content Include="Scripts\jquery-1.8.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
+    <Content Include="Scripts\jwplayer\jwplayer.flash.swf" />
+    <Content Include="Scripts\jwplayer\jwplayer.html5.js" />
+    <Content Include="Scripts\jwplayer\jwplayer.js" />
+    <Content Include="Scripts\jwplayer\README.html" />
     <Content Include="Scripts\kkcountdown.js" />
     <Content Include="Scripts\mediaelement\background.png" />
     <Content Include="Scripts\mediaelement\bigplay.png" />
@@ -354,7 +358,7 @@
     <Content Include="Views\Shared\_TicketEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Dashboard.cshtml" />
+    <None Include="Content\Videos\res.flv" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
