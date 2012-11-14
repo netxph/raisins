@@ -15,6 +15,10 @@ namespace Raisins.Client.Web.Controllers
         {
             var beneficiaries = Beneficiary.GetAll();
 
+            ViewBag.TotalPosted = 100000;
+            ViewBag.Total = 110000;
+            ViewBag.Target = 600000;
+
             return View(beneficiaries);
         }
 
