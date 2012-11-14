@@ -43,6 +43,9 @@ namespace Raisins.Client.Web.Models
         public int BeneficiaryID { get; set; }
         public virtual Beneficiary Beneficiary { get; set; }
 
+        public int? ExecutiveID { get; set; }
+        public virtual Executive Executive { get; set; }
+
         [Required]
         public int CurrencyID { get; set; }
         public virtual Currency Currency { get; set; }

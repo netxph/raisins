@@ -59,10 +59,13 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult Create()
         {
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
+            var executives = Executive.GetAll();
+            executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
             ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 1);
             ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 1);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
+            ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
             
             return View();
         }
@@ -75,15 +78,20 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (payment.ExecutiveID == -1) payment.ExecutiveID = null;
+
                 Payment.Add(payment);
                 return RedirectToAction("Index");
             }
 
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
+            var executives = Executive.GetAll();
+            executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
             ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 0);
             ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 0);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
+            ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
             
             return View(payment);
         }
@@ -98,11 +106,17 @@ namespace Raisins.Client.Web.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (payment.ExecutiveID == null) payment.ExecutiveID = -1;
+
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
+            var executives = Executive.GetAll();
+            executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
             ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", payment.BeneficiaryID);
             ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", payment.CurrencyID);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name",payment.ClassID);
+            ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name", payment.ExecutiveID);
 
             return View(payment);
         }
@@ -118,12 +132,18 @@ namespace Raisins.Client.Web.Controllers
                 Payment.Edit(payment);
                 return RedirectToAction("Index");
             }
+
+            if (payment.ExecutiveID == null) payment.ExecutiveID = -1;
+
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
+            var executives = Executive.GetAll();
+            executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
             ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 1);
             ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 1);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", (int)payment.ClassID);
-            
+            ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
+
             return View(payment);
         }
 

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Raisins.Client.Web.Models
 {
-    public class DbInitializer : DropCreateDatabaseAlways<RaisinsDB>
+    public class DbInitializer : DropCreateDatabaseIfModelChanges<RaisinsDB>
     {
 
         protected override void Seed(RaisinsDB context)
@@ -39,6 +39,12 @@ namespace Raisins.Client.Web.Models
                 db.Beneficiaries.Add(new Beneficiary() { Description = "JNG Project", Name = "JNG Project" });
                 db.Beneficiaries.Add(new Beneficiary() { Description = "The Saboteurs", Name = "The Saboteurs" });
                 db.Beneficiaries.Add(new Beneficiary() { Description = "The Remedy", Name = "The Remedy" });
+
+                db.SaveChanges();
+
+                db.Executives.Add(new Executive() { Name = "Dave Evans" });
+                db.Executives.Add(new Executive() { Name = "Chuck Maahs" });
+                db.Executives.Add(new Executive() { Name = "Kurt Blumberg" });
 
                 db.SaveChanges();
 

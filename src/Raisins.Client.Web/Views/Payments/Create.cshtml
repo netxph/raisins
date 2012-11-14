@@ -13,7 +13,9 @@
 
         <p>
             Team Name<br />
-            @Html.DropDownList("BeneficiaryID")
+            @Html.DropDownList("BeneficiaryID")<br />
+            or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
         </p>
         <p>
             @Html.LabelFor(model => model.Name)<br />
