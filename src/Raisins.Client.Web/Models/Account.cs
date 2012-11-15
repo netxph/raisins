@@ -38,7 +38,15 @@ namespace Raisins.Client.Web.Models
                 return false;
             }
         }
-        
+
+        public static bool Exists(string userName)
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                return db.Accounts.FirstOrDefault(a => a.UserName == userName) != null;
+            }
+        }
+
         public static Account CreateUser(string userName, string password, List<Role> roles, AccountProfile profile)
         {
             using (var db = ObjectProvider.CreateDB())

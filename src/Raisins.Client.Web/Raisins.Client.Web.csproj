@@ -133,6 +133,10 @@
     <Compile Include="Migrations\201211141028303_InitialCreate.Designer.cs">
       <DependentUpon>201211141028303_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211151023496_new-users.cs" />
+    <Compile Include="Migrations\201211151023496_new-users.Designer.cs">
+      <DependentUpon>201211151023496_new-users.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Activity.cs" />

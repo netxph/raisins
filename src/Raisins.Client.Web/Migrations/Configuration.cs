@@ -16,7 +16,7 @@ namespace Raisins.Client.Web.Migrations
 
         protected override void Seed(RaisinsDB context)
         {
-            Seeder.Seed(context); //to avoid from being deleted
+            //Seeder.Seed(context); //to avoid from being deleted
         }
     }
 }
