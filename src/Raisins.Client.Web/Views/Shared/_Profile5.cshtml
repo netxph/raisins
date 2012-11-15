@@ -8,9 +8,13 @@
         </div>
         <h3>Video</h3>
         <div id="bandvideo">
-        <video controls="controls"  width="480" height="320" preload="auto">
-            <source src="~/Content/Videos/remedy.mp4" type="video/mp4">
-        </video>
+        <div class="flowplayer">
+           <video preload="auto">
+              <source type="video/webm" src="~/Content/Videos/remedy.webm"/>
+              <source type="video/mp4" src="~/Content/Videos/remedy.mp4"/>
+              <source type="video/ogg" src="~/Content/Videos/remedy.ogv"/>
+           </video>
+        </div>
         </div>
         <h3>Members</h3>
         <ul id="bandmembers">

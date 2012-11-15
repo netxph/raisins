@@ -8,9 +8,13 @@
         </div>
         <h3>Video</h3>
         <div id="bandvideo">
-        <video controls="controls"  width="480" height="320" preload="auto">
-            <source src="~/Content/Videos/saboteurs.mp4" type="video/mp4">
-        </video>
+       <div class="flowplayer">
+           <video preload="auto">
+              <source type="video/webm" src="~/Content/Videos/saboteurs.webm"/>
+              <source type="video/mp4" src="~/Content/Videos/saboteurs.mp4"/>
+              <source type="video/ogg" src="~/Content/Videos/saboteurs.ogv"/>
+           </video>
+        </div>
         </div>
         <h3>Members</h3>
         <ul id="bandmembers">
