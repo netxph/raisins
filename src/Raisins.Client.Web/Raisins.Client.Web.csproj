@@ -129,6 +129,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211141028303_InitialCreate.cs" />
+    <Compile Include="Migrations\201211141028303_InitialCreate.Designer.cs">
+      <DependentUpon>201211141028303_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Beneficiary.cs" />
@@ -137,6 +142,7 @@
     <Compile Include="Models\Executive.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\AccountProfile.cs" />
+    <Compile Include="Models\Seeder.cs" />
     <Compile Include="Services\AuthorizeActivityAttribute.cs" />
     <Compile Include="Services\ObjectProvider.cs" />
     <Compile Include="Models\DbInitializer.cs" />

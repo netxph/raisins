@@ -7,13 +7,12 @@ using System.Web;
 
 namespace Raisins.Client.Web.Models
 {
-    public class DbInitializer : DropCreateDatabaseIfModelChanges<RaisinsDB>
+    public class DbInitializer : DropCreateDatabaseAlways<RaisinsDB>
     {
 
         protected override void Seed(RaisinsDB context)
         {
-            
-            
+            Seeder.Seed(context);
         }
 
     }
