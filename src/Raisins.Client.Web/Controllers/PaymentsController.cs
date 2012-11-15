@@ -35,7 +35,9 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            var payments = Payment.GetAll();
+            var payments = Payment.FindAllForUser();
+            ViewBag.CanLock = Activity.IsInRole("Payment.Lock");
+            ViewBag.CanEdit = Activity.IsInRole("Payment.Edit");
 
             return View(payments);
         }
@@ -58,12 +60,19 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Create()
         {
+            var user = Account.GetCurrentUser();
+
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
             var executives = Executive.GetAll();
             executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
-            ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 1);
-            ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 1);
+            if (user.Profile.IsLocal)
+            {
+                paymentClasses.Remove(paymentClasses.Single(p => p.Name == "Foreign"));
+            }
+
+            ViewBag.BeneficiaryID = new SelectList(user.Profile.Beneficiaries, "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(user.Profile.Currencies, "ID", "CurrencyCode", 1);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
             
@@ -167,6 +176,18 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Payment.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        protected bool IsInRole(string activityName)
+        {
+            return Activity.IsInRole(activityName);
+        }
+
+        public ActionResult Email(int id)
+        {
+            Payment.ResendEmail(id);
+
             return RedirectToAction("Index");
         }
 

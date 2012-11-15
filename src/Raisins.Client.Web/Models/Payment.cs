@@ -23,7 +23,7 @@ namespace Raisins.Client.Web.Models
         public string Name { get; set; }
 
         [Required]
-        [Range(0.0D, double.MaxValue, ErrorMessage="Amount must be greater than zero")]
+        [Range(0.0D, double.MaxValue, ErrorMessage = "Amount must be greater than zero")]
         public decimal Amount { get; set; }
 
         public string Location { get; set; }
@@ -36,7 +36,7 @@ namespace Raisins.Client.Web.Models
         public List<Ticket> Tickets { get; set; }
 
         public int ClassID { get; set; }
-        
+
         public bool Locked { get; set; }
 
         [Required]
@@ -61,17 +61,53 @@ namespace Raisins.Client.Web.Models
         {
             using (var db = ObjectProvider.CreateDB())
             {
-                Account currentAccount = Account.GetCurrentUser();
-
-                var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
-
-                var payments = db.Payments
+                return db.Payments
                     .Include(p => p.Beneficiary)
                     .Include(p => p.Currency)
                     .Include(p => p.CreatedBy)
                     .Include(p => p.AuditedBy)
-                    .Where(p => beneficiaryIds.Contains(p.BeneficiaryID));
-                
+                    .Include(p => p.Executive).ToList();
+            }
+        }
+
+        public static List<Payment> FindAllForUser()
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                Account currentAccount = Account.GetCurrentUser();
+
+                var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
+
+                IEnumerable<Payment> payments = null;
+
+                //convert to activity
+                if (currentAccount.Roles.Exists(r => r.Name == "User"))
+                {
+                    payments = db.Payments
+                        .Include(p => p.Beneficiary)
+                        .Include(p => p.Currency)
+                        .Include(p => p.CreatedBy)
+                        .Include(p => p.AuditedBy)
+                        .Where(p => beneficiaryIds.Contains(p.BeneficiaryID) && p.CreatedByID == currentAccount.ID);
+                }
+                else if (currentAccount.Roles.Exists(r => r.Name == "Accountant"))
+                {
+                    payments = db.Payments
+                        .Include(p => p.Beneficiary)
+                        .Include(p => p.Currency)
+                        .Include(p => p.CreatedBy)
+                        .Include(p => p.AuditedBy)
+                        .Where(p => beneficiaryIds.Contains(p.BeneficiaryID));
+                }
+                else
+                {
+                    payments = db.Payments
+                        .Include(p => p.Beneficiary)
+                        .Include(p => p.Currency)
+                        .Include(p => p.CreatedBy)
+                        .Include(p => p.AuditedBy);
+                }
+
                 return payments.ToList();
             }
         }
@@ -80,7 +116,7 @@ namespace Raisins.Client.Web.Models
         {
             using (var db = ObjectProvider.CreateDB())
             {
-                return db.Payments.Find(id);
+                return db.Payments.Include("Tickets").Single(p => p.ID == id);
             }
         }
 
@@ -189,6 +225,14 @@ namespace Raisins.Client.Web.Models
             }
 
             return tickets;
+        }
+
+        public static void ResendEmail(int id)
+        {
+            var payment = Find(id);
+
+            //TODO: secure
+            emailTickets(payment.Email, payment.Tickets);
         }
     }
 }

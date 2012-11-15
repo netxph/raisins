@@ -5,10 +5,16 @@
 }
 
 <ul>
+    @if(ViewBag.CanEdit)
+    {
     <li>@Html.ActionLink("Create New", "Create")</li>
+    }
+    @if(ViewBag.CanLock)
+    {
     <li>@Html.ActionLink("Lock all", "LockAll")</li>
     <li>@Html.ActionLink("Lock Local", "LockLocal")</li>
     <li>@Html.ActionLink("Lock International", "LockInternational")</li>
+    }
 </ul>
 <table id="payment-grid">
     <thead>
@@ -30,12 +36,15 @@
                     <ul>
                         @if(!payment.Locked)
                         {
-                        <li>@Html.ActionLink("Edit", "Edit", new { ID = payment.ID }) </li>
-                        <li>@Html.ActionLink("Delete", "Delete", new { ID = payment.ID })</li>
+                            if(ViewBag.CanEdit)
+                            {
+                                <li>@Html.ActionLink("Edit", "Edit", new { ID = payment.ID }) </li>
+                                <li>@Html.ActionLink("Delete", "Delete", new { ID = payment.ID })</li>
+                            }
                         }
                         else
                         {
-                        <li>@Html.ActionLink("Email", "Email", new { ID = payment.ID })</li>
+                            <li>@Html.ActionLink("Email", "Email", new { ID = payment.ID })</li>
                         }
                     </ul>
                 </td>
