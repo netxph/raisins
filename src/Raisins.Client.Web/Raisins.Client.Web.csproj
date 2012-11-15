@@ -359,6 +359,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Videos\res.flv" />
+    <None Include="Content\Videos\res.webm" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
