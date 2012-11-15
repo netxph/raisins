@@ -14,6 +14,8 @@ namespace Raisins.Client.Web.Models
     public class Payment
     {
 
+        const decimal TARGET = 600000;
+
         public static string EmailTemplate { get; set; }
 
         [Key]
@@ -233,6 +235,29 @@ namespace Raisins.Client.Web.Models
 
             //TODO: secure
             emailTickets(payment.Email, payment.Tickets);
+        }
+
+        public static Dictionary<string, decimal> GetTotalSummary()
+        {
+            Dictionary<string, decimal> totals = new Dictionary<string, decimal>();
+
+            //TODO: put this in configuration
+            totals.Add("Target", TARGET);
+
+            using (var db = ObjectProvider.CreateDB())
+            {
+                var payments = db.Payments.Include("Currency").ToList();
+
+                var posted = payments.Where(p => p.Locked).Sum(p => p.Amount * p.Currency.ExchangeRate);
+
+                totals.Add("Posted", posted);
+
+                var total = payments.Sum(p => p.Amount * p.Currency.ExchangeRate);
+
+                totals.Add("Total", total);
+            }
+
+            return totals;
         }
     }
 }
