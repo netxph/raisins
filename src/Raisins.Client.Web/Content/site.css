@@ -371,6 +371,7 @@ div#mechanics img
 /***status ****/
 div#status
 {
+    display:none;
     height:30px;
     width:100%;
     background:#FFF;
