@@ -91,5 +91,27 @@ namespace Raisins.Client.Web.Models
             return CreateUser(userName, password, new List<Role> { Role.Find("User") }, new AccountProfile());
         }
 
+
+        public static void ChangePassword(string newPassword)
+        {
+            ChangePassword(Account.GetCurrentUser().ID, newPassword);
+        }
+
+        public static void ChangePassword(int userId, string newPassword)
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                var account = db.Accounts.First(a => a.ID == userId);
+                var salt = Helper.CreateSalt();
+                var password = GetHash(newPassword, salt);
+
+                account.Salt = salt;
+                account.Password = password;
+
+                db.Entry(account).State = EntityState.Modified;
+
+                db.SaveChanges();
+            }
+        }
     }
 }

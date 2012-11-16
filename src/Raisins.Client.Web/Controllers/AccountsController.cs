@@ -50,5 +50,24 @@ namespace Raisins.Client.Web.Controllers
             }
         }
 
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordModel changePassword)
+        {
+            if (ModelState.IsValid)
+            {
+                Account.ChangePassword(changePassword.NewPassword);
+
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(changePassword);
+        }
+
     }
 }

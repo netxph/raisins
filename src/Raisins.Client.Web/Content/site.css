@@ -211,6 +211,12 @@ ul#navigation
                 color:#000;
             }
 
+a#userlinks
+{
+    text-decoration: none;
+    color: darkgoldenrod;
+}
+
 div#loglinks
 {
     float: right;

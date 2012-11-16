@@ -1,10 +1,12 @@
 ﻿@if (Request.IsAuthenticated) {
     <div id="loglinks">
         @using (Html.BeginForm("Logoff", "Accounts", FormMethod.Post, new { id = "logoutForm" })) {
-            <span id="loginname">Hello, @User.Identity.Name!</span>
+            @Html.ActionLink(string.Format("Hello, {0}!", @User.Identity.Name), "ChangePassword", "Accounts", null, new { id = "userlinks" })
             @Html.AntiForgeryToken()
             <a href="javascript:document.getElementById('logoutForm').submit()" id="loginLink">Log off</a>
         }
+
+        
     </div>
 } else
 {

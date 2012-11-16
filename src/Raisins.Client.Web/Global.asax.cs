@@ -24,7 +24,7 @@ namespace Raisins.Client.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Database.SetInitializer<RaisinsDB>(new DbInitializer());
+            //Database.SetInitializer<RaisinsDB>(new DbInitializer());
         }
     }
 }
