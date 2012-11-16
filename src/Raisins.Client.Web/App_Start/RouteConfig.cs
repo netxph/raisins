@@ -12,7 +12,9 @@ namespace Raisins.Client.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("Content/Videos*");
+            routes.IgnoreRoute("{*mp4}", new { mp4 = @".*\.mp4(/.*)?" });
+            routes.IgnoreRoute("{*ogv}", new { ogv = @".*\.ogv(/.*)?" });
+            routes.IgnoreRoute("{*webm}", new { webm = @".*\.webm(/.*)?" });
 
             routes.MapRoute(
                 name: "Default",
