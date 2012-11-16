@@ -93,7 +93,7 @@ div#rightcontentarea
 #newscontainer
 {
     padding-top: 20px;
-    height: 304px;
+    height: 314px;
     overflow-y: auto;
 }
 
@@ -155,7 +155,10 @@ ul#teamscontent
 {
     margin-top: 10px;
 }
-
+    .newscontents p
+    {
+        margin:3px 0 2px;
+    }
     .newscontents a
     {
         font-size: 20px;
