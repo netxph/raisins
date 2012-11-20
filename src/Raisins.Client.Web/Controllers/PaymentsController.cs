@@ -22,6 +22,20 @@ namespace Raisins.Client.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult LockLocal()
+        {
+            Payment.LockLocal();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LockForeign()
+        {
+            Payment.LockForeign();
+
+            return RedirectToAction("Index");
+        }
+
         //
         // GET: /Payments/Manage
         [AllowAnonymous]

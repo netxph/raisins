@@ -191,6 +191,72 @@ namespace Raisins.Client.Web.Models
             }
         }
 
+        public static void LockLocal()
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                Account currentAccount = Account.GetCurrentUser();
+
+                var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
+
+                var payments = db.Payments
+                    .Include(p => p.Beneficiary)
+                    .Include(p => p.Currency)
+                    .Include(p => p.CreatedBy)
+                    .Include(p => p.AuditedBy)
+                    .Where(p => beneficiaryIds.Contains(p.BeneficiaryID) && (p.ClassID == (int)PaymentClass.Local || p.ClassID == (int)PaymentClass.External));
+
+                foreach (var payment in payments)
+                {
+                    if (!payment.Locked)
+                    {
+                        db.Entry(payment).State = EntityState.Modified;
+
+                        payment.Locked = true;
+                        payment.AuditedByID = Account.GetCurrentUser().ID;
+                        payment.Tickets = generateTickets(payment);
+
+                        emailTickets(payment.Email, payment.Tickets);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        public static void LockForeign()
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                Account currentAccount = Account.GetCurrentUser();
+
+                var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
+
+                var payments = db.Payments
+                    .Include(p => p.Beneficiary)
+                    .Include(p => p.Currency)
+                    .Include(p => p.CreatedBy)
+                    .Include(p => p.AuditedBy)
+                    .Where(p => beneficiaryIds.Contains(p.BeneficiaryID) && p.ClassID == (int)PaymentClass.Foreign);
+
+                foreach (var payment in payments)
+                {
+                    if (!payment.Locked)
+                    {
+                        db.Entry(payment).State = EntityState.Modified;
+
+                        payment.Locked = true;
+                        payment.AuditedByID = Account.GetCurrentUser().ID;
+                        payment.Tickets = generateTickets(payment);
+
+                        emailTickets(payment.Email, payment.Tickets);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         private static void emailTickets(string email, List<Ticket> tickets)
         {
             StringBuilder builder = new StringBuilder();
@@ -207,6 +273,7 @@ namespace Raisins.Client.Web.Models
             {
                 MailMessage message = new MailMessage("no-reply@navitaire.com", email);
                 message.Body = content;
+                message.Subject = "[JAM FOR HUNGRY MINDS 2012] Ticket Notification";
                 message.IsBodyHtml = true;
 
                 SmtpClient smtp = new SmtpClient();
@@ -259,5 +326,7 @@ namespace Raisins.Client.Web.Models
 
             return totals;
         }
+
+        
     }
 }
