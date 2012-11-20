@@ -152,6 +152,8 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (payment.ExecutiveID == -1) payment.ExecutiveID = null;
+
                 Payment.Edit(payment);
                 return RedirectToAction("Index");
             }
