@@ -11,6 +11,7 @@ namespace Raisins.Client.Web.Migrations
         {
             using (var db = ObjectProvider.CreateDB())
             {
+                Seeder.Seed(db);
 
                 if (!Account.Exists("reyesce"))
                 {
