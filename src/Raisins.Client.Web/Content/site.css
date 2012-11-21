@@ -409,3 +409,41 @@ div#status #target
     background:darkgoldenrod;
     color:#000;
 }
+
+ul#payment-menu
+{
+    margin-top: 24px;
+    margin-bottom: 24px;
+    text-align: right;
+}
+
+ul#payment-menu li
+{
+    display: inline;
+    padding-right: 12px;
+    list-style-type: none;
+}
+
+ul#payment-menu a
+{
+    text-decoration: none;
+    color: darkgoldenrod;
+    font-size: 16px;
+}
+
+table#payment-grid li
+{
+    display: inline;
+    list-style-type: none;
+}
+
+table#payment-grid td
+{
+    padding: 6px;
+}
+
+table#payment-grid a
+{
+    text-decoration: none;
+    color: darkgoldenrod;
+}

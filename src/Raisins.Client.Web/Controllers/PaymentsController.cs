@@ -50,6 +50,28 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult Index()
         {
             var payments = Payment.FindAllForUser();
+
+            string sortBy = Request.QueryString["SortBy"];
+
+            if (sortBy != null)
+            {
+                switch (sortBy)
+                { 
+                    case "Beneficiary":
+                        payments.Sort((p1, p2) => p1.Beneficiary.Name.CompareTo(p2.Beneficiary.Name));
+                        break;
+                    case "Class":
+                        payments.Sort((p1, p2) => p1.ClassID.CompareTo(p2.ClassID));
+                        break;
+                    case "Name":
+                        payments.Sort((p1, p2) => p1.Name.CompareTo(p2.Name));
+                        break;
+                    case "Currency":
+                        payments.Sort((p1, p2) => p1.Currency.CurrencyCode.CompareTo(p2.Currency.CurrencyCode));
+                        break;
+                }
+            }
+
             ViewBag.CanLock = Activity.IsInRole("Payment.Lock");
             ViewBag.CanEdit = Activity.IsInRole("Payment.Edit");
 

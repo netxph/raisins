@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<ul>
+<ul id="payment-menu">
     @if(ViewBag.CanEdit)
     {
     <li>@Html.ActionLink("Create New", "Create")</li>
@@ -20,9 +20,10 @@
     <thead>
         <tr>
             <th class="controls"></th>
-            <th class="beneficiary">Band Voted</th>
-            <th class="name">Name</th>
-            <th class="currency">Currency</th>
+            <th class="beneficiary">@Html.ActionLink("Band Voted", "Index", new { SortBy="Beneficiary" })</th>
+            <th class="class">@Html.ActionLink("Class", "Index", new { SortBy="Class" })</th>
+            <th class="name">@Html.ActionLink("Name", "Index", new { SortBy="Name" })</th>
+            <th class="currency">@Html.ActionLink("Currency", "Index", new { SortBy="Currency" })</th>
             <th class="amount">Actual Amount</th>
             <th class="votes">Votes</th>
             <th class="total">Converted Amount</th>
@@ -49,6 +50,7 @@
                     </ul>
                 </td>
                 <td class="beneficiary">@Html.DisplayFor(model => payment.Beneficiary.Name)</td>
+                <td class="class">@((PaymentClass)payment.ClassID)</td>
                 <td class="name">@Html.DisplayFor(model => payment.Name)</td>
                 <td class="currency">@Html.DisplayFor(model => payment.Currency.CurrencyCode)</td>
                 <td class="amount">@Html.DisplayFor(model => payment.Amount)</td>
