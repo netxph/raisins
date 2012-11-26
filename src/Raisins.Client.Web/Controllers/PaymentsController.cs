@@ -91,6 +91,23 @@ namespace Raisins.Client.Web.Controllers
             return View(payment);
         }
 
+        [HttpPost]
+        public ActionResult Details(Payment payment)
+        {
+            var email = payment.Email;
+            payment = Payment.Find(payment.ID);
+            payment.Email = email;
+
+            if (ModelState.IsValid)
+            {
+                Payment.Edit(payment);
+
+                return RedirectToAction("Index");
+            }
+
+            return View(payment);
+        }
+
         //
         // GET: /Payments/Create
 

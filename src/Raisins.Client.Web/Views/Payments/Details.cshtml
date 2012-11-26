@@ -4,10 +4,8 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<fieldset>
-    <legend>Payment</legend>
+<fieldset id="payments">
+    <legend></legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Name)
@@ -45,13 +43,6 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Locked)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Locked)
-    </div>
-
-    <div class="display-label">
          @Html.DisplayNameFor(model => model.Beneficiary.Name)
     </div>
     <div class="display-field">
@@ -78,8 +69,33 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.AuditedBy.UserName)
     </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Locked)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Locked)
+    </div>
 </fieldset>
+
+@using (Html.BeginForm())
+{ 
+    @Html.ValidationSummary(true)
+    
+    <fieldset id="payments-email">
+    <legend></legend>
+
+    <div class="display-label">
+        Payment is already locked. Do you wish to change Email Address?
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Email)<input type="submit" value="Update" />
+        @Html.ValidationMessageFor(model => model.Email)<br />
+    </div>
+    </fieldset>
+}
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    
     @Html.ActionLink("Back to List", "Index")
 </p>

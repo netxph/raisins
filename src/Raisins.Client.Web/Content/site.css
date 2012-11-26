@@ -1,5 +1,4 @@
-﻿body
-{
+﻿body {
     font-family: 'Open Sans', segoe ui, verdana, arial, sans-serif;
     color: darkgoldenrod;
     background-color: black;
@@ -8,8 +7,7 @@
     margin: 12px auto;
 }
 
-hr
-{
+hr {
     border: 0;
     height: 1px;
     background: #333;
@@ -19,40 +17,34 @@ hr
     background-image: -o-linear-gradient(left, #333, #ccc, #333);
 }
 
-h1.app-logo
-{
+h1.app-logo {
     font-size: 24px;
     font-weight: bold;
     text-align: right;
 }
 
-    h1.app-logo span
-    {
+    h1.app-logo span {
         font-weight: lighter;
     }
 
-div.image
-{
+div.image {
     width: 36px;
     height: 36px;
     background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA%3D%3D);
 }
 
-h6.app-logo
-{
+h6.app-logo {
     text-align: right;
 }
 
-div#maincontentarea
-{
+div#maincontentarea {
     height: auto;
     width: 1024px;
     overflow: hidden;
     position: relative;
 }
 
-div.event-title
-{
+div.event-title {
     width: 600px;
     font-size: 72px;
     height: 400px;
@@ -62,16 +54,14 @@ div.event-title
     background: url("Images/l.jpg") no-repeat 0 0;
 }
 
-    div.event-title span
-    {
+    div.event-title span {
         position: absolute;
         bottom: 0;
         text-align: right;
         width: 600px;
     }
 
-div#rightcontentarea
-{
+div#rightcontentarea {
     float: left;
     width: 400px;
     padding-left: 24px;
@@ -79,59 +69,49 @@ div#rightcontentarea
     height: auto;
 }
 
-#timer, #newscontainer
-{
+#timer, #newscontainer {
     position: relative;
 }
 
-#timer
-{
+#timer {
     height: 40px;
     font-size: 62px;
 }
 
-#newscontainer
-{
+#newscontainer {
     padding-top: 20px;
     height: 314px;
     overflow-y: auto;
 }
 
-    #newscontainer h2
-    {
+    #newscontainer h2 {
         font-size: 40px;
     }
 
-div#teamscontainer
-{
+div#teamscontainer {
     padding-top: 30px;
 }
 
-ul#teamscontent
-{
+ul#teamscontent {
 }
 
-    ul#teamscontent li img
-    {
+    ul#teamscontent li img {
         width: 180px;
         border: #FFF solid 1px;
     }
 
-    ul#teamscontent li:first-child
-    {
+    ul#teamscontent li:first-child {
         margin-left: 0;
     }
 
-    ul#teamscontent li
-    {
+    ul#teamscontent li {
         display: block;
         float: left;
         margin-left: 28px;
         position: relative;
     }
 
-        ul#teamscontent li h4
-        {
+        ul#teamscontent li h4 {
             width: 162px;
             height: 39px;
             position: absolute;
@@ -144,50 +124,44 @@ ul#teamscontent
             opacity: 0.7;
         }
 
-            ul#teamscontent li h4 span
-            {
+            ul#teamscontent li h4 span {
                 font-weight: bold !important;
                 color: #FFCC00;
                 font-family: tahoma;
             }
 
-.newscontents
-{
+.newscontents {
     margin-top: 10px;
 }
-    .newscontents p
-    {
-        margin:3px 0 2px;
+
+    .newscontents p {
+        margin: 3px 0 2px;
     }
-    .newscontents a
-    {
+
+    .newscontents a {
         font-size: 20px;
         color: darkgoldenrod;
         text-decoration: none;
     }
 
-        .newscontents a:hover
-        {
+        .newscontents a:hover {
             text-decoration: underline;
         }
 
-#topcontainer
-{
+#topcontainer {
     width: 1024px;
     position: relative;
     overflow: hidden;
     height: 28px;
 }
 
-ul#navigation
-{
+ul#navigation {
     padding-bottom: 10px;
     float: left;
     position: relative;
 }
 
-    ul#navigation li
-    {
+    ul#navigation li {
         display: block;
         float: left;
         padding-left: 10px;
@@ -195,8 +169,7 @@ ul#navigation
         padding-top: 5px;
     }
 
-        ul#navigation li a, a#loginLink
-        {
+        ul#navigation li a, a#loginLink {
             color: darkgoldenrod;
             font-size: 20px;
             font-weight: bold;
@@ -205,62 +178,53 @@ ul#navigation
             padding: 5px;
         }
 
-            ul#navigation li a:hover, a#loginLink:hover
-            {
+            ul#navigation li a:hover, a#loginLink:hover {
                 background: #FFCC00;
-                color:#000;
+                color: #000;
             }
 
-a#userlinks
-{
+a#userlinks {
     text-decoration: none;
     color: darkgoldenrod;
 }
 
-div#loglinks
-{
+div#loglinks {
     float: right;
     padding-top: 5px;
 }
 
-a#loginLink
-{
+a#loginLink {
 }
 
-div#bandbanner
-{
+div#bandbanner {
     width: 1024px;
 }
 
-    div#bandbanner img
-    {
+    div#bandbanner img {
         margin: auto;
         position: relative;
         display: block;
     }
 
-div#bandinfo
-{
+div#bandinfo {
     position: relative;
     width: 1024px;
     overflow: hidden;
     display: block;
 }
 
-    div#bandinfo #bandname
-    {
+    div#bandinfo #bandname {
         width: 400px;
         /*background:#8B8787;*/
     }
 
-        div#bandinfo #bandname h2
-        {
+        div#bandinfo #bandname h2 {
             font-size: 3em;
             font-weight: bold;
             margin: 10px 0;
         }
-    div#bandinfo h3
-    {
+
+    div#bandinfo h3 {
         border-bottom: 1px solid;
         border-top: 1px solid;
         font-size: 28px;
@@ -268,182 +232,185 @@ div#bandinfo
         margin-bottom: 10px;
         font-weight: bold;
     }
-    div#bandvideo
-    {
-        width:480px;
-        height:320px;
-        border:1px solid;
-        margin:0 auto 10px;
-    }
-table#payment-grid
-{
+
+div#bandvideo {
+    width: 480px;
+    height: 320px;
+    border: 1px solid;
+    margin: 0 auto 10px;
+}
+
+table#payment-grid {
     width: 100%;
 }
 
-    table#payment-grid th
-    {
+    table#payment-grid th {
         text-align: left;
         font-size: 20px;
     }
 
-    table#payment-grid .beneficiary
-    {
+    table#payment-grid .beneficiary {
         width: 20%;
     }
 
-    table#payment-grid .name
-    {
+    table#payment-grid .name {
         width: 20%;
     }
 
-    table#payment-grid .amount
-    {
+    table#payment-grid .amount {
         text-align: right;
     }
 
-    table#payment-grid .votes
-    {
+    table#payment-grid .votes {
         text-align: right;
     }
 
-    table#payment-grid .total
-    {
+    table#payment-grid .total {
         text-align: right;
     }
-ul#bandmembers
-{
-    overflow:hidden;
+
+ul#bandmembers {
+    overflow: hidden;
 }
-ul#bandmembers li
-{
-    margin-bottom:10px;
-}
-#links
-{
-    text-align:center;
+
+    ul#bandmembers li {
+        margin-bottom: 10px;
+    }
+
+#links {
+    text-align: center;
 }
 
 
 /*************MECHANICS*****************/
-div#mechanics
-{
-    padding:10px 0;
+div#mechanics {
+    padding: 10px 0;
 }
-div#mechanics h2
-{
-    padding:10px 0;
-    font-size:26px;
-    font-weight:bold;
-}
-div#mechanics h3
-{
-    padding:5px 0;
-    font-size:20px;
-    font-weight:bold;
-}
-div#mechanics ol
-{
-    list-style-type:decimal;
-    list-style-position:inside;
-}
-div#mechanics ol li
-{
-    margin:10px 20px;
-}
-div#mechanics table
-{
-    margin:10px 0;
-}
-div#mechanics table tr,td
-{
-    border:1px solid;
-}
-div#mechanics table thead 
-{
-    font-weight:bold;
-    font-size:14px;
-    text-align:center;
-}
-div#mechanics table td
-{
-    padding:5px 10px;
-}
-div#mechanics img
-{
-    border:2px solid;
-    margin:10px;
-}
+
+    div#mechanics h2 {
+        padding: 10px 0;
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    div#mechanics h3 {
+        padding: 5px 0;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    div#mechanics ol {
+        list-style-type: decimal;
+        list-style-position: inside;
+    }
+
+        div#mechanics ol li {
+            margin: 10px 20px;
+        }
+
+    div#mechanics table {
+        margin: 10px 0;
+    }
+
+        div#mechanics table tr, td {
+            border: 1px solid;
+        }
+
+        div#mechanics table thead {
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        div#mechanics table td {
+            padding: 5px 10px;
+        }
+
+    div#mechanics img {
+        border: 2px solid;
+        margin: 10px;
+    }
 
 /***status ****/
-div#status
-{
-    display:none;
-    height:30px;
-    width:100%;
-    background:#FFF;
-}
-div#status div
-{
-    display:block;
-    float:left;
-    height:20px;
-    margin:5px 0;
-    text-align:right;
-}
-div#status div
-{
-}
-div#status #posted
-{
-    width:20%;
-    background:#000;
-}
-div#status #total
-{
-    width:60%;
-    background:#CCC;
-}
-div#status #target
-{
-    width:20%;
-    background:darkgoldenrod;
-    color:#000;
+div#status {
+    display: none;
+    height: 30px;
+    width: 100%;
+    background: #FFF;
 }
 
-ul#payment-menu
-{
+    div#status div {
+        display: block;
+        float: left;
+        height: 20px;
+        margin: 5px 0;
+        text-align: right;
+    }
+
+    div#status div {
+    }
+
+    div#status #posted {
+        width: 20%;
+        background: #000;
+    }
+
+    div#status #total {
+        width: 60%;
+        background: #CCC;
+    }
+
+    div#status #target {
+        width: 20%;
+        background: darkgoldenrod;
+        color: #000;
+    }
+
+ul#payment-menu {
     margin-top: 24px;
     margin-bottom: 24px;
     text-align: right;
 }
 
-ul#payment-menu li
-{
-    display: inline;
-    padding-right: 12px;
-    list-style-type: none;
-}
+    ul#payment-menu li {
+        display: inline;
+        padding-right: 12px;
+        list-style-type: none;
+    }
 
-ul#payment-menu a
-{
-    text-decoration: none;
-    color: darkgoldenrod;
-    font-size: 16px;
-}
+    ul#payment-menu a {
+        text-decoration: none;
+        color: darkgoldenrod;
+        font-size: 16px;
+    }
 
-table#payment-grid li
-{
+table#payment-grid li {
     display: inline;
     list-style-type: none;
 }
 
-table#payment-grid td
-{
+table#payment-grid td {
     padding: 6px;
 }
 
-table#payment-grid a
-{
+table#payment-grid a {
     text-decoration: none;
     color: darkgoldenrod;
 }
+
+#payments div.display-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+#payments-email {
+    margin: 12px 0 0 0;
+    border: 1px solid darkgoldenrod;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+    #payments-email div {
+        margin: 12px;
+    }

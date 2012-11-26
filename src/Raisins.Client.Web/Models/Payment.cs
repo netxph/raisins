@@ -118,7 +118,13 @@ namespace Raisins.Client.Web.Models
         {
             using (var db = ObjectProvider.CreateDB())
             {
-                return db.Payments.Include("Tickets").Single(p => p.ID == id);
+                return db.Payments
+                    .Include(p => p.Tickets)
+                    .Include(p => p.Beneficiary)
+                    .Include(p => p.Currency)
+                    .Include(p => p.CreatedBy)
+                    .Include(p => p.AuditedBy)
+                    .Single(p => p.ID == id);
             }
         }
 

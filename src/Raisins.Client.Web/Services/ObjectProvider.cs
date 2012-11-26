@@ -11,7 +11,6 @@ namespace Raisins.Client.Web.Models
 
         static object _lockObject = new object();
 
-        static RaisinsDB _db = null;
         protected static RaisinsDB DB { get; set; }
 
         public static RaisinsDB CreateDB()

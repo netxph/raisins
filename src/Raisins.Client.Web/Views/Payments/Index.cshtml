@@ -41,10 +41,12 @@
                             {
                                 <li>@Html.ActionLink("Edit", "Edit", new { ID = payment.ID }) </li>
                                 <li>@Html.ActionLink("Delete", "Delete", new { ID = payment.ID })</li>
+                                <li>@Html.ActionLink("Email", "Email", new { ID = payment.ID })</li>
                             }
                         }
                         else
                         {
+                            <li>@Html.ActionLink("Details", "Details", new { ID = payment.ID })</li>
                             <li>@Html.ActionLink("Email", "Email", new { ID = payment.ID })</li>
                         }
                     </ul>
