@@ -273,7 +273,7 @@ namespace Raisins.Client.Web.Models
                 builder.AppendLine("<br />");
             }
 
-            string content = string.Format(Templates.EMAIL, builder.ToString());
+            string content = string.Format(Templates.EMAIL, tickets[0].Name, builder.ToString());
 
             try
             {
