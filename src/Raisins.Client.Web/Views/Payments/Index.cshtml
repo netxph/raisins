@@ -11,9 +11,9 @@
     }
     @if(ViewBag.CanLock)
     {
-    <li>@Html.ActionLink("Lock all", "LockAll")</li>
-    <li>@Html.ActionLink("Lock Local", "LockLocal")</li>
-    <li>@Html.ActionLink("Lock International", "LockForeign")</li>
+    <li><a href="#" id="lock-all">Lock All</a></li>
+    <li><a href="#" id="lock-local">Lock Local</a></li>
+    <li><a href="#" id="lock-foreign">Lock International</a></li>    
     }
 </ul>
 <table id="payment-grid">
@@ -63,3 +63,88 @@
         }
     </tbody>
 </table>
+
+<div id="dialog-lock-all" title="Lock All?">
+    <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
+</div>
+
+<div id="dialog-lock-local" title="Lock Local?">
+    <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
+</div>
+
+<div id="dialog-lock-foreign" title="Lock Foreign?">
+    <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#dialog-lock-all").dialog({
+                autoOpen: false,
+                resizable: false,
+                height: 180,
+                modal: true,
+                buttons: {
+                    "Yes": function () {
+                        window.location.href = "@Url.Action("LockAll")";
+                        $(this).dialog("close");
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#lock-all")
+            .click(function () {
+                $("#dialog-lock-all").dialog("open");
+                return false;
+            });
+
+            $("#dialog-lock-local").dialog({
+                autoOpen: false,
+                resizable: false,
+                height: 180,
+                modal: true,
+                buttons: {
+                    "Yes": function () {
+                        window.location.href = "@Url.Action("LockLocal")";
+                        $(this).dialog("close");
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#lock-local")
+            .click(function () {
+                $("#dialog-lock-local").dialog("open");
+                return false;
+            });
+
+
+            $("#dialog-lock-foreign").dialog({
+                autoOpen: false,
+                resizable: false,
+                height: 180,
+                modal: true,
+                buttons: {
+                    "Yes": function () {
+                        window.location.href = "@Url.Action("LockForeign")";
+                        $(this).dialog("close");
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#lock-foreign")
+            .click(function () {
+                $("#dialog-lock-foreign").dialog("open");
+                return false;
+            });
+        });
+    </script>
+}
