@@ -3,12 +3,6 @@
     ViewBag.Title = "Index";
 }
 
-<div id="status">
-    <div id="posted"><span>@ViewBag.Posted</span></div>
-    <div id="total"><span>@ViewBag.Total</span></div>
-    <div id="target"><span>@ViewBag.Target</span></div>
-</div>
-
 <div id="maincontentarea">
     <div class="event-title"><span>JAM FOR HUNGRY MINDS</span></div>
     <div id="rightcontentarea">
@@ -31,6 +25,8 @@
     </div>
 </div>
 
+
+
 <div style="clear:both;" id="teamscontainer">
     <ul id="teamscontent">
         @foreach(var beneficiary in Model)
@@ -44,6 +40,14 @@
         }
     </ul>
 </div>
+
+<div style="clear:both;" id="status">
+    @*<div id="posted"><span>@ViewBag.Posted</span></div>
+    <div id="total"><span>@ViewBag.Total</span></div>
+    <div id="target"><span>@ViewBag.Target</span></div>*@
+</div>
+<span id="tally">@ViewBag.Total.ToString("#,##0.00") / @ViewBag.Target.ToString("#,##0.00")</span>
+
 <div id="links">
     <a href="http://foodforhungryminds.org/">
         <img src="~/Content/Images/fhms.JPG" />
@@ -52,3 +56,14 @@
         <img src="~/Content/Images/facebook.JPG" />
     </a>
 </div>
+
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#status").progressbar({
+                value: @ViewBag.Percentage
+            });
+        });
+    </script>
+}

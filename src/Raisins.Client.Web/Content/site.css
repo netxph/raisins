@@ -333,39 +333,12 @@ div#mechanics {
 
 /***status ****/
 div#status {
-    display: none;
-    height: 30px;
     width: 100%;
     background: #FFF;
+    margin: 24px 0 0;
+    float:left;
 }
-
-    div#status div {
-        display: block;
-        float: left;
-        height: 20px;
-        margin: 5px 0;
-        text-align: right;
-    }
-
-    div#status div {
-    }
-
-    div#status #posted {
-        width: 20%;
-        background: #000;
-    }
-
-    div#status #total {
-        width: 60%;
-        background: #CCC;
-    }
-
-    div#status #target {
-        width: 20%;
-        background: darkgoldenrod;
-        color: #000;
-    }
-
+    
 ul#payment-menu {
     margin-top: 24px;
     margin-bottom: 24px;
@@ -414,3 +387,9 @@ table#payment-grid a {
     #payments-email div {
         margin: 12px;
     }
+
+#tally
+{
+    font-size: 24px;
+    font-weight: bold;
+}

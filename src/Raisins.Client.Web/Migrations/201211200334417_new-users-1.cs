@@ -36,40 +36,55 @@ namespace Raisins.Client.Web.Migrations
                     db.SaveChanges();
                 }
 
-                Account.CreateUser("bolalie", "bolalie!23",
-                new List<Role>()  
-                { 
-                    db.Roles.First(r => r.Name == "User")
-                },
-                new AccountProfile() { Name = "Bolalin, Lian", IsLocal = true, Currencies = db.Currencies.Where(c => c.CurrencyCode == "PHP").ToList(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "The Remedy").ToList() });
-
-                Account.CreateUser("santiaa", "santiaa!23",
-                        new List<Role>()  
-                { 
-                    db.Roles.First(r => r.Name == "Accountant")
-                },
-                        new AccountProfile() { Name = "Santiago, Roanne", IsLocal = true, Currencies = new List<Currency>(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "The Remedy").ToList() });
-
-                Account.CreateUser("sorianm", "sorianm!23",
-                        new List<Role>()  
-                { 
-                    db.Roles.First(r => r.Name == "User")
-                },
-                        new AccountProfile() { Name = "Soriano, Michelle", IsLocal = true, Currencies = db.Currencies.Where(c => c.CurrencyCode == "PHP").ToList(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "JNG Project").ToList() });
-
-                Account.CreateUser("mendozg", "mendozg!23",
+                if (!Account.Exists("bolalie"))
+                {
+                    Account.CreateUser("bolalie", "bolalie!23",
                     new List<Role>()  
                 { 
+                    db.Roles.First(r => r.Name == "User")
+                },
+                    new AccountProfile() { Name = "Bolalin, Lian", IsLocal = true, Currencies = db.Currencies.Where(c => c.CurrencyCode == "PHP").ToList(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "The Remedy").ToList() });
+                }
+
+                if (!Account.Exists("santiaa"))
+                {
+                    Account.CreateUser("santiaa", "santiaa!23",
+                            new List<Role>()  
+                { 
                     db.Roles.First(r => r.Name == "Accountant")
                 },
-                    new AccountProfile() { Name = "Mendoza, Genecel", IsLocal = true, Currencies = new List<Currency>(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "JNG Project").ToList() });
+                            new AccountProfile() { Name = "Santiago, Roanne", IsLocal = true, Currencies = new List<Currency>(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "The Remedy").ToList() });
+                }
 
-                Account.CreateUser("delosrd", "delosrd!23",
-                        new List<Role>()  
+                if (!Account.Exists("sorianm"))
+                {
+                    Account.CreateUser("sorianm", "sorianm!23",
+                            new List<Role>()  
                 { 
                     db.Roles.First(r => r.Name == "User")
                 },
-                        new AccountProfile() { Name = "Delos Reyes, Danica", IsLocal = true, Currencies = db.Currencies.Where(c => c.CurrencyCode == "PHP").ToList(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "The Res Band").ToList() });
+                            new AccountProfile() { Name = "Soriano, Michelle", IsLocal = true, Currencies = db.Currencies.Where(c => c.CurrencyCode == "PHP").ToList(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "JNG Project").ToList() });
+                }
+
+                if (!Account.Exists("mendozg"))
+                {
+                    Account.CreateUser("mendozg", "mendozg!23",
+                        new List<Role>()  
+                { 
+                    db.Roles.First(r => r.Name == "Accountant")
+                },
+                        new AccountProfile() { Name = "Mendoza, Genecel", IsLocal = true, Currencies = new List<Currency>(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "JNG Project").ToList() });
+                }
+
+                if (!Account.Exists("delosrd"))
+                {
+                    Account.CreateUser("delosrd", "delosrd!23",
+                            new List<Role>()  
+                { 
+                    db.Roles.First(r => r.Name == "User")
+                },
+                            new AccountProfile() { Name = "Delos Reyes, Danica", IsLocal = true, Currencies = db.Currencies.Where(c => c.CurrencyCode == "PHP").ToList(), Beneficiaries = db.Beneficiaries.Where(b => b.Name == "The Res Band").ToList() });
+                }
 
             }
 

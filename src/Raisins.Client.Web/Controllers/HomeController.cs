@@ -20,6 +20,7 @@ namespace Raisins.Client.Web.Controllers
             ViewBag.Posted = totals["Posted"];
             ViewBag.Total = totals["Total"];
             ViewBag.Target = totals["Target"];
+            ViewBag.Percentage = Convert.ToInt32((ViewBag.Total / ViewBag.Target) * 100);
 
             return View(beneficiaries);
         }
