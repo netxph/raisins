@@ -1,4 +1,5 @@
 ﻿using Raisins.Client.Web.Models;
+using Raisins.Client.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,13 @@ namespace Raisins.Client.Web.Controllers
             return View(beneficiaries);
         }
 
-        [Authorize]
+        [AuthorizeActivity("Home.Dashboard")]
         public ActionResult Dashboard()
         {
+            ViewBag.Votes = VoteSummary.Get();
+            ViewBag.ExecVotes = ExecutiveSummary.Get();
+            ViewBag.Overall = OverallSummary.Get();
+
             return View();
         }
 

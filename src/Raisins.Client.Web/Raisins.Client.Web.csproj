@@ -145,6 +145,10 @@
     <Compile Include="Migrations\201211270627115_new-users-2.Designer.cs">
       <DependentUpon>201211270627115_new-users-2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211290543283_new-activities.cs" />
+    <Compile Include="Migrations\201211290543283_new-activities.Designer.cs">
+      <DependentUpon>201211290543283_new-activities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -153,9 +157,13 @@
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\DBExtensions.cs" />
     <Compile Include="Models\Executive.cs" />
+    <Compile Include="Models\ExecutiveSummary.cs" />
+    <Compile Include="Models\OverallSummary.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\AccountProfile.cs" />
     <Compile Include="Models\Seeder.cs" />
+    <Compile Include="Models\Summary.cs" />
+    <Compile Include="Models\VoteSummary.cs" />
     <Compile Include="Services\AuthorizeActivityAttribute.cs" />
     <Compile Include="Services\ObjectProvider.cs" />
     <Compile Include="Models\DbInitializer.cs" />
@@ -377,6 +385,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Accounts\ChangePassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

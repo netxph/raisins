@@ -2,4 +2,68 @@
     ViewBag.Title = "Dashboard";
 }
 
-<h2>Dashboard is under construction.</h2>
+<table id="votes">
+    <caption>Band Votes Summary</caption>
+    <thead>
+        <tr>
+            <td></td>
+            <th scope="col">Locked</th>
+            <th scope="col">Total</th>
+            <th scope="col">Total Pay</th>
+            <th scope="col">Locked Pay</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in ViewBag.Votes)
+        { 
+        <tr>
+            <th scope="row">@team.Name</th>
+            <td>@team.LockedVotes</td>
+            <td>@team.TotalVotes</td>
+            <td>@team.LockedPayments.ToString("0.00")</td>
+            <td>@team.TotalPayments.ToString("0.00")</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<table id="votes">
+    <caption>Band Votes Summary</caption>
+    <thead>
+        <tr>
+            <th scope="col">Locked</th>
+            <th scope="col">Total</th>
+            <th scope="col">Locked Pay</th>
+            <th scope="col">Total Pay</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@ViewBag.Overall.LockedVotes</td>
+            <td>@ViewBag.Overall.TotalVotes</td>
+            <td>@ViewBag.Overall.LockedPayments.ToString("0.00")</td>
+            <td>@ViewBag.Overall.TotalPayments.ToString("0.00")</td>
+        </tr>
+    </tbody>
+</table>
+
+<table id="execs">
+    <caption>Executive Votes Summary</caption>
+    <thead>
+        <tr>
+            <td></td>
+            <th scope="col">Locked</th>
+            <th scope="col">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var exec in ViewBag.ExecVotes)
+        { 
+        <tr>
+            <th scope="row">@exec.Name</th>
+            <td>@exec.LockedVotes</td>
+            <td>@exec.TotalVotes</td>
+        </tr>
+        }
+    </tbody>
+</table>

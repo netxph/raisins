@@ -3,6 +3,9 @@
     <head>
         <title>@ViewBag.Title - Raisins 2012</title>
         @*<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>*@
+
+        @RenderSection("prescripts", required:false)
+
         @Scripts.Render("~/scripts/knockout")
         @Scripts.Render("~/scripts/jquery")
         @Scripts.Render("~/scripts/raisins")
@@ -10,6 +13,7 @@
         <script src="http://releases.flowplayer.org/5.1.1/flowplayer.min.js"></script>
         <link rel="stylesheet" type="text/css" href="http://releases.flowplayer.org/5.1.1/skin/minimalist.css" />
         <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+        
     </head>
     <body>
         <h1 class="app-logo">raisins <span>2012</span></h1>
