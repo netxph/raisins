@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Raisins.Client.Web.Models;
 using Raisins.Client.Web.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -56,7 +57,7 @@ namespace Raisins.Client.Web.Controllers
             if (sortBy != null)
             {
                 switch (sortBy)
-                { 
+                {
                     case "Beneficiary":
                         payments.Sort((p1, p2) => p1.Beneficiary.Name.CompareTo(p2.Beneficiary.Name));
                         break;
@@ -92,20 +93,20 @@ namespace Raisins.Client.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Details(Payment payment)
+        public ActionResult Details(string email, int ID)
         {
-            var email = payment.Email;
-            payment = Payment.Find(payment.ID);
-            payment.Email = email;
-
-            if (ModelState.IsValid)
+            using (var db = ObjectProvider.CreateDB())
             {
-                Payment.Edit(payment);
+                //TODO: place in payments model
+                var payment = db.Payments.First(p => p.ID == ID);
+                
+                payment.Email = email;
+
+                db.Entry(payment).State = EntityState.Modified;
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-
-            return View(payment);
         }
 
         //
@@ -128,7 +129,7 @@ namespace Raisins.Client.Web.Controllers
             ViewBag.CurrencyID = new SelectList(user.Profile.Currencies, "ID", "CurrencyCode", 1);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
-            
+
             return View();
         }
 
@@ -154,7 +155,7 @@ namespace Raisins.Client.Web.Controllers
             ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 0);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
-            
+
             return View(payment);
         }
 
@@ -177,7 +178,7 @@ namespace Raisins.Client.Web.Controllers
 
             ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", payment.BeneficiaryID);
             ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", payment.CurrencyID);
-            ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name",payment.ClassID);
+            ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", payment.ClassID);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name", payment.ExecutiveID);
 
             return View(payment);
