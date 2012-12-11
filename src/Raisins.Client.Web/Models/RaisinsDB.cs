@@ -42,6 +42,7 @@ namespace Raisins.Client.Web.Models
         public DbSet<Activity> Activities { get; set; }
         public DbSet<AccountProfile> Profiles { get; set; }
         public DbSet<Executive> Executives { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
     }
 }

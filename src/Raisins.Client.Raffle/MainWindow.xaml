@@ -1,0 +1,27 @@
+﻿<Window x:Class="Raisins.Client.Raffle.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Raisins Raffle 2012" Height="768" Width="1024"
+        KeyDown="Window_KeyDown_1" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+    	<Grid.Background>
+    		<ImageBrush ImageSource="back.jpg"></ImageBrush>  	
+		</Grid.Background>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="640px" >
+        	<StackPanel.Background>
+        		<SolidColorBrush Color="White" Opacity="0.5"/>
+        	</StackPanel.Background>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            	<Label FontSize="32">Raffle for </Label>
+				<ComboBox Name="_comboType" FontSize="32" />
+			</StackPanel>
+            
+            <Label Name="_labelName" HorizontalAlignment="Center" FontSize="48" FontWeight="Bold" >
+            	<Label.Effect>
+            		<DropShadowEffect/>
+            	</Label.Effect>
+            </Label>
+            <Label Name="_labelTicket" HorizontalAlignment="Center" FontSize="32" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Web", "src\Raisins.Client.Web\Raisins.Client.Web.csproj", "{E7755F66-12F2-4E56-92B9-F9710C154F17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Raffle", "src\Raisins.Client.Raffle\Raisins.Client.Raffle.csproj", "{C2E6483E-55CC-4512-AFF9-D0E2181B3462}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{E7755F66-12F2-4E56-92B9-F9710C154F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7755F66-12F2-4E56-92B9-F9710C154F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7755F66-12F2-4E56-92B9-F9710C154F17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2E6483E-55CC-4512-AFF9-D0E2181B3462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2E6483E-55CC-4512-AFF9-D0E2181B3462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2E6483E-55CC-4512-AFF9-D0E2181B3462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2E6483E-55CC-4512-AFF9-D0E2181B3462}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,5 +16,13 @@ namespace Raisins.Client.Web.Models
 
         public string Name { get; set; }
 
+
+        public static List<Ticket> GetAll()
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                return db.Tickets.ToList();
+            }
+        }
     }
 }
