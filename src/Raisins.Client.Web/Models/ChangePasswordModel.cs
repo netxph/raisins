@@ -15,7 +15,7 @@ namespace Raisins.Client.Web.Models
         public string NewPassword { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
-        [Compare("NewPassword", ErrorMessage = "Password don't match.")]
+        //[Compare("NewPassword", ErrorMessage = "Password don't match.")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
