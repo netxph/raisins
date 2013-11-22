@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
     <head>
-        <title>@ViewBag.Title - Raisins 2012</title>
+        <title>@ViewBag.Title - Raisins 2013</title>
         @*<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>*@
 
         @RenderSection("prescripts", required:false)
@@ -10,30 +10,40 @@
         @Scripts.Render("~/scripts/jquery")
         @Scripts.Render("~/scripts/raisins")
         @Styles.Render("~/content/css")
+
         <script src="http://releases.flowplayer.org/5.1.1/flowplayer.min.js"></script>
         <link rel="stylesheet" type="text/css" href="http://releases.flowplayer.org/5.1.1/skin/minimalist.css" />
         <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-        
+   @*     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    
     </head>
-    <body>
-        <h1 class="app-logo">raisins <span>2012</span></h1>
+    <body >
+       
+        <div id="raisins"><h1 class="app-logo">raisins <span>2013</span></h1></div>
         <h6 class="app-logo">a fund-raising event.</h6>
         <hr />
         <div id="topcontainer">
         <ul id="navigation">
-            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li><a href="@Url.Action("Index", "Home")">HOME</a></li>
+           
             @if(Request.IsAuthenticated)
             {
-            <li><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></li>
-            <li><a href="@Url.Action("Index", "Payments")">Payments</a></li>
+            
+                <li><a href="@Url.Action("Dashboard", "Home")">DASHBOARD</a></li>
+           
+                 <li><a href="@Url.Action("Index", "Payments")">PAYMENTS</a></li>
             }
-            <li><a href="@Url.Action("Mechanics", "Home")">Mechanics</a></li>
+            <li><a href="@Url.Action("Mechanics", "Home")">MECHANICS</a></li>
         </ul>
-
-        @Html.Partial("_LoginPartial")
+            
+        @Html.Partial("_LoginPartial") 
+                 
         </div>
+        <br /> <br /> <br />
+
         @RenderBody()
         @RenderSection("scripts", required: false)
-        
+  
     </body>
 </html>
+

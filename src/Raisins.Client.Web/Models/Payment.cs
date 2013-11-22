@@ -14,7 +14,7 @@ namespace Raisins.Client.Web.Models
     public class Payment
     {
 
-        const decimal TARGET = 600000;
+        const decimal TARGET = 700000;
 
         public static string EmailTemplate { get; set; }
 
@@ -279,7 +279,7 @@ namespace Raisins.Client.Web.Models
             {
                 MailMessage message = new MailMessage("no-reply@navitaire.com", email);
                 message.Body = content;
-                message.Subject = "[JAM FOR HUNGRY MINDS 2012] Ticket Notification";
+                message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
                 message.IsBodyHtml = true;
 
                 SmtpClient smtp = new SmtpClient();
@@ -292,7 +292,12 @@ namespace Raisins.Client.Web.Models
         private static List<Ticket> generateTickets(Payment payment)
         {
             List<Ticket> tickets = new List<Ticket>();
-            int count = Convert.ToInt32(Math.Floor(payment.Amount / payment.Currency.Ratio));
+            //int count = Convert.ToInt32(Math.Floor(payment.Amount / payment.Currency.Ratio));
+            int count = (((((int)((payment.Amount) * payment.Currency.ExchangeRate)) / 2000) * 55) +
+                                                    ((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) / 1000) * 25) +
+                                                    (((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
+                                                    ((((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)
+                                                    );
 
             for (int i = 0; i < count; i++)
             {

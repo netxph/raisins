@@ -1,0 +1,178 @@
+﻿body, html
+{
+    font-size: 12px;
+}
+.county-reflection
+{
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -ms-transform: scaleY(-1);
+}
+.county
+{
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+.county span.first
+{
+    padding-left: 12px;
+    border-radius: 4px 0px 0px 4px;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+}
+.county span.last
+{
+    border-radius: 0px 4px 4px 0px;
+    -webkit-border-radius: 0px 4px 4px 0px;
+    -moz-border-radius: 0px 4px 4px 0px;
+}
+
+.county > span
+{
+    display: inline-block;
+    height: 48px;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 72px;
+    position: relative;
+    overflow: hidden;
+    padding-right: 12px;
+}
+
+.county-days-wrapper, .county-hours-wrapper, .county-minutes-wrapper, .county-seconds-wrapper
+{
+    overflow: hidden !important;
+    position: relative !important;
+    height: 72px !important;
+    display: inline-block !important;
+    padding-left: 12px;
+}
+.county > span > span
+{
+    display: block;
+}
+.county-label-days, .county-label-hours, .county-label-minutes, .county-label-seconds
+{
+    font-size: 12px !important;
+    line-height: 18px !important;
+    height: 18px !important;
+    text-align: center !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    padding-top: 12px;
+    background-color: transparent !important;
+}
+
+.clear
+{
+    clear: both;
+}
+/*color schemes*/
+/*black*/
+.county.black .county-days-wrapper, .county.black .county-hours-wrapper, .county.black .county-minutes-wrapper, .county.black .county-seconds-wrapper
+{
+    background: #080808;
+    background: -moz-linear-gradient(top,  #080808 0%, #080808 40%, #000000 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#080808), color-stop(40%,#080808), color-stop(100%,#000000));
+    background: -webkit-linear-gradient(top,  #080808 0%,#080808 40%,#000000 100%);
+    background: -o-linear-gradient(top,  #080808 0%,#080808 40%,#000000 100%);
+    background: -ms-linear-gradient(top,  #080808 0%,#080808 40%,#000000 100%);
+    background: linear-gradient(to bottom,  #080808 0%,#080808 40%,#000000 100%);
+    color: White;
+    border-top: solid 1px #494949;
+    border-bottom: solid 1px #242424;
+}
+.county.black .county-label-days, .county.black .county-label-hours, .county.black .county-label-minutes, .county.black .county-label-seconds
+{
+    color: #ffffff;
+}
+.county.black span.separator-left
+{
+    border-left: solid 1px #2E2E2E;
+}
+.county.black span.separator-right
+{
+    border-right: solid 1px #121212;
+}
+
+/*red*/
+.county.red
+{
+    background: #fff;    
+}
+.county.red .county-days-wrapper, .county.red .county-hours-wrapper, .county.red .county-minutes-wrapper, .county.red .county-seconds-wrapper
+{
+    background: #fff;
+    color: #e41f3a;
+}
+.county.red .county-label-days, .county.red .county-label-hours, .county.red .county-label-minutes, .county.red .county-label-seconds
+{
+    color: #e41f3a;
+}
+.county.red span.separator-left
+{
+    border-left: solid 1px #E0E0E0;
+}
+.county.red span.separator-right
+{
+    border-right: solid 1px #E0E0E0;
+}
+
+/*gray*/
+
+.county.gray .county-days-wrapper, .county.gray .county-hours-wrapper, .county.gray .county-minutes-wrapper, .county.gray .county-seconds-wrapper
+{
+    color: Gray;
+    background: #E0E0E0;
+    background: -moz-linear-gradient(top,  #E0E0E0 0%, #E0E0E0 40%, #FAFAFA 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E0E0E0), color-stop(40%,#E0E0E0), color-stop(100%,#FAFAFA));
+    background: -webkit-linear-gradient(top,  #E0E0E0 0%,#E0E0E0 40%,#FAFAFA 100%);
+    background: -o-linear-gradient(top,  #E0E0E0 0%,#E0E0E0 40%,#FAFAFA 100%);
+    background: -ms-linear-gradient(top,  #E0E0E0 0%,#E0E0E0 40%,#FAFAFA 100%);
+    background: linear-gradient(to bottom,  #E0E0E0 0%,#E0E0E0 40%,#FAFAFA 100%);
+    border-top: solid 1px #FAFAFA;
+    border-bottom: solid 1px #FAFAFA;
+}
+.county.gray .county-label-days, .county.gray .county-label-hours, .county.gray .county-label-minutes, .county.gray .county-label-seconds
+{
+    color: Gray;
+}
+.county.gray span.separator-left
+{
+    border-left: solid 1px #FAFAFA;
+}
+.county.gray span.separator-right
+{
+    border-right: solid 1px #FAFAFA;
+}
+
+/*blue*/
+
+.county.blue .county-days-wrapper, .county.blue .county-hours-wrapper, .county.blue .county-minutes-wrapper, .county.blue .county-seconds-wrapper
+{
+    color: white;
+    background: #248AB2;
+    background: -moz-linear-gradient(top,  #248AB2 0%, #248AB2 40%, #50BCE6 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#248AB2), color-stop(40%,#248AB2), color-stop(100%,#50BCE6));
+    background: -webkit-linear-gradient(top,  #248AB2 0%,#248AB2 40%,#50BCE6 100%);
+    background: -o-linear-gradient(top,  #248AB2 0%,#248AB2 40%,#50BCE6 100%);
+    background: -ms-linear-gradient(top,  #248AB2 0%,#248AB2 40%,#50BCE6 100%);
+    background: linear-gradient(to bottom,  #248AB2 0%,#248AB2 40%,#50BCE6 100%);
+    border-top: solid 1px #50BCE6;
+    border-bottom: solid 1px #50BCE6;
+}
+.county.blue .county-label-days, .county.blue .county-label-hours, .county.blue .county-label-minutes, .county.blue .county-label-seconds
+{
+    color: #FFFFFF;
+}
+.county.blue span.separator-left
+{
+    border-left: solid 1px #50BCE6;
+}
+.county.blue span.separator-right
+{
+    border-right: solid 1px #50BCE6;
+}
+

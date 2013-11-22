@@ -53,24 +53,25 @@ namespace Raisins.Client.Web.Models
                 if (db.Beneficiaries.Count() == 0)
                 {
 
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "The Res Band", Name = "The Res Band" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "Forever Wassaque", Name = "Forever Wassaque" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "JNG Project", Name = "JNG Project" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "The Saboteurs", Name = "The Saboteurs" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "The Remedy", Name = "The Remedy" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "AARONics", Name = "AARONics" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "AOPSmith", Name = "AOPSmith" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "aQApella", Name = "aQApella" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "BANANA GANG", Name = "BANANA GANG" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "MONSTROU", Name = "MONSTROU" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "That's IT", Name = "That's IT" });
 
                     db.SaveChanges();
                 }
 
-                if (db.Executives.Count() == 0)
-                {
+                //if (db.Executives.Count() == 0)
+                //{
 
-                    db.Executives.Add(new Executive() { Name = "Dave Evans" });
-                    db.Executives.Add(new Executive() { Name = "Chuck Maahs" });
-                    db.Executives.Add(new Executive() { Name = "Kurt Blumberg" });
+                //    db.Executives.Add(new Executive() { Name = "Dave Evans" });
+                //    db.Executives.Add(new Executive() { Name = "Chuck Maahs" });
+                //    db.Executives.Add(new Executive() { Name = "Kurt Blumberg" });
 
-                    db.SaveChanges();
-                }
+                //    db.SaveChanges();
+                //}
 
                 if (db.Currencies.Count() == 0)
                 {
