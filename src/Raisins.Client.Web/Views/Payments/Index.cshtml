@@ -3,24 +3,24 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<br /><br />
 <ul id="payment-menu">
     @if(ViewBag.CanEdit)
     {
-    <li>@Html.ActionLink("Create New", "Create")</li>
+    <li>@Html.ActionLink("CREATE NEW", "Create")</li>
     }
     @if(ViewBag.CanLock)
     {
-    <li><a href="#" id="lock-all">Lock All</a></li>
-    <li><a href="#" id="lock-local">Lock Local</a></li>
-    <li><a href="#" id="lock-foreign">Lock International</a></li>    
+     <li><a href="#" id="lock-all">&nbsp;Lock All</a></li>
+    <li><a href="#" id="lock-local">&nbsp;Lock Local</a></li>
+    <li><a href="#" id="lock-foreign">&nbsp;Lock International</a></li>    
     }
 </ul>
 <table id="payment-grid">
     <thead>
         <tr>
             <th class="controls"></th>
-            <th class="beneficiary">@Html.ActionLink("Band Voted", "Index", new { SortBy="Beneficiary" })</th>
+            <th class="beneficiary">@Html.ActionLink("Group Voted", "Index", new { SortBy="Beneficiary" })</th>
             <th class="class">@Html.ActionLink("Class", "Index", new { SortBy="Class" })</th>
             <th class="name">@Html.ActionLink("Name", "Index", new { SortBy="Name" })</th>
             <th class="currency">@Html.ActionLink("Currency", "Index", new { SortBy="Currency" })</th>
@@ -56,8 +56,22 @@
                 <td class="name">@Html.DisplayFor(model => payment.Name)</td>
                 <td class="currency">@Html.DisplayFor(model => payment.Currency.CurrencyCode)</td>
                 <td class="amount">@Html.DisplayFor(model => payment.Amount)</td>
-                <td class="votes">@(Math.Floor(payment.Amount / payment.Currency.Ratio))</td>
-                <td class="total">@((payment.Amount * payment.Currency.ExchangeRate).ToString("0.00"))
+                @*<td class="votes">@(Math.Floor(payment.Amount / payment.Currency.Ratio))</td>*@
+               @* <td class="votes">@((((((int)((payment.Amount)*payment.Currency.ExchangeRate)) / 2000) * 55) +
+                                                    ((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) / 1000) * 25) +
+                                                    (((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
+                                                    ((((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)))
+                 *@ 
+                
+                <td class="votes">@((payment.Currency.CurrencyCode=="PHP")?
+                                          (((((int)((payment.Amount)*payment.Currency.ExchangeRate)) / 2000) * 55) +
+                                                    ((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) / 1000) * 25) +
+                                                    (((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
+                                                    ((((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)) :
+                                         (int)(payment.Amount / payment.Currency.Ratio))
+                </td>
+
+                   <td class="total">@((payment.Amount * payment.Currency.ExchangeRate).ToString("0.00"))
                 </td>
             </tr>
         }
@@ -82,7 +96,7 @@
             $("#dialog-lock-all").dialog({
                 autoOpen: false,
                 resizable: false,
-                height: 180,
+                height: 200,
                 modal: true,
                 buttons: {
                     "Yes": function () {
@@ -104,7 +118,7 @@
             $("#dialog-lock-local").dialog({
                 autoOpen: false,
                 resizable: false,
-                height: 180,
+                height: 200,
                 modal: true,
                 buttons: {
                     "Yes": function () {
@@ -127,7 +141,7 @@
             $("#dialog-lock-foreign").dialog({
                 autoOpen: false,
                 resizable: false,
-                height: 180,
+                height: 200,
                 modal: true,
                 buttons: {
                     "Yes": function () {

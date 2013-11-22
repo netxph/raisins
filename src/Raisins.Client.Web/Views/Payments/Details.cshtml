@@ -70,12 +70,16 @@
         @Html.DisplayFor(model => model.AuditedBy.UserName)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Locked)
-    </div>
+    
     <div class="display-field">
-        @Html.DisplayFor(model => model.Locked)
+        
     </div>
+    <div class="display-label">
+         @Html.DisplayFor(model => model.Locked)
+        @Html.DisplayNameFor(model => model.Locked)
+    </div>
+
+   
 </fieldset>
 
 @using (Html.BeginForm())
@@ -95,7 +99,7 @@
     </fieldset>
 }
 
-<p>
+<p style="color:white">
     
     @Html.ActionLink("Back to List", "Index")
 </p>

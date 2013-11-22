@@ -43,15 +43,17 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -189,15 +191,35 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\css\county.css" />
+    <Content Include="Content\css\demo.css" />
+    <Content Include="Content\Images\AARONics.jpg" />
+    <Content Include="Content\Images\aQApella.jpg" />
+    <Content Include="Content\Images\banana gang.jpg" />
+    <Content Include="Content\Images\bg.jpg" />
+    <Content Include="Content\Images\bg2.jpg" />
+    <Content Include="Content\Images\bg5.png" />
+    <Content Include="Content\Images\bg6.png" />
+    <Content Include="Content\Images\chalkboardfb.png" />
+    <Content Include="Content\Images\chalkfb.png" />
+    <Content Include="Content\Images\chalkhms.png" />
     <Content Include="Content\Images\facebook.jpg" />
-    <Content Include="Content\Images\fhms.JPG" />
-    <Content Include="Content\Images\l.jpg" />
-    <Content Include="Content\Images\m.jpg" />
+    <Content Include="Content\Images\hungryminds.png" />
+    <Content Include="Content\Images\monstrou.jpg" />
+    <Content Include="Content\Images\Thats IT.jpg" />
     <Content Include="Content\Images\photo1.jpg" />
     <Content Include="Content\Images\photo2.jpg" />
     <Content Include="Content\Images\photo3.jpg" />
     <Content Include="Content\Images\photo4.jpg" />
     <Content Include="Content\Images\photo5.jpg" />
+    <Content Include="Content\Images\photo6.jpg" />
+    <Content Include="Content\Images\AOPSmith.jpg" />
+    <Content Include="Content\Images\time.ico" />
+    <Content Include="Content\js\county.js" />
+    <Content Include="Content\js\jquery-1.8.3.min.js" />
+    <Content Include="Content\license.txt" />
+    <Content Include="Content\Images\shadow.png" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -396,6 +418,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Dashboard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Profile6.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <!--<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>-->

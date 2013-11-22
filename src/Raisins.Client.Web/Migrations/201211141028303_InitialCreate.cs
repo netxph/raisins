@@ -77,6 +77,9 @@ namespace Raisins.Client.Web.Migrations
                         CurrencyID = c.Int(nullable: false),
                         CreatedByID = c.Int(nullable: false),
                         AuditedByID = c.Int(),
+                        //starts here
+                        CreatedDate=c.DateTime(nullable:false),
+                        ModifiedDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("Beneficiaries", t => t.BeneficiaryID, cascadeDelete: true)
@@ -88,7 +91,10 @@ namespace Raisins.Client.Web.Migrations
                 .Index(t => t.ExecutiveID)
                 .Index(t => t.CurrencyID)
                 .Index(t => t.CreatedByID)
-                .Index(t => t.AuditedByID);
+                .Index(t => t.AuditedByID)
+                //startshere
+                .Index(t => t.CreatedDate)
+                .Index(t => t.ModifiedDate);
             
             CreateTable(
                 "Tickets",

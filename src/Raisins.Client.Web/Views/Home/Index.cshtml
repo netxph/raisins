@@ -1,31 +1,145 @@
 ﻿@model IEnumerable<Raisins.Client.Web.Models.Beneficiary>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home";
 }
 
 <div id="maincontentarea">
-    <div class="event-title"><span>JAM FOR HUNGRY MINDS</span></div>
+    <div class="event-title"><span></span></div>
     <div id="rightcontentarea">
-        <span id="timer" time="1355216400"></span>
+         @*<script>
+            var end = new Date('12/05/2013 12:00 PM');
+
+            var _second = 1000;
+            var _minute = _second * 60;
+            var _hour = _minute * 60;
+            var _day = _hour * 24;
+            var timer;
+
+            function showRemaining() {
+                var now = new Date();
+                var distance = end - now;
+                if (distance < 0) {
+
+                    clearInterval(timer);
+                    document.getElementById('countdown').innerHTML = 'VOTING CLOSED.';
+
+                    return;
+                }
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+                
+                document.getElementById('countdown').innerHTML = days + 'd ';
+                document.getElementById('countdown').innerHTML += hours + 'h ';
+                document.getElementById('countdown').innerHTML += minutes + 'm ';
+                document.getElementById('countdown').innerHTML += seconds + 's ';
+               //document.getElementById('countdown').innerHTML = 'TIME LEFT: ';
+            }
+
+            timer = setInterval(showRemaining, 1000);
+</script>
+     
+        <div style="float:left">
+            <img src="~/Content/Images/time.ico" style="height:35px;width:35px;" /> </div>
+       <div id="countdown"></div> *@
+           
+        @*<span id="timer" time="1355216400"></span>*@
         <div id="newscontainer">
-            <h2>News</h2>
+            <h2>What is 'Talents For Hungry Minds' Fundraising? </h2>
             <div class="newscontents">
-                <a href="">News Title 1</a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus vehicula velit, ut viverra risus imperdiet non. Ut in urna eget arcu viverra bibendum. Nam cursus laoreet sollicitudin. Etiam vel purus mauris, vitae auctor tellus.</p>
+<p>
+           &nbsp;&nbsp;&nbsp; Fundraising for Hungry Minds School plays a big part of the
+            Annual Year End Celebration of Navitaire and SUS held every December. 
+            This year, let’s all work together to beat our record last year 
+            and raise <b>Php 700,000 </b>or more to support
+            at least <b>20 high school students</b> of Food for Hungry Minds for a school year. 
+            Also, we are targeting to help the relief efforts for Typhoon Yolanda 
+            by giving all the excess to 700k. 
+<br /><br />
+                <b> Keep on voting for your chosen group and together we can touch other people’s lives. </b>
+                </p>
             </div>
-            <div class="newscontents">
-                <a href="">News Title 2</a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus vehicula velit, ut viverra risus imperdiet non. Ut in urna eget arcu viverra bibendum. Nam cursus laoreet sollicitudin. Etiam vel purus mauris, vitae auctor tellus.</p>
-            </div>
-            <div class="newscontents">
-                <a href="">News Title 3</a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus vehicula velit, ut viverra risus imperdiet non. Ut in urna eget arcu viverra bibendum. Nam cursus laoreet sollicitudin. Etiam vel purus mauris, vitae auctor tellus.</p>
-            </div>
+           
         </div>
     </div>
 </div>
 
 
+
+@*timer*@
+
+
+
+<script>
+    var end = new Date('12/05/2013 12:00 PM');
+
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 24;
+    var timer;
+
+    function showRemaining() {
+        var now = new Date();
+        var distance = end - now;
+        if (distance < 0) {
+
+            clearInterval(timer);
+            document.getElementById('countdown').innerHTML = 'VOTING CLOSED.';
+
+            return;
+        }
+        var days = Math.floor(distance / _day);
+        var hours = Math.floor((distance % _day) / _hour);
+        var minutes = Math.floor((distance % _hour) / _minute);
+        var seconds = Math.floor((distance % _minute) / _second);
+
+                
+        document.getElementById('countdown').innerHTML = days + 'd ';
+        document.getElementById('countdown').innerHTML += hours + 'h ';
+        document.getElementById('countdown').innerHTML += minutes + 'm ';
+        document.getElementById('countdown').innerHTML += seconds + 's ';
+        //document.getElementById('countdown').innerHTML = 'TIME LEFT: ';
+    }
+
+    timer = setInterval(showRemaining, 1000);
+</script>
+     <div style="text-align:center;">
+        <div style="display: inline-block;">
+            <img src="~/Content/Images/time.ico" style="height:35px;width:35px;" /> </div>
+       <div id="countdown" style="text-align:center;display: inline-block;" ></div> 
+    </div>
+
+
+<div style="clear:both;" id="status">
+</div>
+
+@*<div class="page-break"></div>
+<div class="page-break"></div>*@
+
+<div style="text-align: center;">
+<span id="tally"  >@ViewBag.Total.ToString("#,##0.00") / @ViewBag.Target.ToString("#,##0.00")</span>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(function ()
+        {
+            $("#status").progressbar( { value: @ViewBag.Percentage    } );
+            $("#status").css({ 'background': 'White' });
+            $("#status > div").css({ 'background': '#F4FA58' });
+        }
+        );
+    </script>
+}
+
+
+<br /><br /><br /><br />
+<hr />
+<div id="groups">
+            <h2>The GROUPS  </h2>
+   </div>
 
 <div style="clear:both;" id="teamscontainer">
     <ul id="teamscontent">
@@ -41,29 +155,17 @@
     </ul>
 </div>
 
-<div style="clear:both;" id="status">
-    @*<div id="posted"><span>@ViewBag.Posted</span></div>
-    <div id="total"><span>@ViewBag.Total</span></div>
-    <div id="target"><span>@ViewBag.Target</span></div>*@
-</div>
-<span id="tally">@ViewBag.Total.ToString("#,##0.00") / @ViewBag.Target.ToString("#,##0.00")</span>
-
+<br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br />
+<hr />
 <div id="links">
-    <a href="http://foodforhungryminds.org/">
-        <img src="~/Content/Images/fhms.JPG" />
+   
+    <p> <a href="http://foodforhungryminds.org/">
+        <img src="~/Content/Images/chalkhms.png" />
+    </a> <a href="https://www.facebook.com/foodforhungryminds">
+        <img src="~/Content/Images/chalkfb.png" />
     </a>
-    <a href="https://www.facebook.com/foodforhungryminds">
-        <img src="~/Content/Images/facebook.JPG" />
-    </a>
+
+
+    </p>
 </div>
-
-
-@section scripts {
-    <script type="text/javascript">
-        $(function () {
-            $("#status").progressbar({
-                value: @ViewBag.Percentage
-            });
-        });
-    </script>
-}
