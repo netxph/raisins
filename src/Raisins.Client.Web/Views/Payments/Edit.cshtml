@@ -7,14 +7,16 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
-        <fieldset>
-        <legend>Edit Payment</legend>
-
+        //<fieldset>
+        //<legend>Edit Payment</legend>
+         <br />
+        <h1>EDIT PAYMENT</h1>
+        <br />
         <p>
             Team Name<br />
             @Html.DropDownList("BeneficiaryID")<br />
-            or select who would you like to perform... <br />
-            @Html.DropDownList("ExecutiveID")
+            @*or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")*@
         </p>
         <p>
             @Html.LabelFor(model => model.Name)<br />
@@ -40,7 +42,7 @@
             @Html.ValidationMessageFor(model => model.Remarks)
         </p>
 
-    </fieldset>
+   // </fieldset>
     
     <p>
         @Html.DropDownList("ClassID")<input type="submit" value="Update" />

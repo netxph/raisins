@@ -3,7 +3,7 @@
         @using (Html.BeginForm("Logoff", "Accounts", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.ActionLink(string.Format("Hello, {0}!", @User.Identity.Name), "ChangePassword", "Accounts", null, new { id = "userlinks" })
             @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()" id="loginLink">Log off</a>
+            <a href="javascript:document.getElementById('logoutForm').submit()" id="loginLink">LOG OFF</a>
         }
 
         
@@ -11,7 +11,7 @@
 } else
 {
     <div id="loglinks">
-        @Html.ActionLink("Log in", "Login", "Accounts", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        @Html.ActionLink("LOG IN", "LOGIN", "Accounts", routeValues: null, htmlAttributes: new { id = "loginLink" })
     </div>
    
 }

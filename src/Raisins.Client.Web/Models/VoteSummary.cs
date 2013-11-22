@@ -23,12 +23,39 @@ namespace Raisins.Client.Web.Models
             {
                 var totalQuery = (from payment in db.Payments.Include(p => p.Currency).Include(p => p.Beneficiary)
                                  group payment by payment.Beneficiary.Name into g
-                                 select new { Name = g.Key, TotalVotes = g.Sum(p => p.Amount / p.Currency.Ratio) }).ToList();
+                                  select new
+                                  {   Name = g.Key,
+                                      TotalVotes = 
+                                      g.Sum (p =>
+                                          (p.Currency.CurrencyCode=="PHP")?
+                                          (((((int)((p.Amount)*p.Currency.ExchangeRate)) / 2000) * 55) +
+                                                    ((((int)(p.Amount*p.Currency.ExchangeRate) % 2000) / 1000) * 25) +
+                                                    (((((int)(p.Amount*p.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
+                                                    ((((((int)(p.Amount * p.Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)) :
+                                         (int)(p.Amount / p.Currency.Ratio)
+                                          )
+                                 
+                                  }).ToList();             
+                                 //select new { Name = g.Key, TotalVotes = g.Sum(p => p.Amount / p.Currency.Ratio) }).ToList();
 
                 var lockedQuery = (from payment in db.Payments.Include(p => p.Currency).Include(p => p.Beneficiary)
                                   where payment.Locked
                                  group payment by payment.Beneficiary.Name into g
-                                 select new { Name = g.Key, TotalVotes = g.Sum(p => p.Amount / p.Currency.Ratio) }).ToList();
+                                 select new
+                                   {
+                                       Name = g.Key,
+                                       TotalVotes =
+                                       g.Sum(p =>
+                                           (p.Currency.CurrencyCode == "PHP") ?
+                                           (((((int)((p.Amount) * p.Currency.ExchangeRate)) / 2000) * 55) +
+                                                     ((((int)(p.Amount * p.Currency.ExchangeRate) % 2000) / 1000) * 25) +
+                                                     (((((int)(p.Amount * p.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
+                                                     ((((((int)(p.Amount * p.Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)) :
+                                          (int)(p.Amount / p.Currency.Ratio)
+                                           )
+
+                                   }).ToList();
+               //select new { Name = g.Key, TotalVotes = g.Sum(p => p.Amount / p.Currency.Ratio) }).ToList();
 
                 var totalPayQuery = (from payment in db.Payments.Include(p => p.Currency).Include(p => p.Beneficiary)
                                  group payment by payment.Beneficiary.Name into g

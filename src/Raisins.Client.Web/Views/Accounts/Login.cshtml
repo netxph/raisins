@@ -4,12 +4,13 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
+        <legend>LOGIN</legend>
+        <br />
         <div class="editor-label">
             @Html.LabelFor(model => model.UserName)
         </div>
@@ -26,17 +27,21 @@
             @Html.ValidationMessageFor(model => model.Password)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RememberMe)
-        </div>
-        <div class="editor-field">
+        <div class="editor-field" >
             @Html.EditorFor(model => model.RememberMe)
             @Html.ValidationMessageFor(model => model.RememberMe)
+            @Html.LabelFor(model => model.RememberMe)
         </div>
 
+@*<div class="editor-label" >
+            @Html.LabelFor(model => model.RememberMe)
+        </div>*@
+        <div id="btn">
         <p>
-            <input type="submit" value="Login" />
+            <input type="submit" value="LOGIN" />
         </p>
+
+        </div>
     </fieldset>
 }
 

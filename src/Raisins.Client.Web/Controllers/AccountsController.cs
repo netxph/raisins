@@ -19,8 +19,10 @@ namespace Raisins.Client.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            //model.UserName = "test";
             if (ModelState.IsValid && Account.Login(model.UserName, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);

@@ -1,11 +1,31 @@
-﻿body {
-    font-family: 'Open Sans', segoe ui, verdana, arial, sans-serif;
-    color: darkgoldenrod;
-    background-color: black;
-    font-size: 14px;
+﻿@import url('http://fonts.googleapis.com/css?family=Andika');
+@import url('http://fonts.googleapis.com/css?family=Sniglet');
+@import url('http://fonts.googleapis.com/css?family=Euphoria+Script');
+@import url('http://fonts.googleapis.com/css?family=Patrick+Hand');
+@import url('http://fonts.googleapis.com/css?family=Finger+Paint');
+@import url('http://fonts.googleapis.com/css?family=Handlee');
+@import url('http://fonts.googleapis.com/css?family=Oswald');
+@import url('http://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url('http://fonts.googleapis.com/css?family=Vibur');
+body {
+    
+    /*font-family: 'Open Sans', segoe ui, verdana, arial, sans-serif;*/
+   
+    /*background-color: black;*/
+    
+    font-family: 'Patrick Hand';
+     background: #030707 url('images/bg5.png');
+      color: ghostwhite;
+    font-size: 16px;
     width: 1024px;
     margin: 12px auto;
+    background-size: 100%;
+    
+    background-position:center;
+    
+    background-attachment:fixed;
 }
+
 
 hr {
     border: 0;
@@ -28,7 +48,7 @@ h1.app-logo {
     }
 
 div.image {
-    width: 36px;
+    width: 100px;
     height: 36px;
     background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA%3D%3D);
 }
@@ -47,11 +67,12 @@ div#maincontentarea {
 div.event-title {
     width: 600px;
     font-size: 72px;
+    font-family:'Euphoria Script';
     height: 400px;
     overflow: hidden;
     position: relative;
     float: left;
-    background: url("Images/l.jpg") no-repeat 0 0;
+    background: url("Images/hungryminds.png") no-repeat 0 0;
 }
 
     div.event-title span {
@@ -81,11 +102,13 @@ div#rightcontentarea {
 #newscontainer {
     padding-top: 20px;
     height: 314px;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 }
 
     #newscontainer h2 {
-        font-size: 40px;
+        font-size: 25px;
+        font-family:'Handlee',sans-serif;
+        color:#F2F5A9;
     }
 
 div#teamscontainer {
@@ -96,8 +119,8 @@ ul#teamscontent {
 }
 
     ul#teamscontent li img {
-        width: 180px;
-        border: #FFF solid 1px;
+        width: 150px;
+        border: black solid 1px;
     }
 
     ul#teamscontent li:first-child {
@@ -107,18 +130,18 @@ ul#teamscontent {
     ul#teamscontent li {
         display: block;
         float: left;
-        margin-left: 28px;
+        margin-left: 20px;
         position: relative;
     }
 
         ul#teamscontent li h4 {
-            width: 162px;
+            width: 130px;
             height: 39px;
             position: absolute;
             top: 75%;
             left: 0;
             padding: 5px 10px 0;
-            background: #000;
+            background: black;
             display: none;
             filter: alpha(opacity=70);
             opacity: 0.7;
@@ -126,8 +149,8 @@ ul#teamscontent {
 
             ul#teamscontent li h4 span {
                 font-weight: bold !important;
-                color: #FFCC00;
-                font-family: tahoma;
+                color: floralwhite;
+                font-family: Patrick Hand;
             }
 
 .newscontents {
@@ -135,13 +158,14 @@ ul#teamscontent {
 }
 
     .newscontents p {
-        margin: 3px 0 2px;
+        /*margin: auto 0 2px;*/
+        /*margin-left:5em*/
     }
 
     .newscontents a {
         font-size: 20px;
-        color: darkgoldenrod;
-        text-decoration: none;
+        color: floralwhite;
+        text-decoration: initial;
     }
 
         .newscontents a:hover {
@@ -156,7 +180,7 @@ ul#teamscontent {
 }
 
 ul#navigation {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     float: left;
     position: relative;
 }
@@ -170,22 +194,24 @@ ul#navigation {
     }
 
         ul#navigation li a, a#loginLink {
-            color: darkgoldenrod;
-            font-size: 20px;
-            font-weight: bold;
-            font-family: Tahoma;
+            color: floralwhite;
+            font-size: 23px;
+            /*font-weight: bold;*/
+            font-family: 'Oswald';
             text-decoration: none;
             padding: 5px;
+
         }
 
             ul#navigation li a:hover, a#loginLink:hover {
-                background: #FFCC00;
-                color: #000;
+                background: white;
+                color: darkseagreen;
             }
 
 a#userlinks {
     text-decoration: none;
-    color: darkgoldenrod;
+   color:#F2F5A9;
+   font-size: 25px;
 }
 
 div#loglinks {
@@ -281,6 +307,53 @@ ul#bandmembers {
     text-align: center;
 }
 
+div#raisins {
+            color: floralwhite;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'Patrick Hand';
+            text-decoration: none;
+            padding: 5px;
+            text-shadow: 4px 4px 2px #333;
+
+}
+
+
+table#votes-grid {
+    width: 50%;
+    border-color:aqua;
+}
+
+    table#votes-grid th {
+        text-align: left;
+        font-size: 20px;
+    }
+    
+
+    table#votessum {
+    width: 50%;
+    border-color: transparent;
+    
+}
+
+    div#groupvote {
+   color:floralwhite;
+   opacity:.8;
+   font-weight:100;
+}
+
+div#countdown {
+     font-size: 35px;
+     font-family:'Vibur';
+     text-shadow: 4px 4px 2px #333;
+    /*color:#FA5858;*/
+    color:#F4FA58;
+}
+
+ div#btn {
+        font-family:'Handlee',sans-serif;
+        color:#F2F5A9;
+    }
 
 /*************MECHANICS*****************/
 div#mechanics {
@@ -313,7 +386,7 @@ div#mechanics {
     }
 
         div#mechanics table tr, td {
-            border: 1px solid;
+            border: floralwhite 2px solid;
         }
 
         div#mechanics table thead {
@@ -331,6 +404,31 @@ div#mechanics {
         margin: 10px;
     }
 
+
+    ul#mec-link {
+    padding-bottom: 15px;
+    float: left;
+    position: relative;
+}
+
+    ul#mec-link li {
+        display: block;
+        float: left;
+        padding-left: 15px;
+        position: relative;
+        padding-top: 0px;
+    }
+
+        ul#mec-link li a {
+            color:#F2F5A9;
+            opacity:.8;
+            font-size: 18px;
+            font-family: 'Oswald';
+            text-decoration: none;
+            padding: 5px;
+        }
+   
+
 /***status ****/
 div#status {
     width: 100%;
@@ -343,6 +441,7 @@ ul#payment-menu {
     margin-top: 24px;
     margin-bottom: 24px;
     text-align: right;
+    color:whitesmoke;
 }
 
     ul#payment-menu li {
@@ -353,8 +452,8 @@ ul#payment-menu {
 
     ul#payment-menu a {
         text-decoration: none;
-        color: darkgoldenrod;
-        font-size: 16px;
+        color: #F3F781;
+        font-size: 25px;
     }
 
 table#payment-grid li {
@@ -368,7 +467,7 @@ table#payment-grid td {
 
 table#payment-grid a {
     text-decoration: none;
-    color: darkgoldenrod;
+    color: #F2F5A9;
 }
 
 #payments div.display-label {
@@ -392,4 +491,10 @@ table#payment-grid a {
 {
     font-size: 24px;
     font-weight: bold;
+}
+
+div#groups h2{
+      font-size: 25px;
+        font-family:'Patrick Hand',sans-serif;
+        color:#F2F5A9;
 }
