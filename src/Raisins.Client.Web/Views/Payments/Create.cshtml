@@ -4,22 +4,187 @@
     ViewBag.Title = "Create";
 }
 
+@*<div id="tabs" class="style-tabs">
+
+<ul>
+    <li><a href="#tabs-1">Local</a></li>
+    <li><a href="#tabs-2">External</a></li>
+      @if(Html.DropDownList("ClassID").Equals(2))
+            {  
+    <li><a href="#tabs-3">Foreign</a></li>
+      }
+</ul>
+
+<div id="tabs-1" class="tabs-1">
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+           or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+</div>
+
+<div id="tabs-2">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+            or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+</div>
+
+<div id="tabs-3">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+            or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs();
+    });
+</script>*@
+
+
 
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 
-    
-   // <fieldset>
         <br />
         <h1>NEW PAYMENT</h1>
         <br />
-
+    
         <p>
             Group Name: <br />
             @Html.DropDownList("BeneficiaryID")<br />
-            @*or select who would you like to perform... <br />
+        @*   or select who would you like to perform... <br />
             @Html.DropDownList("ExecutiveID")*@
         </p>
         <p>
@@ -46,17 +211,13 @@
             @Html.ValidationMessageFor(model => model.Remarks)
         </p>
 
-   // </fieldset>
-
     <p>
         @Html.DropDownList("ClassID") <input type="submit" value="Create" />
     </p>
 }
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

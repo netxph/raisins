@@ -7,6 +7,8 @@
 @import url('http://fonts.googleapis.com/css?family=Oswald');
 @import url('http://fonts.googleapis.com/css?family=Roboto+Condensed');
 @import url('http://fonts.googleapis.com/css?family=Vibur');
+
+
 body {
     
     /*font-family: 'Open Sans', segoe ui, verdana, arial, sans-serif;*/
@@ -46,6 +48,8 @@ h1.app-logo {
     h1.app-logo span {
         font-weight: lighter;
     }
+
+
 
 div.image {
     width: 100px;
@@ -354,6 +358,36 @@ div#countdown {
         font-family:'Handlee',sans-serif;
         color:#F2F5A9;
     }
+
+ .ui-tabs .ui-tabs-nav a
+{
+   background-color: transparent;
+   font-family:'Andika';
+ 
+}
+
+ .ui-tabs .ui-tabs-nav
+{
+background: #9FCB80;
+}
+
+ .ui-tabs .ui-tabs-panel /* just in case you want to change the panel */
+{
+background: blue;
+}
+
+ .style-tabs {
+    background: none;
+    background-color:transparent;
+    width: 450px;
+}
+ #tabs-1.ui-tabs-selected {
+     background-image : none; 
+     background-color : greenyellow;
+     font-weight: bolder;
+
+ }
+
 
 /*************MECHANICS*****************/
 div#mechanics {
