@@ -15,6 +15,8 @@ namespace Raisins.Client.Web
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
+
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -24,7 +26,7 @@ namespace Raisins.Client.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Database.SetInitializer<RaisinsDB>(new DbInitializer());
+            Database.SetInitializer<RaisinsDB>(null);
         }
     }
 }
