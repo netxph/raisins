@@ -58,6 +58,7 @@ namespace Raisins.Client.Web.Migrations
                         Ratio = c.Decimal(nullable: false, precision: 18, scale: 2),
                         ExchangeRate = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
+
                 .PrimaryKey(t => t.ID);
 
             CreateTable(
