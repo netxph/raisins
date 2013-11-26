@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Web;
 using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Migrations
 {
-    public class BeneficiarySeed : IDbSeeder
+    public class CurrencySeed : IDbSeeder
     {
         public void Seed(Models.RaisinsDB context)
         {
-            if (!context.Beneficiaries.Any(b => b.Name == "MONSTROU"))
+            if (!context.Currencies.Any(c => c.CurrencyCode == "USD"))
             {
-                Beneficiary.Add(new Beneficiary()
+                Currency.Add(new Currency()
                 {
-                    Name = "MONSTROU",
-                    Description = "Reservations"
+                    CurrencyCode = "USD",
+                    ExchangeRate = 41.0M,
+                    Ratio = 1.0M
                 });
             }
         }
