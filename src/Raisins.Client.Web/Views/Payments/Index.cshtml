@@ -41,7 +41,7 @@
                             {
                                 <li>@Html.ActionLink("Edit", "Edit", new { ID = payment.ID }) </li>
                                 <li>@Html.ActionLink("Delete", "Delete", new { ID = payment.ID })</li>
-                                <li>@Html.ActionLink("Email", "Email", new { ID = payment.ID })</li>
+                                @*<li>@Html.ActionLink("Email", "Email", new { ID = payment.ID })</li>*@
                             }
                         }
                         else
@@ -62,7 +62,6 @@
                                                     (((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
                                                     ((((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)))
                  *@ 
-                
                 <td class="votes">@((payment.Currency.CurrencyCode=="PHP")?
                                           (((((int)((payment.Amount)*payment.Currency.ExchangeRate)) / 2000) * 55) +
                                                     ((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) / 1000) * 25) +
