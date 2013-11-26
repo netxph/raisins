@@ -14,8 +14,10 @@ namespace Raisins.Client.Web.Migrations
             //register seeders
             Seeders = new List<IDbSeeder>();
 
-            Seeders.Add(new UserSeed());
+            Seeders.Add(new CurrencySeed());
             Seeders.Add(new BeneficiarySeed());
+            Seeders.Add(new RoleSeed());
+            Seeders.Add(new UserSeed());
         }
 
         public List<IDbSeeder> Seeders { get; set; }
