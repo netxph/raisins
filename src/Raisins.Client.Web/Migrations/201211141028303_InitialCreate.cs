@@ -77,7 +77,7 @@ namespace Raisins.Client.Web.Migrations
                         CurrencyID = c.Int(nullable: false),
                         CreatedByID = c.Int(nullable: false),
                         AuditedByID = c.Int(),
-                        ////starts here
+                        //starts here
                         //CreatedDate=c.DateTime(nullable:false),
                         //ModifiedDate = c.DateTime(nullable: false),
                     })
@@ -92,7 +92,7 @@ namespace Raisins.Client.Web.Migrations
                 .Index(t => t.CurrencyID)
                 .Index(t => t.CreatedByID)
                 .Index(t => t.AuditedByID);
-                ////startshere
+                //startshere
                 //.Index(t => t.CreatedDate)
                 //.Index(t => t.ModifiedDate);
             
