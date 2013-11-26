@@ -30,6 +30,7 @@ namespace Raisins.Client.Web.Models
 
         public string Location { get; set; }
 
+        [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
@@ -337,6 +338,8 @@ namespace Raisins.Client.Web.Models
 
             return totals;
         }
+
+
 
         
     }

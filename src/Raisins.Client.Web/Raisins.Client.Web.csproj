@@ -191,8 +191,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\county.css" />
     <Content Include="Content\css\demo.css" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\Images\AARONics.jpg" />
     <Content Include="Content\Images\aQApella.jpg" />
     <Content Include="Content\Images\banana gang.jpg" />
@@ -217,6 +219,8 @@
     <Content Include="Content\Images\time.ico" />
     <Content Include="Content\js\county.js" />
     <Content Include="Content\js\jquery-1.8.3.min.js" />
+    <Content Include="Content\js\organictabs.jquery.js" />
+    <Content Include="Content\js\withoutPlugin.js" />
     <Content Include="Content\license.txt" />
     <Content Include="Content\Images\shadow.png" />
     <Content Include="Content\style.css" />

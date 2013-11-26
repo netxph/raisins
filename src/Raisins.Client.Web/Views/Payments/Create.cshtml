@@ -173,6 +173,8 @@
 
 
 
+
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -194,6 +196,7 @@
             @Html.LabelFor(model => model.Location)<br />
             @Html.EditorFor(model => model.Location)
             @Html.ValidationMessageFor(model => model.Location)<br />
+
             @Html.LabelFor(model => model.Email)<br />
             @Html.EditorFor(model => model.Email)
             @Html.ValidationMessageFor(model => model.Email)<br />
