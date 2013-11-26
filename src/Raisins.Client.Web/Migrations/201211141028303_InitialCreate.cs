@@ -59,7 +59,7 @@ namespace Raisins.Client.Web.Migrations
                         ExchangeRate = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.ID);
-            
+
             CreateTable(
                 "Payments",
                 c => new
@@ -78,8 +78,9 @@ namespace Raisins.Client.Web.Migrations
                         CreatedByID = c.Int(nullable: false),
                         AuditedByID = c.Int(),
                         //starts here
-                        CreatedDate=c.DateTime(nullable:false),
-                        ModifiedDate = c.DateTime(nullable: false),
+
+                        //CreatedDate=c.DateTime(nullable:false),
+                        //ModifiedDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("Beneficiaries", t => t.BeneficiaryID, cascadeDelete: true)
@@ -91,10 +92,10 @@ namespace Raisins.Client.Web.Migrations
                 .Index(t => t.ExecutiveID)
                 .Index(t => t.CurrencyID)
                 .Index(t => t.CreatedByID)
-                .Index(t => t.AuditedByID)
+                .Index(t => t.AuditedByID);
                 //startshere
-                .Index(t => t.CreatedDate)
-                .Index(t => t.ModifiedDate);
+                //.Index(t => t.CreatedDate)
+                //.Index(t => t.ModifiedDate);
             
             CreateTable(
                 "Tickets",
