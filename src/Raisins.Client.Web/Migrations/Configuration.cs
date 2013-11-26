@@ -26,6 +26,10 @@ namespace Raisins.Client.Web.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            var seeder = new DbSeeder();
+            seeder.Seed(context);
+
         }
     }
 }
