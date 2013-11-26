@@ -11,8 +11,10 @@ namespace Raisins.Client.Web.Migrations
         public void Seed(Models.RaisinsDB context)
         {
             //Role
-            AddRole(context, "user");
-            AddRole(context, "admin");
+            AddRole(context, "Administrator");
+            AddRole(context, "Accountant");
+            AddRole(context, "Manager");
+            AddRole(context, "User");
         }
 
         private void AddRole(Models.RaisinsDB context, string roleName)

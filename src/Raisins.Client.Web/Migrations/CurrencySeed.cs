@@ -10,13 +10,28 @@ namespace Raisins.Client.Web.Migrations
     {
         public void Seed(Models.RaisinsDB context)
         {
-            if (!context.Currencies.Any(c => c.CurrencyCode == "USD"))
+            AddCurrency(context, "PHP", 1.0M, 50.0M); //1
+            AddCurrency(context, "USD", 41.0M, 1.0M); //2
+            AddCurrency(context, "AUD", 40.0M, 1.0M); //3
+            AddCurrency(context, "GBP", 65.0M, 1.0M); //4
+            AddCurrency(context, "HKD", 5.0M, 9.0M);  //5
+            AddCurrency(context, "SGD", 30.0M, 2.0M); //6
+            AddCurrency(context, "EUR", 56.0M, 1.0M); //7
+        }
+
+        private static void AddCurrency(
+            Models.RaisinsDB context,
+            string name,
+            decimal exchangeRate,
+            decimal ratio)
+        {
+            if (!context.Currencies.Any(c => c.CurrencyCode == name))
             {
                 Currency.Add(new Currency()
                 {
-                    CurrencyCode = "USD",
-                    ExchangeRate = 41.0M,
-                    Ratio = 1.0M
+                    CurrencyCode = name,
+                    ExchangeRate = exchangeRate,
+                    Ratio = ratio
                 });
             }
         }

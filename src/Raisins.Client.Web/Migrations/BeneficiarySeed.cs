@@ -10,12 +10,25 @@ namespace Raisins.Client.Web.Migrations
     {
         public void Seed(Models.RaisinsDB context)
         {
-            if (!context.Beneficiaries.Any(b => b.Name == "MONSTROU"))
+            AddBeneficiary(context, "MONSTROU", "Reservations development folks"); //1
+            AddBeneficiary(context, "Aaronics", "SUS: Res, WebHosting, ESC"); //2
+            AddBeneficiary(context, "aQApella", "QA teams"); //3
+            AddBeneficiary(context, "AOPSmith", "AOPS team"); //4
+            AddBeneficiary(context, "Banana Gang", "Disney, PMO, SS"); //5
+            AddBeneficiary(context, "That's IT", "SUS IT"); //6
+        }
+
+        private static void AddBeneficiary(
+            Models.RaisinsDB context,
+            string name,
+            string description)
+        {
+            if (!context.Beneficiaries.Any(b => b.Name == name))
             {
                 Beneficiary.Add(new Beneficiary()
                 {
-                    Name = "MONSTROU",
-                    Description = "Reservations"
+                    Name = name,
+                    Description = description
                 });
             }
         }
