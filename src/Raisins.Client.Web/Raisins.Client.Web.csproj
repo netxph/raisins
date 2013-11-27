@@ -131,35 +131,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201211141028303_InitialCreate.cs" />
-    <Compile Include="Migrations\201211141028303_InitialCreate.Designer.cs">
-      <DependentUpon>201211141028303_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201311261040400_Initial.cs" />
+    <Compile Include="Migrations\201311261040400_Initial.Designer.cs">
+      <DependentUpon>201311261040400_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201211151023496_new-users.cs" />
-    <Compile Include="Migrations\201211151023496_new-users.Designer.cs">
-      <DependentUpon>201211151023496_new-users.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211200334417_new-users-1.cs" />
-    <Compile Include="Migrations\201211200334417_new-users-1.Designer.cs">
-      <DependentUpon>201211200334417_new-users-1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211270627115_new-users-2.cs" />
-    <Compile Include="Migrations\201211270627115_new-users-2.Designer.cs">
-      <DependentUpon>201211270627115_new-users-2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211290543283_new-activities.cs" />
-    <Compile Include="Migrations\201211290543283_new-activities.Designer.cs">
-      <DependentUpon>201211290543283_new-activities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201212040137599_update-users.cs" />
-    <Compile Include="Migrations\201212040137599_update-users.Designer.cs">
-      <DependentUpon>201212040137599_update-users.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201212070548160_new-users3.cs" />
-    <Compile Include="Migrations\201212070548160_new-users3.Designer.cs">
-      <DependentUpon>201212070548160_new-users3.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\BeneficiarySeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\CurrencySeed.cs" />
+    <Compile Include="Migrations\DbSeeder.cs" />
+    <Compile Include="Migrations\IDbSeeder.cs" />
+    <Compile Include="Migrations\RoleSeed.cs" />
+    <Compile Include="Migrations\UserSeed.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Beneficiary.cs" />
@@ -324,7 +306,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -425,6 +409,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Profile6.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201311261040400_Initial.resx">
+      <DependentUpon>201311261040400_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <!--<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>-->

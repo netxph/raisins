@@ -78,7 +78,7 @@ namespace Raisins.Client.Web.Models
             }
         }
 
-        protected static string GetHash(string password, string salt)
+        public static string GetHash(string password, string salt)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             var hashedBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
