@@ -174,7 +174,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\county.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\style.css" />
@@ -192,11 +191,11 @@
     <Content Include="Content\Images\hungryminds.png" />
     <Content Include="Content\Images\monstrou.jpg" />
     <Content Include="Content\Images\Thats IT.jpg" />
-    <Content Include="Content\Images\photo1.jpg" />
     <Content Include="Content\Images\photo2.jpg" />
-    <Content Include="Content\Images\photo3.jpg" />
     <Content Include="Content\Images\photo4.jpg" />
+    <Content Include="Content\Images\photo3.jpg" />
     <Content Include="Content\Images\photo5.jpg" />
+    <Content Include="Content\Images\photo1.jpg" />
     <Content Include="Content\Images\photo6.jpg" />
     <Content Include="Content\Images\AOPSmith.jpg" />
     <Content Include="Content\Images\time.ico" />
@@ -379,19 +378,19 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Profile1.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_Profile2.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Profile4.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Shared\_Profile3.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Shared\_Profile5.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Profile1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Payments\Manage.cshtml" />
