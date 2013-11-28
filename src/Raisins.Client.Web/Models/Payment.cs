@@ -278,13 +278,28 @@ namespace Raisins.Client.Web.Models
 
             try
             {
-                MailMessage message = new MailMessage("no-reply@navitaire.com", email);
+                //MailMessage message = new MailMessage("no-reply@navitaire.com", email);
+                //message.Body = content;
+                //message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
+                //message.IsBodyHtml = true;
+
+                //SmtpClient smtp = new SmtpClient("mailhost.navitaire.com",25);
+                //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //smtp.UseDefaultCredentials = false;
+                //smtp.Send(message);
+
+                MailMessage message = new MailMessage("talentsforhungryminds2013@gmail.com", email);
                 message.Body = content;
                 message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
                 message.IsBodyHtml = true;
 
-                SmtpClient smtp = new SmtpClient();
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 465);
+                smtp.Credentials = new System.Net.NetworkCredential("talentsforhungryminds2013@gmail.com","fhms2013");
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
                 smtp.Send(message);
+
             }
             catch { }
 
