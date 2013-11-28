@@ -135,6 +135,7 @@
     <Compile Include="Migrations\201311261040400_Initial.Designer.cs">
       <DependentUpon>201311261040400_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\ActivitySeed.cs" />
     <Compile Include="Migrations\BeneficiarySeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\CurrencySeed.cs" />
