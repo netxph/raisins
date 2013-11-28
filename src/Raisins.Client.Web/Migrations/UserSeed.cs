@@ -39,7 +39,7 @@ namespace Raisins.Client.Web.Migrations
             AddUser(context, "corteza", "corteza!23", "Aldrin Cortrez", 3, 1);
             AddUser(context, "pascuac", "pascuac!23", "Carmelyn Pascual", 3, 1);
             AddUser(context, "perezan", "perezan!23", "Venerando Perez", 5, 1);
-            AddUser(context, "padernc", "padernc!23", "John Carlos Padernal", 5, 1);
+            AddUser(context, "padernj", "padernj!23", "John Carlos Padernal", 5, 1);
             AddUser(context, "quillas", "quillas!23", "Shane Quillan", 6, 1);
             AddUser(context, "bolalie", "bolalie!23", "Eliza Bolalin", 6, 1);
             AddUser(context, "decastt", "decastt!23", "Teodore De Castro", 6, 1);
