@@ -284,6 +284,9 @@ namespace Raisins.Client.Web.Models
                 message.IsBodyHtml = true;
 
                 SmtpClient smtp = new SmtpClient();
+                smtp.Host = "mailhost.navitaire.com";
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                
                 smtp.Send(message);
             }
             catch { }
