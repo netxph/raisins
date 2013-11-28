@@ -20,9 +20,9 @@ Ticket Number(s) for your vote(s) is/are:<br /><br />
 </p>
 <p>All proceeds will be used to support High School scholars of the Food for Hungry Minds.</p>
 <p>All votes will be part of the raffle draw (1 vote = 1 entry). More votes, more chances of winning.</p>
-<p>Voting period ends on December 11.</p>
+<p>Voting period ends on December 05.</p>
 <br />
-<p><strong>JAM FOR HUNGRY MINDS 2012: JAM FOR 600K</strong><br />
+<p><strong>TALENTS FOR HUNGRY MINDS 2013</strong><br />
 <a href=""http://foodforhungryminds.org/"">http://foodforhungryminds.org</a>
 </p>
 ";
