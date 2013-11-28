@@ -14,6 +14,7 @@ namespace Raisins.Client.Web.Migrations
         {
             #region Administrators
 
+            AddAdmin(context, "admin", "@dmin!23", "Developer Accounts");
             AddAdmin(context, "mendozg", "mendozg!23", "Gen Mendoza");
             AddAdmin(context, "delacle", "delacle!23", "Lei dela Cruz");
             AddAdmin(context, "pascuaa", "pascuaa!23", "Arla Pascual");
@@ -24,9 +25,9 @@ namespace Raisins.Client.Web.Migrations
 
             AddAccountant(context, "linggay", "linggay!23", "Gayle Ling", 1, 1);
             AddAccountant(context, "jaraban", "jaraban!23", "Noreen Jaraba", 1, 1);
-            AddAccountant(context, "pardoja", "delacle!23", "Jazel Pardo", 2, 1);
+            AddAccountant(context, "pardoja", "pardoja!23", "Jazel Pardo", 2, 1);
             AddAccountant(context, "logicam", "logicam!23", "Mia Logica", 3, 1);
-            AddAccountant(context, "evangch", "evangch!23", "Charry Evangelista", 4, 1);
+            AddAccountant(context, "evangel", "evangel!23", "Charry Evangelista", 4, 1);
             AddAccountant(context, "macalim", "macalim!23", "Dianne Macalintal", 5, 1);
             AddAccountant(context, "candalm", "candalm!23", "Marlo Candaliza", 6, 1);
 
