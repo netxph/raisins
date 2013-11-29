@@ -9,20 +9,29 @@ namespace Raisins.Client.Web
     {
         public const string EMAIL =
 @"
-<p style=""font-size: 20px"">
-<strong>Thank you for voting, {0}!</strong>
+<p style=""font-size: 25px;font-family:'Calibri'"">
+<strong>Thank you for voting for {0}, {1}!</strong>
 </p>
-<p>
+<p style=""font-size: 17px;font-family:'Calibri'"">
 <strong>
 Ticket Number(s) for your vote(s) is/are:<br /><br />
 </strong>
-{1}
+{2}
 </p>
+<<<<<<< HEAD
 <p>All proceeds will be used to support High School scholars of the Food for Hungry Minds.</p>
 <p>All votes will be part of the raffle draw (1 vote = 1 entry). More votes, more chances of winning.</p>
 <p>Voting period ends on December 11.</p>
 <br />
 <p><strong>JAM FOR HUNGRY MINDS 2012: JAM FOR 600K</strong><br />
+=======
+<p style=""font-size: 17px;font-family:'Calibri'"">Let's beat our record last year and raise Php 700,000 for scholars of the Food for Hungry Minds.</p>
+<p style=""font-size: 17px;font-family:'Calibri'"">Donations in excess of Php 700,000 will go to victims of the Typhoon Yolanda.</p>
+<p style=""font-size: 17px;font-family:'Calibri'"">All votes will be part of the raffle draw (1 vote = 1 entry). More votes, more chances of winning.</p>
+<p style=""font-size: 17px;font-family:'Calibri'"">Voting period ends on December 05.</p>
+<br />
+<p style=""font-size: 18px;font-family:'Calibri'""><strong>TALENTS FOR HUNGRY MINDS 2013</strong><br />
+>>>>>>> originromedison/master
 <a href=""http://foodforhungryminds.org/"">http://foodforhungryminds.org</a>
 </p>
 ";
