@@ -24,12 +24,12 @@ namespace Raisins.Client.Web.Migrations
 
             AddAccountant(context, "linggay", "linggay!23", "Gayle Ling", 1, 1);
             AddAccountant(context, "jaraban", "jaraban!23", "Noreen Jaraba", 1, 1);
-            AddAccountant(context, "pardoja", "delacle!23", "Jazel Pardo", 2, 1);
+            AddAccountant(context, "pardoja", "pardoja!23", "Jazel Pardo", 2, 1);
             AddAccountant(context, "logicam", "logicam!23", "Mia Logica", 3, 1);
-            AddAccountant(context, "evangch", "evangch!23", "Charry Evangelista", 4, 1);
             AddAccountant(context, "macalim", "macalim!23", "Dianne Macalintal", 5, 1);
             AddAccountant(context, "candalm", "candalm!23", "Marlo Candaliza", 6, 1);
-
+            AddAccountant(context, "evangec", "evangec!23", "Charry Evangelista", 4, 1);
+            AddAccountant(context, "soriajo", "soriajo!23", "Jan Alvin Soria", 4, 1);
             #endregion
 
             #region Users
@@ -45,6 +45,7 @@ namespace Raisins.Client.Web.Migrations
             AddUser(context, "decastt", "decastt!23", "Teodore De Castro", 6, 1);
             AddUser(context, "leonorw", "leonorw!23", "William Leonor", 1, 1);
             AddUser(context, "vidallu", "vidallu!23", "Lui Vidal", 1, 1);
+            AddUser(context, "evangel", "evangel!23", "Lesley Evangelista", 2, 1);
             #endregion
         }
 

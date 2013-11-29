@@ -190,7 +190,7 @@ namespace Raisins.Client.Web.Models
                         payment.AuditedByID = Account.GetCurrentUser().ID;
                         payment.Tickets = generateTickets(payment);
 
-                        emailTickets(payment.Email, payment.Tickets);
+                        emailTickets(payment.Email, payment.Tickets, payment.BeneficiaryID);
                     }
                 }
 
@@ -223,8 +223,8 @@ namespace Raisins.Client.Web.Models
                         payment.AuditedByID = Account.GetCurrentUser().ID;
                         payment.Tickets = generateTickets(payment);
 
-                        emailTickets(payment.Email, payment.Tickets);
-                    }
+                        emailTickets(payment.Email, payment.Tickets, payment.BeneficiaryID);
+                 }
                 }
 
                 db.SaveChanges();
@@ -256,28 +256,15 @@ namespace Raisins.Client.Web.Models
                         payment.AuditedByID = Account.GetCurrentUser().ID;
                         payment.Tickets = generateTickets(payment);
 
-                        emailTickets(payment.Email, payment.Tickets);
-                    }
+                        emailTickets(payment.Email, payment.Tickets, payment.BeneficiaryID);
+                                           }
                 }
 
                 db.SaveChanges();
             }
         }
 
-        private static void emailTickets(string email, List<Ticket> tickets)
-        {
-            StringBuilder builder = new StringBuilder();
-
-            foreach (var ticket in tickets)
-            {
-                builder.Append(ticket.TicketCode);
-                builder.AppendLine("<br />");
-            }
-
-            string content = string.Format(Templates.EMAIL, tickets[0].Name, builder.ToString());
-
-            try
-            {
+    
                 //MailMessage message = new MailMessage("no-reply@navitaire.com", email);
                 //message.Body = content;
                 //message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
@@ -288,15 +275,37 @@ namespace Raisins.Client.Web.Models
                 //smtp.UseDefaultCredentials = false;
                 //smtp.Send(message);
 
-                MailMessage message = new MailMessage("talentsforhungryminds2013@gmail.com", email);
+        private static void emailTickets(string email, List<Ticket> tickets, int id)
+        {
+            StringBuilder builder = new StringBuilder();
+            string name="";
+            foreach (var ticket in tickets)
+            {
+                builder.Append(ticket.TicketCode);
+                builder.AppendLine("<br />");
+            }
+
+            switch (id)
+            {
+                case 1: name = "MONSTROU"; break;
+                case 2: name = "AARONics"; break;
+                case 3: name = "aQApella"; break;
+                case 4: name = "AOPSmith"; break;
+                case 5: name = "Banana Gang"; break;
+                case 6: name = "That's IT"; break;
+            }
+
+            string content = string.Format(Templates.EMAIL, name,  tickets[0].Name, builder.ToString());
+
+            try
+            {
+                MailMessage message = new MailMessage("no-reply@navitaire.com", email);
                 message.Body = content;
                 message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
                 message.IsBodyHtml = true;
 
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 465);
-                smtp.Credentials = new System.Net.NetworkCredential("talentsforhungryminds2013@gmail.com","fhms2013");
+                SmtpClient smtp = new SmtpClient("mailhost.navitaire.com", 25);
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
                 smtp.Send(message);
 
@@ -308,7 +317,6 @@ namespace Raisins.Client.Web.Models
         private static List<Ticket> generateTickets(Payment payment)
         {
             List<Ticket> tickets = new List<Ticket>();
-            //int count = Convert.ToInt32(Math.Floor(payment.Amount / payment.Currency.Ratio));
             int count = (((((int)((payment.Amount) * payment.Currency.ExchangeRate)) / 2000) * 55) +
                                                     ((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) / 1000) * 25) +
                                                     (((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
@@ -328,7 +336,7 @@ namespace Raisins.Client.Web.Models
             var payment = Find(id);
 
             //TODO: secure
-            emailTickets(payment.Email, payment.Tickets);
+            emailTickets(payment.Email, payment.Tickets, payment.BeneficiaryID);
         }
 
         public static Dictionary<string, decimal> GetTotalSummary()
@@ -354,6 +362,7 @@ namespace Raisins.Client.Web.Models
             return totals;
         }
 
+        
 
 
         
