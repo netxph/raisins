@@ -27,10 +27,6 @@ namespace Raisins.Client.Web.Migrations
             AddAccountant(context, "jaraban", "jaraban!23", "Noreen Jaraba", 1, 1);
             AddAccountant(context, "pardoja", "pardoja!23", "Jazel Pardo", 2, 1);
             AddAccountant(context, "logicam", "logicam!23", "Mia Logica", 3, 1);
-<<<<<<< HEAD
-            AddAccountant(context, "evangel", "evangel!23", "Charry Evangelista", 4, 1);
-=======
->>>>>>> originromedison/master
             AddAccountant(context, "macalim", "macalim!23", "Dianne Macalintal", 5, 1);
             AddAccountant(context, "candalm", "candalm!23", "Marlo Candaliza", 6, 1);
             AddAccountant(context, "evangec", "evangec!23", "Charry Evangelista", 4, 1);
