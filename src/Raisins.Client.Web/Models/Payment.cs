@@ -315,10 +315,7 @@ namespace Raisins.Client.Web.Models
 
                 smtp.Send(message);
             }
-            catch(Exception ex)
-            { 
-                throw ex;
-            }
+            catch { }
 
         }
 
