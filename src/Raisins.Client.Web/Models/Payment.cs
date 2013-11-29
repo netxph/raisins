@@ -312,7 +312,8 @@ namespace Raisins.Client.Web.Models
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "mailhost.navitaire.com";
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-
+                smtp.UseDefaultCredentials = false;
+                smtp.Port = 25;
                 smtp.Send(message);
             }
             catch { }
