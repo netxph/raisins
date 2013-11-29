@@ -310,7 +310,7 @@ namespace Raisins.Client.Web.Models
                 message.IsBodyHtml = true;
 
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "mailhost.navitaire.com";
+                smtp.Host = "fhms";
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.UseDefaultCredentials = false;
                 smtp.Port = 25;
