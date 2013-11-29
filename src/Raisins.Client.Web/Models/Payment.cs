@@ -309,9 +309,9 @@ namespace Raisins.Client.Web.Models
                 message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
                 message.IsBodyHtml = true;
 
-                SmtpClient smtp = new SmtpClient("10.78.160.16", 25);
+                SmtpClient smtp = new SmtpClient();
                 //smtp.Credentials = new System.Net.NetworkCredential("talentsforhungryminds2013@gmail.com","fhms2013");
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
 
                 smtp.Send(message);
             }
