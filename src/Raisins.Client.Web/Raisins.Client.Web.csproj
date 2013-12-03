@@ -149,8 +149,10 @@
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\DBExtensions.cs" />
+    <Compile Include="Models\DefaultMailer.cs" />
     <Compile Include="Models\Executive.cs" />
     <Compile Include="Models\ExecutiveSummary.cs" />
+    <Compile Include="Models\IMailer.cs" />
     <Compile Include="Models\OverallSummary.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\AccountProfile.cs" />

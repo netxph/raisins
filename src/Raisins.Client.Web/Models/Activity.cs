@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -51,6 +52,8 @@ namespace Raisins.Client.Web.Models
         {
             using (var db = ObjectProvider.CreateDB())
             {
+                activity.Roles.SetState(db, EntityState.Modified);
+
                 db.Activities.Add(activity);
                 db.SaveChanges();
 
