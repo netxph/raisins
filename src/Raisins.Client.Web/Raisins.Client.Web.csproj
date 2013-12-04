@@ -135,6 +135,10 @@
     <Compile Include="Migrations\201311261040400_Initial.Designer.cs">
       <DependentUpon>201311261040400_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312031141383_CreateMailQueueTable.cs" />
+    <Compile Include="Migrations\201312031141383_CreateMailQueueTable.Designer.cs">
+      <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ActivitySeed.cs" />
     <Compile Include="Migrations\BeneficiarySeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -150,9 +154,11 @@
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\DBExtensions.cs" />
     <Compile Include="Models\DefaultMailer.cs" />
+    <Compile Include="Models\DelegatedMailer.cs" />
     <Compile Include="Models\Executive.cs" />
     <Compile Include="Models\ExecutiveSummary.cs" />
     <Compile Include="Models\IMailer.cs" />
+    <Compile Include="Models\MailQueue.cs" />
     <Compile Include="Models\OverallSummary.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\AccountProfile.cs" />
@@ -415,6 +421,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201311261040400_Initial.resx">
       <DependentUpon>201311261040400_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201312031141383_CreateMailQueueTable.resx">
+      <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

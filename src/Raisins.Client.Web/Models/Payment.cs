@@ -309,7 +309,7 @@ namespace Raisins.Client.Web.Models
                 message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
                 message.IsBodyHtml = true;
 
-                IMailer smtp = new DefaultMailer();
+                IMailer smtp = new DelegatedMailer();
 
                 smtp.SendMessage(message);
             }
