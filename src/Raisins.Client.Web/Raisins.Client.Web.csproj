@@ -123,6 +123,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Templates.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\Api\MailerController.cs" />
     <Compile Include="Controllers\Api\PaymentsController.cs" />
     <Compile Include="Controllers\BeneficiariesController.cs" />
     <Compile Include="Controllers\CurrenciesController.cs" />

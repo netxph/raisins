@@ -290,15 +290,6 @@ namespace Raisins.Client.Web.Models
                 groupName = Beneficiary.Find(id).Name;
             }
             catch { }
-            //switch (id)
-            //{
-            //    case 1: name = "MONSTROU"; break;
-            //    case 2: name = "AARONics"; break;
-            //    case 3: name = "aQApella"; break;
-            //    case 4: name = "AOPSmith"; break;
-            //    case 5: name = "Banana Gang"; break;
-            //    case 6: name = "That's IT"; break;
-            //}
 
             string content = string.Format(Templates.EMAIL, groupName,  tickets[0].Name, builder.ToString());
 
