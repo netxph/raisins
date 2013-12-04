@@ -22,6 +22,7 @@ namespace Raisins.Client.Web.Controllers.Api
 
             db.MailQueues.RemoveRange(mails);
             db.SaveChanges();
+            db.Dispose();
 
             return items;
         }
