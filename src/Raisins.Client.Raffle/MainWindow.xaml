@@ -12,8 +12,8 @@
         		<SolidColorBrush Color="White" Opacity="0.1"/>
         	</StackPanel.Background>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            	<Label FontSize="32" FontFamily="century gothic">Raffle for </Label>
-				<ComboBox Name="_comboType" FontSize="32" FontFamily="century gothic"/>
+                <Label FontSize="32" FontFamily="century gothic" Content="Raffle for "/>
+                <ComboBox Name="_comboType" FontSize="32" FontFamily="century gothic" Opacity="0.5"/>
 			</StackPanel>
             
             <Label Name="_labelName" HorizontalAlignment="Center" FontSize="48" FontWeight="Bold" FontFamily="century gothic" Foreground="AntiqueWhite">

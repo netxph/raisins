@@ -35,7 +35,7 @@ namespace Raisins.Client.Raffle
 
             Raffle = new RaffleService();
             Timer = new System.Timers.Timer();
-            Timer.Interval = 100;
+            Timer.Interval = 10;
             Timer.Elapsed += (sender, e) =>
                 {
                    _labelTicket.Dispatcher.Invoke(new Action(() =>
@@ -57,6 +57,7 @@ namespace Raisins.Client.Raffle
         {
             if (!Timer.Enabled)
             {
+                Timer.Interval = 50;
                 Timer.Start();
             }
             else
