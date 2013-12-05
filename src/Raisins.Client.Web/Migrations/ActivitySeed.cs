@@ -27,10 +27,10 @@ namespace Raisins.Client.Web.Migrations
                 {
                     roles.Add(Role.Find(roleName));
                 }
-               
-                Activity.Add(newActivity);
 
                 newActivity.Roles = roles;
+
+                Activity.Add(newActivity);
             }
         }
     }

@@ -278,24 +278,20 @@ namespace Raisins.Client.Web.Models
         private static void emailTickets(string email, List<Ticket> tickets, int id)
         {
             StringBuilder builder = new StringBuilder();
-            string name="";
+            string groupName = string.Empty;
             foreach (var ticket in tickets)
             {
                 builder.Append(ticket.TicketCode);
                 builder.AppendLine("<br />");
             }
 
-            switch (id)
+            try
             {
-                case 1: name = "MONSTROU"; break;
-                case 2: name = "AARONics"; break;
-                case 3: name = "aQApella"; break;
-                case 4: name = "AOPSmith"; break;
-                case 5: name = "Banana Gang"; break;
-                case 6: name = "That's IT"; break;
+                groupName = Beneficiary.Find(id).Name;
             }
+            catch { }
 
-            string content = string.Format(Templates.EMAIL, name,  tickets[0].Name, builder.ToString());
+            string content = string.Format(Templates.EMAIL, groupName,  tickets[0].Name, builder.ToString());
 
             try
             {
@@ -304,11 +300,9 @@ namespace Raisins.Client.Web.Models
                 message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
                 message.IsBodyHtml = true;
 
-                SmtpClient smtp = new SmtpClient("mailhost.navitaire.com", 25);
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.UseDefaultCredentials = false;
-                smtp.Send(message);
+                IMailer smtp = new DelegatedMailer();
 
+                smtp.SendMessage(message);
             }
             catch { }
 

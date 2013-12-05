@@ -14,6 +14,7 @@ namespace Raisins.Client.Web.Migrations
         {
             #region Administrators
 
+            AddAdmin(context, "admin", "@dmin!23", "Developer Accounts");
             AddAdmin(context, "mendozg", "mendozg!23", "Gen Mendoza");
             AddAdmin(context, "delacle", "delacle!23", "Lei dela Cruz");
             AddAdmin(context, "pascuaa", "pascuaa!23", "Arla Pascual");

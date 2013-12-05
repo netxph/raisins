@@ -10,7 +10,7 @@ namespace Raisins.Client.Web
         public const string EMAIL =
 @"
 <p style=""font-size: 25px;font-family:'Calibri'"">
-<strong>Thank you for voting for {0}, {1}!</strong>
+<strong>Thank you for voting {0}, {1}!</strong>
 </p>
 <p style=""font-size: 17px;font-family:'Calibri'"">
 <strong>
