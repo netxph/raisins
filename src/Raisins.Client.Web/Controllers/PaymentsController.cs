@@ -37,6 +37,13 @@ namespace Raisins.Client.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Resend()
+        {
+            Payment.ResendEmail();
+
+            return RedirectToAction("Index");
+        }
+
         //
         // GET: /Payments/Manage
         [AllowAnonymous]
