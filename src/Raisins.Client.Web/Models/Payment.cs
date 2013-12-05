@@ -300,6 +300,7 @@ namespace Raisins.Client.Web.Models
                 message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
                 message.IsBodyHtml = true;
 
+                //change this to DefaultMailer if you wish to send directly to smtp
                 IMailer smtp = new DelegatedMailer();
 
                 smtp.SendMessage(message);
@@ -325,12 +326,39 @@ namespace Raisins.Client.Web.Models
             return tickets;
         }
 
+        public static void ResendEmail()
+        {
+            var payments = FindLockedPayments();
+
+            foreach (var payment in payments)
+            {
+                ResendEmail(payment);
+            }
+        }
+
+        public static List<Payment> FindLockedPayments()
+        {
+            List<Payment> payments = null;
+
+            using (var db = ObjectProvider.CreateDB())
+            {
+                payments = db.Payments.Where(p => p.Locked == true).Include(p => p.Tickets).ToList();
+            }
+
+            return payments;
+        }
+
+        public static void ResendEmail(Payment payment)
+        {
+            //TODO: secure
+            emailTickets(payment.Email, payment.Tickets, payment.BeneficiaryID);
+        }
+
         public static void ResendEmail(int id)
         {
             var payment = Find(id);
 
-            //TODO: secure
-            emailTickets(payment.Email, payment.Tickets, payment.BeneficiaryID);
+            ResendEmail(payment);
         }
 
         public static Dictionary<string, decimal> GetTotalSummary()
@@ -355,10 +383,6 @@ namespace Raisins.Client.Web.Models
 
             return totals;
         }
-
-        
-
-
         
     }
 }
