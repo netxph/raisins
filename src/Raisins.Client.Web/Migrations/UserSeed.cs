@@ -18,11 +18,66 @@ namespace Raisins.Client.Web.Migrations
             AddAdmin(context, "mendozg", "mendozg!23", "Gen Mendoza");
             AddAdmin(context, "delacle", "delacle!23", "Lei dela Cruz");
             AddAdmin(context, "pascuaa", "pascuaa!23", "Arla Pascual");
+            AddAdmin(context, "delosrd", "delosrd!23", "Danica Delos Reyes");
 
             #endregion
 
-            #region Accountants/Auditors
+            int groupCount = 7;
 
+            KeyValuePair<int, int>[] userTypeCountPair = new KeyValuePair<int, int>[]
+            {
+                new KeyValuePair<int, int>(2,3),
+                new KeyValuePair<int, int>(3,4)
+ 
+            };
+
+            string accountantFormat = "G{0}Auditor{1}";
+            string accountantPasswordFormat = "G{0}Auditor{1}!23";
+            string accountantTempNameFormat = "Group {0} Auditor {1}";
+
+            string userFormat = "G{0}User{1}";
+            string userPasswordFormat = "G{0}User{1}!23";
+            string userTempNameFormat = "Group {0} User {1}";
+
+            for (int x = 1; x <= groupCount; x++)
+            {
+                foreach (KeyValuePair<int, int> pair in userTypeCountPair)
+                {
+                    if (pair.Key == 2)
+                    {
+                        for( int y = 1; y <= pair.Value; y++)
+                        {
+                            AddAccountant(
+                                context,
+                                string.Format(accountantFormat, x, y),
+                                string.Format(accountantPasswordFormat, x, y),
+                                string.Format(accountantTempNameFormat, x, y),
+                                x,
+                                1);
+                        }
+                    }
+                    if (pair.Key == 3)
+                    {
+                        for (int y = 1; y <= pair.Value; y++)
+                        {
+                            AddUser(
+                                context,
+                                string.Format(userFormat, x, y),
+                                string.Format(userPasswordFormat, x, y),
+                                string.Format(userTempNameFormat, x, y),
+                                x,
+                                1);
+                        } 
+                    }
+
+                }
+            }
+
+            #region add old users
+            /*
+             * 
+            #region Accountants/Auditors
+            
             AddAccountant(context, "linggay", "linggay!23", "Gayle Ling", 1, 1);
             AddAccountant(context, "jaraban", "jaraban!23", "Noreen Jaraba", 1, 1);
             AddAccountant(context, "pardoja", "pardoja!23", "Jazel Pardo", 2, 1);
@@ -47,6 +102,9 @@ namespace Raisins.Client.Web.Migrations
             AddUser(context, "leonorw", "leonorw!23", "William Leonor", 1, 1);
             AddUser(context, "vidallu", "vidallu!23", "Lui Vidal", 1, 1);
             AddUser(context, "evangel", "evangel!23", "Lesley Evangelista", 2, 1);
+            #endregion
+             * 
+             */
             #endregion
         }
 
