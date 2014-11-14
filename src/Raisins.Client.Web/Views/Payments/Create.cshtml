@@ -1,390 +1,222 @@
 ﻿@model Raisins.Client.Web.Models.Payment
+
 @{
     ViewBag.Title = "Create";
-    ViewBag.onload = "alert('hi');";
 }
+
+@*<div id="tabs" class="style-tabs">
+
+<ul>
+    <li><a href="#tabs-1">Local</a></li>
+    <li><a href="#tabs-2">External</a></li>
+      @if(Html.DropDownList("ClassID").Equals(2))
+            {  
+    <li><a href="#tabs-3">Foreign</a></li>
+      }
+</ul>
+
+<div id="tabs-1" class="tabs-1">
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <br />
-    <h1>NEW PAYMENT</h1>
-    <br />
-    //MODIFIED PART START
-    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="tabs">
-        <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-            <li aria-expanded="true" aria-selected="false" aria-labelledby="ui-id-8" aria-controls="tabs-1" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a id="ui-id-8" tabindex="1" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(0);">LOCAL</a></li>
-            <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-9" aria-controls="tabs-2" tabindex="1" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-9" tabindex="2" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(1);">EXTERNAL</a></li>
-            <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-10" aria-controls="tabs-3" tabindex="2" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-10" tabindex="3" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(2);">FOREIGN</a></li>
-        </ul>
-        <div style="display: block;" aria-hidden="false" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-8" id="tabs-1">
-            <form id="Payments">
-                <section id="1">
-                    <div class="label">
-                        <p>Group Name:</p>
-                    </div>
 
-                    <div class="dropdown">
-                        @Html.DropDownList("BeneficiaryID",null, new { @class = "dropdown-select" })
-                    </div>
-
-                    <br />
-
-                    <div class="label">
-                        <p>@Html.LabelFor(model => model.Name)</p>
-                    </div>
-
-                    @Html.TextBoxFor(model => model.Name,null, new { @class = "tbox" })
-                    @Html.ValidationMessageFor(model => model.Name)
-                
-                    <br />
-
-                    <div class="label">
-                        <p>@Html.LabelFor(model => model.Location)</p>
-                    </div>
-
-                    @Html.TextBoxFor(model => model.Location,null, new { @class = "tbox" })
-                    @Html.ValidationMessageFor(model => model.Location)
-                
-                    <br />
-
-                    <div class="label">
-                        <p>@Html.LabelFor(model => model.Email)</p>
-                    </div>
-             
-                    @Html.TextBoxFor(model => model.Email,null, new { @class = "tbox" })
-                    @Html.ValidationMessageFor(model => model.Email)
-                   
-
-                    <br />
-
-                    <div class="label">
-                        <p>@Html.LabelFor(model => model.Amount)</p>
-                    </div>
-                  
-                    @Html.TextBoxFor(model => model.Amount,null, new { @class = "tbox" })
-                    @Html.ValidationMessageFor(model => model.Amount)
-        
-                    <br />
-
-                    <div class="label">
-                        <p>Currency</p>
-                    </div>
-
-                    <div class="dropdown">
-                        @Html.DropDownList("CurrencyID",null, new { @class = "dropdown-select" })
-                    </div>
-
-      
-                    <br />
-
-                    <div class="label">
-                        <p>@Html.LabelFor(model => model.Remarks)</p>
-                        @Html.TextAreaFor(model => model.Remarks,new { @class = "tbox" })
-                        @Html.ValidationMessageFor(model => model.Remarks)
-                    </div>
-             
-
-                    @Html.DropDownList("ClassID")
-
-                    <br />
-                    <br />
-                    <input type="submit" class="btn" value="CREATE PAYMENT" id="submit" onclick="EnableDropDownBeforeSubmission()" />
-             </section>
-
-
-
-                
-       
-                <script>
-                    var ptype = document.getElementById('ClassID');
-                    var curr = document.getElementById('CurrencyID');
-                    var btntext = document.getElementById('submit');
-                    var curtab = 0;
-
-                    $(document).ready(function () {
-                        SetSelection(curtab);
-                    });
-
-                    $("#tabs").tabs();
-
-                    function SetSelection(x) {
-                        ptype.value = curtab = x;
-
-                        if (x == 0) {
-                            curr.disabled = true;
-                            curr.value = 0;
-                            btntext.value = "Create LOCAL";
-                        }
-                        else if (x == 1) {
-                            curr.disabled = false;
-                            btntext.value = "Create EXTERNAL";
-                        }
-                        else {
-                            curr.disabled = false;
-                            btntext.value = "Create FOREIGN";
-                        }
-
-                    }
-
-                    function EnableDropDownBeforeSubmission() {
-                        curr.disabled = false;
-                    }
-                </script>
-
-            </form>
-        </div>
-    </div>
-    <link href="~/Scripts/jun/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Scripts/jun/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Scripts/jun/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/jun/scripts/jquery-ui.min.js"></script>
-
-    <style>
-
-
-        .btn {
-  background: #0c7d0c;
-  background-image: -webkit-linear-gradient(top, #0c7d0c, #0c7d0c);
-  background-image: -moz-linear-gradient(top, #0c7d0c, #0c7d0c);
-  background-image: -ms-linear-gradient(top, #0c7d0c, #0c7d0c);
-  background-image: -o-linear-gradient(top, #0c7d0c, #0c7d0c);
-  background-image: linear-gradient(to bottom, #0c7d0c, #0c7d0c);
-  -webkit-border-radius: 5;
-  -moz-border-radius: 5;
-  border-radius: 5px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 10px 20px 10px 20px;
-  border: solid #ffffff 2px;
-  text-decoration: none;
-  border-style: none;
-  width: 185px;
-}
-
-.btn:hover {
-  background: #3ba33e;
-  background-image: -webkit-linear-gradient(top, #3ba33e, #3ba33e);
-  background-image: -moz-linear-gradient(top, #3ba33e, #3ba33e);
-  background-image: -ms-linear-gradient(top, #3ba33e, #3ba33e);
-  background-image: -o-linear-gradient(top, #3ba33e, #3ba33e);
-  background-image: linear-gradient(to bottom, #3ba33e, #3ba33e);
-  text-decoration: none;
-}
-
-
- .label {
-font-size: 100%;
-}
-
- .tbox {
-background: white;
-border: 1px solid #DDD;
-border-radius: 5px;
-box-shadow: 0 0 5px #DDD inset;
-color: #666;
-padding: 5px 10px;
-width: 165px;
-outline: none;
-}
-        
-/*.ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all {
-        background: ;
-    }*/     
-        
-        
-               /*
- * Copyright (c) 2012-2013 Thibaut Courouble
- * http://www.cssflow.com
- * Licensed under the MIT License
- *
- * Sass/SCSS source: http://goo.gl/qEV26
- * PSD by Hemn Chawroka: http://goo.gl/nXZHJ
- */
-
-.container {
-  margin: 80px auto;
-  width: 400px;
-  text-align: center;
-}
-
-.container > .dropdown {
-  margin: 0 20px;
-  vertical-align: top;
-}
-
-.dropdown {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  height: 28px;
-  width: 185px;
-  background: #f2f2f2;
-  border: 1px solid;
-  border-color: white #f7f7f7 whitesmoke;
-  border-radius: 3px;
-  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-  background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-  background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-}
-
-.dropdown:before, .dropdown:after {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  top: 9px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 4px dashed;
-  border-color: #888888 transparent;
-  pointer-events: none;
-}
-
-.dropdown:before {
-  border-bottom-style: solid;
-  border-top: none;
-}
-
-.dropdown:after {
-  margin-top: 7px;
-  border-top-style: solid;
-  border-bottom: none;
-}
-
-.dropdown-select {
-  position: relative;
-  width: 130%;
-  margin: 0;
-  padding: 6px 8px 6px 10px;
-  height: 28px;
-  line-height: 14px;
-  font-size: 12px;
-  color: #62717a;
-  text-shadow: 0 1px white;
-  background: #f2f2f2; /* Fallback for IE 8 */
-  background: rgba(0, 0, 0, 0) !important; /* "transparent" doesn't work with Opera */
-  border: 0;
-  border-radius: 0;
-  -webkit-appearance: none;
-}
-
-.dropdown-select:focus {
-  z-index: 3;
-  width: 100%;
-  color: #394349;
-  outline: 2px solid #49aff2;
-  outline: 2px solid -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-
-.dropdown-select > option {
-  margin: 3px;
-  padding: 6px 8px;
-  text-shadow: none;
-  background: #f2f2f2;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-/* Fix for IE 8 putting the arrows behind the select element. */
-
-.lt-ie9 .dropdown {
-  z-index: 1;
-}
-
-.lt-ie9 .dropdown-select {
-  z-index: -1;
-}
-
-.lt-ie9 .dropdown-select:focus {
-  z-index: 3;
-}
-
-/* Dirty fix for Firefox adding padding where it shouldn't. */
-
-
-
-
-    </style>
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
     
-  
-    <style>
-        #CurrencyID {
-            /*width: 165px !important;*/
-        }
-        #ClassID
-        {
-            display: none;
-        }
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+           or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
 
-        #tabs
-        {
-            background-color: transparent !important;
-        }
-    </style>
-    <style>
-        body
-        {
-            font: 62.5% "Trebuchet MS", sans-serif;
-        }
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
 
-        .demoHeaders
-        {
-            margin-top: 2em;
-        }
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
-        #dialog-link
-        {
-            padding: .4em 1em .4em 20px;
-            text-decoration: none;
-            position: relative;
-        }
+</div>
 
-            #dialog-link span.ui-icon
-            {
-                margin: 0 5px 0 0;
-                position: absolute;
-                left: .2em;
-                top: 50%;
-                margin-top: -8px;
-            }
+<div id="tabs-2">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
 
-        #icons
-        {
-            margin: 0;
-            padding: 0;
-        }
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+            or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
 
-            #icons li
-            {
-                margin: 2px;
-                position: relative;
-                padding: 4px 0;
-                cursor: pointer;
-                float: left;
-                list-style: none;
-            }
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
 
-            #icons span.ui-icon
-            {
-                float: left;
-                margin: 0 4px;
-            }
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+</div>
 
-        .fakewindowcontain .ui-widget-overlay
-        {
-            position: absolute;
-        }
+<div id="tabs-3">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
 
-        select
-        {
-            width: 200px;
-        }
-    </style>
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+            or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs();
+    });
+</script>*@
+
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+        @*   or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")*@
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
 }
 <div>
     @Html.ActionLink("Back to List", "Index")
