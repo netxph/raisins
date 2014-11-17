@@ -29,6 +29,8 @@ body {
 }
 
 
+
+
 hr {
     border: 0;
     height: 1px;
@@ -123,8 +125,11 @@ ul#teamscontent {
 }
 
     ul#teamscontent li img {
-        width: 150px;
+        height: 135px;
+        width: 125px;
+        background-size:100%;
         border: black solid 1px;
+
     }
 
     ul#teamscontent li:first-child {
@@ -226,8 +231,11 @@ div#loglinks {
 a#loginLink {
 }
 
-div#bandbanner {
+div#bandbanner
+{
     width: 1024px;
+    background-size: 100%;
+    height: inherit;
 }
 
     div#bandbanner img {
@@ -273,7 +281,14 @@ div#bandvideo {
 table#payment-grid {
     width: 100%;
 }
-
+table#payment-grid tr.tablerows:nth-child(even)
+{
+    background-color: #4C605B;
+}
+table#payment-grid tr.tablerows:nth-child(odd)
+{
+    background-color: #293532;
+}
     table#payment-grid th {
         text-align: left;
         font-size: 20px;
@@ -326,18 +341,52 @@ div#raisins {
 table#votes-grid {
     width: 50%;
     border-color:aqua;
+    border: #123227 1px solid;
+}
+table#votes-grid caption {
+    font-size: 20px;
 }
 
+
+
     table#votes-grid th {
+        padding-left:5px;
         text-align: left;
         font-size: 20px;
+       
+       background-color: #123227;
+        
+       
+    }
+
+    table#votes-grid th#teamnames {
+       
+          background-color: #273733;
+       
+    }
+
+    table#votes-grid tr {
+         background-color: #435953;
     }
     
 
+
     table#votessum {
     width: 50%;
-    border-color: transparent;
-    
+   
+}
+    table#votessum caption {
+    font-size: 20px;
+}
+
+    table#votessum th {
+
+     background-color: #123227;
+}
+
+       table#votessum tr
+{
+    background-color: #435953;
 }
 
     div#groupvote {
@@ -418,15 +467,21 @@ div#mechanics {
     div#mechanics table {
         margin: 10px 0;
     }
-
+    
         div#mechanics table tr, td {
-            border: floralwhite 2px solid;
+         border: #123227 1px solid;
+        }
+       
+         div#mechanics tbody{
+         background-color: #4C605B;
         }
 
-        div#mechanics table thead {
+
+           div#mechanics table thead {
             font-weight: bold;
             font-size: 14px;
             text-align: center;
+            background-color: #123227;
         }
 
         div#mechanics table td {
@@ -531,4 +586,11 @@ div#groups h2{
       font-size: 25px;
         font-family:'Patrick Hand',sans-serif;
         color:#F2F5A9;
+}
+
+table
+{
+       border-collapse: separate;
+       border-radius: 5px;
+       -moz-border-radius: 5px;
 }
