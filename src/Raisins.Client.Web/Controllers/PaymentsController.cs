@@ -140,6 +140,27 @@ namespace Raisins.Client.Web.Controllers
             return View();
         }
 
+        public ActionResult CreateLocal()
+        {
+            var user = Account.GetCurrentUser();
+
+            var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
+            var executives = Executive.GetAll();
+            executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
+
+            if (user.Profile.IsLocal)
+            {
+                paymentClasses.Remove(paymentClasses.Single(p => p.Name == "Foreign"));
+            }
+
+            ViewBag.BeneficiaryID = new SelectList(user.Profile.Beneficiaries, "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(user.Profile.Currencies, "ID", "CurrencyCode", 1);
+            ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
+            ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
+
+            return View();
+        }
+
         //
         // POST: /Payments/Create
 
