@@ -88,7 +88,7 @@ namespace Raisins.Client.Web.Migrations
                         Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Location = c.String(),
                         Email = c.String(nullable: false),
-                        SoldBy = c.String(nullable: true),
+                    
                         Remarks = c.String(),
                         ClassID = c.Int(nullable: false),
                         Locked = c.Boolean(nullable: false),

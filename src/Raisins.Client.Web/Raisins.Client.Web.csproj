@@ -140,6 +140,10 @@
     <Compile Include="Migrations\201312031141383_CreateMailQueueTable.Designer.cs">
       <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411180913468_newmigration.cs" />
+    <Compile Include="Migrations\201411180913468_newmigration.Designer.cs">
+      <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ActivitySeed.cs" />
     <Compile Include="Migrations\BeneficiarySeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -428,6 +432,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312031141383_CreateMailQueueTable.resx">
       <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411180913468_newmigration.resx">
+      <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
