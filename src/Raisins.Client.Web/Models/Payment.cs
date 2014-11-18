@@ -34,7 +34,7 @@ namespace Raisins.Client.Web.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        public string SoldBy;
+        public string SoldBy{get; set;}
 
         public string Remarks { get; set; }
 
