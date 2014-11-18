@@ -14,7 +14,7 @@ namespace Raisins.Client.Web.Models
     public class Payment
     {
 
-        const decimal TARGET = 700000;
+        const decimal TARGET = 600000;
 
         public static string EmailTemplate { get; set; }
 
@@ -33,6 +33,8 @@ namespace Raisins.Client.Web.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        public string SoldBy {get; set;}
 
         public string Remarks { get; set; }
 
@@ -297,7 +299,7 @@ namespace Raisins.Client.Web.Models
             {
                 MailMessage message = new MailMessage("no-reply@navitaire.com", email);
                 message.Body = content;
-                message.Subject = "[TALENTS FOR HUNGRY MINDS 2013] Ticket Notification";
+                message.Subject = "[TALENTS FOR HUNGRY MINDS 2014] Ticket Notification";
                 message.IsBodyHtml = true;
 
                 //change this to DefaultMailer if you wish to send directly to smtp
