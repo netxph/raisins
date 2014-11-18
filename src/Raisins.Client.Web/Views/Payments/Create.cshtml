@@ -206,7 +206,9 @@
             @Html.LabelFor(model => model.Amount)<br />
             @Html.DropDownList("CurrencyID")
             @Html.EditorFor(model => model.Amount)
-            @Html.ValidationMessageFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)<br />
+             @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
         </p>
         <p>
             @Html.LabelFor(model => model.Remarks)<br />
