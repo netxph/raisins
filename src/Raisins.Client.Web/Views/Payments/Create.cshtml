@@ -207,9 +207,13 @@
             @Html.DropDownList("CurrencyID")
             @Html.EditorFor(model => model.Amount)
             @Html.ValidationMessageFor(model => model.Amount)<br />
-             @Html.LabelFor(model => model.SoldBy)<br />
+       </p>
+    <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
             @Html.EditorFor(model => model.SoldBy)
-        </p>
+                </div>
+
         <p>
             @Html.LabelFor(model => model.Remarks)<br />
             @Html.TextAreaFor(model => model.Remarks)

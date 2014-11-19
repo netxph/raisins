@@ -215,6 +215,7 @@ ul#navigation {
             ul#navigation li a:hover, a#loginLink:hover {
                 background: white;
                 color: darkseagreen;
+                border-radius:5px;
             }
 
 a#userlinks {
@@ -283,11 +284,16 @@ table#payment-grid {
 }
 table#payment-grid tr.tablerows:nth-child(even)
 {
-    background-color: #4C605B;
+   background-color: #4C605B;
+    /* background-color: #AA9F7B;*/
+    
 }
+
+
 table#payment-grid tr.tablerows:nth-child(odd)
 {
-    background-color: #293532;
+   background-color: #123227;
+    /* background-color: #788156;*/
 }
     table#payment-grid th {
         text-align: left;
@@ -595,3 +601,43 @@ table
        -moz-border-radius: 5px;
        overflow:hidden;
 }
+
+#loginLink
+{
+
+    width: 350px;
+    height: 100px;
+
+    border-radius: 5px;
+
+}
+#loginLink:hover
+{
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius:5px;
+    border-collapse:separate;
+}
+
+.btn
+{
+    margin: 5px;
+    -webkit-border-radius: 3;
+    -moz-border-radius: 3;
+    border-radius: 3px;
+    font-family: 'Patrick Hand';
+    color: #ffffff;
+    font-size: 14px;
+    background: #274435;
+    padding: 3px 15px 3px 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn:hover {
+  background: #8FBC8F;
+  text-decoration: none;
+
+}
+
+

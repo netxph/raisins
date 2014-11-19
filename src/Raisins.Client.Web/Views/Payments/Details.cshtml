@@ -95,7 +95,7 @@
         Payment is already locked. Do you wish to change Email Address?
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model.Email)<input type="submit" value="Update" />
+        @Html.EditorFor(model => model.Email)<input type="submit" value="Update"  class="btn" />
         @Html.ValidationMessageFor(model => model.Email)<br />
     </div>
     </fieldset>
@@ -104,4 +104,5 @@
 <p style="color:white">
     
     @Html.ActionLink("Back to List", "Index")
+   
 </p>
