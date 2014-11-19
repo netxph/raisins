@@ -11,8 +11,12 @@
          <br />
         <h1>EDIT PAYMENT</h1>
         <br />
-      <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="tabs">
-
+       <div class="ui-tabs ui-widget ui-widget-content ui-corner-all"  id="tabs">
+        <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li aria-expanded="true" aria-selected="false" aria-labelledby="ui-id-8" aria-controls="tabs-1" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a id="ui-id-8" tabindex="1" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(0);">LOCAL</a></li>
+            <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-9" aria-controls="tabs-2" tabindex="1" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-9" tabindex="2" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(1);">EXTERNAL</a></li>
+            <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-10" aria-controls="tabs-3" tabindex="2" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-10" tabindex="3" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(2);">FOREIGN</a></li>
+        </ul>
         <div style="display: block;" aria-hidden="false" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-8" id="tabs-1">
             <form id="Payments">
                 <section id="1">
@@ -71,14 +75,18 @@
                     @Html.DropDownList("ClassID")
                     <br />
                     <br />
-                    <input type="submit" class="btn" value="Update" id="submit" onclick="EnableDropDownBeforeSubmission()" />
+                    <input type="submit" class="btn" value="UPDATE PAYMENT" id="submit" onclick="EnableDropDownBeforeSubmission()" />
                 </section>
                 
                 
             </form>
         </div>
-          </div>
-    
+    </div>
+    <script>
+        function retOps() {
+            return 1;
+            }
+</script>
        <link href="~/Scripts/jun/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/jun/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/jun/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
@@ -87,7 +95,7 @@
     <script src="~/Scripts/jun/scripts/custom.js"></script>
 }
 
-<div>
+<div class="backtolist">
     @Html.ActionLink("Back to List", "Index")
 </div>
 

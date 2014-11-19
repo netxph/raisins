@@ -423,7 +423,7 @@ div#countdown {
 
  .ui-tabs .ui-tabs-nav
 {
-background: #9FCB80;
+background-color: transparent;
 }
 
  .ui-tabs .ui-tabs-panel /* just in case you want to change the panel */
