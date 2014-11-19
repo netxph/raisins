@@ -8,7 +8,7 @@
    
     <thead>
         <tr >
-          <td>GROUP</td>
+          <th>GROUP</th>
          
             <th scope="col">Locked</th>
             <th scope="col">Total</th>
@@ -22,7 +22,7 @@
         @foreach (var team in ViewBag.Votes)
         { 
         <tr>
-            <th scope="row">@team.Name</th>
+            <th  id="teamnames" scope="row">@team.Name</th>
             <td>@team.LockedVotes</td>
             <td>@team.TotalVotes</td>
             <td>@team.LockedPayments.ToString("0.00")</td>
@@ -35,11 +35,10 @@
 </div>
 
 <br /><br /><br />
+
+ <caption>OVERALL VOTES SUMMARY</caption>
 <table id="votessum">
-    <caption>OVERALL VOTES SUMMARY</caption>
-    
-    <thead>
-       
+    <thead>   
         <tr>
             <th scope="col">Locked</th>
             <th scope="col">Total</th>
