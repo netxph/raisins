@@ -3,6 +3,7 @@
     ViewBag.Title = "Create";
     ViewBag.onload = "alert('hi');";
 }
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -50,6 +51,15 @@
                     @Html.TextBoxFor(model => model.Amount, null, new { @class = "tbox" })
                     @Html.ValidationMessageFor(model => model.Amount)
                     <br />
+
+
+                     <div title="You may leave this blank if there is none."> 
+           
+                      <div class="label">
+                        <p>@Html.LabelFor(model => model.SoldBy)</p>
+                    </div>
+                        @Html.TextBoxFor(model => model.SoldBy, null, new { @class = "tbox" })
+                     </div>
                     <div class="label">
                         <p>Currency</p>
                     </div>
@@ -84,7 +94,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
+@*
 <div id="tabs-2">
 @using (Html.BeginForm())
 {
@@ -118,6 +128,11 @@
             @Html.EditorFor(model => model.Amount)
             @Html.ValidationMessageFor(model => model.Amount)
         </p>
+     <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
+                </div>
         <p>
             @Html.LabelFor(model => model.Remarks)<br />
             @Html.TextAreaFor(model => model.Remarks)
@@ -166,6 +181,11 @@
             @Html.EditorFor(model => model.Amount)
             @Html.ValidationMessageFor(model => model.Amount)
         </p>
+     <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
+                </div>
         <p>
             @Html.LabelFor(model => model.Remarks)<br />
             @Html.TextAreaFor(model => model.Remarks)
@@ -188,12 +208,12 @@
     $(function () {
         $("#tabs").tabs();
     });
-</script>*@
+</script>
 
 
 
 
-
+@*
 
 @using (Html.BeginForm())
 {
@@ -207,7 +227,7 @@
             Group Name: <br />
             @Html.DropDownList("BeneficiaryID")<br />
         @*   or select who would you like to perform... <br />
-            @Html.DropDownList("ExecutiveID")*@
+            @Html.DropDownList("ExecutiveID")
         </p>
         <p>
             @Html.LabelFor(model => model.Name)<br />
@@ -250,4 +270,5 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+*@
 

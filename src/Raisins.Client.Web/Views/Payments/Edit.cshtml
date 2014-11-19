@@ -2,53 +2,89 @@
 
 @{
     ViewBag.Title = "Edit";
+    ViewBag.onload = "alert('hi');";
 }
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
-
-        //<fieldset>
-        //<legend>Edit Payment</legend>
          <br />
         <h1>EDIT PAYMENT</h1>
         <br />
-        <p>
-            Team Name<br />
-            @Html.DropDownList("BeneficiaryID")<br />
-            @*or select who would you like to perform... <br />
-            @Html.DropDownList("ExecutiveID")*@
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Name)<br />
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)<br />
-            @Html.LabelFor(model => model.Location)<br />
-            @Html.EditorFor(model => model.Location)
-            @Html.ValidationMessageFor(model => model.Location)<br />
-            @Html.LabelFor(model => model.Email)<br />
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)<br />
-              @Html.LabelFor(model => model.SoldBy)<br />
-            @Html.EditorFor(model => model.SoldBy)<br />
-        </p>
+      <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="tabs">
 
-        <p>
-            @Html.LabelFor(model => model.Amount)<br />
-            @Html.DropDownList("CurrencyID")
-            @Html.EditorFor(model => model.Amount)
-            @Html.ValidationMessageFor(model => model.Amount)
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Remarks)<br />
-            @Html.TextAreaFor(model => model.Remarks)
-            @Html.ValidationMessageFor(model => model.Remarks)
-        </p>
+        <div style="display: block;" aria-hidden="false" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-8" id="tabs-1">
+            <form id="Payments">
+                <section id="1">
+                    <div class="label">
+                        <p>Group Name:</p>
+                    </div>
+                    <div class="dropdown">
+                        @Html.DropDownList("BeneficiaryID", null, new { @class = "dropdown-select" })
+                    </div>
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Name)</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Name, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Name)
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Location)</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Location, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Location)
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Email)</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Email, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Email)
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Amount)</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Amount, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Amount)
+                    <br />
 
-   // </fieldset>
+
+                     <div title="You may leave this blank if there is none."> 
+           
+                      <div class="label">
+                        <p>@Html.LabelFor(model => model.SoldBy)</p>
+                    </div>
+                        @Html.TextBoxFor(model => model.SoldBy, null, new { @class = "tbox" })
+                     </div>
+                    <div class="label">
+                        <p>Currency</p>
+                    </div>
+                    <div class="dropdown">
+                        @Html.DropDownList("CurrencyID", null, new { @class = "dropdown-select" })
+                    </div>
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Remarks)</p>
+                        @Html.TextAreaFor(model => model.Remarks, new { @class = "tbox" })
+                        @Html.ValidationMessageFor(model => model.Remarks)
+                    </div>
+                    @Html.DropDownList("ClassID")
+                    <br />
+                    <br />
+                    <input type="submit" class="btn" value="Update" id="submit" onclick="EnableDropDownBeforeSubmission()" />
+                </section>
+                
+                
+            </form>
+        </div>
+          </div>
     
-    <p>
-        @Html.DropDownList("ClassID")<input type="submit" value="Update"  class="btn" />
-    </p>
+       <link href="~/Scripts/jun/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/custom.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jun/scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jun/scripts/custom.js"></script>
 }
 
 <div>
