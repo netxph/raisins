@@ -1,0 +1,262 @@
+
+        /*
+* Copyright (c) 2012-2013 Thibaut Courouble
+* http://www.cssflow.com
+* Licensed under the MIT License
+*
+* Sass/SCSS source: http://goo.gl/qEV26
+* PSD by Hemn Chawroka: http://goo.gl/nXZHJ
+*/
+        .btn
+        {
+            background-color: /*#274435*/ #3ba33e;
+            /*background-image: -webkit-linear-gradient(top, #0c7d0c, #0c7d0c);
+            background-image: -moz-linear-gradient(top, #0c7d0c, #0c7d0c);
+            background-image: -ms-linear-gradient(top, #0c7d0c, #0c7d0c);
+            background-image: -o-linear-gradient(top, #0c7d0c, #0c7d0c);
+            background-image: linear-gradient(to bottom, #0c7d0c, #0c7d0c);*/
+            -webkit-border-radius: 5;
+            -moz-border-radius: 5;
+            border-radius: 5px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 20px;
+            padding: 10px 20px 10px 20px;
+            border: solid #ffffff 2px;
+            text-decoration: none;
+            border-style: none;
+            width: 185px;
+              margin-left: -1px;
+        }
+
+            .btn:hover
+            {
+                background-color:#7ec680 ;
+                /*background-image: -webkit-linear-gradient(top, #3ba33e, #3ba33e);
+                background-image: -moz-linear-gradient(top, #3ba33e, #3ba33e);
+                background-image: -ms-linear-gradient(top, #3ba33e, #3ba33e);
+                background-image: -o-linear-gradient(top, #3ba33e, #3ba33e);
+                background-image: linear-gradient(to bottom, #3ba33e, #3ba33e);*/
+                text-decoration: none;
+            }
+
+        .label
+        {
+            font-size: 100%;
+        }
+
+        .tbox
+        {
+            background: white;
+            border: 1px solid #DDD;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #DDD inset;
+            color: #666;
+            padding: 5px 10px;
+            width: 165px;
+            outline: none;
+        }
+
+        .container
+        {
+            margin: 80px auto;
+            width: 400px;
+            text-align: center;
+        }
+
+            .container > .dropdown
+            {
+                margin: 0 20px;
+                vertical-align: top;
+            }
+
+        .dropdown
+        {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            height: 28px;
+            width: 185px;
+            background: #f2f2f2;
+            border: 1px solid;
+            border-color: white #f7f7f7 whitesmoke;
+            border-radius: 3px;
+            background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+        }
+
+            .dropdown:before, .dropdown:after
+            {
+                content: '';
+                position: absolute;
+                z-index: 2;
+                top: 9px;
+                right: 10px;
+                width: 0;
+                height: 0;
+                border: 4px dashed;
+                border-color: #888888 transparent;
+                pointer-events: none;
+            }
+
+            .dropdown:before
+            {
+                border-bottom-style: solid;
+                border-top: none;
+            }
+
+            .dropdown:after
+            {
+                margin-top: 7px;
+                border-top-style: solid;
+                border-bottom: none;
+            }
+
+        .dropdown-select
+        {
+            position: relative;
+            width: 130%;
+            margin: 0;
+            padding: 6px 8px 6px 10px;
+            height: 28px;
+            line-height: 14px;
+            font-size: 12px;
+            color: #62717a;
+            text-shadow: 0 1px white;
+            background: #f2f2f2; /* Fallback for IE 8 */
+            background: rgba(0, 0, 0, 0) !important; /* "transparent" doesn't work with Opera */
+            border: 0;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+
+            .dropdown-select:focus
+            {
+                z-index: 3;
+                width: 100%;
+                color: #394349;
+                outline: 2px solid #49aff2;
+                outline: 2px solid -webkit-focus-ring-color;
+                outline-offset: -2px;
+            }
+
+            .dropdown-select > option
+            {
+                margin: 3px;
+                padding: 6px 8px;
+                text-shadow: none;
+                background: #f2f2f2;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+        /* Fix for IE 8 putting the arrows behind the select element. */
+        .lt-ie9 .dropdown
+        {
+            z-index: 1;
+        }
+
+        .lt-ie9 .dropdown-select
+        {
+            z-index: -1;
+        }
+
+            .lt-ie9 .dropdown-select:focus
+            {
+                z-index: 3;
+            }
+        /* Dirty fix for Firefox adding padding where it shouldn't. */
+        #ClassID
+        {
+            display: none;
+        }
+
+        body
+        {
+            font: 62.5% "Trebuchet MS", sans-serif;
+        }
+
+        .demoHeaders
+        {
+            margin-top: 2em;
+        }
+
+        #dialog-link
+        {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+
+            #dialog-link span.ui-icon
+            {
+                margin: 0 5px 0 0;
+                position: absolute;
+                left: .2em;
+                top: 50%;
+                margin-top: -8px;
+            }
+
+        #icons
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+            #icons li
+            {
+                margin: 2px;
+                position: relative;
+                padding: 4px 0;
+                cursor: pointer;
+                float: left;
+                list-style: none;
+            }
+
+            #icons span.ui-icon
+            {
+                float: left;
+                margin: 0 4px;
+            }
+
+        .fakewindowcontain .ui-widget-overlay
+        {
+            position: absolute;
+        }
+
+        select
+        {
+            width: 200px;
+        }
+
+div#tabs
+{
+    
+background-color:rgba(0, 0, 0, 0.4);
+/*background-color:transparent;*/
+border-style:none !important;
+}
+.backtolist
+{
+    background-color: /*#274435*/ whitesmoke; /*background-image: -webkit-linear-gradient(top, #0c7d0c, #0c7d0c);
+            background-image: -moz-linear-gradient(top, #0c7d0c, #0c7d0c);
+            background-image: -ms-linear-gradient(top, #0c7d0c, #0c7d0c);
+            background-image: -o-linear-gradient(top, #0c7d0c, #0c7d0c);
+            background-image: linear-gradient(to bottom, #0c7d0c, #0c7d0c);*/
+    -webkit-border-radius: 5;
+    -moz-border-radius: 5;
+    border-radius: 5px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 10px;
+    padding: 3px 10px 3px 4%;
+    border: solid #ffffff 2px;
+    text-decoration: none;
+    border-style: none;
+    width: 8%;
+     margin-top: 1%;
+    margin-left: 37px;
+}
