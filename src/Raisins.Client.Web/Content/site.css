@@ -292,7 +292,7 @@ table#payment-grid tr.tablerows:nth-child(even)
 
 table#payment-grid tr.tablerows:nth-child(odd)
 {
-   background-color: #123227;
+   background-color: #0d241c;
     /* background-color: #788156;*/
 }
     table#payment-grid th {
@@ -619,25 +619,27 @@ table
     border-collapse:separate;
 }
 
-.btn
-{
-    margin: 5px;
+
+
+     .btn
+        {
+            background-color: /*#274435*/ #406741;
+         margin: 5px;
     -webkit-border-radius: 3;
     -moz-border-radius: 3;
     border-radius: 3px;
     font-family: 'Patrick Hand';
     color: #ffffff;
     font-size: 14px;
-    background: #274435;
     padding: 3px 15px 3px 15px;
     text-decoration: none;
     font-weight: bold;
-}
+        }
 
-.btn:hover {
-  background: #8FBC8F;
-  text-decoration: none;
+            .btn:hover
+            {
+                background-color:/*#7ec680*/ #508352;
 
-}
-
-
+                   -webkit-transition: 0.3s;
+                transition: 0.3s;
+            }

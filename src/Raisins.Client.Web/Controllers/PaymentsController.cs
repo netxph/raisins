@@ -133,6 +133,8 @@ namespace Raisins.Client.Web.Controllers
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
 
+            ViewBag.CanLock = Activity.IsInRole("Payment.Lock");
+            ViewBag.CanEdit = Activity.IsInRole("Payment.Edit");
             return View();
         }
 

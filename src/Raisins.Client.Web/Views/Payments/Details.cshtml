@@ -3,76 +3,73 @@
 @{
     ViewBag.Title = "Details";
 }
+<div style="background-color:rgba(0,0,0,0.4); border-radius:7px; padding:2%;  font-family: 'Patrick Hand' !important ; ">
 
 <fieldset id="payments">
-    <legend></legend>
+    <legend style="font-size:20px; font-family:'Patrick Hand';"> <u>Details</u></legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
+        <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name):
         @Html.DisplayFor(model => model.Name)
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Amount)
-    </div>
-    <div class="display-field">
+ <div class="display-label">
+         @Html.DisplayNameFor(model => model.Amount) :
         @Html.DisplayFor(model => model.Amount)
     </div>
+    <div class="display-field">
+       
+    </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Location)
-    </div>
-    <div class="display-field">
+         @Html.DisplayNameFor(model => model.Location) :
         @Html.DisplayFor(model => model.Location)
+    </div>   
+    <div class="display-field">
+    
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
-    </div>
-    <div class="display-field">
+         @Html.DisplayNameFor(model => model.Email):
         @Html.DisplayFor(model => model.Email)
     </div>
-         <div class="display-field">
+    <div class="display-field">
+        
+    </div>
+ <div class="display-label">
+         @Html.DisplayNameFor(model => model.SoldBy):
         @Html.DisplayFor(model => model.SoldBy)
     </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Remarks)
-    </div>
     <div class="display-field">
+        
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Remarks):
         @Html.DisplayFor(model => model.Remarks)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Beneficiary.Name)
-    </div>
-    <div class="display-field">
+         @Html.DisplayNameFor(model => model.Beneficiary.Name):
         @Html.DisplayFor(model => model.Beneficiary.Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Currency.CurrencyCode)
-    </div>
-    <div class="display-field">
+         @Html.DisplayNameFor(model => model.Currency.CurrencyCode):
+  
         @Html.DisplayFor(model => model.Currency.CurrencyCode)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CreatedBy.UserName)
-    </div>
-    <div class="display-field">
+         @Html.DisplayNameFor(model => model.CreatedBy.UserName):
+
         @Html.DisplayFor(model => model.CreatedBy.UserName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.AuditedBy.UserName)
-    </div>
-    <div class="display-field">
+         @Html.DisplayNameFor(model => model.AuditedBy.UserName):
+
         @Html.DisplayFor(model => model.AuditedBy.UserName)
     </div>
 
-    
     <div class="display-field">
         
     </div>
@@ -83,7 +80,7 @@
 
    
 </fieldset>
-
+    </div>
 @using (Html.BeginForm())
 { 
     @Html.ValidationSummary(true)
@@ -95,14 +92,19 @@
         Payment is already locked. Do you wish to change Email Address?
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model.Email)<input type="submit" value="Update"  class="btn" />
+        @Html.EditorFor(model => model.Email)   <input type="submit" value="Delete" class="btn" style="font-size:15px;  padding: 3px 1px 3px 1px; margin-left:2%;"> 
         @Html.ValidationMessageFor(model => model.Email)<br />
     </div>
     </fieldset>
 }
+  <link href="~/Scripts/jun/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/custom.css" rel="stylesheet" type="text/css" />
+  
 
-<p style="color:white">
     
+  <div class="backtolist" style="margin-left:1%;">
     @Html.ActionLink("Back to List", "Index")
-   
-</p>
+</div>
+
