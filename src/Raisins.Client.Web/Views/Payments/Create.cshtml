@@ -3,6 +3,7 @@
     ViewBag.Title = "Create";
     ViewBag.onload = "alert('hi');";
 }
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -10,7 +11,7 @@
     <h1>NEW PAYMENT</h1>
     <br />
     //MODIFIED PART START
-    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="tabs">
+    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all"  id="tabs">
         <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
             <li aria-expanded="true" aria-selected="false" aria-labelledby="ui-id-8" aria-controls="tabs-1" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a id="ui-id-8" tabindex="1" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(0);">LOCAL</a></li>
             <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-9" aria-controls="tabs-2" tabindex="1" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-9" tabindex="2" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(1);">EXTERNAL</a></li>
@@ -50,6 +51,15 @@
                     @Html.TextBoxFor(model => model.Amount, null, new { @class = "tbox" })
                     @Html.ValidationMessageFor(model => model.Amount)
                     <br />
+
+
+                     <div title="You may leave this blank if there is none."> 
+           
+                      <div class="label">
+                        <p>@Html.LabelFor(model => model.SoldBy)</p>
+                    </div>
+                        @Html.TextBoxFor(model => model.SoldBy, null, new { @class = "tbox" })
+                     </div>
                     <div class="label">
                         <p>Currency</p>
                     </div>
@@ -73,7 +83,11 @@
         </div>
     </div>
     <!-- Test -->
-    
+        <script>
+            function retOps() {
+                return 0;
+            }
+</script>
     <link href="~/Scripts/jun/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/jun/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/jun/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
@@ -81,9 +95,184 @@
     <script src="~/Scripts/jun/scripts/jquery-ui.min.js"></script>
     <script src="~/Scripts/jun/scripts/custom.js"></script>
 }
+<div class="backtolist">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@*
+<div id="tabs-2">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+            or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+     <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
+                </div>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+</div>
+
+<div id="tabs-3">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+            or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </p>
+     <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
+                </div>
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs();
+    });
+</script>
+
+
+
+
+@*
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+        <br />
+        <h1>NEW PAYMENT</h1>
+        <br />
+    
+        <p>
+            Group Name: <br />
+            @Html.DropDownList("BeneficiaryID")<br />
+        @*   or select who would you like to perform... <br />
+            @Html.DropDownList("ExecutiveID")
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Name)<br />
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)<br />
+            @Html.LabelFor(model => model.Location)<br />
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)<br />
+
+            @Html.LabelFor(model => model.Email)<br />
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)<br />
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Amount)<br />
+            @Html.DropDownList("CurrencyID")
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)<br />
+       </p>
+    <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
+                </div>
+
+        <p>
+            @Html.LabelFor(model => model.Remarks)<br />
+            @Html.TextAreaFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </p>
+
+    <p>
+        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
+    </p>
+}
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+*@
+

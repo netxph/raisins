@@ -53,12 +53,13 @@ namespace Raisins.Client.Web.Models
                 if (db.Beneficiaries.Count() == 0)
                 {
 
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "AARONics", Name = "AARONics" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "AOPSmith", Name = "AOPSmith" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "aQApella", Name = "aQApella" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "BANANA GANG", Name = "BANANA GANG" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "MONSTROU", Name = "MONSTROU" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "That's IT", Name = "That's IT" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "QaiTS", Name = "QaiTS" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "MANILEÑOS", Name = "MANILEÑOS" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "The TimeJumper", Name = "The TimeJumper" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "Funny Is The New Pogi", Name = "Funny Is The New Pogi" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "OCSDO Angels", Name = "OCSDO Angels" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "The Chronicles of Naina", Name = "The Chronicles of Naina" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "*Group TBA*", Name = "*Group TBA*" });
 
                     db.SaveChanges();
                 }
