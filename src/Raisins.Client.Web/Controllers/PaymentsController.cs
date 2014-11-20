@@ -1,14 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Raisins.Client.Web.Models;
+using Raisins.Client.Web.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace Raisins.Client.Web.Controllers
 {
+
     [Authorize]
     public class PaymentsController : Controller
     {
+
         public ActionResult LockAll()
         {
             Payment.LockAll();
@@ -102,7 +109,6 @@ namespace Raisins.Client.Web.Controllers
             {
                 //TODO: place in payments model
                 var payment = db.Payments.First(p => p.ID == ID);
-
                 payment.Email = email;
 
                 db.Entry(payment).State = EntityState.Modified;
@@ -116,6 +122,27 @@ namespace Raisins.Client.Web.Controllers
         // GET: /Payments/Create
 
         public ActionResult Create()
+        {
+            var user = Account.GetCurrentUser();
+
+            var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
+            var executives = Executive.GetAll();
+            executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
+
+            if (user.Profile.IsLocal)
+            {
+                paymentClasses.Remove(paymentClasses.Single(p => p.Name == "Foreign"));
+            }
+
+            ViewBag.BeneficiaryID = new SelectList(user.Profile.Beneficiaries, "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(user.Profile.Currencies, "ID", "CurrencyCode", 1);
+            ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
+            ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
+
+            return View();
+        }
+
+        public ActionResult CreateLocal()
         {
             var user = Account.GetCurrentUser();
 

@@ -18,12 +18,12 @@ namespace Raisins.Client.Web.Migrations
             AddAdmin(context, "mendozg", "mendozg!23", "Gen Mendoza");
             AddAdmin(context, "delacle", "delacle!23", "Lei dela Cruz");
             AddAdmin(context, "pascuaa", "pascuaa!23", "Arla Pascual");
+            AddAdmin(context, "delosrd", "delosrd!23", "Danica Delos Reyes");
 
             #endregion
 
             #region Accountants/Auditors
-
-
+            
             //Group 1 QAiTS 
             AddAccountant(context, "adacrue", "adacrue!23", " Edhiko Adacruz", 1, 1);
             AddAccountant(context, "Andagda", "Andagda!23", "Danielito Andag", 1, 1);
@@ -50,6 +50,7 @@ namespace Raisins.Client.Web.Migrations
             //Group 6 The Chronicles of Naina
 
             //Group 7 *TBA
+
             #endregion
 
 
