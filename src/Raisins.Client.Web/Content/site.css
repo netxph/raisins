@@ -122,8 +122,6 @@ ul#teamscontent {
 }
     ul#teamscontent li
     {
-                 align-content:center;
-    align-items:center;
     }
 
     ul#teamscontent li img {
@@ -688,27 +686,35 @@ table
 
 
 #slider li.firstanimation {
-   animation: cycle 30s linear infinite;
+
+      -moz-animation: cycle 30s linear infinite;
+    -webkit-animation: cycle 30s linear infinite;
 }
 
 #slider li.secondanimation {
-   animation: cycletwo 30s linear infinite;
+    -moz-animation: cycletwo 30s linear infinite;
+     -webkit-animation: cycletwo 30s linear infinite;
 }
 
 #slider li.thirdanimation {
-   animation: cyclethree 30s linear infinite;
+    -moz-animation: cyclethree 30s linear infinite;
+    -webkit-animation: cyclethree 30s linear infinite;
 }
 
 #slider li.fourthanimation {
-   animation: cyclefour 30s linear infinite;
+    -moz-animation: cyclefour 30s linear infinite;
+      -webkit-animation: cyclefour 30s linear infinite;
 }
 
 #slider li.fifthanimation {
-   animation: cyclefive 30s linear infinite;
+    -moz-animation: cyclefive 30s linear infinite;
+    -webkit-animation: cyclefive 30s linear infinite;
 }
 #slider li.sixthanimation
     {
-        animation: cyclesix 30s linear infinite;
+         -moz-animation: cyclesix 30s linear infinite;
+         -webkit-animation: cyclesix 30s linear infinite;
+         
     }
 
 @keyframes cycle {
@@ -722,7 +728,17 @@ table
    96.67% { top: -405px; opacity: 0; } /* From 96% to 100% = for 1 second enter image*/
    100%{ top: 0px; opacity: 1; }
 }
-
+@-webkit-keyframes cycle {
+   0%  { top: 0px; } /* When you start the slide, the first image is already visible */
+   3.32%  { top: 0px; } /* Original Position */
+   13.28% { top: 0px; opacity:1; z-index:0; } /* From 4% to 16 % = for 3 seconds the image is visible */
+   16.6% { top: 325px; opacity: 0; z-index: 0; } /* From 16% to 20% = for 1 second exit image */
+   17.6% { top: 325px; opacity: 0; z-index: -1; } /* From 16% to 20% = for 1 second exit image */
+   41.5% { top: -405px; opacity: 0; z-index: -1; } /* Return to Original Position */
+   93.34% { top: -405px; opacity: 0; z-index: 0; }
+   96.67% { top: -405px; opacity: 0; } /* From 96% to 100% = for 1 second enter image*/
+   100%{ top: 0px; opacity: 1; }
+}
 @keyframes cycletwo {
    0%  { top: -325px; opacity: 0; } /* Original Position */
    13.2% { top: -325px; opacity: 0; }/* Starts moving after 16% to this position */
@@ -734,6 +750,16 @@ table
    100%{ top: -325px; opacity: 0; z-index: -1; }
 }
 
+@-webkit-keyframes cycletwo {
+   0%  { top: -325px; opacity: 0; } /* Original Position */
+   13.2% { top: -325px; opacity: 0; }/* Starts moving after 16% to this position */
+   16.6% { top: 0px; opacity: 1; }
+   19.92% { top: 0px; opacity: 1; }  /* From 20% to 24% = for 1 second enter image*/
+   29.88% { top: 0px; opacity: 1; z-index: 0; }   /* From 24% to 36 % = for 3 seconds the image is visible */
+   33.2% { top: 325px; opacity: 0; z-index: 0; } /* From 36% to 40% = for 1 second exit image */
+   34.03% { top: -325px; opacity: 0; z-index: -1; }   /* Return to Original Position */
+   100%{ top: -325px; opacity: 0; z-index: -1; }
+}
 @keyframes cyclethree {
    0%  { top: -325px; opacity: 0; }
    29.88% { top: -325px; opacity: 0; }
@@ -744,8 +770,27 @@ table
    50.63% { top: -325px; opacity: 0; z-index: -1; }
    100%{ top: -325px; opacity: 0; z-index: -1; }
 }
-
+@-webkit-keyframes cyclethree {
+   0%  { top: -325px; opacity: 0; }
+   29.88% { top: -325px; opacity: 0; }
+   33.2% { top: 0px; opacity: 1; }
+   36.52% { top: 0px; opacity: 1; }
+   46.48% { top: 0px; opacity: 1; }
+   49.8% { top: 325px; opacity: 0; z-index: 0; }
+   50.63% { top: -325px; opacity: 0; z-index: -1; }
+   100%{ top: -325px; opacity: 0; z-index: -1; }
+}
 @keyframes cyclefour {
+   0%  { top: -325px; opacity: 0; }
+   46.48% { top: -325px; opacity: 0; }
+   49.8% { top: 0px; opacity: 1; }
+   53.12% { top: 0px; opacity: 1; }
+   63.08% { top: 0px; opacity: 1; z-index: 0; }
+   66.4% { top: 325px; opacity: 0; z-index: 0; }
+   67.23% { top: -325px; opacity: 0; z-index: -1; }
+   100%{ top: -325px; opacity: 0; z-index: -1; }
+}
+@-webkit-keyframes cyclefour {
    0%  { top: -325px; opacity: 0; }
    46.48% { top: -325px; opacity: 0; }
    49.8% { top: 0px; opacity: 1; }
@@ -765,9 +810,27 @@ table
    82.84% { top: -325px; opacity: 0; z-index: -1; }
    100%{ top: -325px; opacity: 0; z-index: -1; }
 
-  
+}
+@-webkit-keyframes cyclefive {
+   0%  { top: -325px; opacity: 0; }
+   63.08% { top: -325px; opacity: 0; }
+   66.41% { top: 0px; opacity: 1; }
+   69.72% { top: 0px; opacity: 1; }
+   79.68% { top: 0px; opacity: 1; z-index: 0; }
+   82.01% { top: 325px; opacity: 0; z-index: 0; }
+   82.84% { top: -325px; opacity: 0; z-index: -1; }
+   100%{ top: -325px; opacity: 0; z-index: -1; }
+
 }
 @keyframes cyclesix {
+   0%  { top: -325px; opacity: 0; }
+   79.68% { top: -325px; opacity: 0; }
+   82.01% { top: 0px; opacity: 1; }
+  93.34% { top: 0px; opacity: 1; }
+   96.67% { top: 0px; opacity: 1; z-index: 0; }
+   100%{ top: 325px; opacity: 0; z-index: 0; }
+}
+@-webkit-keyframes cyclesix {
    0%  { top: -325px; opacity: 0; }
    79.68% { top: -325px; opacity: 0; }
    82.01% { top: 0px; opacity: 1; }
@@ -783,10 +846,30 @@ table
     width: 600px;
     height: 6px;
     background: #000;
-    animation: fullexpand 30s ease-out infinite;
+    -webkit-animation: fullexpand 30s ease-out infinite;
+    -moz-animation: fullexpand 30s ease-out infinite;
+    -ms-animation: fullexpand 30s ease-out infinite;
     margin-top: -13%;
 }
-@keyframes fullexpand {
+@-webkit-keyframes fullexpand {
+   /* In these keyframes, the progress-bar is stationary */
+   0%, 16.6%, 33.2%, 49.8%, 66.4%, 100% { width: 0%; opacity: 0; }
+
+   /* In these keyframes, the progress-bar starts to come alive */
+   3.32%, 19.92%, 36.52%, 53.12%, 69.72% { width: 0%; opacity: 0.3; }
+
+   /* In these keyframes, the progress-bar moves forward for 3 seconds */
+   13.28%, 29.88%, 46.48%, 63.08%, 79.68% { width: 100%; opacity: 0.7; }
+
+
+   /* In these keyframes, the progress-bar has finished his path */
+   14.11%, 30.71%, 47.31%, 63.91%, 80.51% { width: 100%; opacity: 0.3; }
+
+   /* In these keyframes, the progress-bar will disappear and then resume the cycle */
+   14.94%, 31.54%, 48.14%, 64.74%, 81.34% { width: 100%; opacity: 0; }
+}
+
+@-moz-keyframes fullexpand {
    /* In these keyframes, the progress-bar is stationary */
    0%, 16.6%, 33.2%, 49.8%, 66.4%, 100% { width: 0%; opacity: 0; }
 
@@ -836,5 +919,7 @@ table
 }
 #slider:hover li,
 #slider:hover .progress-bar {
-   animation-play-state: paused;
+   -webkit-animation-play-state: paused;
+   -moz-animation-play-state: paused;
+
 }
