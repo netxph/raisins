@@ -120,12 +120,18 @@ div#teamscontainer {
 
 ul#teamscontent {
 }
+    ul#teamscontent li
+    {
+                 align-content:center;
+    align-items:center;
+    }
 
     ul#teamscontent li img {
         height: 135px;
         width: 125px;
         background-size:100%;
         border: black solid 1px;
+   
 
     }
 

@@ -104,7 +104,13 @@
   
 
     
-  <div class="backtolist" style="margin-left:1%;">
+@*  <div class="backtolist" style="margin-left:1%;">
     @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+<br>
+<div style="margin-left:-4%">
+        <a class="backtolist" href="@Url.Action("Index", "Payments","Views")">Back to List</a>
+   @* @Html.ActionLink("Back to List", "Index")*@
 </div>
 
