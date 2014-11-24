@@ -31,13 +31,15 @@
 
             .btn:hover
             {
-                background-color:#7ec680 ;
+                background-color:/*#7ec680*/ #f76161;
                 /*background-image: -webkit-linear-gradient(top, #3ba33e, #3ba33e);
                 background-image: -moz-linear-gradient(top, #3ba33e, #3ba33e);
                 background-image: -ms-linear-gradient(top, #3ba33e, #3ba33e);
                 background-image: -o-linear-gradient(top, #3ba33e, #3ba33e);
                 background-image: linear-gradient(to bottom, #3ba33e, #3ba33e);*/
                 text-decoration: none;
+                   -webkit-transition: 0.3s;
+                transition: 0.3s;
             }
 
         .label
@@ -241,7 +243,7 @@ border-style:none !important;
 }
 .backtolist
 {
-    background-color: /*#274435*/ whitesmoke; /*background-image: -webkit-linear-gradient(top, #0c7d0c, #0c7d0c);
+    background-color: /*#274435*/ #fbac0a; /*background-image: -webkit-linear-gradient(top, #0c7d0c, #0c7d0c);
             background-image: -moz-linear-gradient(top, #0c7d0c, #0c7d0c);
             background-image: -ms-linear-gradient(top, #0c7d0c, #0c7d0c);
             background-image: -o-linear-gradient(top, #0c7d0c, #0c7d0c);
@@ -251,12 +253,20 @@ border-style:none !important;
     border-radius: 5px;
     font-family: Arial;
     color: #ffffff;
-    font-size: 10px;
-    padding: 3px 10px 3px 4%;
+    font-size: 12px !important;
+    padding: 3px 4% 3px 4%;
     border: solid #ffffff 2px;
     text-decoration: none;
     border-style: none;
     width: 8%;
-     margin-top: 1%;
-    margin-left: 37px;
+text-align:center;
+margin-left:4%
+}
+
+.backtolist:hover
+{
+     color: whitesmoke;
+    background-color: #f76161; 
+   -webkit-transition: 0.3s;
+    transition: 0.3s;
 }

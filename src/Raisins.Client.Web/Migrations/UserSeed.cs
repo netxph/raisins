@@ -26,12 +26,12 @@ namespace Raisins.Client.Web.Migrations
             
             //Group 1 QAiTS 
             AddAccountant(context, "adacrue", "adacrue!23", " Edhiko Adacruz", 1, 1);
-            AddAccountant(context, "Andagda", "Andagda!23", "Danielito Andag", 1, 1);
+            AddAccountant(context, "andagda", "andagda!23", "Danielito Andag", 1, 1);
             AddAccountant(context, "catigum", "catigum!23", " Michelle Rodrigo", 1, 1);
 
 
             //Group 2 QAiTS   Manileños
-            AddAccountant(context, "Linggay", "Linggay!23", " Gayle Udelle Ling", 2, 1);
+            AddAccountant(context, "linggay", "linggay!23", " Gayle Udelle Ling", 2, 1);
             AddAccountant(context, "jaraban", "jaraban!23", "Noreen Jaraba", 2, 1);
            
 
@@ -44,10 +44,16 @@ namespace Raisins.Client.Web.Migrations
 
 
             //Group 4  Funny is the New Pogi
+              AddAccountant(context, "tanjoan", "tanjoan", "Joan Tan", 4, 1);
+              AddAccountant(context, "espirip", "espirip!23", "Pam Espiritu", 4, 1);
 
             //Group 5  OCSDO Angels
+              AddAccountant(context, "evangel", "evangel!23", "Lesley Evangelista", 5, 1);
+              AddAccountant(context, "dizonro", "dizonro!23", "Roberto Dizon", 5, 1);
 
             //Group 6 The Chronicles of Naina
+              AddAccountant(context, "cortesf", "cortesf!23", "Francis Pio Cortes", 6, 1);
+              AddAccountant(context, "lomedag", "lomedag!23", "Geronimo Lomeda, Jr.", 6, 1);
 
             //Group 7 *TBA
 
@@ -58,7 +64,7 @@ namespace Raisins.Client.Web.Migrations
 
             //Group 1 QAiTS
               AddUser(context, "trinidp", "trinidp!23", "Paolo Trinidad", 1, 1);
-              AddUser(context, "Lumawim", "Lumawim!23", "Mark Lester Lumawig", 1, 1);
+              AddUser(context, "lumawim", "lumawim!23", "Mark Lester Lumawig", 1, 1);
               AddUser(context, "soriajo", "soriajo!23", "Japs Soria", 1, 1);
               AddUser(context, "logicam", "logicam!23", "Mia Logica", 1, 1);
               AddUser(context, "jugosja", "jugosja!23", "Jason Jugos", 1, 1);
@@ -76,14 +82,27 @@ namespace Raisins.Client.Web.Migrations
             AddUser(context, "tobiasa", "tobiasa!23", "Angie Tobias", 3, 1);
             AddUser(context, "taagkar", "taagkar!23", "Karl Alex Taag", 3, 1);
             AddUser(context, "cadizbl", "cadizbl!23", "Blesilda Cadiz", 3, 1);
-            AddUser(context, "Soanjer", "Soanjer!23", "Jeremiah Soan", 3, 1);
+            AddUser(context, "soanjer", "soanjer!23", "Jeremiah Soan", 3, 1);
             
 
             //Group 4  Funny is the New Pogi
-
+            AddUser(context, "macalim", "macalim!23", "Dianne Macalintal", 4, 1);
+            AddUser(context, "miharam", "miharam!23", "Myra Mihara", 4, 1);
+            AddUser(context, "chiujef", "chiujef!23", "Jeff Chiu", 4, 1);
+            AddUser(context, "raymunk", "raymunk!23", "Kris Raymundo", 4, 1);
+          
             //Group 5  OCSDO Angels
+            AddUser(context, "macalim", "macalim!23", "Lorreyn Joy Orbeta", 5, 1);
+            AddUser(context, "contrer", "contrer!23", "Rizelle Contreras", 5, 1);
+            AddUser(context, "medrani", "medrani!23", "Izza Medrano", 5, 1);
+            AddUser(context, "dalidka", "dalidka!23", "Maria Karla Dalid", 5, 1);
+            AddUser(context, "gabriee", "gabriee!23", "Jelynne Gabriel", 5, 1);
+
 
             //Group 6  The Chronicles of Naina
+            AddUser(context, "pardoja ", "pardoja !23", "Jazel Pardo", 6, 1);
+            AddUser(context, "fernanp", "fernanp!23", "Paula Bianca Fernandez", 6, 1);
+            AddUser(context, "tarcenm ", "tarcenm ", "Michelle Tarcena", 6, 1);
 
             //Group 7  *TBA
             

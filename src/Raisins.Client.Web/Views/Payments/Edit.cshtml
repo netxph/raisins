@@ -95,8 +95,13 @@
     <script src="~/Scripts/jun/scripts/custom.js"></script>
 }
 
-<div class="backtolist">
+@*<div class="backtolist">
     @Html.ActionLink("Back to List", "Index")
+</div>*@
+<br>
+<div style="margin-left:-4%;">
+        <a class="backtolist" href="@Url.Action("Index", "Payments","Views")">Back to List</a>
+   @* @Html.ActionLink("Back to List", "Index")*@
 </div>
 
 @section Scripts {
