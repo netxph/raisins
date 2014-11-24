@@ -16,7 +16,7 @@ namespace Raisins.Client.Web.Migrations
             AddBeneficiary(context, "Funny Is The New Pogi", "NAV SS/PMO/Disney"); //4
             AddBeneficiary(context, "OCSDO Angels", "SUS OC SDO , PMO, SS"); //5
             AddBeneficiary(context, "The Chronicles of Naina", "SUS PM/NonRes/Res/BusinessGroups"); //6
-            AddBeneficiary(context, "*Group TBA*", "SUS IT/Installs/PMO/PerfMon/Security/BusOps"); //7
+            AddBeneficiary(context, "TechnoSUS and Friends", "SUS IT/Installs/PMO/PerfMon/Security/BusOps"); //7
         }
 
         private static void AddBeneficiary(

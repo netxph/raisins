@@ -14,16 +14,22 @@ function SetSelection(x) {
     ptype.value = curtab = x;
     if (x == 0) {
         curr.disabled = true;
-        curr.value = 0; btntext.value = op + " LOCAL";
+        curr.value = 1;
+        btntext.value = op + " LOCAL";
     }
     else if (x == 1) {
-        curr.disabled = false; btntext.value = op + " EXTERNAL";
+        curr.disabled = false;
+        curr.value = 1;
+        btntext.value = op + " EXTERNAL";
     }
     else {
-        curr.disabled = false; btntext.value = op + " FOREIGN";
+        curr.disabled = false;
+        curr.value = 1;
+        btntext.value = op + " FOREIGN";
     }
 }
 
 function EnableDropDownBeforeSubmission() {
+ 
     curr.disabled = false;
 }

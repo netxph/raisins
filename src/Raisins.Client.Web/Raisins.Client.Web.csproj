@@ -443,6 +443,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312031141383_CreateMailQueueTable.resx">
       <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411180913468_newmigration.resx">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>

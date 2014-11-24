@@ -416,7 +416,8 @@ table#votes-grid caption {
 }
 
        table#votessum tr
-{
+{  color:floralwhite;
+   
     background-color: #435953;
 }
 
@@ -1065,6 +1066,34 @@ body,
 	-moz-animation: moveclouds 20s linear infinite;
 	-o-animation: moveclouds 20s linear infinite;
 }
+
+.x6 {
+	left: -60px; top: -170px;
+	
+	-webkit-transform: scale(0.6);
+	-moz-transform: scale(0.6);
+	transform: scale(0.6);
+	opacity: 0.6; /*opacity proportional to the size*/
+	
+	-webkit-animation: moveclouds 30s linear infinite;
+	-moz-animation: moveclouds 30s linear infinite;
+	-o-animation: moveclouds 30s linear infinite;
+}
+
+
+.x7 {
+	left: 0px; top: -190px;
+	
+	-webkit-transform: scale(0.9);
+	-moz-transform: scale(0.9);
+	transform: scale(0.9);
+	opacity: 1; /*opacity proportional to the size*/
+	
+	-webkit-animation: moveclouds 25s linear infinite;
+	-moz-animation: moveclouds 25s linear infinite;
+	-o-animation: moveclouds 25s linear infinite;
+}
+
 
 @-webkit-keyframes moveclouds {
 	0% {margin-left: 1000px;}
