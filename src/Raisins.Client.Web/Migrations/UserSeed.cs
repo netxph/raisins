@@ -43,7 +43,7 @@ namespace Raisins.Client.Web.Migrations
 
 
             //Group 4  Funny is the New Pogi
-              AddAccountant(context, "tanjoan", "tanjoan", "Joan Tan", 4, 1);
+              AddAccountant(context, "tanjoan", "tanjoan!23", "Joan Tan", 4, 1);
               AddAccountant(context, "espirip", "espirip!23", "Pam Espiritu", 4, 1);
               AddAccountant(context, "g4auditor", "g4auditor!23", "Group 4 Auditor", 4, 1);
 
