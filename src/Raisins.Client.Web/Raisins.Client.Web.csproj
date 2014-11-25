@@ -45,10 +45,11 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -194,15 +195,20 @@
     <Content Include="Content\Images\bg2.jpg" />
     <Content Include="Content\Images\bg5.png" />
     <Content Include="Content\Images\bg6.png" />
+    <Content Include="Content\Images\bgwithoutclouds.jpg" />
     <Content Include="Content\Images\chalkboardfb.png" />
     <Content Include="Content\Images\chalkfb.png" />
     <Content Include="Content\Images\chalkhms.png" />
     <Content Include="Content\Images\facebook.jpg" />
+    <Content Include="Content\Images\Funny is the New Pogi 2.jpg" />
     <Content Include="Content\Images\Funny Is The New Pogi.jpg" />
     <Content Include="Content\Images\hungryminds.png" />
     <Content Include="Content\Images\MANILEÑOS.jpg" />
     <Content Include="Content\Images\MANILEÑOS.png" />
+    <Content Include="Content\Images\MANILEños2.jpg" />
+    <Content Include="Content\Images\OCSDO Angels 2.jpg" />
     <Content Include="Content\Images\OCSDO Angels.JPG" />
+    <Content Include="Content\Images\hmstoon.gif" />
     <Content Include="Content\Images\photo2.jpg" />
     <Content Include="Content\Images\photo4.jpg" />
     <Content Include="Content\Images\photo3.jpg" />
@@ -287,6 +293,14 @@
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
+    <Content Include="Scripts\jun\css\custom.css" />
+    <Content Include="Scripts\jun\css\jquery-ui.css" />
+    <Content Include="Scripts\jun\css\jquery-ui.min.css" />
+    <Content Include="Scripts\jun\css\jquery-ui.structure.min.css" />
+    <Content Include="Scripts\jun\css\jquery-ui.theme.min.css" />
+    <Content Include="Scripts\jun\scripts\custom.js" />
+    <Content Include="Scripts\jun\scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jun\scripts\jquery.js" />
     <Content Include="Scripts\jwplayer\jwplayer.flash.swf" />
     <Content Include="Scripts\jwplayer\jwplayer.html5.js" />
     <Content Include="Scripts\jwplayer\jwplayer.js" />
@@ -432,6 +446,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312031141383_CreateMailQueueTable.resx">
       <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411180913468_newmigration.resx">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
