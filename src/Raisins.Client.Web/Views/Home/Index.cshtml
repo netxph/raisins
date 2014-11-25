@@ -153,15 +153,14 @@
     <ul id="teamscontent">
         @foreach(var beneficiary in Model)
         {
-            if(beneficiary.ID != 7) // Hide extra group
-            {
+          
         <li>
             <a href="@Url.Action("Details", "Beneficiaries", new RouteValueDictionary(new { beneficiary.ID }))">
                 <img src="@Url.Content("~/Content/Images/photo" + beneficiary.ID + ".jpg")" />
                 <h4><span>@beneficiary.Name</span></h4>
             </a>
          </li>
-        }
+        
         }
     </ul>
 </div>
