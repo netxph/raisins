@@ -59,7 +59,7 @@ namespace Raisins.Client.Web.Models
                     db.Beneficiaries.Add(new Beneficiary() { Description = "Funny Is The New Pogi", Name = "Funny Is The New Pogi" });
                     db.Beneficiaries.Add(new Beneficiary() { Description = "OCSDO Angels", Name = "OCSDO Angels" });
                     db.Beneficiaries.Add(new Beneficiary() { Description = "The Chronicles of Naina", Name = "The Chronicles of Naina" });
-                    db.Beneficiaries.Add(new Beneficiary() { Description = "*Group TBA*", Name = "*Group TBA*" });
+                    db.Beneficiaries.Add(new Beneficiary() { Description = "TechnoSUS and Friends", Name = "TechnoSUS and Friends" });
 
                     db.SaveChanges();
                 }

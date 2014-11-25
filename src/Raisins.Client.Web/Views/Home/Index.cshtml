@@ -4,7 +4,54 @@
 }
 
 <div id="maincontentarea">
-    <div class="event-title"><span></span></div>
+   
+        <div class="container">
+   <div id="content-slider">
+      <div id="slider">  <!-- Slider container -->
+         <div id="mask">  <!-- Mask -->
+
+         <ul>
+         <li id="first" class="firstanimation">  <!-- ID for tooltip and class for animation -->
+         <a href="#"> <img src="~/Content/Images/QAiTS.jpg" alt="QAiTS"/> </a>
+         <div class="tooltip"> <h1>QAiTS</h1> </div>
+         </li>
+
+         <li id="second" class="secondanimation">
+         <a href="#"> <img src="~/Content/Images/MANILEños2.jpg" alt="MANILEÑOS"/> </a>
+         <div class="tooltip"> <h1>MANILEÑOS</h1> </div>
+         </li>
+
+         <li id="third" class="thirdanimation">
+         <a href="#"> <img src="~/Content/Images/The Timejumpers.jpg" alt="The Timejumpers"/> </a>
+         <div class="tooltip"> <h1>The Time Jumpers</h1> </div>
+         </li>
+
+         <li id="fourth" class="fourthanimation">
+         <a href="#"> <img src="~/Content/Images/Funny is the New Pogi 2.jpg" alt="Funny Is The New Pogi"/> </a>
+         <div class="tooltip"> <h1>Funny Is The New Pogi</h1> </div>
+         </li>
+
+         <li id="fifth" class="fifthanimation">
+      <a href="#"> <img src="~/Content/Images/OCSDO Angels 2.jpg" alt="OCSDO Angels"/> </a>
+         <div class="tooltip"> <h1>OCSDO Angels</h1> </div>
+         </li>
+        
+              <li id="sixth" class="sixthanimation">
+      <a href="#"> <img src="~/Content/Images/The Chronicles of Naina.jpg" alt="The Chronicles of Naina"/> </a>
+         <div class="tooltip"> <h1>The Chronicles of Naina</h1> </div>
+         </li>
+        
+         </ul> 
+
+
+         </div>  <!-- End Mask -->
+         <div class="progress-bar"></div>  <!-- Progress Bar -->
+      </div>  <!-- End Slider Container -->
+   </div>
+</div>
+
+
+  
     <div id="rightcontentarea">
 
         <div id="newscontainer">
@@ -22,9 +69,11 @@
             </div>
            
         </div>
+
     </div>
 </div>
-
+<br>
+<br>
 
 
 @*timer*@
@@ -104,12 +153,14 @@
     <ul id="teamscontent">
         @foreach(var beneficiary in Model)
         {
+          
         <li>
             <a href="@Url.Action("Details", "Beneficiaries", new RouteValueDictionary(new { beneficiary.ID }))">
                 <img src="@Url.Content("~/Content/Images/photo" + beneficiary.ID + ".jpg")" />
                 <h4><span>@beneficiary.Name</span></h4>
             </a>
          </li>
+        
         }
     </ul>
 </div>

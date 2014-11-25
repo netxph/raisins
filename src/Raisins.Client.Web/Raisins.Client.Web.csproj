@@ -195,15 +195,20 @@
     <Content Include="Content\Images\bg2.jpg" />
     <Content Include="Content\Images\bg5.png" />
     <Content Include="Content\Images\bg6.png" />
+    <Content Include="Content\Images\bgwithoutclouds.jpg" />
     <Content Include="Content\Images\chalkboardfb.png" />
     <Content Include="Content\Images\chalkfb.png" />
     <Content Include="Content\Images\chalkhms.png" />
     <Content Include="Content\Images\facebook.jpg" />
+    <Content Include="Content\Images\Funny is the New Pogi 2.jpg" />
     <Content Include="Content\Images\Funny Is The New Pogi.jpg" />
     <Content Include="Content\Images\hungryminds.png" />
     <Content Include="Content\Images\MANILEÑOS.jpg" />
     <Content Include="Content\Images\MANILEÑOS.png" />
+    <Content Include="Content\Images\MANILEños2.jpg" />
+    <Content Include="Content\Images\OCSDO Angels 2.jpg" />
     <Content Include="Content\Images\OCSDO Angels.JPG" />
+    <Content Include="Content\Images\hmstoon.gif" />
     <Content Include="Content\Images\photo2.jpg" />
     <Content Include="Content\Images\photo4.jpg" />
     <Content Include="Content\Images\photo3.jpg" />
@@ -441,6 +446,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312031141383_CreateMailQueueTable.resx">
       <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411180913468_newmigration.resx">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
