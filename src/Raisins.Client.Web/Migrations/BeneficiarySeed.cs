@@ -10,7 +10,7 @@ namespace Raisins.Client.Web.Migrations
     {
         public void Seed(Models.RaisinsDB context)
         {
-            AddBeneficiary(context, "QaiTS", "  NAV QA/TS "); //1
+            AddBeneficiary(context, "QaiTS", "NAV QA/TS "); //1
             AddBeneficiary(context, "MANILEÑOS", "NAV Res Dev"); //2
             AddBeneficiary(context, "The TimeJumpers", "NAV Product/Taleris"); //3
             AddBeneficiary(context, "Funny Is The New Pogi", "NAV SS/PMO/Disney"); //4

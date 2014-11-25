@@ -674,6 +674,7 @@ table
             }
 
  /*slideshow*/
+ /*CSS3 are supported in Safari 3.2+, Chrome, Firefox 4+, Opera 10.5+ and IE 10*/
  #slider {
    background: #000;
    border: 5px solid whitesmoke;
@@ -1127,6 +1128,7 @@ body,
 	-moz-animation: moveclouds 15s linear infinite;
 	-o-animation: moveclouds 15s linear infinite;
     -ms-animation: moveclouds 15s linear infinite;
+    animation: moveclouds 15s linear infinite;
 }
 
 /*variable speed, opacity, and position of clouds for realistic effect*/
@@ -1145,7 +1147,7 @@ body,
 	-moz-animation: moveclouds 25s linear infinite;
     -ms-animation: moveclouds 25s linear infinite;
 	-o-animation: moveclouds 25s linear infinite;
-    -ms-animation: moveclouds 25s linear infinite;
+    animation: moveclouds 25s linear infinite;
 }
 
 .x3 {
@@ -1161,6 +1163,7 @@ body,
 	-moz-animation: moveclouds 20s linear infinite;
 	-o-animation: moveclouds 20s linear infinite;
     -ms-animation: moveclouds 20s linear infinite;
+    animation: moveclouds 20s linear infinite;
 }
 
 .x4 {
@@ -1176,6 +1179,7 @@ body,
 	-moz-animation: moveclouds 18s linear infinite;
     -ms-animation: moveclouds 18s linear infinite;
 	-o-animation: moveclouds 18s linear infinite;
+    animation: moveclouds 18s linear infinite;
 }
 
 .x5 {
@@ -1191,6 +1195,7 @@ body,
 	-moz-animation: moveclouds 20s linear infinite;
     -ms-animation: moveclouds 20s linear infinite;
 	-o-animation: moveclouds 20s linear infinite;
+    animation: moveclouds 20s linear infinite;
 }
 
 .x6 {
@@ -1206,6 +1211,7 @@ body,
 	-moz-animation: moveclouds 30s linear infinite;
     -ms-animation: moveclouds 30s linear infinite;
 	-o-animation: moveclouds 30s linear infinite;
+    animation: moveclouds 30s linear infinite;
 }
 
 
@@ -1221,6 +1227,7 @@ body,
 	-moz-animation: moveclouds 25s linear infinite;
     -ms-animation: moveclouds 25s linear infinite;
 	-o-animation: moveclouds 25s linear infinite;
+    animation: moveclouds 25s linear infinite;
 }
 
 
@@ -1232,7 +1239,7 @@ body,
 	0% {margin-left: 1000px;}
 	100% {margin-left: -1000px;}
 }
-@-o-keyframes moveclouds {
+@keyframes moveclouds {
 	0% {margin-left: 1000px;}
 	100% {margin-left: -1000px;}
 }
