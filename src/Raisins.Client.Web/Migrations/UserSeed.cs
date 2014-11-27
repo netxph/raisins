@@ -58,9 +58,9 @@ namespace Raisins.Client.Web.Migrations
               AddAccountant(context, "g6auditor", "g6auditor!23", "Group 6 Auditor", 6, 1);
 
             //Group 7 *TBA
-              AddAccountant(context, "g7auditor1", "g7auditor1!23", "Group 7 Auditor 1", 7, 1);
-              AddAccountant(context, "g7auditor2", "g7auditor2!23", "Group 7 Auditor 2", 7, 1);
-              AddAccountant(context, "g7auditor3", "g7auditor3!23", "Group 7 Auditor 3", 7, 1);
+              //AddAccountant(context, "g7auditor1", "g7auditor1!23", "Group 7 Auditor 1", 7, 1);
+              //AddAccountant(context, "g7auditor2", "g7auditor2!23", "Group 7 Auditor 2", 7, 1);
+              //AddAccountant(context, "g7auditor3", "g7auditor3!23", "Group 7 Auditor 3", 7, 1);
             #endregion
 
 
@@ -111,10 +111,10 @@ namespace Raisins.Client.Web.Migrations
             AddUser(context, "g6logger1", "g6logger1!23", "Group 6 Logger 1", 6, 1);
             
            //Group 7  *TBA
-            AddUser(context, "g7logger1", "g7logger1!23", "Group 7 Logger 1", 7, 1);
-            AddUser(context, "g7logger2", "g7logger2!23", "Group 7 Logger 2", 7, 1);
-            AddUser(context, "g7logger3", "g7logger3!23", "Group 7 Logger 3", 7, 1);
-            AddUser(context, "g7logger4", "g7logger4!23", "Group 7 Logger 4", 7, 1);
+            //AddUser(context, "g7logger1", "g7logger1!23", "Group 7 Logger 1", 7, 1);
+            //AddUser(context, "g7logger2", "g7logger2!23", "Group 7 Logger 2", 7, 1);
+            //AddUser(context, "g7logger3", "g7logger3!23", "Group 7 Logger 3", 7, 1);
+            //AddUser(context, "g7logger4", "g7logger4!23", "Group 7 Logger 4", 7, 1);
             // TODO add 4 loggers
 
             #endregion
