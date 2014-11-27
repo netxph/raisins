@@ -96,7 +96,15 @@
        Audited By:  @*@Html.DisplayNameFor(model => model.AuditedBy.UserName)*@
          @Html.DisplayFor(model => model.AuditedBy.UserName)
     </div>
-      <br />    <input type="submit" value="Delete" class="btn" style="font-size:15px;  padding: 3px 4% 3px 4%;">
+
+
+    @using (Html.BeginForm()) {
+    
+    <p>
+    <br />    <input type="submit" value="Delete" class="btn" style="font-size:15px;  padding: 3px 4% 3px 4%;">
+    </p>
+}
+    
     </div>
     <link href="~/Scripts/jun/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/jun/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
