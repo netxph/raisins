@@ -141,7 +141,9 @@ div#teamscontainer {
     text-align:center;
 }
 
-ul#teamscontent {
+ul#teamscontent
+{
+    margin-left: 7%;
 }
     ul#teamscontent li
     {
@@ -1029,7 +1031,7 @@ table
    height: 60px;
    position: relative;
    bottom: 90px;
-   left: -400px;
+   left: -401px;
 }
 
 #slider .tooltip h1 {
