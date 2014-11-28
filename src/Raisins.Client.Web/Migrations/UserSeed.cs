@@ -97,7 +97,7 @@ namespace Raisins.Client.Web.Migrations
             AddUser(context, "raymunk", "raymunk!23", "Kris Raymundo", 4, 1);
           
             //Group 5  OCSDO Angels
-            AddUser(context, "macalim", "macalim!23", "Lorreyn Joy Orbeta", 5, 1);
+            AddUser(context, "orbetal", "orbetal!23", "Lorreyn Joy Orbeta", 5, 1);
             AddUser(context, "contrer", "contrer!23", "Rizelle Contreras", 5, 1);
             AddUser(context, "medrani", "medrani!23", "Izza Medrano", 5, 1);
             AddUser(context, "dalidka", "dalidka!23", "Maria Karla Dalid", 5, 1);
