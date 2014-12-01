@@ -73,6 +73,7 @@ namespace Raisins.Client.Web.Migrations
               AddUser(context, "logicam", "logicam!23", "Mia Logica", 1, 1);
               AddUser(context, "jugosja", "jugosja!23", "Jason Jugos", 1, 1);
               AddUser(context, "mundoma", "mundoma!23", "Trina Mundo", 1, 1);
+              AddUser(context, "santoja", "santoja!23", "Jay Santos", 1, 1);
 
             //Group 2    Manileños
               AddUser(context, "galsiml", "galsiml!23", "Leah Galsim", 2, 1);
