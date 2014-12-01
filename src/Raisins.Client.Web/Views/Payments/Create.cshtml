@@ -1,70 +1,123 @@
 ﻿@model Raisins.Client.Web.Models.Payment
-
 @{
     ViewBag.Title = "Create";
+    ViewBag.onload = "alert('hi');";
 }
-
-@*<div id="tabs" class="style-tabs">
-
-<ul>
-    <li><a href="#tabs-1">Local</a></li>
-    <li><a href="#tabs-2">External</a></li>
-      @if(Html.DropDownList("ClassID").Equals(2))
-            {  
-    <li><a href="#tabs-3">Foreign</a></li>
-      }
-</ul>
-
-<div id="tabs-1" class="tabs-1">
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
+    <br />
+    <h1>NEW PAYMENT</h1>
+    <br />
+    //MODIFIED PART START
+    <div class="ui-tabs ui-widget ui-widget-content ui-corner-all"  id="tabs">
+        <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+             @if(ViewBag.CanEdit)
+    {<li aria-expanded="true" aria-selected="false" aria-labelledby="ui-id-8" aria-controls="tabs-1" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a id="ui-id-8" tabindex="1" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(0);">LOCAL</a></li>
+             }
+             @if(ViewBag.CanLock)
+    {
+            <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-9" aria-controls="tabs-2" tabindex="1" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-9" tabindex="2" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(1);">EXTERNAL</a></li>
+            <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-10" aria-controls="tabs-3" tabindex="2" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-10" tabindex="3" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(2);">FOREIGN</a></li>
+             }
+                   </ul>
+        <div style="display: block;" aria-hidden="false" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-8" id="tabs-1">
+            <form id="Payments">
+                <section id="1">
+                    <div class="label">
+                        <p>Group Name:</p>
+                    </div>
+                    <div class="dropdown">
+                        @Html.DropDownList("BeneficiaryID", null, new { @class = "dropdown-select" })
+                    </div>
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Name)</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Name, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Name)
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Location)</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Location, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Location)
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Email)</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Email, null, new { @class = "tbox" ,@id = "email" })
+                    @Html.ValidationMessageFor(model => model.Email)
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Amount)</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Amount, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Amount)
+                    <br />
 
-        <br />
-        <h1>NEW PAYMENT</h1>
-        <br />
+
+                     <div title="You may leave this blank if there is none."> 
+           
+                      <div class="label">
+                        <p>@Html.LabelFor(model => model.SoldBy)</p>
+                    </div>
+                        @Html.TextBoxFor(model => model.SoldBy, null, new { @class = "tbox" })
+                     </div>
+                    <div class="label">
+                        <p>Currency</p>
+                    </div>
+                    <div class="dropdown">
+                        @Html.DropDownList("CurrencyID", null, new { @class = "dropdown-select", @value = "PHP" })
+                    </div>
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Remarks)</p>
+                        @Html.TextAreaFor(model => model.Remarks, new { @class = "tbox" })
+                        @Html.ValidationMessageFor(model => model.Remarks)
+                    </div>
+                    @Html.DropDownList("ClassID")
+                    <br />
+                    <br />
+                    <input type="submit" class="btn" value="CREATE PAYMENT" id="submit" onclick="EnableDropDownBeforeSubmission()" />
+                </section>
+                
+                
+            </form>
+        </div>
+    </div>
+    <!-- Test -->
+        <script>
+            function retOps() {
+                return 0;
+            }
+</script>
+      <script>
+          $(function () {
+              var availableTags = [
+                 "abby.e.vizmanos@navitaire.com", "abigail.mae.m.arceo@navitaire.com", "aiko.f.pangan@navitaire.com", "aimee.lyn.s.chua@navitaire.com", "aimee.rowena.l.sy@navitaire.com", "airwyn.l.tin@navitaire.com", "albert.edlin.y.tan@navitaire.com", "aldrin.c.cortez@navitaire.com", "allan.lou.a.duremdez@navitaire.com", "allan.w.f.noble@navitaire.com", "allen.jo.g.aligam@navitaire.com", "alliana.p.alcantara@navitaire.com", "alvin.t.b.teng@navitaire.com", "alwyn.john.y.lim@navitaire.com", "alyssa.b.m.mercado@navitaire.com", "amor.seann.h.redondo@navitaire.com", "ana.fe.d.peralta@navitaire.com", "ana.m.l.santos@navitaire.com", "ana.teresa.d.david@navitaire.com", "andrea.e.t.sabio@navitaire.com", "angela.a.b.salvador@navitaire.com", "angela.buenaventura@navitaire.com", "angela.jane.m.berico@navitaire.com", "angelita.p.tobias@navitaire.com", "angelo.c.cruz@navitaire.com", "angelo.c.meneses@navitaire.com", "angelo.ian.g.cruz@navitaire.com", "anthony.a.apolinario@navitaire.com", "anthony.c.chan@navitaire.com", "antoniette.p.lamchek@navitaire.com", "arla.t.r.pascual@navitaire.com", "arvin.v.sarroca@navitaire.com", "benson.n.lim@navitaire.com", "blesilda.d.cadiz@navitaire.com", "bon.j.m.domingo@navitaire.com", "bon.job.d.santiago@navitaire.com", "boris.b.brutas@navitaire.com", "brian.m.bien@navitaire.com", "bruce.e.l.peralta@navitaire.com", "bryane.t.magsalin@navitaire.com", "c.c.evangelista@navitaire.com", "c.s.pangilinan@navitaire.com", "carissa.terry.lim@navitaire.com", "carl.jan.p.capitan@navitaire.com", "carl.m.b.villasor@navitaire.com", "carlo.jose.g.zamora@navitaire.com", "carmelyn.p.pascual@navitaire.com", "catherine.c.lee@navitaire.com", "catherine.n.angelo@navitaire.com", "cecille.e.p.santiago@navitaire.com", "celerhina.a.g.reyes@navitaire.com", "celina.f.g.quiros@navitaire.com", "chad.jeremy.e.flores@navitaire.com", "charmaine.n.c.fadul@navitaire.com", "cherelyn.s.sacapano@navitaire.com", "cherokee.c.nudalo@navitaire.com", "cherrie.mae.o.sy@navitaire.com", "chester.carrick.t.co@navitaire.com", "chiqui.m.balanial@navitaire.com", "christian.g.salvador@navitaire.com", "christian.m.r.godoy@navitaire.com", "clarence.a.c.legaspi@navitaire.com", "claudine.m.m.tinio@navitaire.com", "czarina.b.briones@navitaire.com", "danica.b.delos.reyes@navitaire.com", "danica.c.s.miranda@navitaire.com", "daniel.j.m.jacinto@navitaire.com", "danielito.a.andag@navitaire.com", "danielle.rose.s.tan@navitaire.com", "darah.f.umadac@navitaire.com", "darvin.d.macabales@navitaire.com", "darwin.paul.m.daen@navitaire.com", "david.a.e.datu@navitaire.com", "dennis.b.dimailig@navitaire.com", "dhave.p.dayao@navitaire.com", "dian.g.g.solis@navitaire.com", "diane.m.san.agustin@navitaire.com", "dominic.j.c.paguia@navitaire.com", "don.b.tungala.jr@navitaire.com", "donna.e.l.torres@navitaire.com", "edhiko.k.adacruz@navitaire.com", "edrian.l.a.arrobang@navitaire.com", "edward.s.bunag@navitaire.com", "elbert.john.a.cruz@navitaire.com", "eleanor.a.morales@navitaire.com", "elizabeth.d.ruetas@navitaire.com", "elmalyn.n.bacagan@navitaire.com", "erwin.roy.f.amurao@navitaire.com", "ethel.dyan.m.ramos@navitaire.com", "evan.alyster.c.bello@navitaire.com", "fatima.n.tabuan@navitaire.com", "fe.eleanor.l.yap@navitaire.com", "francis.c.q.gonzales@navitaire.com", "garry.albert.c.dizon@navitaire.com", "gayle.udelle.c.ling@navitaire.com", "gerald.a.s.ilagan@navitaire.com", "gladys.d.almelor@navitaire.com", "glaiza.s.labrague@navitaire.com", "griffin.w.y.mabasa@navitaire.com", "hervey.john.i.garcia@navitaire.com", "imee.c.lee@navitaire.com", "ivy.rose.a.arcega@navitaire.com", "j.v.taparan@navitaire.com", "james.c.delos.santos@navitaire.com", "james.p.g.salvacion@navitaire.com", "james.victor.m.a.sy@navitaire.com", "jan.alvin.p.soria@navitaire.com", "jan.audi.b.m.navarro@navitaire.com", "jan.d.c.paragas@navitaire.com", "jan.ivan.u.cheng@navitaire.com", "jan.kristopher.g.lim@navitaire.com", "jan.m.p.valencia@navitaire.com", "jane.m.isip@navitaire.com", "janice.a.f.cabreros@navitaire.com", "janile.c.mendoza@navitaire.com", "jason.l.jugos@navitaire.com", "jasper.jay.g.gomez@navitaire.com", "jay.charles.q.uy@navitaire.com", "jay.t.santos@navitaire.com", "jaypee.b.pellazo@navitaire.com", "jayson.c.castillo@navitaire.com", "jayson.l.deapera@navitaire.com", "jefferson.l.hernaez@navitaire.com", "jefferson.t.chiu@navitaire.com", "jelica.d.perez@navitaire.com", "jenina.v.c.favorito@navitaire.com", "jennelynn.c.see@navitaire.com", "jennifer.d.pabelonia@navitaire.com", "jennifer.p.young@navitaire.com", "jennifer.s.lim@navitaire.com", "jenny.g.cheng@navitaire.com", "jeremiah.a.soan@navitaire.com", "jernianne.valenzuela@navitaire.com", "jerome.c.guarin@navitaire.com", "jerome.r.furog@accenture.com", "jerome.t.tanglao@navitaire.com", "jewel.iona.s.lim@navitaire.com", "jhewel.j.a.borromeo@navitaire.com", "joan.abigail.c.tan@navitaire.com", "joanna.g.dacayo@navitaire.com", "joannelynn.c.see@navitaire.com", "jobelle.g.alsaybar@navitaire.com", "joe.marck.m.ibanez@navitaire.com", "joeley.c.cada@navitaire.com", "joeven.t.escasura@navitaire.com", "johan.b.tomacruz@navitaire.com", "john.a.d.pasquin@navitaire.com", "john.c.m.padernal@navitaire.com", "john.m.z.escanilla@navitaire.com", "john.paulo.l.barredo@navitaire.com", "jona.myrrh.d.cabela@navitaire.com", "jonah.fay.m.samudio@navitaire.com", "jonathan.d.galvez@navitaire.com", "jonathan.p.sun@navitaire.com", "jose.e.s.escover@navitaire.com", "jose.ernesto.o.velez@navitaire.com", "jose.k.m.beltran@navitaire.com", "jose.r.b.dimarucut@navitaire.com", "jose.t.c.del.carmen@navitaire.com", "joseph.a.m.fajardo@navitaire.com", "jovie.dianne.c.lim@navitaire.com", "juan.carlo.t.arroyo@navitaire.com", "judith.t.valloso@navitaire.com", "juliana.a.a.cabrera@navitaire.com", "juliard.l.j.soriaga@navitaire.com", "julie.ann.a.tina@navitaire.com", "jyco.p.duran@navitaire.com", "karl.alex.a.m.taag@navitaire.com", "karl.nixon.v.domingo@navitaire.com", "karla.j.z.friginal@navitaire.com", "kasserina.a.g.micu@navitaire.com", "kathrina.l.trinidad@navitaire.com", "katrina.joy.l.lu@navitaire.com", "kedren.o.villena@navitaire.com", "keir.alexis.a.pareja@navitaire.com", "keziah.a.mationg@navitaire.com", "kirstie.k.w.adducul@navitaire.com", "kris.e.e.raymundo@navitaire.com", "kristhine.m.canda@navitaire.com", "kristian.p.l.rubiano@navitaire.com", "kristine.a.uy@navitaire.com", "kristine.s.lozada@navitaire.com", "kristle.c.d.visaya@navitaire.com", "kristofer.b.tan@navitaire.com", "krizill.jane.m.aclon@navitaire.com", "kyla.o.iglesia@navitaire.com", "l.b.montenegro.ii@navitaire.com", "lalaine.j.de.guzman@navitaire.com", "leah.a.galsim@navitaire.com", "lee.a.l.camporedondo@navitaire.com", "lei.c.h.dela.cruz@navitaire.com", "leilani.l.ang@navitaire.com", "leo.angelo.a.rull@navitaire.com", "les.m.manalili@navitaire.com", "lichelle.m.g.santos@navitaire.com", "lino.p.l.castro.iii@navitaire.com", "lloyd.albert.s.go@navitaire.com", "lottice.t.sequitin@navitaire.com", "lui.randall.p.vidal@navitaire.com", "lyndon.j.v.dela.cruz@navitaire.com", "m.c.macalintal@navitaire.com", "ma.czarina.c.salvio@navitaire.com", "ma.evita.c.e.reyes@navitaire.com", "ma.goretti.h.daez@navitaire.com", "ma.k.b.trinidad@navitaire.com", "mailany.m.papa@navitaire.com", "manuel.m.j.muyot@navitaire.com", "marc.a.l.vitalis@navitaire.com", "marc.anthony.b.cruz@navitaire.com", "marc.james.g.l.tabor@navitaire.com", "marc.r.p.francia@navitaire.com", "marc.ryan.t.go@navitaire.com", "margarita.b.lomotan@navitaire.com", "mari-aiza.c.blo@navitaire.com", "maria.a.e.ancheta@navitaire.com", "maria.a.m.valencia@navitaire.com", "maria.c.a.mundo@navitaire.com", "maria.eliza.t.do@navitaire.com", "maria.g.t.maranan@navitaire.com", "maria.k.d.saluna@navitaire.com", "maria.k.l.rufo@navitaire.com", "maria.l.m.bonita@navitaire.com", "maria.lora.m.paz@navitaire.com", "maria.luisa.a.lim@navitaire.com", "maria.luisa.u.antigo@navitaire.com", "maria.r.cantimbuhan@navitaire.com", "maria.r.f.videna@navitaire.com", "maria.theresa.m.ahok@navitaire.com", "marianne.c.casta@navitaire.com", "marianne.p.serrano@navitaire.com", "maricris.m.mawac@navitaire.com", "marie.grace.c.perez@navitaire.com", "marie.kristel.g.diaz@navitaire.com", "marifel.r.calidguid@accenture.com", "marineza.b.pepito@navitaire.com", "marion.r.d.de.jesus@navitaire.com", "mark.a.p.berdin@navitaire.com", "mark.b.d.rodriguez@navitaire.com", "mark.d.relucio@navitaire.com", "mark.e.g.rivera@navitaire.com", "mark.j.i.jarillas@navitaire.com", "mark.joseph.b.amoyo@navitaire.com", "mark.joseph.n.jose@navitaire.com", "mark.l.w.lumawig@navitaire.com", "mark.louie.g.espayos@navitaire.com", "mark.noel.o.delica@navitaire.com", "mark.vincent.g.caro@navitaire.com", "marlyn.j.b.marquez@navitaire.com", "martin.m.magat@navitaire.com", "mary.armilyn.b.cruz@navitaire.com", "mary.c.f.yeung@navitaire.com", "mary.c.y.chan@navitaire.com", "mary.g.c.constantino@navitaire.com", "mary.grace.r.tagapan@navitaire.com", "mary.irish.b.lopez@navitaire.com", "mary.j.g.cheung@navitaire.com", "mary.lynne.e.domingo@navitaire.com", "matthew.neale.t.que@navitaire.com", "melody.a.m.leonardo@navitaire.com", "melody.j.ortiz@navitaire.com", "mia.noelie.d.logica@navitaire.com", "michael.a.m.ceron@navitaire.com", "michael.a.p.paras@navitaire.com", "michelle.c.rodrigo@navitaire.com", "michelle.l.c.gabriel@navitaire.com", "miguel.c.b.miranda@navitaire.com", "miguel.f.r.lavides@navitaire.com", "mikhaela.g.d.chiong@navitaire.com", "mitzie.pearl.c.chua@navitaire.com", "monica.c.e.hernandez@navitaire.com", "myra.p.mihara@navitaire.com", "n.g.columbrillo@navitaire.com", "natasha.v.m.gaza@navitaire.com", "neil.jasper.a.islan@navitaire.com", "nico.larsen.s.valle@navitaire.com", "nicolo.a.g.africa@navitaire.com", "nilord.s.gatdula@navitaire.com", "nina.m.d.castrillo@navitaire.com", "nino.c.d.herrera@navitaire.com", "nisi.marie.a.tadena@navitaire.com", "noreen.b.a.jaraba@navitaire.com", "orvin.jed.b.alava@navitaire.com", "pamela.a.fulgencio@navitaire.com", "pamela.j.m.espiritu@navitaire.com", "paolo.e.m.trinidad@navitaire.com", "patrick.l.t.gueco@navitaire.com", "paul.m.mangilan@navitaire.com", "paula.l.m.mendoza@navitaire.com", "penelope.s.patolot@navitaire.com", "pranz.k.t.billones@navitaire.com", "prince.f.a.lagasi@navitaire.com", "r.a.francisco.jr@navitaire.com", "r.b.esperanzate@navitaire.com", "rachel.c.geronimo@navitaire.com", "rachel.j.e.tiotuico@navitaire.com", "rainier.r.s.aquino@navitaire.com", "ralph.k.d.reyes@navitaire.com", "raymond.carey.a.ong@navitaire.com", "raymond.gerald.k.cua@navitaire.com", "redentor.v.v.marquez@navitaire.com", "reimon.c.s.pangan@navitaire.com", "rey.mark.d.diaz@navitaire.com", "richard.j.l.montero@navitaire.com", "richard.t.s.cruz@navitaire.com", "richelle.ayn.s.teng@navitaire.com", "rina.joy.m.jimenez@navitaire.com", "rocelyn.c.alicbusan@navitaire.com", "rodney.z.lucaya@navitaire.com", "roemer.jay.e.tablizo@navitaire.com", "ron.k.m.de.guzman@navitaire.com", "ronalyn.r.espiritu@navitaire.com", "ronel.martin.v.otial@navitaire.com", "roni.rose.c.roxas@navitaire.com", "roselle.m.s.enriquez@navitaire.com", "roullen.a.ilagan@navitaire.com", "rovertt.a.t.gracias@navitaire.com", "ruth.e.gorospe@navitaire.com", "ryan.l.arellano@navitaire.com", "sancho.d.bacagan.jr@navitaire.com", "sean.alvin.s.yoro@navitaire.com", "sheilah.m.t.navarro@navitaire.com", "shirleen.c.hong@navitaire.com", "shirlyn.r.feraer@navitaire.com", "simon.joro.a.gonzaga@navitaire.com", "stanley.s.chny@navitaire.com", "stephanie.a.c.brooks@navitaire.com", "susanne.t.chan.li@navitaire.com", "thz-z.m.pandosen@navitaire.com", "toni.rose.d.vazquez@navitaire.com", "tracey.m.g.borromeo@navitaire.com", "venerando.b.perez@navitaire.com", "verlia.f.palermo@navitaire.com", "veronica.n.so@navitaire.com", "vincent.d.velez@navitaire.com", "vincent.p.v.sevilla@navitaire.com", "violette.b.de.luna@navitaire.com", "warren.jay.t.minano@navitaire.com", "wilfredo.g.rodriguez@navitaire.com", "william.b.s.leonor@navitaire.com", "xavier.a.garcia@navitaire.com", "zyra.rae.t.de.grano@navitaire.com",
+                  "a.f.lapiguera@accenture.com", "aaron.c.albaytar@accenture.com", "aaron.ian.r.estacio@accenture.com", "adonis.c.rebano@accenture.com", "adrian.r.alcaraz@accenture.com", "aileen.v.cuesta@accenture.com", "albert.m.jacob@accenture.com", "aldwin.d.avila@accenture.com", "alejandro.m.judan.iv@accenture.com", "alejandro.p.p.kimpo@accenture.com", "alexander.c.nacino@accenture.com", "alyssa.lei.r.rizardo@accenture.com", "amado.b.bautista.jr@accenture.com", "ana.roma.s.santiago@accenture.com", "anagel.l.sandoval@accenture.com", "angelito.c.oliva@accenture.com", "april.atienza@accenture.com", "april.k.l.garcillan@accenture.com", "ariel.c.anire@accenture.com", "ariel.m.carreon@accenture.com", "aristotle.m.pamittan@accenture.com", "arthur.l.p.vinalon@accenture.com", "arthur.q.villar.jr@accenture.com", "axel.rafael.c.tadoy@accenture.com", "ayemi.m.v.pastorfide@accenture.com", "belamy.g.talavera@accenture.com", "benedict.b.obra@accenture.com", "c.p.baldovino@accenture.com", "carl.daniel.o.uy@accenture.com", "carlmichael.j.napiza@accenture.com", "carm.dyan.g.cruz@accenture.com", "carmeline.d.puracan@accenture.com", "catherine.c.pascasio@accenture.com", "catherine.p.orellano@accenture.com", "cecile.c.alvarez@accenture.com", "cecile.l.cruz@accenture.com", "charles.p.n.abalos@accenture.com", "cherry.l.m.fernandez@accenture.com", "chester.s.motos@accenture.com", "christian.a.valentin@accenture.com", "christian.c.salilid@accenture.com", "christian.r.f.tulio@accenture.com", "clarisse.s.manalo@accenture.com", "clint.benjie.g.chim@accenture.com", "clint.i.castaneda@navitaire.com", "cris.a.m.malecon@accenture.com", "crisardo.p.angeles@accenture.com", "d.d.villa.del.rey@accenture.com", "daisy.k.ferrancullo@accenture.com", "dan.d.l.de.los.reyes@accenture.com", "daniel.p.l.asuncion@accenture.com", "danilyn.e.venida@accenture.com", "darwin.w.zoilo@accenture.com", "dennis.j.m.romero@accenture.com", "dennis.r.o.bergonia@accenture.com", "denver.j.d.gonzales@accenture.com", "deo.r.aterrado@accenture.com", "dexter.p.candelaria@accenture.com", "diana.p.sta.maria@accenture.com", "dodgie.e.vivares@accenture.com", "dominic.y.sy@accenture.com", "donna.liza.s.flores@accenture.com", "donna.mae.j.ibay@accenture.com", "edilly.jill.m.tamayo@accenture.com", "edmond.r.defiesta@accenture.com", "elaine.m.cristobal@accenture.com", "eleeh.john.f.cantos@accenture.com", "eleila.c.lampa@accenture.com", "eliza.ann.c.bolalin@accenture.com", "emerson.m.matira@accenture.com", "eric.h.sulit@accenture.com", "eric.t.espenida@accenture.com", "erlie.flor.l.tenorio@accenture.com", "ernani.a.m.bangayan@accenture.com", "ernesto.m.de.vera@accenture.com", "ethel.bert.c.pascual@accenture.com", "evangeline.d.aclan@accenture.com", "everwin.g.fajardo@accenture.com", "ferrie.r.marfori@accenture.com", "floren.m.g.rotoni@accenture.com", "florisa.anne.h.roque@accenture.com", "francis.pio.f.cortes@accenture.com", "g.v.evangelista@accenture.com", "gabriel.t.p.diaz@accenture.com", "genecel.e.p.mendoza@accenture.com", "genevieve.a.palisoc@accenture.com", "geoffrey.d.yumul@accenture.com", "gerald.a.abrigo@accenture.com", "gerald.t.velasquez@accenture.com", "geronimo.a.lomeda.jr@accenture.com", "giko.pocholo.s.salud@accenture.com", "glenn.paul.u.gallego@accenture.com", "gwendolyn.d.maluenda@accenture.com", "isaias.s.pamatian.jr@accenture.com", "james.c.gianan@accenture.com", "jamie.r.vivar@accenture.com", "jan.alvin.j.magsino@accenture.com", "jan.ryan.d.mercado@accenture.com", "janine.f.l.mallari@accenture.com", "jasme.p.silvestre@accenture.com", "jasmine.kate.n.jumig@accenture.com", "jawali.p.sioson@accenture.com", "jay.perth.m.llave@accenture.com", "jazel.k.pardo@accenture.com", "jeffrey.c.b.sumbillo@accenture.com", "jeffrey.m.ayaay@accenture.com", "jelynne.a.c.gabriel@accenture.com", "jennylyn.c.tadiosa@accenture.com", "jenylyn.e.sugui@accenture.com", "jerbelle.v.taclan@accenture.com", "jerrilyn.g.tadiosa@accenture.com", "jerson.b.baso@accenture.com", "jeryck.d.carlos@accenture.com", "jester.m.t.pingol@accenture.com", "jhenry.g.rocero@accenture.com", "jing.s.perez@accenture.com", "joan.z.demafelis@accenture.com", "joanne.o.lagao@accenture.com", "jobert.a.dizon@accenture.com", "joed.p.d.labitigan@accenture.com", "joel.a.caluza@navitaire.com", "johanna.c.m.odono@accenture.com", "johannson.c.ong@accenture.com", "john.d.p.matanguihan@accenture.com", "john.e.d.limos@accenture.com", "john.everson.d.ramos@accenture.com", "john.h.c.bernardino@accenture.com", "john.mark.f.lappay@accenture.com", "john.p.o.maristaza@accenture.com", "john.roy.r.de.castro@accenture.com", "jollibee.v.tinana@accenture.com", "jonah.c.v.torres@accenture.com", "jonalyn.g.escano@accenture.com", "jonard.t.doliente@accenture.com", "jooneelyne.a.david@accenture.com", "jose.m.q.panganiban@accenture.com", "jose.m.quebengco.jr@accenture.com", "joseph.m.melendrez@accenture.com", "josuel.o.l.manalili@accenture.com", "jovanie.b.rodriguez@accenture.com", "julie.a.f.ronquillo@accenture.com", "k.a.rafols@accenture.com", "karen.a.g.romero@accenture.com", "karen.dianne.p.to@accenture.com", "karen.may.a.villasor@accenture.com", "kathleen.joyce.t.lui@accenture.com", "kelvin.e.m.celestino@accenture.com", "kenneth.l.alcantara@accenture.com", "kevin.c.guerrero@accenture.com", "kevin.francis.b.ople@accenture.com", "kim.a.a.pedroso@accenture.com", "lambert.a.dayao@accenture.com", "laurene.a.g.lim@accenture.com", "lesley.r.evangelista@accenture.com", "liza.a.tabor@accenture.com", "lorens.j.dandan@accenture.com", "louie.a.s.espiritu@accenture.com", "luis.p.limgenco.jr@accenture.com", "ma.rachelle.s.pineda@accenture.com", "marc.a.s.azarcon@accenture.com", "maria.c.d.san.pedro@accenture.com", "maria.karla.a.dalid@accenture.com", "maria.l.c.silario@accenture.com", "maria.liana.p.buro@accenture.com", "maria.m.r.carreon@accenture.com", "mark.a.t.caballero@accenture.com", "mark.dennis.v.uyaco@accenture.com", "mark.janfeb.b.lazaro@accenture.com", "mark.m.cruz@accenture.com", "mark.paolo.p.vallejo@accenture.com", "mark.ryan.o.jerez@accenture.com", "mark.t.d.morona@accenture.com", "marlo.g.candaliza@accenture.com", "marlon.d.salazar@accenture.com", "marlon.p.estipona@accenture.com", "mary.grace.c.nayve@accenture.com", "mervin.p.gonzales@accenture.com", "meryl.anne.b.coching@accenture.com", "michael.g.trinidad@accenture.com", "michael.john.o.chua@accenture.com", "michel.gene.s.fortus@accenture.com", "michelle.o.barja@accenture.com", "michelle.s.e.soriano@accenture.com", "michelle.t.tarcena@accenture.com", "naina.f.caberto@accenture.com", "namar.s.gregorio@accenture.com", "neilanthony.m.camara@accenture.com", "nicole.m.m.francisco@accenture.com", "nikki.faye.l.yumang@accenture.com", "noel.v.asakil@accenture.com", "norman.o.lopez@accenture.com", "orly.jun.p.sales@accenture.com", "patrizia.p.mendoza@accenture.com", "paul-john.a.bautista@accenture.com", "paul.l.s.pamintuan@accenture.com", "paula.b.m.fernandez@accenture.com", "paula.p.salvador@accenture.com", "peter.d.d.miranda@accenture.com", "peter.j.t.del.carmen@accenture.com", "philip.m.taneza@accenture.com", "ramil.v.lachica@accenture.com", "randal.b.candari@accenture.com", "randy.b.octera@accenture.com", "raquel.b.diongzon@accenture.com", "raymond.a.g.deniega@accenture.com", "rene.lynn.b.pineda@accenture.com", "rexson.y.xavier@accenture.com", "rey.benedict.b.rombo@accenture.com", "reymark.m.morales@accenture.com", "rhegine.r.p.calderon@accenture.com", "ric.andreo.i.magno@accenture.com", "rica.a.austria@accenture.com", "ricardo.r.pedrola@accenture.com", "rjay.p.visitacion@accenture.com", "roberto.a.dizon@accenture.com", "robielyn.l.simangan@accenture.com", "robin.m.canoy@accenture.com", "roderick.b.lim@accenture.com", "rodrigo.t.s.velez@accenture.com", "roger.i.s.aparri.jr@accenture.com", "rolando.p.estrada@accenture.com", "roliza.b.monsalud@accenture.com", "romnick.a.acabado@accenture.com", "ronalyn.b.bisa@accenture.com", "roscelle.h.ysalina@accenture.com", "rose.mary.t.l.te@accenture.com", "roselle.marie.d.ilo@accenture.com", "ryan.paul.t.vasquez@accenture.com", "shane.c.quillan@accenture.com", "sheila.m.dela.cuesta@accenture.com", "sheila.m.m.santiago@accenture.com", "shella.t.besoyo@accenture.com", "sherwin.s.renales@accenture.com", "SUS.OC.OnShift.MNGR@accenture.com", "SUS.OC.OnShift.NS@accenture.com", "SUS.OC.OnShift.SEC@accenture.com", "SUS.SDO.MNL@accenture.com", "syril.b.p.tolentino@navitaire.com", "teodore.l.de.castro@accenture.com", "tricia.l.a.parcia@accenture.com", "vanessa.mae.c.lumen@accenture.com", "vanessa.r.canonizado@accenture.com", "verjie.l.bongcales@accenture.com", "vincent.v.villarico@accenture.com", "wenceslao.c.alberto@accenture.com", "wesley.w.b.rodriguez@accenture.com", "zibbi.l.p.benitez@accenture.com"
+              ];
+              $("#email").autocomplete({
+                  source: availableTags
+              });
+          });
+  </script>
     
-        <p>
-            Group Name: <br />
-            @Html.DropDownList("BeneficiaryID")<br />
-           or select who would you like to perform... <br />
-            @Html.DropDownList("ExecutiveID")
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Name)<br />
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)<br />
-            @Html.LabelFor(model => model.Location)<br />
-            @Html.EditorFor(model => model.Location)
-            @Html.ValidationMessageFor(model => model.Location)<br />
-            @Html.LabelFor(model => model.Email)<br />
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)<br />
-        </p>
-
-        <p>
-            @Html.LabelFor(model => model.Amount)<br />
-            @Html.DropDownList("CurrencyID")
-            @Html.EditorFor(model => model.Amount)
-            @Html.ValidationMessageFor(model => model.Amount)
-        </p>
-        <p>
-            @Html.LabelFor(model => model.Remarks)<br />
-            @Html.TextAreaFor(model => model.Remarks)
-            @Html.ValidationMessageFor(model => model.Remarks)
-        </p>
-
-    <p>
-        @Html.DropDownList("ClassID") <input type="submit" value="Create" />
-    </p>
+    <link href="~/Scripts/jun/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jun/css/custom.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jun/scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jun/scripts/custom.js"></script>
 }
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<br>
+<div style="margin-left:-4%;">
+        <a class="backtolist" href="@Url.Action("Index", "Payments","Views")">Back to List</a>
+   @* @Html.ActionLink("Back to List", "Index")*@
 </div>
-
-</div>
-
+@*
 <div id="tabs-2">
 @using (Html.BeginForm())
 {
@@ -98,6 +151,11 @@
             @Html.EditorFor(model => model.Amount)
             @Html.ValidationMessageFor(model => model.Amount)
         </p>
+     <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
+                </div>
         <p>
             @Html.LabelFor(model => model.Remarks)<br />
             @Html.TextAreaFor(model => model.Remarks)
@@ -146,6 +204,11 @@
             @Html.EditorFor(model => model.Amount)
             @Html.ValidationMessageFor(model => model.Amount)
         </p>
+     <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
+                </div>
         <p>
             @Html.LabelFor(model => model.Remarks)<br />
             @Html.TextAreaFor(model => model.Remarks)
@@ -168,12 +231,12 @@
     $(function () {
         $("#tabs").tabs();
     });
-</script>*@
+</script>
 
 
 
 
-
+@*
 
 @using (Html.BeginForm())
 {
@@ -187,7 +250,7 @@
             Group Name: <br />
             @Html.DropDownList("BeneficiaryID")<br />
         @*   or select who would you like to perform... <br />
-            @Html.DropDownList("ExecutiveID")*@
+            @Html.DropDownList("ExecutiveID")
         </p>
         <p>
             @Html.LabelFor(model => model.Name)<br />
@@ -206,8 +269,14 @@
             @Html.LabelFor(model => model.Amount)<br />
             @Html.DropDownList("CurrencyID")
             @Html.EditorFor(model => model.Amount)
-            @Html.ValidationMessageFor(model => model.Amount)
-        </p>
+            @Html.ValidationMessageFor(model => model.Amount)<br />
+       </p>
+    <div title="You may leave this blank if there is none."> 
+           
+            @Html.LabelFor(model => model.SoldBy)<br />
+            @Html.EditorFor(model => model.SoldBy)
+                </div>
+
         <p>
             @Html.LabelFor(model => model.Remarks)<br />
             @Html.TextAreaFor(model => model.Remarks)
@@ -224,3 +293,5 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+*@
+

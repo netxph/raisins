@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
     <head>
-        <title>@ViewBag.Title - Raisins 2013</title>
+        <title>@ViewBag.Title - Raisins 2014</title>
         @*<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>*@
  
         <link rel="stylesheet" type="text/css" href="http://releases.flowplayer.org/5.1.1/skin/minimalist.css" />
@@ -22,10 +22,23 @@
         <script src="http://releases.flowplayer.org/5.1.1/flowplayer.min.js"></script>
           @*     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
     
+        
     </head>
+
     <body >
-       
-        <div id="raisins"><h1 class="app-logo">raisins <span>2013</span></h1></div>
+         <div id="clouds">
+	<div class="cloud x1"></div>
+	<!-- Time for multiple clouds to dance around -->
+	<div class="cloud x2"></div>
+	<div class="cloud x3"></div>
+	<div class="cloud x4"></div>
+	<div class="cloud x5"></div>
+             <div class="cloud x6"></div>
+             <div class="cloud x7"></div>
+          
+    </div>
+        <div id ="content">
+        <div id="raisins"><h1 class="app-logo">raisins <span>2014</span></h1></div>
         <h6 class="app-logo">a fund-raising event.</h6>
         <hr />
         <div id="topcontainer">
@@ -49,7 +62,7 @@
 
         @RenderBody()
         @RenderSection("scripts", required: false)
-  
+  </div>
     </body>
 </html>
 

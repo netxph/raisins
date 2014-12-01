@@ -10,12 +10,13 @@ namespace Raisins.Client.Web.Migrations
     {
         public void Seed(Models.RaisinsDB context)
         {
-            AddBeneficiary(context, "MONSTROU", "Reservations development folks"); //1
-            AddBeneficiary(context, "Aaronics", "SUS: Res, WebHosting, ESC"); //2
-            AddBeneficiary(context, "aQApella", "QA teams"); //3
-            AddBeneficiary(context, "AOPSmith", "AOPS team"); //4
-            AddBeneficiary(context, "Banana Gang", "Disney, PMO, SS"); //5
-            AddBeneficiary(context, "That's IT", "SUS IT"); //6
+            AddBeneficiary(context, "QaiTS", "NAV QA/TS "); //1
+            AddBeneficiary(context, "MANILEÑOS", "NAV Res Dev"); //2
+            AddBeneficiary(context, "The TimeJumpers", "NAV Product/Taleris"); //3
+            AddBeneficiary(context, "Funny Is The New Pogi", "NAV SS/PMO/Disney"); //4
+            AddBeneficiary(context, "OCSDO Angels", "SUS OC SDO , PMO, SS"); //5
+            AddBeneficiary(context, "The Chronicles of Naina", "SUS PM/NonRes/Res/BusinessGroups"); //6
+            AddBeneficiary(context, "TechnoSUS and Friends", "SUS IT/Installs/PMO/PerfMon/Security/BusOps"); //7
         }
 
         private static void AddBeneficiary(
