@@ -145,11 +145,16 @@
     <Compile Include="Migrations\201411180913468_newmigration.Designer.cs">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412011259513_Group7Migration.cs" />
+    <Compile Include="Migrations\201412011259513_Group7Migration.Designer.cs">
+      <DependentUpon>201412011259513_Group7Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ActivitySeed.cs" />
     <Compile Include="Migrations\BeneficiarySeed.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\CurrencySeed.cs" />
     <Compile Include="Migrations\DbSeeder.cs" />
+    <Compile Include="Migrations\Group7Migration.cs" />
     <Compile Include="Migrations\IDbSeeder.cs" />
     <Compile Include="Migrations\RoleSeed.cs" />
     <Compile Include="Migrations\UserSeed.cs" />
@@ -450,6 +455,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411180913468_newmigration.resx">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412011259513_Group7Migration.resx">
+      <DependentUpon>201412011259513_Group7Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

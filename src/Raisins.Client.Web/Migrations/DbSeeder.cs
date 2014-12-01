@@ -18,6 +18,7 @@ namespace Raisins.Client.Web.Migrations
             Seeders.Add(new CurrencySeed());
             Seeders.Add(new BeneficiarySeed());
             Seeders.Add(new UserSeed());
+            Seeders.Add(new Group7Migration());
             
         }
 
@@ -29,6 +30,8 @@ namespace Raisins.Client.Web.Migrations
             {
                 seeder.Seed(context);
             }
+
+
         }
 
     }
