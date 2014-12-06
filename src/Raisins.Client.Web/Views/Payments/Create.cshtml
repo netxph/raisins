@@ -15,10 +15,11 @@
         <ul role="tablist" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
              @if(ViewBag.CanEdit)
     {<li aria-expanded="true" aria-selected="false" aria-labelledby="ui-id-8" aria-controls="tabs-1" tabindex="0" role="tab" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a id="ui-id-8" tabindex="1" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(0);">LOCAL</a></li>
-             }
-             @if(ViewBag.CanLock)
-    {
-            <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-9" aria-controls="tabs-2" tabindex="1" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-9" tabindex="2" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(1);">EXTERNAL</a></li>
+     <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-9" aria-controls="tabs-2" tabindex="1" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-9" tabindex="2" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(1);">EXTERNAL</a></li>        
+    }
+             @if (ViewBag.CanLock)
+             {
+            
             <li aria-expanded="false" aria-selected="false" aria-labelledby="ui-id-10" aria-controls="tabs-3" tabindex="2" role="tab" class="ui-state-default ui-corner-top"><a id="ui-id-10" tabindex="3" role="presentation" class="ui-tabs-anchor" href="#tabs-1" onclick="SetSelection(2);">FOREIGN</a></li>
              }
                    </ul>
@@ -47,7 +48,7 @@
                     <div class="label">
                         <p>@Html.LabelFor(model => model.Email)</p>
                     </div>
-                    @Html.TextBoxFor(model => model.Email, null, new { @class = "tbox" ,@id = "email" })
+                    @Html.TextBoxFor(model => model.Email, null, new { @class = "tbox", @id = "email" })
                     @Html.ValidationMessageFor(model => model.Email)
                     <br />
                     <div class="label">

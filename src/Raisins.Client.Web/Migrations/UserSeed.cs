@@ -80,6 +80,9 @@ namespace Raisins.Client.Web.Migrations
               AddUser(context, "domingb", "domingb!23", "Bon Domingo", 2, 1);
               AddUser(context, "solisd", "solisd!23", "Dian Solis", 2, 1);
               AddUser(context, "brutasb", "brutasb!23", "Boris Brutas", 2, 1);
+              AddUser(context, "alicbur", "alicbur!23", "Roce Alicbusan", 2, 1);
+              AddUser(context, "feraers", "feraers!23", "Shirlyn Feraer", 2, 1);
+              AddUser(context, "ruetase", "ruetase!23", "Elizabeth Ruetas", 2, 1);
 
 
             //Group 3  The TimeJumpers
