@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using Raisins.Client.Web.Core;
 using Raisins.Client.Web.Models;
+using System.Web.Mvc;
 
 namespace Raisins.Client.Web.Controllers
 {
     public class CurrenciesController : Controller
     {
+        private IUnitOfWork _unitOfWork;
+
+        public CurrenciesController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         //
         // GET: /Currencies/
 
         public ActionResult Index()
         {
-            return View(Currency.GetAll());
+            return View(_unitOfWork.Currencies.GetAll());
         }
 
         //
@@ -25,7 +26,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Currency currency = Currency.Find(id);
+            Currency currency = _unitOfWork.Currencies.Find(id);
 
             if (currency == null)
             {
@@ -50,7 +51,8 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Currency.Add(currency);
+                _unitOfWork.Currencies.Add(currency);
+                _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -62,7 +64,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Currency currency = Currency.Find(id);
+            Currency currency = _unitOfWork.Currencies.Find(id);
 
             if (currency == null)
             {
@@ -80,8 +82,8 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Currency.Edit(currency);
-
+                _unitOfWork.Currencies.Edit(currency);
+                _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
             return View(currency);
@@ -92,7 +94,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Currency currency = Currency.Find(id);
+            Currency currency = _unitOfWork.Currencies.Find(id);
             if (currency == null)
             {
                 return HttpNotFound();
@@ -106,8 +108,9 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Currency.Delete(id);
-
+            Currency currency = _unitOfWork.Currencies.Find(id);
+            _unitOfWork.Currencies.Delete(currency);
+            _unitOfWork.Complete();
             return RedirectToAction("Index");
         }
         

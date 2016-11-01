@@ -1,34 +1,34 @@
-﻿using System;
+﻿using Raisins.Client.Web.Core;
+using Raisins.Client.Web.Models;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
-using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Web.Controllers.Api
 {
     public class PaymentsController : ApiController
     {
-        private RaisinsDB db = new RaisinsDB();
+        private IUnitOfWork _unitOfWork;
+
+        public PaymentsController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         // GET api/Payments
         public IEnumerable<Payment> GetPayments()
         {
             System.Threading.Thread.Sleep(3000);
-
-            var payments = db.Payments.Include(p => p.Beneficiary).Include(p => p.Currency).Include(p => p.CreatedBy).Include(p => p.AuditedBy);
-            return payments.AsEnumerable();
+            return _unitOfWork.Payments.GetAll();
         }
 
         // GET api/Payments/5
         public Payment GetPayment(int id)
         {
-            Payment payment = db.Payments.Find(id);
+            Payment payment = _unitOfWork.Payments.GetPayment(id);
             if (payment == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -42,11 +42,11 @@ namespace Raisins.Client.Web.Controllers.Api
         {
             if (ModelState.IsValid && id == payment.ID)
             {
-                db.Entry(payment).State = EntityState.Modified;
+                _unitOfWork.Payments.Edit(payment);
 
                 try
                 {
-                    db.SaveChanges();
+                    _unitOfWork.Complete();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -66,8 +66,8 @@ namespace Raisins.Client.Web.Controllers.Api
         {
             if (ModelState.IsValid)
             {
-                db.Payments.Add(payment);
-                db.SaveChanges();
+                _unitOfWork.Payments.Add(payment);
+                _unitOfWork.Complete();
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, payment);
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = payment.ID }));
@@ -82,17 +82,17 @@ namespace Raisins.Client.Web.Controllers.Api
         // DELETE api/Payments/5
         public HttpResponseMessage DeletePayment(int id)
         {
-            Payment payment = db.Payments.Find(id);
+            Payment payment = _unitOfWork.Payments.GetPayment(id);
             if (payment == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            db.Payments.Remove(payment);
+            _unitOfWork.Payments.Delete(payment);
 
             try
             {
-                db.SaveChanges();
+                _unitOfWork.Complete();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -104,7 +104,7 @@ namespace Raisins.Client.Web.Controllers.Api
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _unitOfWork.Dispose();
             base.Dispose(disposing);
         }
     }

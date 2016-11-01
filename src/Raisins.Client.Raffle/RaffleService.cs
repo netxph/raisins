@@ -1,27 +1,27 @@
-﻿using System;
+﻿using Raisins.Client.Web.Models;
+using Raisins.Client.Web.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Raisins.Client.Web.Models;
 
 namespace Raisins.Client.Raffle
 {
     public class RaffleService
     {
+        private RaisinsDB _raisinsDb;
 
         public List<Ticket> Tickets { get; set; }
         public Random Random { get; set; }
 
         public RaffleService()
         {
+            _raisinsDb = new RaisinsDB();
             Initialize();
         }
 
         protected virtual void Initialize()
         {
-            Tickets = Ticket.GetAll();
+            Tickets = _raisinsDb.Tickets.ToList();
             Random = new Random(this.GetHashCode());
         }
 

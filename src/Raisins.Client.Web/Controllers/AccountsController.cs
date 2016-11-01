@@ -1,8 +1,5 @@
-﻿using Raisins.Client.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Raisins.Client.Web.Core;
+using Raisins.Client.Web.Models;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -10,6 +7,12 @@ namespace Raisins.Client.Web.Controllers
 {
     public class AccountsController : Controller
     {
+        private IUnitOfWork _unitOfWork;
+
+        public AccountsController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         public ActionResult Login(string returnUrl)
         {
@@ -22,11 +25,15 @@ namespace Raisins.Client.Web.Controllers
         
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            //model.UserName = "test";
-            if (ModelState.IsValid && Account.Login(model.UserName, model.Password))
+            if(ModelState.IsValid)
             {
-                FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                return RedirectToLocal(returnUrl);
+                Account account = _unitOfWork.Accounts.GetUserAccount(model.UserName);
+
+                if(account.IsValidAccount())
+                {
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    return RedirectToLocal(returnUrl);
+                }
             }
 
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
@@ -62,7 +69,13 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Account.ChangePassword(changePassword.NewPassword);
+
+                var account = _unitOfWork.Accounts.GetCurrentUserAccount();
+                var salt = Helper.CreateSalt();
+                account.SetSalt(salt);
+                account.GenerateNewPassword(changePassword.NewPassword, salt);
+                _unitOfWork.Accounts.Edit(account);
+                _unitOfWork.Complete();
 
                 FormsAuthentication.SignOut();
                 return RedirectToAction("Index", "Home");
@@ -70,6 +83,24 @@ namespace Raisins.Client.Web.Controllers
 
             return View(changePassword);
         }
+
+        //TODO
+        //public ActionResult CreateUSer(string userName, string password)
+        //{
+        //    var salt = Helper.CreateSalt();
+        //    var roles = new List<Role> { Role.Find("User") };
+        //    Account account = new Account() { UserName = userName, Salt = salt, Password = GetHash(password, salt), Roles = roles, Profile = new AccountProfile() };
+
+        //    roles.SetState(db, EntityState.Modified);
+        //    profile.Beneficiaries.SetState(db, EntityState.Modified);
+        //    profile.Currencies.SetState(db, EntityState.Modified);
+
+        //    db.Accounts.Add(account);
+        //    db.SaveChanges();
+
+        //    return db.Accounts.FirstOrDefault(a => a.UserName == userName);
+            
+        //}
 
     }
 }

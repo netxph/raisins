@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -130,56 +131,76 @@
     <Compile Include="Controllers\CurrenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repository\IAccountRepository.cs" />
+    <Compile Include="Core\Repository\IActivityRepository.cs" />
+    <Compile Include="Core\Repository\IBeneficiaryRepository.cs" />
+    <Compile Include="Core\Repository\ICurrencyRepository.cs" />
+    <Compile Include="Core\Repository\IExecutiveRepository.cs" />
+    <Compile Include="Core\Repository\IMailQueuesRepository.cs" />
+    <Compile Include="Core\Repository\IPaymentRepository.cs" />
+    <Compile Include="Core\Repository\IRoleRepository.cs" />
+    <Compile Include="Core\Repository\ITicketRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201311261040400_Initial.cs" />
-    <Compile Include="Migrations\201311261040400_Initial.Designer.cs">
+    <Compile Include="Persistence\Migrations\201311261040400_Initial.cs" />
+    <Compile Include="Persistence\Migrations\201311261040400_Initial.Designer.cs">
       <DependentUpon>201311261040400_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201312031141383_CreateMailQueueTable.cs" />
-    <Compile Include="Migrations\201312031141383_CreateMailQueueTable.Designer.cs">
+    <Compile Include="Persistence\Migrations\201312031141383_CreateMailQueueTable.cs" />
+    <Compile Include="Persistence\Migrations\201312031141383_CreateMailQueueTable.Designer.cs">
       <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201411180913468_newmigration.cs" />
-    <Compile Include="Migrations\201411180913468_newmigration.Designer.cs">
+    <Compile Include="Persistence\Migrations\201411180913468_newmigration.cs" />
+    <Compile Include="Persistence\Migrations\201411180913468_newmigration.Designer.cs">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ActivitySeed.cs" />
-    <Compile Include="Migrations\BeneficiarySeed.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\CurrencySeed.cs" />
-    <Compile Include="Migrations\DbSeeder.cs" />
-    <Compile Include="Migrations\IDbSeeder.cs" />
-    <Compile Include="Migrations\RoleSeed.cs" />
-    <Compile Include="Migrations\UserSeed.cs" />
-    <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\Activity.cs" />
-    <Compile Include="Models\Beneficiary.cs" />
-    <Compile Include="Models\ChangePasswordModel.cs" />
-    <Compile Include="Models\Currency.cs" />
-    <Compile Include="Models\DBExtensions.cs" />
-    <Compile Include="Models\DefaultMailer.cs" />
-    <Compile Include="Models\DelegatedMailer.cs" />
-    <Compile Include="Models\Executive.cs" />
-    <Compile Include="Models\ExecutiveSummary.cs" />
-    <Compile Include="Models\IMailer.cs" />
-    <Compile Include="Models\MailQueue.cs" />
-    <Compile Include="Models\OverallSummary.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\AccountProfile.cs" />
-    <Compile Include="Models\Seeder.cs" />
-    <Compile Include="Models\Summary.cs" />
-    <Compile Include="Models\VoteSummary.cs" />
+    <Compile Include="Persistence\Migrations\ActivitySeed.cs" />
+    <Compile Include="Persistence\Migrations\BeneficiarySeed.cs" />
+    <Compile Include="Persistence\Migrations\Configuration.cs" />
+    <Compile Include="Persistence\Migrations\CurrencySeed.cs" />
+    <Compile Include="Persistence\Migrations\DbSeeder.cs" />
+    <Compile Include="Persistence\Migrations\IDbSeeder.cs" />
+    <Compile Include="Persistence\Migrations\RoleSeed.cs" />
+    <Compile Include="Persistence\Migrations\UserSeed.cs" />
+    <Compile Include="Core\Models\Account.cs" />
+    <Compile Include="Core\Models\Activity.cs" />
+    <Compile Include="Core\Models\Beneficiary.cs" />
+    <Compile Include="Core\Models\ChangePasswordModel.cs" />
+    <Compile Include="Core\Models\Currency.cs" />
+    <Compile Include="Persistence\DBExtensions.cs" />
+    <Compile Include="Core\Models\DefaultMailer.cs" />
+    <Compile Include="Core\Models\DelegatedMailer.cs" />
+    <Compile Include="Core\Models\Executive.cs" />
+    <Compile Include="Core\Models\ExecutiveSummary.cs" />
+    <Compile Include="Core\Models\IMailer.cs" />
+    <Compile Include="Core\Models\MailQueue.cs" />
+    <Compile Include="Core\Models\OverallSummary.cs" />
+    <Compile Include="Core\Models\Role.cs" />
+    <Compile Include="Core\Models\AccountProfile.cs" />
+    <Compile Include="Persistence\Repository\TicketRepository.cs" />
+    <Compile Include="Persistence\Seeder.cs" />
+    <Compile Include="Core\Models\Summary.cs" />
+    <Compile Include="Core\Models\VoteSummary.cs" />
+    <Compile Include="Persistence\Repository\AccountRepository.cs" />
+    <Compile Include="Persistence\Repository\ActivityRepository.cs" />
+    <Compile Include="Persistence\Repository\BeneficiaryRepository.cs" />
+    <Compile Include="Persistence\Repository\CurrencyRepository.cs" />
+    <Compile Include="Persistence\Repository\ExecutiveRepository.cs" />
+    <Compile Include="Persistence\Repository\MailQueuesRepository.cs" />
+    <Compile Include="Persistence\Repository\PaymentRepository.cs" />
+    <Compile Include="Persistence\Repository\RoleRepository.cs" />
+    <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Services\AuthorizeActivityAttribute.cs" />
-    <Compile Include="Services\ObjectProvider.cs" />
-    <Compile Include="Models\DbInitializer.cs" />
-    <Compile Include="Models\Helper.cs" />
-    <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\Payment.cs" />
-    <Compile Include="Models\PaymentClass.cs" />
-    <Compile Include="Models\RaisinsDB.cs" />
-    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Persistence\ObjectProvider.cs" />
+    <Compile Include="Persistence\DbInitializer.cs" />
+    <Compile Include="Core\Models\Helper.cs" />
+    <Compile Include="Core\Models\LoginModel.cs" />
+    <Compile Include="Core\Models\Payment.cs" />
+    <Compile Include="Core\Models\PaymentClass.cs" />
+    <Compile Include="Persistence\RaisinsDB.cs" />
+    <Compile Include="Core\Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\HttpHelper.cs" />
     <Compile Include="Services\IHttpHelper.cs" />
@@ -438,13 +459,13 @@
     <Content Include="Views\Shared\_Profile6.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201311261040400_Initial.resx">
+    <EmbeddedResource Include="Persistence\Migrations\201311261040400_Initial.resx">
       <DependentUpon>201311261040400_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201312031141383_CreateMailQueueTable.resx">
+    <EmbeddedResource Include="Persistence\Migrations\201312031141383_CreateMailQueueTable.resx">
       <DependentUpon>201312031141383_CreateMailQueueTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411180913468_newmigration.resx">
+    <EmbeddedResource Include="Persistence\Migrations\201411180913468_newmigration.resx">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

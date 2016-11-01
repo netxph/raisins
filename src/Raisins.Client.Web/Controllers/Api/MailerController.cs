@@ -1,9 +1,7 @@
-﻿using Raisins.Client.Web.Models;
-using System;
+﻿using Raisins.Client.Web.Core;
+using Raisins.Client.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Raisins.Client.Web.Controllers.Api
@@ -13,18 +11,23 @@ namespace Raisins.Client.Web.Controllers.Api
 
         const int DEFAULT_PAGE_SIZE = 10;
 
+        private IUnitOfWork _unitOfWork;
+
+        public MailerController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public List<MailQueue> GetMailers()
         { 
-            var db = new RaisinsDB();
 
-            var mails = db.MailQueues.Take(10);
-            var items = mails.ToList();
+            List<MailQueue> mails = _unitOfWork.MailQueues.GetAll().Take(10).ToList();
+            _unitOfWork.MailQueues.DeleteMultiple(mails);
 
-            db.MailQueues.RemoveRange(mails);
-            db.SaveChanges();
-            db.Dispose();
+            _unitOfWork.Complete();
+            _unitOfWork.Dispose();
 
-            return items;
+            return mails;
         }
     }
 }

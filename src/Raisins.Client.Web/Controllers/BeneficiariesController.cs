@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using Raisins.Client.Web.Core;
 using Raisins.Client.Web.Models;
-using Raisins.Client.Web.Services;
+using System.Web.Mvc;
 
 namespace Raisins.Client.Web.Controllers
 {
     [Authorize]
     public class BeneficiariesController : Controller
     {
+        private IUnitOfWork _unitOfWork;
+
+        public BeneficiariesController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         //
         // GET: /Beneficiaries/
 
         public ActionResult Index()
         {
-            return View(Beneficiary.GetAll());
+            return View(_unitOfWork.Beneficiaries.GetAll());
         }
 
         //
@@ -27,7 +27,7 @@ namespace Raisins.Client.Web.Controllers
         [AllowAnonymous]
         public ActionResult Details(int id = 0)
         {
-            Beneficiary beneficiary = Beneficiary.Find(id);
+            Beneficiary beneficiary = _unitOfWork.Beneficiaries.Find(id);
             if (beneficiary == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,8 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Beneficiary.Add(beneficiary);
+                _unitOfWork.Beneficiaries.Add(beneficiary);
+                _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -63,7 +64,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Beneficiary beneficiary = Beneficiary.Find(id);
+            Beneficiary beneficiary = _unitOfWork.Beneficiaries.Find(id);
             if (beneficiary == null)
             {
                 return HttpNotFound();
@@ -79,7 +80,8 @@ namespace Raisins.Client.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Beneficiary.Edit(beneficiary);
+                _unitOfWork.Beneficiaries.Edit(beneficiary);
+                _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
             return View(beneficiary);
@@ -90,7 +92,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Beneficiary beneficiary = Beneficiary.Find(id);
+            Beneficiary beneficiary = _unitOfWork.Beneficiaries.Find(id);
             if (beneficiary == null)
             {
                 return HttpNotFound();
@@ -104,7 +106,8 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Beneficiary.Delete(id);
+            _unitOfWork.Beneficiaries.Delete(id);
+            _unitOfWork.Complete();
             return RedirectToAction("Index");
         }
 

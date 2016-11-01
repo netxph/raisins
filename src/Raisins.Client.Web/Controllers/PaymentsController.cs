@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using Raisins.Client.Web.Core;
 using Raisins.Client.Web.Models;
-using Raisins.Client.Web.Services;
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Raisins.Client.Web.Controllers
 {
@@ -15,31 +11,106 @@ namespace Raisins.Client.Web.Controllers
     [Authorize]
     public class PaymentsController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public PaymentsController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         public ActionResult LockAll()
         {
-            Payment.LockAll();
+            Account currentAccount = _unitOfWork.Accounts.GetCurrentUserAccount();
+            List<Payment> payments = _unitOfWork.Payments.GetPayment(currentAccount).ToList();
+
+            foreach (var payment in payments)
+            {
+                if (!payment.Locked)
+                {
+                    _unitOfWork.Payments.Edit(payment);
+
+                    payment.Locked = true;
+                    payment.AuditedByID = currentAccount.ID;
+                    payment.Tickets = payment.GenerateTickets();
+
+                    string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
+                    payment.EmailTickets(beneficiaryName);
+                }
+            }
+
+            _unitOfWork.Complete();
+            
 
             return RedirectToAction("Index");
         }
 
         public ActionResult LockLocal()
         {
-            Payment.LockLocal();
 
+            Account currentAccount = _unitOfWork.Accounts.GetCurrentUserAccount();
+
+            var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
+
+            List<Payment> payments = _unitOfWork.Payments.GetPaymentByBeneficiary(beneficiaryIds)
+                            .Where(p => p.ClassID == (int)PaymentClass.Local 
+                                    || p.ClassID == (int)PaymentClass.External).ToList();
+
+            foreach (var payment in payments)
+            {
+                if (!payment.Locked)
+                {
+                    _unitOfWork.Payments.Edit(payment);
+
+                    payment.Locked = true;
+                    payment.AuditedByID = currentAccount.ID;
+                    payment.Tickets = payment.GenerateTickets();
+
+                    string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
+                    payment.EmailTickets(beneficiaryName);
+                }
+            }
+
+            _unitOfWork.Complete();
             return RedirectToAction("Index");
         }
 
         public ActionResult LockForeign()
         {
-            Payment.LockForeign();
+
+            Account currentAccount = _unitOfWork.Accounts.GetCurrentUserAccount();
+
+            var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
+
+            List<Payment> payments = _unitOfWork.Payments.GetPaymentByBeneficiary(beneficiaryIds)
+                                        .Where(p => p.ClassID == (int)PaymentClass.Foreign).ToList();
+
+            foreach (var payment in payments)
+            {
+                if (!payment.Locked)
+                {
+                    _unitOfWork.Payments.Edit(payment);
+
+                    payment.Locked = true;
+                    payment.AuditedByID = currentAccount.ID;
+                    payment.Tickets = payment.GenerateTickets();
+
+                    string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
+                    payment.EmailTickets(beneficiaryName);
+                }
+            }
+            _unitOfWork.Complete();
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Resend()
         {
-            Payment.ResendEmail();
+            IEnumerable<Payment> payments = _unitOfWork.Payments.GetLockedPayments();
+            foreach(Payment payment in payments)
+            {
+                string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
+                payment.EmailTickets(beneficiaryName);
+            }
 
             return RedirectToAction("Index");
         }
@@ -57,7 +128,8 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Index()
         {
-            var payments = Payment.FindAllForUser();
+            Account userAccount = _unitOfWork.Accounts.GetCurrentUserAccount();
+            List<Payment> payments = _unitOfWork.Payments.GetPayment(userAccount).ToList();
 
             string sortBy = Request.QueryString["SortBy"];
 
@@ -83,18 +155,18 @@ namespace Raisins.Client.Web.Controllers
                 }
             }
 
-            ViewBag.CanLock = Activity.IsInRole("Payment.Lock");
-            ViewBag.CanEdit = Activity.IsInRole("Payment.Edit");
+            Activity paymentLockActivity = _unitOfWork.Activities.GetActivityByName("Payment.Lock");
+            ViewBag.CanLock = paymentLockActivity.DoUserRolesExists(userAccount.Roles);
+            Activity paymentEditActivity = _unitOfWork.Activities.GetActivityByName("Payment.Edit");
+            ViewBag.CanEdit = paymentEditActivity.DoUserRolesExists(userAccount.Roles);
 
             return View(payments);
         }
 
-        //
-        // GET: /Payments/Details/5
-
+        [HttpGet]
         public ActionResult Details(int id = 0)
         {
-            Payment payment = Payment.Find(id);
+            Payment payment = _unitOfWork.Payments.GetPayment(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -105,28 +177,21 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost]
         public ActionResult Details(string email, int ID)
         {
-            using (var db = ObjectProvider.CreateDB())
-            {
-                //TODO: place in payments model
-                var payment = db.Payments.First(p => p.ID == ID);
-                payment.Email = email;
+            var payment = _unitOfWork.Payments.GetPayment(ID);
+            payment.Email = email;
+            _unitOfWork.Payments.Edit(payment);
+            _unitOfWork.Complete();
 
-                db.Entry(payment).State = EntityState.Modified;
-                db.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
+            return RedirectToAction("Index");  
         }
 
-        //
-        // GET: /Payments/Create
-
+        [HttpGet]
         public ActionResult Create()
         {
-            var user = Account.GetCurrentUser();
+            var user = _unitOfWork.Accounts.GetCurrentUserAccount();
 
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
-            var executives = Executive.GetAll();
+            var executives = _unitOfWork.Executives.GetAll().ToList();
             executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
             if (user.Profile.IsLocal)
@@ -139,17 +204,21 @@ namespace Raisins.Client.Web.Controllers
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
 
-            ViewBag.CanLock = Activity.IsInRole("Payment.Lock");
-            ViewBag.CanEdit = Activity.IsInRole("Payment.Edit");
+            Activity paymentLockActivity = _unitOfWork.Activities.GetActivityByName("Payment.Lock");
+            ViewBag.CanLock = paymentLockActivity.DoUserRolesExists(user.Roles);
+            Activity paymentEditActivity = _unitOfWork.Activities.GetActivityByName("Payment.Edit");
+            ViewBag.CanEdit = paymentEditActivity.DoUserRolesExists(user.Roles);
+
             return View();
         }
 
+        [HttpGet]
         public ActionResult CreateLocal()
         {
-            var user = Account.GetCurrentUser();
+            var user = _unitOfWork.Accounts.GetCurrentUserAccount();
 
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
-            var executives = Executive.GetAll();
+            var executives = _unitOfWork.Executives.GetAll().ToList();
             executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
             if (user.Profile.IsLocal)
@@ -164,9 +233,6 @@ namespace Raisins.Client.Web.Controllers
 
             return View();
         }
-
-        //
-        // POST: /Payments/Create
 
         [HttpPost]
         public ActionResult Create(Payment payment)
@@ -175,18 +241,20 @@ namespace Raisins.Client.Web.Controllers
             {
                 if (payment.ExecutiveID == -1) payment.ExecutiveID = null;
 
-                Payment.Add(payment);
+                _unitOfWork.Payments.Add(payment);
                 return RedirectToAction("Index");
             }
 
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
-            var executives = Executive.GetAll();
+            var executives = _unitOfWork.Executives.GetAll().ToList();
             executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
-            ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 0);
-            ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 0);
+            ViewBag.BeneficiaryID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Beneficiaries, "ID", "Name", 0);
+            ViewBag.CurrencyID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Currencies, "ID", "CurrencyCode", 0);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
+
+            _unitOfWork.Complete();
 
             return View(payment);
         }
@@ -196,7 +264,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Payment payment = Payment.Find(id);
+            Payment payment = _unitOfWork.Payments.GetPayment(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -205,11 +273,11 @@ namespace Raisins.Client.Web.Controllers
             if (payment.ExecutiveID == null) payment.ExecutiveID = -1;
 
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
-            var executives = Executive.GetAll();
+            var executives = _unitOfWork.Executives.GetAll().ToList();
             executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
-            ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", payment.BeneficiaryID);
-            ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", payment.CurrencyID);
+            ViewBag.BeneficiaryID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Beneficiaries, "ID", "Name", payment.BeneficiaryID);
+            ViewBag.CurrencyID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Currencies, "ID", "CurrencyCode", payment.CurrencyID);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", payment.ClassID);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name", payment.ExecutiveID);
 
@@ -226,21 +294,22 @@ namespace Raisins.Client.Web.Controllers
             {
                 if (payment.ExecutiveID == -1) payment.ExecutiveID = null;
 
-                Payment.Edit(payment);
+                _unitOfWork.Payments.Edit(payment);
                 return RedirectToAction("Index");
             }
 
             if (payment.ExecutiveID == null) payment.ExecutiveID = -1;
 
             var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
-            var executives = Executive.GetAll();
+            var executives = _unitOfWork.Executives.GetAll().ToList();
             executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
 
-            ViewBag.BeneficiaryID = new SelectList(Account.GetCurrentUser().Profile.Beneficiaries, "ID", "Name", 1);
-            ViewBag.CurrencyID = new SelectList(Account.GetCurrentUser().Profile.Currencies, "ID", "CurrencyCode", 1);
+            ViewBag.BeneficiaryID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Beneficiaries, "ID", "Name", 1);
+            ViewBag.CurrencyID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Currencies, "ID", "CurrencyCode", 1);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", (int)payment.ClassID);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
 
+            _unitOfWork.Complete();
             return View(payment);
         }
 
@@ -249,7 +318,7 @@ namespace Raisins.Client.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Payment payment = Payment.Find(id);
+            Payment payment = _unitOfWork.Payments.GetPayment(id);
             if (payment == null)
             {
                 return HttpNotFound();
@@ -263,18 +332,17 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Payment.Delete(id);
+            Payment payment = _unitOfWork.Payments.GetPayment(id);
+            _unitOfWork.Payments.Delete(payment);
+            _unitOfWork.Complete();
             return RedirectToAction("Index");
-        }
-
-        protected bool IsInRole(string activityName)
-        {
-            return Activity.IsInRole(activityName);
         }
 
         public ActionResult Email(int id)
         {
-            Payment.ResendEmail(id);
+            Payment payment = _unitOfWork.Payments.GetPayment(id);
+            string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
+            payment.EmailTickets(beneficiaryName);
 
             return RedirectToAction("Index");
         }
