@@ -29,10 +29,10 @@ namespace Raisins.Client.Web.Controllers
             {
                 Account account = _unitOfWork.Accounts.GetUserAccount(model.UserName);
 
-                if(account.IsValidAccount())
+                if(account.IsValidAccount(model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 }
             }
 

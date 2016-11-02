@@ -19,9 +19,9 @@ namespace Raisins.Client.Web.Models
         public List<Role> Roles { get; set; }
         public virtual AccountProfile Profile { get; set; }
 
-        public bool IsValidAccount()
+        public bool IsValidAccount(string password)
         {
-            return Password == GetHash(Password, Salt);
+            return Password == GetHash(password, Salt);
         }
 
         public void GenerateNewPassword(string newPassword, string newSalt)

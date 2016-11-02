@@ -57,6 +57,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -111,12 +114,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Raisins.Client.Web\Raisins.Client.Web.csproj">
-      <Project>{e7755f66-12f2-4e56-92b9-f9710c154f17}</Project>
-      <Name>Raisins.Client.Web</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="back.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +121,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="raffle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Raisins.Client.Web\Raisins.Client.Web.csproj">
+      <Project>{e7755f66-12f2-4e56-92b9-f9710c154f17}</Project>
+      <Name>Raisins.Client.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

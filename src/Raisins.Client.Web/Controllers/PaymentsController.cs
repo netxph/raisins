@@ -242,6 +242,7 @@ namespace Raisins.Client.Web.Controllers
                 if (payment.ExecutiveID == -1) payment.ExecutiveID = null;
 
                 _unitOfWork.Payments.Add(payment);
+                _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
 
@@ -253,8 +254,6 @@ namespace Raisins.Client.Web.Controllers
             ViewBag.CurrencyID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Currencies, "ID", "CurrencyCode", 0);
             ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
             ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
-
-            _unitOfWork.Complete();
 
             return View(payment);
         }
