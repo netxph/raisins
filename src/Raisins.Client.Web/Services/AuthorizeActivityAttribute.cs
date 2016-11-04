@@ -22,7 +22,7 @@ namespace Raisins.Client.Web.Services
         {
             var account = _unitOfWork.Accounts.GetCurrentUserAccount();
             Activity activity = _unitOfWork.Activities.GetActivityByName(ActivityName);
-            return activity.DoUserRolesExists(account.Roles);
+            return activity.IsUserAllowed(account.Roles);
         }
 
     }

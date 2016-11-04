@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Raisins.Client.Web.Core.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
 using System.Text;
@@ -7,6 +8,23 @@ namespace Raisins.Client.Web.Models
 {
     public class Payment
     {
+        public Payment()
+        {
+
+        }
+
+        public Payment(PaymentViewModel paymentViewModel)
+        {
+            Name = paymentViewModel.Name;
+            Location = paymentViewModel.Location;
+            Email = paymentViewModel.Email;
+            Amount = paymentViewModel.Amount;
+            SoldBy = paymentViewModel.SoldBy;
+            Remarks = paymentViewModel.Remarks;
+            BeneficiaryID = paymentViewModel.BeneficiaryId;
+            CurrencyID = paymentViewModel.CurrencyId;
+            ClassID = paymentViewModel.PaymentClassId;
+        }
 
         public static string EmailTemplate { get; set; }
 

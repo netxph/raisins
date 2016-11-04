@@ -12,7 +12,7 @@ namespace Raisins.Client.Web.Models
         public string Name { get; set; }
         public List<Role> Roles { get; set; }
 
-        public bool DoUserRolesExists(List<Role> userRoles)
+        public bool IsUserAllowed(List<Role> userRoles)
         {
             foreach (var userRole in userRoles)
             {

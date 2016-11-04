@@ -1,5 +1,7 @@
 ﻿using Raisins.Client.Web.Core;
+using Raisins.Client.Web.Core.ViewModels;
 using Raisins.Client.Web.Models;
+using Raisins.Client.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -156,9 +158,9 @@ namespace Raisins.Client.Web.Controllers
             }
 
             Activity paymentLockActivity = _unitOfWork.Activities.GetActivityByName("Payment.Lock");
-            ViewBag.CanLock = paymentLockActivity.DoUserRolesExists(userAccount.Roles);
+            ViewBag.CanLock = paymentLockActivity.IsUserAllowed(userAccount.Roles);
             Activity paymentEditActivity = _unitOfWork.Activities.GetActivityByName("Payment.Edit");
-            ViewBag.CanEdit = paymentEditActivity.DoUserRolesExists(userAccount.Roles);
+            ViewBag.CanEdit = paymentEditActivity.IsUserAllowed(userAccount.Roles);
 
             return View(payments);
         }
@@ -189,27 +191,14 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult Create()
         {
             var user = _unitOfWork.Accounts.GetCurrentUserAccount();
+            PaymentViewModel viewModel = new PaymentViewModel();
+            viewModel.InitializePaymentFormResources(user.Profile.Beneficiaries,
+                                                     user.Profile.Currencies,
+                                                     EnumHelper.GetEnumSelectList<PaymentClass>(),
+                                                     _unitOfWork.Activities.GetActivityByName("Payment.Lock").IsUserAllowed(user.Roles),
+                                                     _unitOfWork.Activities.GetActivityByName("Payment.Edit").IsUserAllowed(user.Roles));
 
-            var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
-            var executives = _unitOfWork.Executives.GetAll().ToList();
-            executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
-
-            if (user.Profile.IsLocal)
-            {
-                paymentClasses.Remove(paymentClasses.Single(p => p.Name == "Foreign"));
-            }
-
-            ViewBag.BeneficiaryID = new SelectList(user.Profile.Beneficiaries, "ID", "Name", 1);
-            ViewBag.CurrencyID = new SelectList(user.Profile.Currencies, "ID", "CurrencyCode", 1);
-            ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
-            ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
-
-            Activity paymentLockActivity = _unitOfWork.Activities.GetActivityByName("Payment.Lock");
-            ViewBag.CanLock = paymentLockActivity.DoUserRolesExists(user.Roles);
-            Activity paymentEditActivity = _unitOfWork.Activities.GetActivityByName("Payment.Edit");
-            ViewBag.CanEdit = paymentEditActivity.DoUserRolesExists(user.Roles);
-
-            return View();
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -235,27 +224,26 @@ namespace Raisins.Client.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Payment payment)
+        public ActionResult Create(PaymentViewModel paymentViewModel)
         {
             if (ModelState.IsValid)
             {
-                if (payment.ExecutiveID == -1) payment.ExecutiveID = null;
-
+                Payment payment = new Payment(paymentViewModel);
+                payment.CreatedByID = _unitOfWork.Accounts.GetCurrentUserAccount().ID;
                 _unitOfWork.Payments.Add(payment);
                 _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
 
-            var paymentClasses = Enum.GetNames(typeof(PaymentClass)).Select(p => new { ID = (int)Enum.Parse(typeof(PaymentClass), p), Name = p }).ToList();
-            var executives = _unitOfWork.Executives.GetAll().ToList();
-            executives.Insert(0, new Executive() { ID = -1, Name = "[Select an executive...]" });
+            var user = _unitOfWork.Accounts.GetCurrentUserAccount();
+            PaymentViewModel viewModel = new PaymentViewModel();
+            viewModel.InitializePaymentFormResources(user.Profile.Beneficiaries,
+                                                     user.Profile.Currencies,
+                                                     EnumHelper.GetEnumSelectList<PaymentClass>(),
+                                                     _unitOfWork.Activities.GetActivityByName("Payment.Lock").IsUserAllowed(user.Roles),
+                                                     _unitOfWork.Activities.GetActivityByName("Payment.Edit").IsUserAllowed(user.Roles));
 
-            ViewBag.BeneficiaryID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Beneficiaries, "ID", "Name", 0);
-            ViewBag.CurrencyID = new SelectList(_unitOfWork.Accounts.GetCurrentUserAccount().Profile.Currencies, "ID", "CurrencyCode", 0);
-            ViewBag.ClassID = new SelectList(paymentClasses, "ID", "Name", 0);
-            ViewBag.ExecutiveID = new SelectList(executives, "ID", "Name");
-
-            return View(payment);
+            return View(viewModel);
         }
 
         //

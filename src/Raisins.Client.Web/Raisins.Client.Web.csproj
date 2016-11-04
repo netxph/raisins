@@ -166,6 +166,7 @@
     <Compile Include="Core\Repository\IPaymentRepository.cs" />
     <Compile Include="Core\Repository\IRoleRepository.cs" />
     <Compile Include="Core\Repository\ITicketRepository.cs" />
+    <Compile Include="Core\ViewModels\PaymentViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,6 +228,7 @@
     <Compile Include="Persistence\RaisinsDB.cs" />
     <Compile Include="Core\Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EnumHelper.cs" />
     <Compile Include="Services\HttpHelper.cs" />
     <Compile Include="Services\IHttpHelper.cs" />
   </ItemGroup>
@@ -341,7 +343,7 @@
     <Content Include="Scripts\jun\css\jquery-ui.min.css" />
     <Content Include="Scripts\jun\css\jquery-ui.structure.min.css" />
     <Content Include="Scripts\jun\css\jquery-ui.theme.min.css" />
-    <Content Include="Scripts\jun\scripts\custom.js" />
+    <Content Include="Scripts\paymentController.js" />
     <Content Include="Scripts\jun\scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jun\scripts\jquery.js" />
     <Content Include="Scripts\jwplayer\jwplayer.flash.swf" />
@@ -385,6 +387,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\jun\" />
     <Folder Include="Content\Videos\" />
   </ItemGroup>
   <ItemGroup>
