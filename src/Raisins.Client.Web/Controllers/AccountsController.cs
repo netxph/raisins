@@ -23,7 +23,7 @@ namespace Raisins.Client.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(LoginModel model)
         {
             if(ModelState.IsValid)
             {
