@@ -1,7 +1,6 @@
 ﻿using Raisins.Client.Web.Core.ViewModels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Net.Mail;
 using System.Text;
 
 namespace Raisins.Client.Web.Models
@@ -73,8 +72,7 @@ namespace Raisins.Client.Web.Models
         public int? AuditedByID { get; set; }
         public virtual Account AuditedBy { get; set; }
 
-
-        public void EmailTickets(string beneficiaryName)
+        public string GenerateMessageBody()
         {
             StringBuilder builder = new StringBuilder();
             foreach (Ticket ticket in Tickets)
@@ -83,23 +81,7 @@ namespace Raisins.Client.Web.Models
                 builder.AppendLine("<br />");
             }
 
-
-            string content = string.Format(Templates.EMAIL, beneficiaryName, Tickets[0].Name, builder.ToString());
-
-            try
-            {
-                MailMessage message = new MailMessage("no-reply@navitaire.com", Email);
-                message.Body = content;
-                message.Subject = "[TALENTS FOR HUNGRY MINDS 2014] Ticket Notification";
-                message.IsBodyHtml = true;
-
-                //change this to DefaultMailer if you wish to send directly to smtp
-                IMailer smtp = new DelegatedMailer();
-
-                smtp.SendMessage(message);
-            }
-            catch { }
-
+            return string.Format(Templates.EMAIL, Beneficiary.Name, Tickets[0].Name, builder.ToString());
         }
 
         public List<Ticket> GenerateTickets()

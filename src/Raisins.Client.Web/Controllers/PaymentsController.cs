@@ -35,8 +35,8 @@ namespace Raisins.Client.Web.Controllers
                     payment.AuditedByID = currentAccount.ID;
                     payment.Tickets = payment.GenerateTickets();
 
-                    string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
-                    payment.EmailTickets(beneficiaryName);
+                    MailQueue mailQueue = new MailQueue(payment);
+                    _unitOfWork.MailQueues.Add(mailQueue);
                 }
             }
 
@@ -54,25 +54,21 @@ namespace Raisins.Client.Web.Controllers
             var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
 
             List<Payment> payments = _unitOfWork.Payments.GetPaymentByBeneficiary(beneficiaryIds)
-                            .Where(p => p.ClassID == (int)PaymentClass.Local 
-                                    || p.ClassID == (int)PaymentClass.External).ToList();
+                            .Where(p => p.ClassID == (int)PaymentClass.Local).ToList();
 
             foreach (var payment in payments)
             {
                 if (!payment.Locked)
                 {
-                    _unitOfWork.Payments.Edit(payment);
-
                     payment.Locked = true;
                     payment.AuditedByID = currentAccount.ID;
                     payment.Tickets = payment.GenerateTickets();
-
-                    string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
-                    payment.EmailTickets(beneficiaryName);
+                    MailQueue mailQueue = new MailQueue(payment);
+                    _unitOfWork.MailQueues.Add(mailQueue);
+                    _unitOfWork.Payments.Edit(payment);
+                    _unitOfWork.Complete();
                 }
             }
-
-            _unitOfWork.Complete();
             return RedirectToAction("Index");
         }
 
@@ -96,8 +92,8 @@ namespace Raisins.Client.Web.Controllers
                     payment.AuditedByID = currentAccount.ID;
                     payment.Tickets = payment.GenerateTickets();
 
-                    string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
-                    payment.EmailTickets(beneficiaryName);
+                    MailQueue mailQueue = new MailQueue(payment);
+                    _unitOfWork.MailQueues.Add(mailQueue);
                 }
             }
             _unitOfWork.Complete();
@@ -110,8 +106,8 @@ namespace Raisins.Client.Web.Controllers
             IEnumerable<Payment> payments = _unitOfWork.Payments.GetLockedPayments();
             foreach(Payment payment in payments)
             {
-                string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
-                payment.EmailTickets(beneficiaryName);
+                MailQueue mailQueue = new MailQueue(payment);
+                _unitOfWork.MailQueues.Add(mailQueue);
             }
 
             return RedirectToAction("Index");
@@ -318,8 +314,8 @@ namespace Raisins.Client.Web.Controllers
         public ActionResult Email(int id)
         {
             Payment payment = _unitOfWork.Payments.GetPayment(id);
-            string beneficiaryName = _unitOfWork.Beneficiaries.Find(payment.ID).Name;
-            payment.EmailTickets(beneficiaryName);
+            MailQueue mailQueue = new MailQueue(payment);
+            _unitOfWork.MailQueues.Add(mailQueue);
 
             return RedirectToAction("Index");
         }
