@@ -3,14 +3,14 @@
     ViewBag.Title = "Create";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(Model.Action, "Payments"))
 {
     @Html.ValidationSummary(true)
     <br />
     <h1>NEW PAYMENT</h1>
     <br />
     //MODIFIED PART START
-    <div class="js-create-payment-container"  id="tabs">
+    <div class="js-create-payment-container" id="tabs">
         <ul role="tablist" class="">
             @if (Model.CanEdit)
             {
@@ -43,7 +43,7 @@
                         <p>Group Name:</p>
                     </div>
                     <div class="dropdown">
-                        @Html.DropDownListFor(m => m.BeneficiaryId, new SelectList(Model.Beneficiaries, "ID", "Name"), "", new { @class = "dropdown-select" })
+                        @Html.DropDownListFor(m => m.BeneficiaryId, new SelectList(Model.Beneficiaries, "ID", "Name"),"", new { @class = "dropdown-select" })
                     </div>
                     <br />
                     <div class="label">
@@ -72,13 +72,13 @@
                     <br />
 
 
-                     <div title="You may leave this blank if there is none."> 
-           
-                      <div class="label">
-                        <p>@Html.LabelFor(model => model.SoldBy)</p>
-                    </div>
+                    <div title="You may leave this blank if there is none.">
+
+                        <div class="label">
+                            <p>@Html.LabelFor(model => model.SoldBy)</p>
+                        </div>
                         @Html.TextBoxFor(model => model.SoldBy, null, new { @class = "tbox" })
-                     </div>
+                    </div>
                     <div class="label">
                         <p>Currency</p>
                     </div>
@@ -91,10 +91,10 @@
                         @Html.TextAreaFor(model => model.Remarks, new { @class = "tbox" })
                         @Html.ValidationMessageFor(model => model.Remarks)
                     </div>
-                    @Html.DropDownListFor(m => m.PaymentClassId, Model.PaymentClasses, "", new { @class = "dropdown-select js-payment-class hide" })
+                    @Html.DropDownListFor(m => m.PaymentClassId, Model.PaymentClasses, "", new { @class = "dropdown-select js-payment-class hide", data_originalValue = Model.PaymentClassId })
                     <br />
                     <br />
-                    <input type="submit" class="btn" value="CREATE PAYMENT" id="submit" />
+                    <input type="submit" class="btn" data-action="@Model.Action.ToUpper()" value="@Model.Action PAYMENT" id="submit" />
                 </section>
             </form>
         </div>
@@ -108,14 +108,14 @@
 }
 <br>
 <div style="margin-left:-4%;">
-        <a class="backtolist" href="@Url.Action("Index", "Payments","Views")">Back to List</a>
+    <a class="backtolist" href="@Url.Action("Index", "Payments","Views")">Back to List</a>
 </div>
 
 @section scripts {
     <script src="~/Scripts/jun/scripts/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function () {
-            PaymentController.init(".js-create-payment-container", "CREATE");
+            PaymentController.init(".js-create-payment-container");
         });
     </script>
 }

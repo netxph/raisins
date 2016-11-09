@@ -442,7 +442,7 @@
     <Content Include="Views\Payments\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Payments\Create.cshtml" />
+    <Content Include="Views\Payments\PaymentForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Payments\Edit.cshtml" />

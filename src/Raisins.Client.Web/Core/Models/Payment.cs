@@ -15,6 +15,7 @@ namespace Raisins.Client.Web.Models
 
         public Payment(PaymentViewModel paymentViewModel)
         {
+            ID = paymentViewModel.Id;
             Name = paymentViewModel.Name;
             Location = paymentViewModel.Location;
             Email = paymentViewModel.Email;

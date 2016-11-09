@@ -2,28 +2,39 @@ var PaymentController = function () {
     var container;
     var paymentAction;
     var currencyDropdown;
+    var paymentClassDropdown;
     var paymentTabs;
+    var submitButton;
 
-    var init = function (containerSelector, payAction) {
+    var init = function (containerSelector) {
         container = $(containerSelector);
-        paymentAction = payAction;
-        currencyDropdown = container.find(".js-currency-dropdown");
-        paymentTabs = container.find(".js-payment-tab-button");
-
+        initializeObjects();
         container.tabs();
         bindEvents();
-        paymentTabs.eq(0).trigger("click");
+        activatePrechosenTab();
+        
     };
+
+    var initializeObjects = function () {
+        currencyDropdown = container.find(".js-currency-dropdown");
+        paymentTabs = container.find(".js-payment-tab-button");
+        submitButton = container.find("#submit");
+        paymentAction = submitButton.data("action");
+        paymentClassDropdown = container.find(".js-payment-class");
+    }
+
+    var activatePrechosenTab = function () {
+        var originalValue = paymentClassDropdown.data("originalvalue");
+        paymentTabs.eq(originalValue).trigger("click");
+    }
 
     var bindEvents = function () {
         paymentTabs.off("click.setPaymentElementAttr").on("click.setPaymentElementAttr", setElementAttrBasedOnPaymentClass);
-        container.off("click.setPaymentElementAttr").on("click.setPaymentElementAttr", "#submit", enableCurrencyDropdown);
+        submitButton.off("click.setPaymentElementAttr").on("click.setPaymentElementAttr", enableCurrencyDropdown);
     }
 
     var setElementAttrBasedOnPaymentClass = function () {
         var clickedTab = $(this);
-        var submitButton = container.find("#submit");
-        var paymentClassDropdown = container.find(".js-payment-class");
         if (clickedTab.hasClass("js-local")) {
             currencyDropdown.prop("disabled", true);
             currencyDropdown.val(1);
