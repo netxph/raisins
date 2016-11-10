@@ -20,87 +20,6 @@ namespace Raisins.Client.Web.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult LockAll()
-        {
-            Account currentAccount = _unitOfWork.Accounts.GetCurrentUserAccount();
-            List<Payment> payments = _unitOfWork.Payments.GetPayment(currentAccount).ToList();
-
-            foreach (var payment in payments)
-            {
-                if (!payment.Locked)
-                {
-                    _unitOfWork.Payments.Edit(payment);
-
-                    payment.Locked = true;
-                    payment.AuditedByID = currentAccount.ID;
-                    payment.Tickets = payment.GenerateTickets();
-
-                    MailQueue mailQueue = new MailQueue(payment);
-                    _unitOfWork.MailQueues.Add(mailQueue);
-                }
-            }
-
-            _unitOfWork.Complete();
-            
-
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult LockLocal()
-        {
-
-            Account currentAccount = _unitOfWork.Accounts.GetCurrentUserAccount();
-
-            var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
-
-            List<Payment> payments = _unitOfWork.Payments.GetPaymentByBeneficiary(beneficiaryIds)
-                            .Where(p => p.ClassID == (int)PaymentClass.Local).ToList();
-
-            foreach (var payment in payments)
-            {
-                if (!payment.Locked)
-                {
-                    payment.Locked = true;
-                    payment.AuditedByID = currentAccount.ID;
-                    payment.Tickets = payment.GenerateTickets();
-                    MailQueue mailQueue = new MailQueue(payment);
-                    _unitOfWork.MailQueues.Add(mailQueue);
-                    _unitOfWork.Payments.Edit(payment);
-                    _unitOfWork.Complete();
-                }
-            }
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult LockForeign()
-        {
-
-            Account currentAccount = _unitOfWork.Accounts.GetCurrentUserAccount();
-
-            var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
-
-            List<Payment> payments = _unitOfWork.Payments.GetPaymentByBeneficiary(beneficiaryIds)
-                                        .Where(p => p.ClassID == (int)PaymentClass.Foreign).ToList();
-
-            foreach (var payment in payments)
-            {
-                if (!payment.Locked)
-                {
-                    _unitOfWork.Payments.Edit(payment);
-
-                    payment.Locked = true;
-                    payment.AuditedByID = currentAccount.ID;
-                    payment.Tickets = payment.GenerateTickets();
-
-                    MailQueue mailQueue = new MailQueue(payment);
-                    _unitOfWork.MailQueues.Add(mailQueue);
-                }
-            }
-            _unitOfWork.Complete();
-
-            return RedirectToAction("Index");
-        }
-
         public ActionResult Resend()
         {
             IEnumerable<Payment> payments = _unitOfWork.Payments.GetLockedPayments();
@@ -297,6 +216,39 @@ namespace Raisins.Client.Web.Controllers
                 return HttpNotFound();
             }
             return View(payment);
+        }
+
+        public ActionResult Lock(int paymentClassId)
+        {
+            Account currentAccount = _unitOfWork.Accounts.GetCurrentUserAccount();
+
+            var beneficiaryIds = currentAccount.Profile.Beneficiaries.Select(b => b.ID).ToArray();
+
+            List<Payment> payments = new List<Payment>();
+            if (paymentClassId == -1) //Lock All
+            {
+                payments = _unitOfWork.Payments.GetPaymentByBeneficiary(beneficiaryIds).ToList();
+            }
+            else
+            {
+                payments = _unitOfWork.Payments.GetPaymentByBeneficiary(beneficiaryIds)
+                .Where(p => p.ClassID == paymentClassId).ToList();
+            }
+
+            foreach (var payment in payments)
+            {
+                if (!payment.Locked)
+                {
+                    payment.Locked = true;
+                    payment.AuditedByID = currentAccount.ID;
+                    payment.Tickets = payment.GenerateTickets();
+                    MailQueue mailQueue = new MailQueue(payment);
+                    _unitOfWork.MailQueues.Add(mailQueue);
+                    _unitOfWork.Payments.Edit(payment);
+                    _unitOfWork.Complete();
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         //

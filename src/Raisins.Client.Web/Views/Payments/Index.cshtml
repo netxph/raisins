@@ -5,15 +5,44 @@
 }
 <br /><br />
 <ul id="payment-menu">
-    @if(ViewBag.CanEdit)
+    @if (ViewBag.CanEdit)
     {
-    <li>@Html.ActionLink("CREATE NEW", "Create")</li>
+        <li>@Html.ActionLink("CREATE NEW", "Create")</li>
     }
-    @if(ViewBag.CanLock)
+    @if (ViewBag.CanLock)
     {
-     <li><a href="#" id="lock-all">&nbsp;Lock All</a></li>
-    <li><a href="#" id="lock-local">&nbsp;Lock Local</a></li>
-    <li><a href="#" id="lock-foreign">&nbsp;Lock International</a></li>    
+        <li>
+            <a href="#"
+               class="js-lock-payment"
+               id="lock-all"
+               data-dialogid="#lock-all-dialog">
+                Lock All
+            </a>
+        </li>
+        <li>
+            <a href="#"
+               class="js-lock-payment"
+               id="lock-local"
+               data-dialogid="#lock-local-dialog">
+                Lock Local
+            </a>
+        </li>
+        <li>
+            <a href="#"
+               class="js-lock-payment"
+               id="lock-external"
+               data-dialogid="#lock-external-dialog">
+                Lock External
+            </a>
+        </li>
+        <li>
+            <a href="#"
+               class="js-lock-payment"
+               id="lock-foreign"
+               data-dialogid="#lock-foreign-dialog">
+                Lock Foreign
+            </a>
+        </li>
     }
 </ul>
 <table id="payment-grid">
@@ -41,7 +70,6 @@
                             {
                                 <li>@Html.ActionLink("Edit", "Edit", new { ID = payment.ID }) </li>
                                 <li>@Html.ActionLink("Delete", "Delete", new { ID = payment.ID })</li>
-                                @*<li>@Html.ActionLink("Email", "Email", new { ID = payment.ID })</li>*@
                             }
                         }
                         else
@@ -56,12 +84,6 @@
                 <td class="name">@Html.DisplayFor(model => payment.Name)</td>
                 <td class="currency">@Html.DisplayFor(model => payment.Currency.CurrencyCode)</td>
                 <td class="amount">@Html.DisplayFor(model => payment.Amount)</td>
-                @*<td class="votes">@(Math.Floor(payment.Amount / payment.Currency.Ratio))</td>*@
-               @* <td class="votes">@((((((int)((payment.Amount)*payment.Currency.ExchangeRate)) / 2000) * 55) +
-                                                    ((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) / 1000) * 25) +
-                                                    (((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
-                                                    ((((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)))
-                 *@ 
                 <td class="votes">@((payment.Currency.CurrencyCode=="PHP")?
                                           (((((int)((payment.Amount)*payment.Currency.ExchangeRate)) / 2000) * 55) +
                                                     ((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) / 1000) * 25) +
@@ -77,29 +99,40 @@
     </tbody>
 </table>
 
-<div id="dialog-lock-all" title="Lock All?">
+<div id="lock-all-dialog" title="Lock All?">
     <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
 </div>
 
-<div id="dialog-lock-local" title="Lock Local?">
+<div id="lock-local-dialog" title="Lock Local?">
     <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
 </div>
 
-<div id="dialog-lock-foreign" title="Lock Foreign?">
+<div id="lock-external-dialog" title="Lock External?">
+    <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
+</div>
+
+<div id="lock-foreign-dialog" title="Lock Foreign?">
     <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
 </div>
 
 @section scripts {
     <script type="text/javascript">
         $(function () {
-            $("#dialog-lock-all").dialog({
+
+            $(".js-lock-payment").click(function () {
+                var lockDialogSelector = $(this).data("dialogid");
+                $(lockDialogSelector).dialog("open");
+                return false;
+            });
+
+            $("#lock-all-dialog").dialog({
                 autoOpen: false,
                 resizable: false,
                 height: 200,
                 modal: true,
                 buttons: {
                     "Yes": function () {
-                        window.location.href = "@Url.Action("LockAll")";
+                        window.location.href = "@Url.Action("Lock", new { paymentClassId = -1 })";
                         $(this).dialog("close");
                     },
                     "No": function () {
@@ -108,20 +141,14 @@
                 }
             });
 
-            $("#lock-all")
-            .click(function () {
-                $("#dialog-lock-all").dialog("open");
-                return false;
-            });
-
-            $("#dialog-lock-local").dialog({
+            $("#lock-local-dialog").dialog({
                 autoOpen: false,
                 resizable: false,
                 height: 200,
                 modal: true,
                 buttons: {
                     "Yes": function () {
-                        window.location.href = "@Url.Action("LockLocal")";
+                        window.location.href = "@Url.Action("Lock", new { paymentClassId = (int)PaymentClass.Local })";
                         $(this).dialog("close");
                     },
                     "No": function () {
@@ -130,21 +157,14 @@
                 }
             });
 
-            $("#lock-local")
-            .click(function () {
-                $("#dialog-lock-local").dialog("open");
-                return false;
-            });
-
-
-            $("#dialog-lock-foreign").dialog({
+            $("#lock-external-dialog").dialog({
                 autoOpen: false,
                 resizable: false,
                 height: 200,
                 modal: true,
                 buttons: {
                     "Yes": function () {
-                        window.location.href = "@Url.Action("LockForeign")";
+                        window.location.href = "@Url.Action("Lock", new { paymentClassId = (int)PaymentClass.External })";
                         $(this).dialog("close");
                     },
                     "No": function () {
@@ -153,10 +173,20 @@
                 }
             });
 
-            $("#lock-foreign")
-            .click(function () {
-                $("#dialog-lock-foreign").dialog("open");
-                return false;
+            $("#lock-foreign-dialog").dialog({
+                autoOpen: false,
+                resizable: false,
+                height: 200,
+                modal: true,
+                buttons: {
+                    "Yes": function () {
+                        window.location.href = "@Url.Action("Lock", new { paymentClassId = (int)PaymentClass.Foreign })";
+                        $(this).dialog("close");
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
             });
         });
     </script>
