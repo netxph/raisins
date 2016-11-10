@@ -3,121 +3,99 @@
 @{
     ViewBag.Title = "Delete";
 }
-<div style="background-color:rgba(0,0,0,0.4); border-radius:7px; padding:2%; font-family: 'Patrick Hand'; font-size:15px;">
+@using (Html.BeginForm())
+{
+    <div style="background-color:rgba(0,0,0,0.4); border-radius:7px; padding:2%; font-family: 'Patrick Hand'; font-size:15px;">
+        <br />
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Name):
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div class="display-field">
 
-<h3>Are you sure you want to delete this?</h3>
-@*<fieldset>
-    <legend>Payment</legend>*@
- <br />
-        @*<h1>PAYMENT</h1>*@
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Amount) :
+            @Html.DisplayFor(model => model.Amount)
+        </div>
+        <div class="display-field">
 
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Location) :
+            @Html.DisplayFor(model => model.Location)
+        </div>
+        <div class="display-field">
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name):
-        @Html.DisplayFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        
-    </div>
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Email):
+            @Html.DisplayFor(model => model.Email)
+        </div>
+        <div class="display-field">
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Amount) :
-        @Html.DisplayFor(model => model.Amount)
-    </div>
-    <div class="display-field">
-       
-    </div>
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.SoldBy):
+            @Html.DisplayFor(model => model.SoldBy)
+        </div>
+        <div class="display-field">
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Location) :
-        @Html.DisplayFor(model => model.Location)
-    </div>   
-    <div class="display-field">
-    
-    </div>
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Remarks):
+            @Html.DisplayFor(model => model.Remarks)
+        </div>
+        <div class="display-field">
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email):
-        @Html.DisplayFor(model => model.Email)
-    </div>
-    <div class="display-field">
-        
-    </div>
- <div class="display-label">
-         @Html.DisplayNameFor(model => model.SoldBy):
-        @Html.DisplayFor(model => model.SoldBy)
-    </div>
-    <div class="display-field">
-        
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Remarks):
-        @Html.DisplayFor(model => model.Remarks)
-    </div>
-    <div class="display-field">
-        
-    </div>
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Locked) :
+            @Html.DisplayFor(model => model.Locked)
+        </div>
+        <div class="display-field">
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Locked) :
-        @Html.DisplayFor(model => model.Locked)
-    </div>
-    <div class="display-field">
-       
-    </div>
-<br />
-    <div class="display-label">
-        Beneficiary: @*@Html.DisplayNameFor(model => model.Beneficiary.Name):*@
-       @Html.DisplayFor(model => model.Beneficiary.Name)
+        </div>
+        <br />
+        <div class="display-label">
+            Beneficiary:
+            @Html.DisplayFor(model => model.Beneficiary.Name)
+        </div>
+        <div class="display-field">
 
-    </div>
-    <div class="display-field">
-     
-    </div>
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Currency.CurrencyCode):
+            @Html.DisplayFor(model => model.Currency.CurrencyCode)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Currency.CurrencyCode):
-    @Html.DisplayFor(model => model.Currency.CurrencyCode)</div>
-   
- <div class="display-field">
-        
-    </div>
+        <div class="display-field">
 
-    <div class="display-label">
-       Created by @*@Html.DisplayNameFor(model => model.CreatedBy.UserName)*@:
-     @Html.DisplayFor(model => model.CreatedBy.UserName)
+        </div>
+        <div class="display-label">
+            Created by:
+            @Html.DisplayFor(model => model.CreatedBy.UserName)
+        </div>
+        <div class="display-field">
 
+        </div>
+        <div class="display-label">
+            Audited By:
+            @Html.DisplayFor(model => model.AuditedBy.UserName)
+        </div>
+        <br />    <input type="submit" value="Delete" class="btn" style="font-size:15px;  padding: 3px 4% 3px 4%;">
     </div>
-    <div class="display-field">
-       
-    </div>
+}
 
-    <div class="display-label">
-       Audited By:  @*@Html.DisplayNameFor(model => model.AuditedBy.UserName)*@
-         @Html.DisplayFor(model => model.AuditedBy.UserName)
-    </div>
-      <br />    <input type="submit" value="Delete" class="btn" style="font-size:15px;  padding: 3px 4% 3px 4%;">
-    </div>
     <link href="~/Scripts/jun/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/jun/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/jun/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/jun/css/custom.css" rel="stylesheet" type="text/css" />
-   
-
-@*</fieldset>*@
 
 @using (Html.BeginForm()) {
-    
-  
-  
-    @* 
-     <div class="backtolist" style="margin-left:2%">
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
     <br>
 <div style="margin-left:-4%;"  >
         <a class="backtolist" href="@Url.Action("Index", "Payments","Views")">Back to List</a>
-   @* @Html.ActionLink("Back to List", "Index")*@
 </div>
    
 }
