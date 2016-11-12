@@ -28,7 +28,9 @@ body{
     background-attachment:fixed;
      position: relative;
 }
-
+.hide {
+    display: none;
+}
     body:after
     {
     content: "";
