@@ -16,7 +16,8 @@ namespace Raisins.Client.Web
             bundles.Add(new ScriptBundle("~/scripts/raisins").Include(
                 "~/Scripts/kkcountdown.js",
                 "~/Scripts/raisins.js",
-                "~/Scripts/paymentController.js"
+                "~/Scripts/paymentController.js",
+                "~/Scripts/accountCreateController.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

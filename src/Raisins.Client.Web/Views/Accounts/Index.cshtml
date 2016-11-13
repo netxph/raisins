@@ -1,0 +1,36 @@
+﻿@model Raisins.Client.Web.Core.ViewModels.AccountViewModel
+
+<div id="account-detail-container">
+    @if (Model.RoleObject.IsAdmin())
+    {
+        <a href="@Url.Action("Create", "Accounts")" class="create-account-link">Create Account</a>
+    }
+    <br/>
+    <br/>
+    <fieldset id="payments">
+        <legend style="font-size:20px; font-family:'Patrick Hand';"> <u>Account Details</u></legend>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Name) :
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Username) :
+            @Html.DisplayFor(model => model.Username)
+        </div>
+        <div class="display-label">
+            Role :
+            @Html.DisplayFor(model => model.RoleObject.Name)
+        </div>
+        <br/>
+        <div class="display-label">
+            Beneficiaries:
+        </div>
+        @foreach (Beneficiary beneficiary in Model.Beneficiaries)
+        {
+            <div class="display-label">
+                <span>@beneficiary.Name</span>
+            </div>
+        }
+    </fieldset>
+</div>

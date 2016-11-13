@@ -1090,3 +1090,15 @@ span.field-validation-error {
     font-size: 13px;
     font-weight: bold;
 }
+
+/* Account Details Page*/
+#account-detail-container > .create-account-link {
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+}
+
+/* Account Create Page */
+.js-create-account-container .dropdown {
+    display: inline-block;
+}
