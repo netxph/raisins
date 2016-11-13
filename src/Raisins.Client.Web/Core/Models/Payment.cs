@@ -31,17 +31,13 @@ namespace Raisins.Client.Web.Models
         [Key]
         public int ID { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
-        [Range(0.0D, double.MaxValue, ErrorMessage = "Amount must be greater than zero")]
         public decimal Amount { get; set; }
 
         public string Location { get; set; }
 
         [Required]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         public string SoldBy { get; set; }
@@ -54,18 +50,15 @@ namespace Raisins.Client.Web.Models
 
         public bool Locked { get; set; }
 
-        [Required]
         public int BeneficiaryID { get; set; }
         public virtual Beneficiary Beneficiary { get; set; }
 
         public int? ExecutiveID { get; set; }
         public virtual Executive Executive { get; set; }
 
-        [Required]
         public int CurrencyID { get; set; }
         public virtual Currency Currency { get; set; }
 
-        [Required]
         public int CreatedByID { get; set; }
         public virtual Account CreatedBy { get; set; }
 

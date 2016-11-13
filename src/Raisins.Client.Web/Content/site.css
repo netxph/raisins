@@ -1080,3 +1080,14 @@ body,
 	0% {margin-left: 1000px;}
 	100% {margin-left: -1000px;}
 }
+
+
+
+
+/* Validation messages */
+span.field-validation-error {
+    margin-left: 10px;
+    color: red;
+    font-size: 13px;
+    font-weight: bold;
+}

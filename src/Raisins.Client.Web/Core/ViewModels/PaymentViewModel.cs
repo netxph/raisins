@@ -2,6 +2,7 @@
 using Raisins.Client.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
@@ -29,21 +30,38 @@ namespace Raisins.Client.Web.Core.ViewModels
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Location { get; set; }
-        public string Email { get; set; }
-        public decimal Amount { get; set; }
-        public string SoldBy { get; set; }
-        public string Remarks { get; set; }
-        public bool CanLock { get; set; }
-        public bool CanEdit { get; set; }
-        public int BeneficiaryId { get; set; }
 
+        [Required]
+        public string Name { get; set; }
+
+        public string Location { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Required]
+        [Range(50.0D, double.MaxValue, ErrorMessage = "Minimum payment is 50 Php")]
+        public decimal Amount { get; set; }
+
+        public string SoldBy { get; set; }
+
+        public string Remarks { get; set; }
+
+        public bool CanLock { get; set; }
+
+        public bool CanEdit { get; set; }
+        
+        [Required]
+        [Display(Name="Group Name")]
+        public int BeneficiaryId { get; set; }
         public IEnumerable<Beneficiary> Beneficiaries;
 
+        [Required]
         public int CurrencyId { get; set; }
         public IEnumerable<Currency> Currencies { get; set; }
 
+        [Required]
         public int PaymentClassId { get; set; }
         public IEnumerable<SelectListItem> PaymentClasses { get; set; }
 
