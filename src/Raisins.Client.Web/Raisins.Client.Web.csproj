@@ -186,6 +186,10 @@
     <Compile Include="Persistence\Migrations\201611130725186_RemovedAttributesInPayment.Designer.cs">
       <DependentUpon>201611130725186_RemovedAttributesInPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\Migrations\201611141019100_AddedVideoLinkPropertyToBeneficiaries.cs" />
+    <Compile Include="Persistence\Migrations\201611141019100_AddedVideoLinkPropertyToBeneficiaries.Designer.cs">
+      <DependentUpon>201611141019100_AddedVideoLinkPropertyToBeneficiaries.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Migrations\ActivitySeed.cs" />
     <Compile Include="Persistence\Migrations\BeneficiarySeed.cs" />
     <Compile Include="Persistence\Migrations\Configuration.cs" />
@@ -243,32 +247,27 @@
     <Content Include="Content\css\county.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\Images\BackstreetBoys.jpg" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\bg2.jpg" />
     <Content Include="Content\Images\bg5.png" />
     <Content Include="Content\Images\bg6.png" />
     <Content Include="Content\Images\bgwithoutclouds.jpg" />
+    <Content Include="Content\Images\CanYouHandleThis.jpg" />
     <Content Include="Content\Images\chalkboardfb.png" />
     <Content Include="Content\Images\chalkfb.png" />
     <Content Include="Content\Images\chalkhms.png" />
     <Content Include="Content\Images\facebook.jpg" />
-    <Content Include="Content\Images\Funny Is The New Pogi.jpg" />
     <Content Include="Content\Images\hungryminds.png" />
-    <Content Include="Content\Images\MANILEÑOS.jpg" />
-    <Content Include="Content\Images\MANILEÑOS.png" />
+    <Content Include="Content\Images\Kingsman.jpg" />
     <Content Include="Content\Images\OCSDO Angels.JPG" />
     <Content Include="Content\Images\hmstoon.gif" />
-    <Content Include="Content\Images\photo2.jpg" />
-    <Content Include="Content\Images\photo4.jpg" />
-    <Content Include="Content\Images\photo3.jpg" />
-    <Content Include="Content\Images\photo5.jpg" />
     <Content Include="Content\Images\photo1.jpg" />
-    <Content Include="Content\Images\photo6.jpg" />
-    <Content Include="Content\Images\photo7.jpg" />
-    <Content Include="Content\Images\QAiTS.jpg" />
+    <Content Include="Content\Images\photo2.jpg" />
+    <Content Include="Content\Images\photo3.jpg" />
+    <Content Include="Content\Images\photo4.jpg" />
+    <Content Include="Content\Images\TeenageDream.jpg" />
     <Content Include="Content\Images\The Chronicles of Naina.jpg" />
-    <Content Include="Content\Images\The Timejumpers.jpg" />
-    <Content Include="Content\Images\The Timejumpers.png" />
     <Content Include="Content\Images\time.ico" />
     <Content Include="Content\js\county.js" />
     <Content Include="Content\js\jquery-1.8.3.min.js" />
@@ -463,21 +462,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Profile2.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile4.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile3.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile5.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile1.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Payments\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -493,9 +477,6 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Profile6.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Persistence\Migrations\201311261040400_Initial.resx">
       <DependentUpon>201311261040400_Initial.cs</DependentUpon>
     </EmbeddedResource>
@@ -508,9 +489,9 @@
     <EmbeddedResource Include="Persistence\Migrations\201611130725186_RemovedAttributesInPayment.resx">
       <DependentUpon>201611130725186_RemovedAttributesInPayment.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_profile7.cshtml" />
+    <EmbeddedResource Include="Persistence\Migrations\201611141019100_AddedVideoLinkPropertyToBeneficiaries.resx">
+      <DependentUpon>201611141019100_AddedVideoLinkPropertyToBeneficiaries.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <!--<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>-->

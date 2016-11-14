@@ -1,7 +1,13 @@
 ﻿@model Raisins.Client.Web.Models.Beneficiary
 
-@{
-    ViewBag.Title = "Details";
-}
-
-@Html.Partial(string.Format("_Profile{0}", Model.ID))
+<div id="maincontentarea">
+    <div id="bandinfo">
+        <div id="bandname">
+            <h2>@Model.Name</h2>
+        </div>
+        <h3>Video</h3>
+        <div id="bandvideo">
+            <iframe src="@Model.VideoLink" width="480" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true"></iframe>
+        </div>
+    </div>
+</div>

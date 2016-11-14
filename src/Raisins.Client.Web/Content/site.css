@@ -302,8 +302,7 @@ div#bandinfo {
 div#bandvideo {
     width: 480px;
     height: 320px;
-    border: 1px solid;
-    margin: 0 auto 10px;
+    margin: 35px auto 10px auto;
 }
 
 table#payment-grid {
