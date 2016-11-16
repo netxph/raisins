@@ -24,7 +24,7 @@ namespace Raisins.Client.Web.Persistence.Repository
 
         public void Add(Activity activity)
         {
-            activity.Roles.SetState(_raisinDb, EntityState.Modified);
+            //activity.Roles.SetState(_raisinDb, EntityState.Modified);
             _raisinDb.Activities.Add(activity);
             
         }

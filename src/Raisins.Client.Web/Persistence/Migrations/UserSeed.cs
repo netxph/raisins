@@ -134,6 +134,9 @@ namespace Raisins.Client.Web.Migrations
                     }
 
                 };
+                var salt = Helper.CreateSalt();
+                account.SetSalt(salt);
+                account.GenerateNewPassword(password, salt);
                 _unitOfWork.Accounts.Add(account);
 
                 //roles.SetState(db, EntityState.Modified);
@@ -170,6 +173,9 @@ namespace Raisins.Client.Web.Migrations
                     }
 
                 };
+                var salt = Helper.CreateSalt();
+                account.SetSalt(salt);
+                account.GenerateNewPassword(password, salt);
                 _unitOfWork.Accounts.Add(account);
 
                 //roles.SetState(db, EntityState.Modified);
@@ -206,6 +212,9 @@ namespace Raisins.Client.Web.Migrations
                     }
 
                 };
+                var salt = Helper.CreateSalt();
+                account.SetSalt(salt);
+                account.GenerateNewPassword(password, salt);
                 _unitOfWork.Accounts.Add(account);
                 _unitOfWork.Complete();
             }
