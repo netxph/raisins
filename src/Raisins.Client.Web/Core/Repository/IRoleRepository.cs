@@ -9,5 +9,8 @@ namespace Raisins.Client.Web.Core.Repository
         Role Get(string roleName);
         Role Find(int roleId);
         void Add(Role role);
+        void Edit(Role role);
+        void MultipleEdit(IEnumerable<Role> roles);
+        bool Any(string roleName);
     }
 }

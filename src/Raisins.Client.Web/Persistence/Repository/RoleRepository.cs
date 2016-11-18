@@ -1,6 +1,7 @@
 ﻿using Raisins.Client.Web.Core.Repository;
 using Raisins.Client.Web.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Raisins.Client.Web.Persistence.Repository
@@ -32,6 +33,25 @@ namespace Raisins.Client.Web.Persistence.Repository
         public void Add(Role role)
         {
             _raisinsDb.Roles.Add(role);
+        }
+
+        public void Edit(Role role)
+        {
+            _raisinsDb.Entry<Role>(role).State = EntityState.Modified; 
+        }
+
+        public void MultipleEdit(IEnumerable<Role> roles)
+        {
+            foreach (Role role in roles)
+            {
+                _raisinsDb.Entry<Role>(role).State = EntityState.Modified;
+            }
+
+        }
+
+        public bool Any(string roleName)
+        {
+            return _raisinsDb.Roles.Any(r => r.Name == roleName);
         }
 
     }
