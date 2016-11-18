@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace Raisins.Client.Web
 {
     public class Templates
@@ -19,11 +15,10 @@ Ticket Number(s) for your vote(s) is/are:<br /><br />
 {2}
 </p>
 <p style=""font-size: 17px;font-family:'Calibri'"">Let's beat our record last year and raise Php 700,000 for scholars of the Food for Hungry Minds.</p>
-<p style=""font-size: 17px;font-family:'Calibri'"">Donations in excess of Php 700,000 will go to victims of the Typhoon Yolanda.</p>
 <p style=""font-size: 17px;font-family:'Calibri'"">All votes will be part of the raffle draw (1 vote = 1 entry). More votes, more chances of winning.</p>
-<p style=""font-size: 17px;font-family:'Calibri'"">Voting period ends on December 05.</p>
+<p style=""font-size: 17px;font-family:'Calibri'"">Voting period ends on December 08.</p>
 <br />
-<p style=""font-size: 18px;font-family:'Calibri'""><strong>TALENTS FOR HUNGRY MINDS 2013</strong><br />
+<p style=""font-size: 18px;font-family:'Calibri'""><strong>TALENTS FOR HUNGRY MINDS 2016</strong><br />
 <a href=""http://foodforhungryminds.org/"">http://foodforhungryminds.org</a>
 </p>
 ";

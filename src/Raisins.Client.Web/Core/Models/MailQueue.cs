@@ -16,7 +16,7 @@ namespace Raisins.Client.Web.Models
             MailMessage message = new MailMessage(
                                         "no-reply@navitaire.com",
                                         payment.Email,
-                                        "[TALENTS FOR HUNGRY MINDS 2014] Ticket Notification",
+                                        "[TALENTS FOR HUNGRY MINDS 2016] Ticket Notification",
                                         payment.GenerateMessageBody())
             {
                 IsBodyHtml = true
