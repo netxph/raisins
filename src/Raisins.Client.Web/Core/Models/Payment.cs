@@ -1,4 +1,5 @@
 ﻿using Raisins.Client.Web.Core.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -80,11 +81,7 @@ namespace Raisins.Client.Web.Models
         public List<Ticket> GenerateTickets()
         {
             List<Ticket> tickets = new List<Ticket>();
-            int count = (((((int)((Amount) * this.Currency.ExchangeRate)) / 2000) * 55) +
-                                                    ((((int)(Amount * Currency.ExchangeRate) % 2000) / 1000) * 25) +
-                                                    (((((int)(Amount * Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
-                                                    ((((((int)(Amount * Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)
-                                                    );
+            int count = ConvertPaymentAmountToVotes();
 
             for (int i = 0; i < count; i++)
             {
@@ -93,6 +90,53 @@ namespace Raisins.Client.Web.Models
 
             return tickets;
         }
-        
+
+        public int ConvertPaymentAmountToVotes()
+        {
+            int convertedAmount = (int)(Amount * Currency.ExchangeRate);
+            string currencyCode = Currency.CurrencyCode;
+            if(currencyCode == "PHP")
+            {
+                PaymentCategory paymentCategory = new PaymentCategory
+                {
+                    PlatinumPaymentAmount = 2000, PlatinumPaymentVotes = 55,
+                    GoldPaymentAmount = 1000, GoldPaymentVotes = 25,
+                    SilverPaymentAmount = 500, SilverPaymentVotes = 12,
+                    BronzePaymentAmount = 50, BronzePaymentVotes = 1
+                };
+
+                return NumberOfVotes(convertedAmount, paymentCategory);
+            } else if (currencyCode == "USD")
+            {
+                PaymentCategory paymentCategory = new PaymentCategory
+                {
+                    PlatinumPaymentAmount = 2000, PlatinumPaymentVotes = 55,
+                    GoldPaymentAmount = 1000, GoldPaymentVotes = 25,
+                    SilverPaymentAmount = 500, SilverPaymentVotes = 12,
+                    BronzePaymentAmount = 50, BronzePaymentVotes = 1
+                };
+                return NumberOfVotes((int)Amount, paymentCategory);
+            } else
+            {
+                return (int)(Amount / Currency.Ratio);
+            }
+        }
+
+        public int NumberOfVotes(int paymentAmount, PaymentCategory paymentCategory)
+        {
+            if (paymentCategory == null) throw new ArgumentNullException("paymentCategory", "Payment Category is null");
+
+            int platinumPayment = paymentAmount / paymentCategory.PlatinumPaymentAmount * paymentCategory.PlatinumPaymentVotes;
+            int goldPortionOfPayment = paymentAmount % paymentCategory.PlatinumPaymentAmount;
+            int goldPayment = goldPortionOfPayment / paymentCategory.GoldPaymentAmount * paymentCategory.GoldPaymentVotes;
+            int silverPortionOfPayment = goldPortionOfPayment % paymentCategory.GoldPaymentAmount;
+            int silverPayment = silverPortionOfPayment / paymentCategory.SilverPaymentAmount * paymentCategory.SilverPaymentVotes;
+            int bronzePortionOfPayment = silverPortionOfPayment % paymentCategory.SilverPaymentAmount;
+            int bronzePayment = bronzePortionOfPayment / paymentCategory.BronzePaymentAmount * paymentCategory.BronzePaymentVotes;
+
+            return platinumPayment + goldPayment + silverPayment + bronzePayment;
+        }
+
+
     }
 }

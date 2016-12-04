@@ -157,6 +157,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Models\PaymentCategory.cs" />
     <Compile Include="Core\Repository\IAccountRepository.cs" />
     <Compile Include="Core\Repository\IActivityRepository.cs" />
     <Compile Include="Core\Repository\IBeneficiaryRepository.cs" />

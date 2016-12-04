@@ -41,7 +41,6 @@ namespace Raisins.Client.Web.Core.ViewModels
         public string Email { get; set; }
 
         [Required]
-        [Range(50.0D, double.MaxValue, ErrorMessage = "Minimum payment is 50 Php")]
         public decimal Amount { get; set; }
 
         public string SoldBy { get; set; }
