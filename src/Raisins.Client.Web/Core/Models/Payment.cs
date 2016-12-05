@@ -110,10 +110,10 @@ namespace Raisins.Client.Web.Models
             {
                 PaymentCategory paymentCategory = new PaymentCategory
                 {
-                    PlatinumPaymentAmount = 2000, PlatinumPaymentVotes = 55,
-                    GoldPaymentAmount = 1000, GoldPaymentVotes = 25,
-                    SilverPaymentAmount = 500, SilverPaymentVotes = 12,
-                    BronzePaymentAmount = 50, BronzePaymentVotes = 1
+                    PlatinumPaymentAmount = 40, PlatinumPaymentVotes = 55,
+                    GoldPaymentAmount = 20, GoldPaymentVotes = 25,
+                    SilverPaymentAmount = 10, SilverPaymentVotes = 12,
+                    BronzePaymentAmount = 1, BronzePaymentVotes = 1
                 };
                 return NumberOfVotes((int)Amount, paymentCategory);
             } else
