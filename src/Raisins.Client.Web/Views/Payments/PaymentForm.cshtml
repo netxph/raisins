@@ -20,14 +20,15 @@
                     class="">
                     <a id="ui-id-8" tabindex="1" role="presentation" class="js-local js-payment-tab-button" href="#tabs-1">LOCAL</a>
                 </li>
-            }
-            @if (Model.CanLock) //Means that only Administrators can do External and Foreign payments encoding
-            {
                 <li aria-expanded="false" aria-selected="false"
                     aria-labelledby="ui-id-9" aria-controls="tabs-2"
                     tabindex="1" role="tab" class="">
                     <a id="ui-id-9" tabindex="2" role="presentation" class="js-external js-payment-tab-button" href="#tabs-1">EXTERNAL</a>
                 </li>
+            }
+            @if (Model.CanLock) //Means that only Administrators can do External and Foreign payments encoding
+            {
+
                 <li aria-expanded="false" aria-selected="false"
                     aria-labelledby="ui-id-10" aria-controls="tabs-3"
                     tabindex="2" role="tab"
