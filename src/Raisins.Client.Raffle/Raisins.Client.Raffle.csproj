@@ -123,6 +123,10 @@
     <Resource Include="raffle.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Raisins.Client.Randomizer\Raisins.Client.Randomizer.csproj">
+      <Project>{95885566-7b8e-4808-9b50-5816d8994237}</Project>
+      <Name>Raisins.Client.Randomizer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Raisins.Client.Web\Raisins.Client.Web.csproj">
       <Project>{e7755f66-12f2-4e56-92b9-f9710c154f17}</Project>
       <Name>Raisins.Client.Web</Name>
