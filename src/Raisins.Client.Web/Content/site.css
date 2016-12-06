@@ -28,7 +28,9 @@ body{
     background-attachment:fixed;
      position: relative;
 }
-
+.hide {
+    display: none;
+}
     body:after
     {
     content: "";
@@ -300,8 +302,7 @@ div#bandinfo {
 div#bandvideo {
     width: 480px;
     height: 320px;
-    border: 1px solid;
-    margin: 0 auto 10px;
+    margin: 35px auto 10px auto;
 }
 
 table#payment-grid {
@@ -1077,4 +1078,27 @@ body,
 @-o-keyframes moveclouds {
 	0% {margin-left: 1000px;}
 	100% {margin-left: -1000px;}
+}
+
+
+
+
+/* Validation messages */
+span.field-validation-error {
+    margin-left: 10px;
+    color: red;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Account Details Page*/
+#account-detail-container > .create-account-link {
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+}
+
+/* Account Create Page */
+.js-create-account-container .dropdown {
+    display: inline-block;
 }

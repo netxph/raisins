@@ -2,6 +2,7 @@
 using Raisins.Client.Web.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Raisins.Client.Web.Persistence.Repository
 {
@@ -35,10 +36,23 @@ namespace Raisins.Client.Web.Persistence.Repository
             _raisinsDb.Entry(beneficiary).State = EntityState.Modified;
         }
 
+        public void MultipleEdit(IEnumerable<Beneficiary> beneficiaries)
+        {
+            foreach (Beneficiary beneficiary in beneficiaries)
+            {
+                _raisinsDb.Entry<Beneficiary>(beneficiary).State = EntityState.Modified;
+            }
+        }
+
         public void Delete(int id)
         {
             Beneficiary Beneficiary = Find(id); 
             _raisinsDb.Beneficiaries.Remove(Beneficiary);
+        }
+
+        public bool Any(string name)
+        {
+            return _raisinsDb.Beneficiaries.Any(b => b.Name == name);
         }
     }
 }

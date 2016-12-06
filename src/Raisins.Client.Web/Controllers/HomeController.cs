@@ -23,7 +23,7 @@ namespace Raisins.Client.Web.Controllers
             var beneficiaries = _unitOfWork.Beneficiaries.GetAll();
 
             Dictionary<string, decimal> totals = new Dictionary<string, decimal>();
-            const decimal TARGET = 600000;
+            const decimal TARGET = 700000;
             totals.Add("Target", TARGET);
 
             List<Payment> payments = _unitOfWork.Payments.GetPaymentWithCurrency().ToList();

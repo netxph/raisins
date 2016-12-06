@@ -11,36 +11,25 @@
          <div id="mask">  <!-- Mask -->
 
          <ul>
-         <li id="first" class="firstanimation">  <!-- ID for tooltip and class for animation -->
-         <a href="#"> <img src="~/Content/Images/QAiTS.jpg" alt="QAiTS"/> </a>
-         <div class="tooltip"> <h1>QAiTS</h1> </div>
-         </li>
+             <li id="first" class="firstanimation">  <!-- ID for tooltip and class for animation -->
+             <a href="#"> <img src="~/Content/Images/BackstreetBoys.jpg" alt="Rev Acctg QA, Dev, Product" /> </a>
+             <div class="tooltip"> <h1>R.A. Street Boys</h1> </div>
+             </li>
 
-         <li id="second" class="secondanimation">
-         <a href="#"> <img src="~/Content/Images/MANILEÑOS.jpg" alt="MANILEÑOS"/> </a>
-         <div class="tooltip"> <h1>MANILEÑOS</h1> </div>
-         </li>
+             <li id="second" class="secondanimation">
+             <a href="#"> <img src="~/Content/Images/Kingsman.jpg" alt="NS, Ancillary, TCLoy QA" /> </a>
+             <div class="tooltip"> <h1>Kingsman</h1> </div>
+             </li>
 
-         <li id="third" class="thirdanimation">
-         <a href="#"> <img src="~/Content/Images/The Timejumpers.jpg" alt="The Timejumpers"/> </a>
-         <div class="tooltip"> <h1>The Time Jumpers</h1> </div>
-         </li>
+             <li id="third" class="thirdanimation">
+             <a href="#"> <img src="~/Content/Images/CanYouHandleThis.jpg" alt="NS, Ancillary, TCLoy Dev" /> </a>
+             <div class="tooltip"> <h1>BEY</h1> </div>
+             </li>
 
-         <li id="fourth" class="fourthanimation">
-         <a href="#"> <img src="~/Content/Images/Funny Is The New Pogi.jpg" alt="Funny Is The New Pogi"/> </a>
-         <div class="tooltip"> <h1>Funny Is The New Pogi</h1> </div>
-         </li>
-
-         <li id="fifth" class="fifthanimation">
-      <a href="#"> <img src="~/Content/Images/OCSDO Angels.jpg" alt="OCSDO Angels"/> </a>
-         <div class="tooltip"> <h1>OCSDO Angels</h1> </div>
-         </li>
-        
-              <li id="sixth" class="sixthanimation">
-      <a href="#"> <img src="~/Content/Images/The Chronicles of Naina.jpg" alt="The Chronicles of Naina"/> </a>
-         <div class="tooltip"> <h1>The Chronicles of Naina</h1> </div>
-         </li>
-        
+             <li id="fourth" class="fourthanimation">
+             <a href="#"> <img src="~/Content/Images/TeenageDream.jpg" alt="Product. SS. PMO" /> </a>
+             <div class="tooltip"> <h1>Teenage Dream</h1> </div>
+             </li>
          </ul> 
 
 
@@ -55,13 +44,12 @@
     <div id="rightcontentarea">
 
         <div id="newscontainer">
-           <h2>What is 'SUS, NAV-PASIKAT' Fundraising? </h2>
+           <h2>What is 'LIPSYNC Battle' Fundraising? </h2>
             <div class="newscontents">
 <p>
            &nbsp;&nbsp;&nbsp; Fundraising for<a href="http://foodforhungryminds.org/"> Hungry Minds School</a> plays a big part 
              of the Annual Year End Celebration of Navitaire and SUS held every December.
-             Last year, 2013, we used the theme 'Talents for Hungry Minds' and were able 
-             to raise almost a <a href="http://fhms.cloudapp.net/2013">million</a>. Let's get together once more and raise Php 600,000 
+             Last year, 2015, we used the theme 'Around the World'. Let's get together once more and raise Php 600,000 
              or more to support at least 24 high school students of Food for Hungry Minds for a school year.
 <br /><br />
                 <b> Keep on voting for your chosen group and together we can touch other people’s lives. </b>
@@ -81,7 +69,7 @@
 
 
 <script>
-    var end = new Date('12/17/2014 9:00 PM');
+    var end = new Date('12/08/2016 5:00 PM');
 
     var _second = 1000;
     var _minute = _second * 60;
@@ -153,15 +141,14 @@
     <ul id="teamscontent">
         @foreach(var beneficiary in Model)
         {
-            if(beneficiary.ID != 7) // Hide extra group
-            {
+
         <li>
             <a href="@Url.Action("Details", "Beneficiaries", new RouteValueDictionary(new { beneficiary.ID }))">
                 <img src="@Url.Content("~/Content/Images/photo" + beneficiary.ID + ".jpg")" />
                 <h4><span>@beneficiary.Name</span></h4>
             </a>
          </li>
-        }
+        
         }
     </ul>
 </div>
@@ -171,9 +158,9 @@
 <hr />
 <div id="links">
    
-    <p> <a href="http://foodforhungryminds.org/">
+    <p> <a href="http://foodforhungryminds.org/" target="_blank">
         <img src="~/Content/Images/chalkhms.png" />
-    </a> <a href="https://www.facebook.com/foodforhungryminds">
+    </a> <a href="https://www.facebook.com/foodforhungryminds" target="_blank">
         <img src="~/Content/Images/chalkfb.png" />
     </a>
 

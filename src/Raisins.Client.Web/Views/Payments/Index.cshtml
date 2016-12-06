@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Raisins.Client.Web.Models.Payment>
-
+<!-- Convert the model object to PaymentViewModel -->
 @{
     ViewBag.Title = "Index";
 }
@@ -84,13 +84,7 @@
                 <td class="name">@Html.DisplayFor(model => payment.Name)</td>
                 <td class="currency">@Html.DisplayFor(model => payment.Currency.CurrencyCode)</td>
                 <td class="amount">@Html.DisplayFor(model => payment.Amount)</td>
-                <td class="votes">@((payment.Currency.CurrencyCode=="PHP")?
-                                          (((((int)((payment.Amount)*payment.Currency.ExchangeRate)) / 2000) * 55) +
-                                                    ((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) / 1000) * 25) +
-                                                    (((((int)(payment.Amount*payment.Currency.ExchangeRate) % 2000) % 1000) / 500) * 12) +
-                                                    ((((((int)(payment.Amount * payment.Currency.ExchangeRate) % 2000) % 1000) % 500) / 50) * 1)) :
-                                         (int)(payment.Amount / payment.Currency.Ratio))
-                </td>
+                <td class="votes">@payment.ConvertPaymentAmountToVotes()</td>
 
                    <td class="total">@((payment.Amount * payment.Currency.ExchangeRate).ToString("0.00"))
                 </td>
@@ -99,19 +93,19 @@
     </tbody>
 </table>
 
-<div id="lock-all-dialog" title="Lock All?">
+<div id="lock-all-dialog" class="hide" title="Lock All?">
     <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
 </div>
 
-<div id="lock-local-dialog" title="Lock Local?">
+<div id="lock-local-dialog" class="hide" title="Lock Local?">
     <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
 </div>
 
-<div id="lock-external-dialog" title="Lock External?">
+<div id="lock-external-dialog" class="hide" title="Lock External?">
     <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
 </div>
 
-<div id="lock-foreign-dialog" title="Lock Foreign?">
+<div id="lock-foreign-dialog" class="hide" title="Lock Foreign?">
     <span>Locking payments cannot be reversed. Are you sure you want to continue?</span>
 </div>
 

@@ -1,25 +1,27 @@
 ﻿using Raisins.Client.Web.Models;
 using Raisins.Client.Web.Persistence;
-using System.Linq;
 
 namespace Raisins.Client.Web.Migrations
 {
     public class RoleSeed : IDbSeeder
     {
+        private UnitOfWork _unitOfWork;
         public void Seed(RaisinsDB context)
         {
+            _unitOfWork = new UnitOfWork(context);
             //Role
-            AddRole(context, "Administrator");
-            AddRole(context, "Accountant");
-            AddRole(context, "Manager");
-            AddRole(context, "User");
+            AddRole("Administrator");
+            AddRole("Accountant");
+            AddRole("Manager");
+            AddRole("User");
         }
 
-        private void AddRole(RaisinsDB context, string roleName)
+        private void AddRole(string roleName)
         {
-            if (!context.Roles.Any(r => r.Name == roleName))
+            if (!_unitOfWork.Roles.Any(roleName))
             {
-                context.Roles.Add(new Role() { Name = roleName });
+                _unitOfWork.Roles.Add(new Role() { Name = roleName });
+                _unitOfWork.Complete();
             }
         }
     }
