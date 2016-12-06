@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Web", "src\R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Raffle", "src\Raisins.Client.Raffle\Raisins.Client.Raffle.csproj", "{C2E6483E-55CC-4512-AFF9-D0E2181B3462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.MailJob", "Raisins.Client.MailJob\Raisins.Client.MailJob.csproj", "{2959696E-9858-4A83-8D99-D2672817B6BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.MailJob", "src\Raisins.Client.MailJob\Raisins.Client.MailJob.csproj", "{2959696E-9858-4A83-8D99-D2672817B6BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Randomizer", "Raisins.Client.Randomizer\Raisins.Client.Randomizer.csproj", "{95885566-7B8E-4808-9B50-5816D8994237}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Randomizer", "src\Raisins.Client.Randomizer\Raisins.Client.Randomizer.csproj", "{95885566-7B8E-4808-9B50-5816D8994237}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
