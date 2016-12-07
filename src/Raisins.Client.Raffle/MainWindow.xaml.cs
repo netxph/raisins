@@ -23,83 +23,12 @@ namespace Raisins.Client.Raffle
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool _shuffle = false;
-
-        public RaffleService Raffle { get; set; }
-
-        public System.Timers.Timer Timer { get; set; }
-
         public MainWindow()
         {
             InitializeComponent();
 
-            Raffle = new RaffleService();
-            Timer = new System.Timers.Timer();
-
-            //timer-based? we'll convert this to use a trigger instead
-            Timer.Interval = 10;
-            //Timer.Elapsed += (sender, e) =>
-            //    {
-            //       _labelTicket.Dispatcher.Invoke(new Action(() =>
-            //            {
-            //                var ticket = Raffle.GetRandomTicket((PaymentClass)Enum.Parse(typeof(PaymentClass), _comboType.SelectedItem.ToString()));
-            //                _labelName.Content = ticket.Name;
-            //                _labelTicket.Content = ticket.TicketCode;
-            //                DoEvents();
-            //            }));
-            //    };
-            Timer.Enabled = false;
-
-            _comboType.ItemsSource = Enum.GetNames(typeof(PaymentClass));
-            _comboType.SelectedIndex = 0;
-
-        }
-
-        private void Window_KeyDown_1(object sender, KeyEventArgs e)
-        {
-            //if (!Timer.Enabled)
-            //{
-            //    Timer.Interval = 50;
-            //    Timer.Start();
-            //}
-            //else
-            //{
-            //    Timer.Stop();
-            //}
-
-            try
-            {
-                //todo: mvvm-ize to secure items
-                Task.Run(() => Raffle.GetRandomTicket(PaymentClass.Local));
-
-
-            }
-            catch(AggregateException aex)
-            {
-                foreach(var ex in aex.InnerExceptions)
-                {
-                    MessageBox.Show(aex.Message);
-                }
-            }
-        }
-
-        private void showRandomTicket()
-        {
-
-        }
-
-        public static void DoEvents()
-        {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                          new Action(delegate { }));
-        }
-
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            base.OnClosing(e);
-
-            Timer.Stop();
-            Timer.Dispose();
+            this.DataContext = new RaffleViewModel(
+                                new RaffleService());
         }
     }
 }

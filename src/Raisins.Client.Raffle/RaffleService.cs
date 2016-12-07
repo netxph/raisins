@@ -35,11 +35,16 @@ namespace Raisins.Client.Raffle
             //consider moving this so we don't see entity framework operations!
             //var tickets = Tickets.Where(t => t.TicketCode.StartsWith(code)).ToList();
 
-            var tickets = new List<Ticket>() { new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket() };
+            var tickets = new List<Ticket>();
+            
+            for(int i = 0; i<10; i++)
+            {
+                tickets.Add(new Ticket() { ID = i, Name = i.ToString() });
+            }
 
             var index = CallAsyncRandomTicket(0, 10);
 
-            return new Ticket() { ID = index };
+            return tickets[index];
         }
 
         private int CallAsyncRandomTicket(int start, int end)
