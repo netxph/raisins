@@ -8,6 +8,6 @@ namespace Raisins.Client.Randomizer.Interfaces
 {
     public interface IIntegerRandomizerService
     {
-        Task<int> GetNext(int min, int max, int iterations);
+        int GetNext(int min, int max, int iterations);
     }
 }

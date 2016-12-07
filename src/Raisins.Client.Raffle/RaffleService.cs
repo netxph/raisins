@@ -28,23 +28,23 @@ namespace Raisins.Client.Raffle
             //Random = new Random(this.GetHashCode());
         }
         
-        public async Task<Ticket> GetRandomTicket(PaymentClass paymentClass)
+        public Ticket GetRandomTicket(PaymentClass paymentClass)
         {
             var code = ((int)paymentClass).ToString("00");
 
             //consider moving this so we don't see entity framework operations!
             //var tickets = Tickets.Where(t => t.TicketCode.StartsWith(code)).ToList();
 
-            var tickets = new List<Ticket>();
+            var tickets = new List<Ticket>() { new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket(), new Ticket() };
 
-            var index = await CallAsyncRandomTicket(0, tickets.Count);
+            var index = CallAsyncRandomTicket(0, 10);
 
-            return tickets[index];
+            return new Ticket() { ID = index };
         }
 
-        private Task<int> CallAsyncRandomTicket(int start, int end)
+        private int CallAsyncRandomTicket(int start, int end)
         {
-            var randomizer = new Raisins.Client.Randomizer.RandomOrg.RandomOrgIntegerRandomizerService();
+            var randomizer = new Raisins.Client.Randomizer.RandomOrg.RandomOrgIntegerRandomizerService("d8fd8706-0482-4460-8017-59719fd3ccb9");
 
             return randomizer.GetNext(start, end, 1);
         }

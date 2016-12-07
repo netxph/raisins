@@ -8,8 +8,11 @@ namespace Raisins.Client.Randomizer.RandomOrg.Response
 {
     public class GenerateIntegerResponse
     {
-        public string jsonrpc { get; set; }
-        public GenerateIntegerResponseResult result { get; set; }
-        public int id { get; set; }
+        public string JsonRpc { get; set; }
+        public GenerateIntegerResponseResult Result { get; set; }
+        public int Id { get; set; }
+
+        public int Code { get; set; }
+        public GenerateIntegerErrorResponse Error { get; set; }
     }
 }

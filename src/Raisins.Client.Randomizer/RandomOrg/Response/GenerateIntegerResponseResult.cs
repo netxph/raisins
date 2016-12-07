@@ -2,10 +2,10 @@
 {
     public class GenerateIntegerResponseResult
     {
-        public GenerateIntegerResponseRandom random { get; set; }
-        public int bitsUsed { get; set; }
-        public int bitsLeft { get; set; }
-        public int requestsLeft { get; set; }
-        public int advisoryDelay { get; set; }
+        public GenerateIntegerResponseRandom Random { get; set; }
+        public int BitsUsed { get; set; }
+        public int BitsLeft { get; set; }
+        public int RequestsLeft { get; set; }
+        public int AdvisoryDelay { get; set; }
     }
 }

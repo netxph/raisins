@@ -67,7 +67,20 @@ namespace Raisins.Client.Raffle
             //    Timer.Stop();
             //}
 
-            var task = Task.Run(() => Raffle.GetRandomTicket(PaymentClass.Local)).Result;
+            try
+            {
+                //todo: mvvm-ize to secure items
+                Task.Run(() => Raffle.GetRandomTicket(PaymentClass.Local));
+
+
+            }
+            catch(AggregateException aex)
+            {
+                foreach(var ex in aex.InnerExceptions)
+                {
+                    MessageBox.Show(aex.Message);
+                }
+            }
         }
 
         private void showRandomTicket()
@@ -88,6 +101,5 @@ namespace Raisins.Client.Raffle
             Timer.Stop();
             Timer.Dispose();
         }
-
     }
 }

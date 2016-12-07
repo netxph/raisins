@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Raisins.Client.Randomizer.RandomOrg.Response
 {
     public class GenerateIntegerResponseRandom
     {
-        public List<int> data { get; set; }
-        public string completionTime { get; set; }
+        public List<int> Data { get; set; }
+
+        public DateTime CompletionTime { get; set; }
     }
 }

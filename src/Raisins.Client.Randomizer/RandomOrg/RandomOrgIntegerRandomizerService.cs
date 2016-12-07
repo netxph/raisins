@@ -1,62 +1,56 @@
-﻿using Newtonsoft.Json;
-using Raisins.Client.Randomizer.Interfaces;
-using Raisins.Client.Randomizer.RandomOrg.Request;
+﻿using Raisins.Client.Randomizer.RandomOrg.Request;
 using Raisins.Client.Randomizer.RandomOrg.Response;
+using RestSharp;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Raisins.Client.Randomizer.RandomOrg
 {
     public class RandomOrgIntegerRandomizerService
     {
-        public const string RandomOrgUri = "https://api.random.org/json-rpc/1/invoke";
-        
-        public async Task<int> GetNext(int min, int max, int iterations)
+        private readonly string _apiKey;
+
+        protected string ApiKey
         {
-            max = 10;
-
-            var integerRequest = CreateIntegerRequest(min, max, iterations);
-
-            var requestUri = new Uri(RandomOrgUri);
-
-            GenerateIntegerResponse response;
-
-            using (var client = new HttpClient())
+            get
             {
-                client.BaseAddress = requestUri;
-
-                var httpRequest = new HttpRequestMessage(HttpMethod.Post, requestUri);
-                httpRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                httpRequest.Content = new StringContent(
-                                        JsonConvert.SerializeObject(integerRequest),
-                                        Encoding.UTF8);
-
-                var httpResponse = await client.PostAsync(requestUri, httpRequest.Content);
-
-                httpResponse.EnsureSuccessStatusCode();
-
-                var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
-
-                response = JsonConvert.DeserializeObject<GenerateIntegerResponse>(jsonResponse);
+                return _apiKey;
             }
-
-            if(response == null)
-            {
-                throw new InvalidOperationException("Response was null.");
-            }
-
-            //todo: this looks terrible, but the request spec has to be followed
-            return response.result.random.data.First();
         }
 
-        private GenerateIntegerRequest CreateIntegerRequest(int min, int max, int iterations)
+        public const string RandomOrgUri = "https://api.random.org/json-rpc/1/invoke";
+
+        //todo: add throttling
+
+        public RandomOrgIntegerRandomizerService(string apiKey)
+        {
+            if(String.IsNullOrEmpty(apiKey))
+            {
+                throw new ArgumentNullException("apiKey");
+            }
+
+            _apiKey = apiKey;
+        }
+
+        public int GetNext(int min, int max, int iterations)
+        {
+            RestClient client = new RestClient(RandomOrgUri);
+
+            var request = new RestRequest(Method.POST);
+
+            request.AddJsonBody(CreateIntegerRequest(min, max, iterations));
+
+            var response = client.Execute<GenerateIntegerResponse>(request).Data;
+            
+            if(response.Error != null)
+            {
+                throw new InvalidOperationException(response.Error.Message);
+            }
+
+            return response.Result.Random.Data.First();
+        }
+
+        protected virtual GenerateIntegerRequest CreateIntegerRequest(int min, int max, int iterations)
         {
             return new GenerateIntegerRequest()
             {
@@ -65,7 +59,7 @@ namespace Raisins.Client.Randomizer.RandomOrg
                 method = "generateIntegers",
                 @params = new GenerateIntegerRequestParams()
                 {
-                    apiKey = "",
+                    apiKey = ApiKey,
                     @base = 10,
                     min = min,
                     max = max,
