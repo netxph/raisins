@@ -1,4 +1,5 @@
-﻿using Raisins.Client.Randomizer.RandomOrg.Request;
+﻿using Raisins.Client.Randomizer.Interfaces;
+using Raisins.Client.Randomizer.RandomOrg.Request;
 using Raisins.Client.Randomizer.RandomOrg.Response;
 using RestSharp;
 using System;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Raisins.Client.Randomizer.RandomOrg
 {
-    public class RandomOrgIntegerRandomizerService
+    public class RandomOrgIntegerRandomizerService : IIntegerRandomizerService
     {
         private readonly string _apiKey;
 
@@ -32,13 +33,13 @@ namespace Raisins.Client.Randomizer.RandomOrg
             _apiKey = apiKey;
         }
 
-        public int GetNext(int min, int max, int iterations)
+        public int GetNext(int min, int max)
         {
             RestClient client = new RestClient(RandomOrgUri);
 
             var request = new RestRequest(Method.POST);
 
-            request.AddJsonBody(CreateIntegerRequest(min, max, iterations));
+            request.AddJsonBody(CreateIntegerRequest(min, max));
 
             var response = client.Execute<GenerateIntegerResponse>(request).Data;
             
@@ -50,7 +51,7 @@ namespace Raisins.Client.Randomizer.RandomOrg
             return response.Result.Random.Data.First();
         }
 
-        protected virtual GenerateIntegerRequest CreateIntegerRequest(int min, int max, int iterations)
+        protected virtual GenerateIntegerRequest CreateIntegerRequest(int min, int max)
         {
             return new GenerateIntegerRequest()
             {

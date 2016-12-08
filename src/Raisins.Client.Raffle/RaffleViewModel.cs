@@ -1,11 +1,7 @@
-﻿using Raisins.Client.Raffle;
-using Raisins.Client.Web.Models;
+﻿using Raisins.Client.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -18,7 +14,7 @@ namespace Raisins.Client.Raffle
 
         private readonly RaffleService _raffleService;
         private Ticket _winningTicket;
-        private PaymentClass _selectedPaymentClass;
+        private Ticket _facadeTicket;
 
         protected virtual RaffleService RaffleService
         {
@@ -28,23 +24,17 @@ namespace Raisins.Client.Raffle
             }
         }
 
-        public ObservableCollection<PaymentClass> PaymentClasses
-        {
-            get;
-            set;
-        }
-
-        public PaymentClass SelectedPaymentClass
+        public Ticket FacadeTicket
         {
             get
             {
-                return _selectedPaymentClass;
+                return _facadeTicket;
             }
             set
             {
-                _selectedPaymentClass = value;
+                _facadeTicket = value;
 
-                OnNotifyPropertyChanged("SelectedPaymentClass");
+                OnNotifyPropertyChanged("FacadeTicket");
             }
         }
 
@@ -68,31 +58,59 @@ namespace Raisins.Client.Raffle
             {
                 return new RelayCommand(
                     (o) => true,
-                    (o) => OnDrawRaffleVictor());
+                    (o) => OnDrawRaffleVictor((PaymentClass)o));
             }
         }
 
-        protected virtual void OnDrawRaffleVictor()
+        protected virtual void OnDrawRaffleVictor(PaymentClass paymentClass)
         {
             try
             {
+                WinningTicket = null;
+
+                CancellationTokenSource cts = new CancellationTokenSource();
+
+                Task.Run(() =>
+                {
+                    BeginUIWait(paymentClass, cts.Token);
+                });
+
                 Task.Run(async () =>
                 {
-                    var ticket = RaffleService.GetRandomTicket(SelectedPaymentClass);
+                    var ticket = RaffleService.GetRandomTicket(paymentClass);
 
-                    await Task.Delay(TimeSpan.FromSeconds(4));
+                    await Task.Delay(TimeSpan.FromSeconds(10));
 
                     return ticket;
                 })
                 .ContinueWith((t) =>
                 {
+                    cts.Cancel();
+
                     WinningTicket = t.Result;
                 });
+
+
             }
             catch (Exception ex)
             {
                 HandleException?.Invoke(this, ex);
             }
+        }
+
+        private void BeginUIWait(PaymentClass paymentClass, CancellationToken token)
+        {
+            var tickets = RaffleService.GetTickets(paymentClass);
+
+            do
+            {
+                foreach (var ticket in tickets)
+                {
+                    FacadeTicket = ticket;
+                }
+            } while (!token.IsCancellationRequested);
+
+            FacadeTicket = null;
         }
 
         public RaffleViewModel(RaffleService raffleService)
@@ -103,10 +121,6 @@ namespace Raisins.Client.Raffle
             }
 
             _raffleService = raffleService;
-
-            PaymentClasses = new ObservableCollection<PaymentClass>(
-                                Enum.GetValues(typeof(PaymentClass))
-                                    .Cast<PaymentClass>());
         }
 
         protected virtual void OnNotifyPropertyChanged(string property)

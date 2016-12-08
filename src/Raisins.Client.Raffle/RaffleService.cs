@@ -1,57 +1,61 @@
-﻿using Raisins.Client.Web.Models;
-using Raisins.Client.Web.Persistence;
+﻿using Raisins.Client.Randomizer.Interfaces;
+using Raisins.Client.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Raisins.Client.Raffle
 {
     public class RaffleService
     {
-        private RaisinsDB _raisinsDb;
+        private readonly IRaisinsDataProvider _dataProvider;
+        private readonly IIntegerRandomizerService _randomizer;
 
-        public List<Ticket> Tickets { get; set; }
-        public Random Random { get; set; }
-
-        public RaffleService()
+        protected IRaisinsDataProvider DataProvider
         {
-            //_raisinsDb = new RaisinsDB();
-            Initialize();
-        }
-
-        protected virtual void Initialize()
-        {
-            //todo: why is EF6 here? consider moving it out as a dependency
-
-            //Tickets = _raisinsDb.Tickets.ToList();
-            //Random = new Random(this.GetHashCode());
-        }
-        
-        public Ticket GetRandomTicket(PaymentClass paymentClass)
-        {
-            var code = ((int)paymentClass).ToString("00");
-
-            //consider moving this so we don't see entity framework operations!
-            //var tickets = Tickets.Where(t => t.TicketCode.StartsWith(code)).ToList();
-
-            var tickets = new List<Ticket>();
-            
-            for(int i = 0; i<10; i++)
+            get
             {
-                tickets.Add(new Ticket() { ID = i, Name = i.ToString() });
+                return _dataProvider;
+            }
+        }
+
+        protected IIntegerRandomizerService Randomizer
+        {
+            get
+            {
+                return _randomizer;
+            }
+        }
+
+        public RaffleService(IRaisinsDataProvider dataProvider, IIntegerRandomizerService randomizer)
+        {
+            if(dataProvider == null)
+            {
+                throw new ArgumentNullException("dataProvider");
             }
 
-            var index = CallAsyncRandomTicket(0, 10);
+            _dataProvider = dataProvider;
 
-            return tickets[index];
+            if(randomizer == null)
+            {
+                throw new ArgumentNullException("randomizer");
+            }
+
+            _randomizer = randomizer;
         }
 
-        private int CallAsyncRandomTicket(int start, int end)
+        public Ticket GetRandomTicket(PaymentClass paymentClass)
         {
-            var randomizer = new Raisins.Client.Randomizer.RandomOrg.RandomOrgIntegerRandomizerService("d8fd8706-0482-4460-8017-59719fd3ccb9");
+            var tickets = DataProvider.GetTicketsByPaymentClass(paymentClass);
 
-            return randomizer.GetNext(start, end, 1);
+            var index = Randomizer.GetNext(0, tickets.Count());
+
+            return tickets.ElementAt(index);
+        }
+
+        public IEnumerable<Ticket> GetTickets(PaymentClass paymentClass)
+        {
+            return DataProvider.GetTicketsByPaymentClass(paymentClass);
         }
     }
 }

@@ -70,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TestDataProvider.cs" />
+    <Compile Include="EntityFrameworkRaisinsDataProvider.cs" />
+    <Compile Include="IRaisinsDataProvider.cs" />
     <Compile Include="RaffleService.cs" />
     <Compile Include="RaffleViewModel.cs" />
     <Compile Include="RelayCommand.cs" />

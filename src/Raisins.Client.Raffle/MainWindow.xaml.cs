@@ -1,20 +1,5 @@
-﻿using Raisins.Client.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Raisins.Client.Randomizer.RandomOrg;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace Raisins.Client.Raffle
 {
@@ -27,8 +12,11 @@ namespace Raisins.Client.Raffle
         {
             InitializeComponent();
 
+            var data = new EntityFrameworkRaisinsDataProvider();
+            var random = new RandomOrgIntegerRandomizerService("d8fd8706-0482-4460-8017-59719fd3ccb9");
+
             this.DataContext = new RaffleViewModel(
-                                new RaffleService());
+                                new RaffleService(data, random));
         }
     }
 }
