@@ -1,5 +1,8 @@
 ﻿using Raisins.Client.Web.Core;
+using Raisins.Client.Web.Core.ViewModels;
 using Raisins.Client.Web.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -12,6 +15,20 @@ namespace Raisins.Client.Web.Controllers
         public AccountsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public ActionResult Index()
+        {
+            Account account = _unitOfWork.Accounts.GetCurrentUserAccount();
+            var accountViewModel = new AccountViewModel
+            {
+                Name = account.Profile.Name,
+                Username = account.UserName,
+                RoleObject = account.Roles.FirstOrDefault(),
+                Beneficiaries = account.Profile.Beneficiaries,
+                Currencies = account.Profile.Currencies
+            };
+            return View(accountViewModel);
         }
 
         public ActionResult Login(string returnUrl)
@@ -28,11 +45,13 @@ namespace Raisins.Client.Web.Controllers
             if(ModelState.IsValid)
             {
                 Account account = _unitOfWork.Accounts.GetUserAccount(model.UserName);
-
-                if(account.IsValidAccount(model.Password))
+                if (account != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    return RedirectToAction("Index", "Home");
+                    if (account.IsValidAccount(model.Password))
+                    {
+                        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
 
@@ -84,23 +103,60 @@ namespace Raisins.Client.Web.Controllers
             return View(changePassword);
         }
 
-        //TODO
-        //public ActionResult CreateUSer(string userName, string password)
-        //{
-        //    var salt = Helper.CreateSalt();
-        //    var roles = new List<Role> { Role.Find("User") };
-        //    Account account = new Account() { UserName = userName, Salt = salt, Password = GetHash(password, salt), Roles = roles, Profile = new AccountProfile() };
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var accountViewModel = new AccountViewModel
+            {
+                Beneficiaries = _unitOfWork.Beneficiaries.GetAll(),
+                Currencies = _unitOfWork.Currencies.GetAll(),
+                Roles = _unitOfWork.Roles.GetAll()
+            };
+            return View(accountViewModel);
+        }
 
-        //    roles.SetState(db, EntityState.Modified);
-        //    profile.Beneficiaries.SetState(db, EntityState.Modified);
-        //    profile.Currencies.SetState(db, EntityState.Modified);
+        [HttpPost]
+        public ActionResult Create(AccountViewModel viewModel)
+        {
+            if(!ModelState.IsValid || _unitOfWork.Accounts.Any(viewModel.Username))
+            {
+                viewModel.Beneficiaries = _unitOfWork.Beneficiaries.GetAll();
+                viewModel.Currencies = _unitOfWork.Currencies.GetAll();
+                viewModel.Roles = _unitOfWork.Roles.GetAll();
 
-        //    db.Accounts.Add(account);
-        //    db.SaveChanges();
+                return View(viewModel);
+            }
 
-        //    return db.Accounts.FirstOrDefault(a => a.UserName == userName);
-            
-        //}
+            Role role = _unitOfWork.Roles.Find(viewModel.Role);
+
+            List<Beneficiary> beneficiaries = role.IsAdmin() ? _unitOfWork.Beneficiaries.GetAll().ToList() :
+                                                             new List<Beneficiary>() { _unitOfWork
+                                                                                        .Beneficiaries
+                                                                                        .Find(viewModel.Beneficiary) };
+            List<Currency> currencies = role.IsAdmin() ? _unitOfWork.Currencies.GetAll().ToList() : 
+                                                        new List<Currency> { _unitOfWork
+                                                                                .Currencies
+                                                                                .Find(viewModel.Currency) };
+            Account account = new Account
+            {
+                UserName = viewModel.Username,
+                Password = viewModel.Password,
+                Roles = new List<Role>() { _unitOfWork.Roles.Find(viewModel.Role) },
+                Profile = new AccountProfile
+                {
+                    Name = viewModel.Name,
+                    Beneficiaries = beneficiaries,
+                    Currencies = currencies
+                }
+            };
+            var salt = Helper.CreateSalt();
+            account.SetSalt(salt);
+            account.GenerateNewPassword(viewModel.Password, salt);
+
+            _unitOfWork.Accounts.Add(account);
+            _unitOfWork.Complete();
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }

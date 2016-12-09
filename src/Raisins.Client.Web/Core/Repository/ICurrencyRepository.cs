@@ -9,6 +9,8 @@ namespace Raisins.Client.Web.Core.Repository
         Currency Find(int id);
         void Add(Currency currency);
         void Edit(Currency currency);
+        void MultipleEdit(IEnumerable<Currency> currencies);
         void Delete(Currency currency);
+        bool Any(string currencyCode);
     }
 }

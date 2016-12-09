@@ -20,14 +20,15 @@
                     class="">
                     <a id="ui-id-8" tabindex="1" role="presentation" class="js-local js-payment-tab-button" href="#tabs-1">LOCAL</a>
                 </li>
-            }
-            @if (Model.CanLock) //Means that only Administrators can do External and Foreign payments encoding
-            {
                 <li aria-expanded="false" aria-selected="false"
                     aria-labelledby="ui-id-9" aria-controls="tabs-2"
                     tabindex="1" role="tab" class="">
                     <a id="ui-id-9" tabindex="2" role="presentation" class="js-external js-payment-tab-button" href="#tabs-1">EXTERNAL</a>
                 </li>
+            }
+            @if (Model.CanLock) //Means that only Administrators can do External and Foreign payments encoding
+            {
+
                 <li aria-expanded="false" aria-selected="false"
                     aria-labelledby="ui-id-10" aria-controls="tabs-3"
                     tabindex="2" role="tab"
@@ -40,50 +41,55 @@
             <form id="Payments">
                 <section id="1">
                     <div class="label">
-                        <p>Group Name:</p>
+                        <p>@Html.LabelFor(model => model.BeneficiaryId)*</p>
                     </div>
                     <div class="dropdown">
                         @Html.DropDownListFor(m => m.BeneficiaryId, new SelectList(Model.Beneficiaries, "ID", "Name"),"", new { @class = "dropdown-select" })
                     </div>
+                    @Html.ValidationMessageFor(model => model.BeneficiaryId)
+                    <br />
                     <br />
                     <div class="label">
-                        <p>@Html.LabelFor(model => model.Name)</p>
+                        <p>@Html.LabelFor(model => model.Name)*</p>
                     </div>
                     @Html.TextBoxFor(model => model.Name, null, new { @class = "tbox" })
                     @Html.ValidationMessageFor(model => model.Name)
                     <br />
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Amount)*</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Amount, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Amount)
+                    <br/>
+                    <br />
+                    <div class="label">
+                        <p>@Html.LabelFor(model => model.Email)*</p>
+                    </div>
+                    @Html.TextBoxFor(model => model.Email, null, new { @class = "tbox" })
+                    @Html.ValidationMessageFor(model => model.Email)
+                    <br/>
+                    <br />
+                    <div class="label">
+                        <p>Currency</p>
+                    </div>
+                    <div class="dropdown">
+                        @Html.DropDownListFor(m => m.CurrencyId, new SelectList(Model.Currencies, "ID", "CurrencyCode"), "", new { @class = "dropdown-select js-currency-dropdown" })
+                    </div>
+                    <br/>
+                    <br/>
                     <div class="label">
                         <p>@Html.LabelFor(model => model.Location)</p>
                     </div>
                     @Html.TextBoxFor(model => model.Location, null, new { @class = "tbox" })
                     @Html.ValidationMessageFor(model => model.Location)
                     <br />
-                    <div class="label">
-                        <p>@Html.LabelFor(model => model.Email)</p>
-                    </div>
-                    @Html.TextBoxFor(model => model.Email, null, new { @class = "tbox" })
-                    @Html.ValidationMessageFor(model => model.Email)
-                    <br />
-                    <div class="label">
-                        <p>@Html.LabelFor(model => model.Amount)</p>
-                    </div>
-                    @Html.TextBoxFor(model => model.Amount, null, new { @class = "tbox" })
-                    @Html.ValidationMessageFor(model => model.Amount)
-                    <br />
-
-
+                    <br/>
                     <div title="You may leave this blank if there is none.">
-
                         <div class="label">
                             <p>@Html.LabelFor(model => model.SoldBy)</p>
                         </div>
                         @Html.TextBoxFor(model => model.SoldBy, null, new { @class = "tbox" })
-                    </div>
-                    <div class="label">
-                        <p>Currency</p>
-                    </div>
-                    <div class="dropdown">
-                        @Html.DropDownListFor(m => m.CurrencyId, new SelectList(Model.Currencies, "ID", "CurrencyCode"), "", new { @class = "dropdown-select js-currency-dropdown" })
                     </div>
                     <br />
                     <div class="label">
@@ -118,5 +124,9 @@
             PaymentController.init(".js-create-payment-container");
         });
     </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }
+
+    
+
 

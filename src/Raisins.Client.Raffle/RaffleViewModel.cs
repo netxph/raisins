@@ -1,6 +1,7 @@
 ﻿using Raisins.Client.Web.Models;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,6 +16,23 @@ namespace Raisins.Client.Raffle
         private readonly RaffleService _raffleService;
         private Ticket _winningTicket;
         private Ticket _facadeTicket;
+
+        private bool _canExecuteRaffle;
+
+        public bool CanExecuteRaffle
+        {
+            get
+            {
+                return _canExecuteRaffle;
+            }
+            set
+            {
+                _canExecuteRaffle = value;
+
+                OnNotifyPropertyChanged("CanExecuteRaffle");
+                OnNotifyPropertyChanged("DrawRaffleVictor");
+            }
+        }
 
         protected virtual RaffleService RaffleService
         {
@@ -57,8 +75,26 @@ namespace Raisins.Client.Raffle
             get
             {
                 return new RelayCommand(
-                    (o) => true,
+                    (o) => CanExecuteRaffle,
                     (o) => OnDrawRaffleVictor((PaymentClass)o));
+            }
+        }
+
+        public ICommand LoadCommand
+        {
+            get
+            {
+                return new RelayCommand(
+                    (o) => true,
+                    (o) =>
+                    {
+                        Task.Run(
+                            () => RaffleService.LoadData())
+                        .ContinueWith((t) =>
+                        {
+                            CanExecuteRaffle = true;
+                        });
+                    });
             }
         }
 
@@ -70,16 +106,18 @@ namespace Raisins.Client.Raffle
 
                 CancellationTokenSource cts = new CancellationTokenSource();
 
+                //todo: find a better way to handle this asynchronously
                 Task.Run(() =>
                 {
                     BeginUIWait(paymentClass, cts.Token);
                 });
 
-                Task.Run(async () =>
+
+                Task.Run(async()=>
                 {
                     var ticket = RaffleService.GetRandomTicket(paymentClass);
 
-                    await Task.Delay(TimeSpan.FromSeconds(10));
+                    await Task.Delay(TimeSpan.FromSeconds(3));
 
                     return ticket;
                 })
@@ -100,22 +138,21 @@ namespace Raisins.Client.Raffle
 
         private void BeginUIWait(PaymentClass paymentClass, CancellationToken token)
         {
+            //just want dirty numbers
+            var rnd = new System.Random();
             var tickets = RaffleService.GetTickets(paymentClass);
 
-            do
+            while (!token.IsCancellationRequested)
             {
-                foreach (var ticket in tickets)
-                {
-                    FacadeTicket = ticket;
-                }
-            } while (!token.IsCancellationRequested);
+                FacadeTicket = tickets.ElementAt(rnd.Next(0, tickets.Count()));
+            }
 
             FacadeTicket = null;
         }
 
         public RaffleViewModel(RaffleService raffleService)
         {
-            if(raffleService == null)
+            if (raffleService == null)
             {
                 throw new ArgumentNullException("raffleService");
             }

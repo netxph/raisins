@@ -1,36 +1,49 @@
 ﻿using Raisins.Client.Web.Models;
 using Raisins.Client.Web.Persistence;
-using System.Linq;
 
 namespace Raisins.Client.Web.Migrations
 {
     public class BeneficiarySeed : IDbSeeder
     {
-        
+        private UnitOfWork _unitOfWork;
+
         public void Seed(RaisinsDB context)
         {
-            AddBeneficiary(context, "QaiTS", "  NAV QA/TS "); //1
-            AddBeneficiary(context, "MANILEÑOS", "NAV Res Dev"); //2
-            AddBeneficiary(context, "The TimeJumpers", "NAV Product/Taleris"); //3
-            AddBeneficiary(context, "Funny Is The New Pogi", "NAV SS/PMO/Disney"); //4
-            AddBeneficiary(context, "OCSDO Angels", "SUS OC SDO , PMO, SS"); //5
-            AddBeneficiary(context, "The Chronicles of Naina", "SUS PM/NonRes/Res/BusinessGroups"); //6
-            AddBeneficiary(context, "*Group TBA*", "SUS IT/Installs/PMO/PerfMon/Security/BusOps"); //7
+            _unitOfWork = new UnitOfWork(context);
+
+            AddBeneficiary( "R.A. Street Boys", 
+                            "Rev Acctg QA, Dev, Product", 
+                            "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F1791739697767849%2Fvideos%2F1795411737400645%2F&show_text=0&width=560"); //1
+            AddBeneficiary( "Kingsman", 
+                            "NS, Ancillary, TCLoy QA", 
+                            "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F1791739697767849%2Fvideos%2F1795264210748731%2F&show_text=0&width=560"); //2
+
+            AddBeneficiary( "BEY", 
+                            "NS, Ancillary, TCLoy Dev", 
+                            "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F1791739697767849%2Fvideos%2F1795364620738690%2F&show_text=0&width=560"); //3
+
+            AddBeneficiary( "Teenage Dream", 
+                            "Product. SS. PMO", 
+                            "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D1793227410952411%26id%3D1791739697767849%26substory_index%3D0&width=500"); //4
         }
 
-        private static void AddBeneficiary(
-            RaisinsDB context,
+        private void AddBeneficiary(
             string name,
-            string description)
+            string description, 
+            string videoLink)
         {
-            if (!context.Beneficiaries.Any(b => b.Name == name))
+            if (!_unitOfWork.Beneficiaries.Any(name))
             {
-                context.Beneficiaries.Add(new Beneficiary()
+                _unitOfWork.Beneficiaries.Add(new Beneficiary()
                 {
                     Name = name,
-                    Description = description
+                    Description = description,
+                    VideoLink = videoLink
                 });
+
+                _unitOfWork.Complete();
             }
         }
     }
 }
+

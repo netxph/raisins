@@ -1,13 +1,12 @@
 ﻿using Raisins.Client.Web.Models;
 using Raisins.Client.Web.Persistence;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Raisins.Client.Raffle
 {
     public class EntityFrameworkRaisinsDataProvider : IRaisinsDataProvider
     {
-        private readonly IEnumerable<Ticket> _tickets;
+        private readonly List<Ticket> _tickets;
 
         protected IEnumerable<Ticket> Tickets
         {
@@ -19,21 +18,20 @@ namespace Raisins.Client.Raffle
 
         public EntityFrameworkRaisinsDataProvider()
         {
-            var db = new RaisinsDB();
+            _tickets = new List<Ticket>();
+        }
 
-            _tickets = db.Tickets;
+        public void LoadData()
+        {
+            using (var db = ObjectProvider.CreateDB())
+            {
+                _tickets.AddRange(db.Tickets);
+            }
         }
 
         public IEnumerable<Ticket> GetTickets()
         {
             return Tickets;
-        }
-
-        public IEnumerable<Ticket> GetTicketsByPaymentClass(PaymentClass paymentClass)
-        {
-            var code = ((int)paymentClass).ToString("00");
-
-            return Tickets.Where(t => t.TicketCode.StartsWith(code));
         }
     }
 }

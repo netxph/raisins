@@ -7,6 +7,6 @@ namespace Raisins.Client.Raffle
     {
         IEnumerable<Ticket> GetTickets();
 
-        IEnumerable<Ticket> GetTicketsByPaymentClass(PaymentClass paymentClass);
+        void LoadData();
     }
 }

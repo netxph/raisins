@@ -11,5 +11,12 @@ namespace Raisins.Client.Web.Models
         [Required]
         public string Name { get; set; }
 
+        public bool IsAdmin()
+        {
+            if (ID == 1) return true;
+            else return false;
+        }
+
+
     }
 }

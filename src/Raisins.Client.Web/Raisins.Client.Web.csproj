@@ -53,8 +53,8 @@
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -157,6 +157,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Models\PaymentCategory.cs" />
     <Compile Include="Core\Repository\IAccountRepository.cs" />
     <Compile Include="Core\Repository\IActivityRepository.cs" />
     <Compile Include="Core\Repository\IBeneficiaryRepository.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Core\Repository\IPaymentRepository.cs" />
     <Compile Include="Core\Repository\IRoleRepository.cs" />
     <Compile Include="Core\Repository\ITicketRepository.cs" />
+    <Compile Include="Core\ViewModels\AccountViewModel.cs" />
     <Compile Include="Core\ViewModels\PaymentViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,6 +183,14 @@
     <Compile Include="Persistence\Migrations\201411180913468_newmigration.cs" />
     <Compile Include="Persistence\Migrations\201411180913468_newmigration.Designer.cs">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201611130725186_RemovedAttributesInPayment.cs" />
+    <Compile Include="Persistence\Migrations\201611130725186_RemovedAttributesInPayment.Designer.cs">
+      <DependentUpon>201611130725186_RemovedAttributesInPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201611141019100_AddedVideoLinkPropertyToBeneficiaries.cs" />
+    <Compile Include="Persistence\Migrations\201611141019100_AddedVideoLinkPropertyToBeneficiaries.Designer.cs">
+      <DependentUpon>201611141019100_AddedVideoLinkPropertyToBeneficiaries.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Migrations\ActivitySeed.cs" />
     <Compile Include="Persistence\Migrations\BeneficiarySeed.cs" />
@@ -239,32 +249,27 @@
     <Content Include="Content\css\county.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\Images\BackstreetBoys.jpg" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\bg2.jpg" />
     <Content Include="Content\Images\bg5.png" />
     <Content Include="Content\Images\bg6.png" />
     <Content Include="Content\Images\bgwithoutclouds.jpg" />
+    <Content Include="Content\Images\CanYouHandleThis.jpg" />
     <Content Include="Content\Images\chalkboardfb.png" />
     <Content Include="Content\Images\chalkfb.png" />
     <Content Include="Content\Images\chalkhms.png" />
     <Content Include="Content\Images\facebook.jpg" />
-    <Content Include="Content\Images\Funny Is The New Pogi.jpg" />
     <Content Include="Content\Images\hungryminds.png" />
-    <Content Include="Content\Images\MANILEÑOS.jpg" />
-    <Content Include="Content\Images\MANILEÑOS.png" />
+    <Content Include="Content\Images\Kingsman.jpg" />
     <Content Include="Content\Images\OCSDO Angels.JPG" />
     <Content Include="Content\Images\hmstoon.gif" />
-    <Content Include="Content\Images\photo2.jpg" />
-    <Content Include="Content\Images\photo4.jpg" />
-    <Content Include="Content\Images\photo3.jpg" />
-    <Content Include="Content\Images\photo5.jpg" />
     <Content Include="Content\Images\photo1.jpg" />
-    <Content Include="Content\Images\photo6.jpg" />
-    <Content Include="Content\Images\photo7.jpg" />
-    <Content Include="Content\Images\QAiTS.jpg" />
+    <Content Include="Content\Images\photo2.jpg" />
+    <Content Include="Content\Images\photo3.jpg" />
+    <Content Include="Content\Images\photo4.jpg" />
+    <Content Include="Content\Images\TeenageDream.jpg" />
     <Content Include="Content\Images\The Chronicles of Naina.jpg" />
-    <Content Include="Content\Images\The Timejumpers.jpg" />
-    <Content Include="Content\Images\The Timejumpers.png" />
     <Content Include="Content\Images\time.ico" />
     <Content Include="Content\js\county.js" />
     <Content Include="Content\js\jquery-1.8.3.min.js" />
@@ -333,11 +338,17 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Scripts\accountCreateController.js" />
     <Content Include="Scripts\jquery-1.8.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jun\css\custom.css" />
     <Content Include="Scripts\jun\css\jquery-ui.css" />
     <Content Include="Scripts\jun\css\jquery-ui.min.css" />
@@ -384,6 +395,8 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -454,21 +467,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Profile2.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile4.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile3.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile5.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Profile1.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Payments\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -484,9 +482,6 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Profile6.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Persistence\Migrations\201311261040400_Initial.resx">
       <DependentUpon>201311261040400_Initial.cs</DependentUpon>
     </EmbeddedResource>
@@ -496,9 +491,12 @@
     <EmbeddedResource Include="Persistence\Migrations\201411180913468_newmigration.resx">
       <DependentUpon>201411180913468_newmigration.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_profile7.cshtml" />
+    <EmbeddedResource Include="Persistence\Migrations\201611130725186_RemovedAttributesInPayment.resx">
+      <DependentUpon>201611130725186_RemovedAttributesInPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201611141019100_AddedVideoLinkPropertyToBeneficiaries.resx">
+      <DependentUpon>201611141019100_AddedVideoLinkPropertyToBeneficiaries.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <!--<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>-->

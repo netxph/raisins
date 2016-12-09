@@ -2,6 +2,7 @@
 using Raisins.Client.Web.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Raisins.Client.Web.Persistence.Repository
 {
@@ -34,9 +35,23 @@ namespace Raisins.Client.Web.Persistence.Repository
             _raisinsDb.Entry(currency).State = EntityState.Modified;
         }
 
+        public void MultipleEdit(IEnumerable<Currency> currencies)
+        {
+            foreach (Currency currency in currencies)
+            {
+                _raisinsDb.Entry(currency).State = EntityState.Modified;
+            }
+
+        }
+
         public void Delete(Currency currency)
         {
             _raisinsDb.Currencies.Remove(currency);
+        }
+
+        public bool Any(string currencyCode)
+        {
+            return _raisinsDb.Currencies.Any(c => c.CurrencyCode == currencyCode);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Raisins.Client.Web.Persistence
             Payments = new PaymentRepository(_raisinsDb);
             MailQueues = new MailQueuesRepository(_raisinsDb);
             Executives = new ExecutiveRepository(_raisinsDb);
+            Roles = new RoleRepository(_raisinsDb);
         }
 
         public void Complete()

@@ -8,6 +8,16 @@ namespace Raisins.Client.Raffle
 {
     public class RaffleService
     {
+        private readonly IEnumerable<Ticket> _tickets;
+
+        protected IEnumerable<Ticket> Tickets
+        {
+            get
+            {
+                return _tickets;
+            }
+        }
+
         private readonly IRaisinsDataProvider _dataProvider;
         private readonly IIntegerRandomizerService _randomizer;
 
@@ -42,11 +52,12 @@ namespace Raisins.Client.Raffle
             }
 
             _randomizer = randomizer;
+            _tickets = new List<Ticket>();
         }
 
         public Ticket GetRandomTicket(PaymentClass paymentClass)
         {
-            var tickets = DataProvider.GetTicketsByPaymentClass(paymentClass);
+            var tickets = GetTickets(paymentClass);
 
             var index = Randomizer.GetNext(0, tickets.Count());
 
@@ -55,7 +66,14 @@ namespace Raisins.Client.Raffle
 
         public IEnumerable<Ticket> GetTickets(PaymentClass paymentClass)
         {
-            return DataProvider.GetTicketsByPaymentClass(paymentClass);
+            var code = ((int)paymentClass).ToString("00");
+
+            return DataProvider.GetTickets().Where(t => t.TicketCode.StartsWith(code));
+        }
+
+        public void LoadData()
+        {
+            DataProvider.LoadData();
         }
     }
 }

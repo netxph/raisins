@@ -4,6 +4,7 @@ using Raisins.Client.Randomizer.RandomOrg.Response;
 using RestSharp;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Raisins.Client.Randomizer.RandomOrg
 {
@@ -68,6 +69,11 @@ namespace Raisins.Client.Randomizer.RandomOrg
                     replacement = false
                 }
             };
+        }
+
+        public Task<int> GetNextAsync(int min, int max)
+        {
+            return Task.Run(() => GetNext(min, max));
         }
     }
 }

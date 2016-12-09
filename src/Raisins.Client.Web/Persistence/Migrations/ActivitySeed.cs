@@ -30,6 +30,7 @@ namespace Raisins.Client.Web.Migrations
                 newActivity.Roles = roles;
 
                 _unitOfWork.Activities.Add(newActivity);
+                _unitOfWork.Complete();
             }
         }
     }
