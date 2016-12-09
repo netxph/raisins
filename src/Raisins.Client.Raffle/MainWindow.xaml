@@ -8,7 +8,7 @@
         Width="1024"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
-        ResizeMode="NoResize">
+        ResizeMode="CanResize">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Template">
