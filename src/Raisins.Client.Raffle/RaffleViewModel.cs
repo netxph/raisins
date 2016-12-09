@@ -102,6 +102,7 @@ namespace Raisins.Client.Raffle
         {
             try
             {
+                CanExecuteRaffle = false;
                 WinningTicket = null;
 
                 CancellationTokenSource cts = new CancellationTokenSource();
@@ -126,6 +127,7 @@ namespace Raisins.Client.Raffle
                     cts.Cancel();
 
                     WinningTicket = t.Result;
+                    CanExecuteRaffle = true;
                 });
 
 
