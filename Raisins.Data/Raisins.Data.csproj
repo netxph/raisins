@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A4C8770A-A48F-4017-B94A-B6F401AB1F05}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Raisins.Data</RootNamespace>
+    <AssemblyName>Raisins.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\201702280336499_InitialDatabase.cs" />
+    <Compile Include="Migrations\201702280336499_InitialDatabase.Designer.cs">
+      <DependentUpon>201702280336499_InitialDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702280413419_Testing.cs" />
+    <Compile Include="Migrations\201702280413419_Testing.Designer.cs">
+      <DependentUpon>201702280413419_Testing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703010206127_AddedPayments.cs" />
+    <Compile Include="Migrations\201703010206127_AddedPayments.Designer.cs">
+      <DependentUpon>201703010206127_AddedPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020439116_DeletePayments.cs" />
+    <Compile Include="Migrations\201703020439116_DeletePayments.Designer.cs">
+      <DependentUpon>201703020439116_DeletePayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703140228309_DeletePayment2.cs" />
+    <Compile Include="Migrations\201703140228309_DeletePayment2.Designer.cs">
+      <DependentUpon>201703140228309_DeletePayment2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703150727435_AddhandledBeneficiariesInAccount.cs" />
+    <Compile Include="Migrations\201703150727435_AddhandledBeneficiariesInAccount.Designer.cs">
+      <DependentUpon>201703150727435_AddhandledBeneficiariesInAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703170201010_AddProfiles.cs" />
+    <Compile Include="Migrations\201703170201010_AddProfiles.Designer.cs">
+      <DependentUpon>201703170201010_AddProfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703170223148_TruncateProfiles.cs" />
+    <Compile Include="Migrations\201703170223148_TruncateProfiles.Designer.cs">
+      <DependentUpon>201703170223148_TruncateProfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703170259454_AddViewPaymentListPermission.cs" />
+    <Compile Include="Migrations\201703170259454_AddViewPaymentListPermission.Designer.cs">
+      <DependentUpon>201703170259454_AddViewPaymentListPermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703170533144_AddPermission.cs" />
+    <Compile Include="Migrations\201703170533144_AddPermission.Designer.cs">
+      <DependentUpon>201703170533144_AddPermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703210207057_AddTickets.cs" />
+    <Compile Include="Migrations\201703210207057_AddTickets.Designer.cs">
+      <DependentUpon>201703210207057_AddTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703220421459_DeleteDataFromTickets.cs" />
+    <Compile Include="Migrations\201703220421459_DeleteDataFromTickets.Designer.cs">
+      <DependentUpon>201703220421459_DeleteDataFromTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703220854321_AddTicketPermissionAndPublish.cs" />
+    <Compile Include="Migrations\201703220854321_AddTicketPermissionAndPublish.Designer.cs">
+      <DependentUpon>201703220854321_AddTicketPermissionAndPublish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703230619598_AddedMailQueue.cs" />
+    <Compile Include="Migrations\201703230619598_AddedMailQueue.Designer.cs">
+      <DependentUpon>201703230619598_AddedMailQueue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703230931583_ChangedStatusToBool.cs" />
+    <Compile Include="Migrations\201703230931583_ChangedStatusToBool.Designer.cs">
+      <DependentUpon>201703230931583_ChangedStatusToBool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703270005436_Reformat.cs" />
+    <Compile Include="Migrations\201703270005436_Reformat.Designer.cs">
+      <DependentUpon>201703270005436_Reformat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703300227349_AddSuperAdminAndEditRoles.cs" />
+    <Compile Include="Migrations\201703300227349_AddSuperAdminAndEditRoles.Designer.cs">
+      <DependentUpon>201703300227349_AddSuperAdminAndEditRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704060703482_DeleteUsers.cs" />
+    <Compile Include="Migrations\201704060703482_DeleteUsers.Designer.cs">
+      <DependentUpon>201704060703482_DeleteUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704110928245_ModifyPayments.cs" />
+    <Compile Include="Migrations\201704110928245_ModifyPayments.Designer.cs">
+      <DependentUpon>201704110928245_ModifyPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704120556365_NullableDates.cs" />
+    <Compile Include="Migrations\201704120556365_NullableDates.Designer.cs">
+      <DependentUpon>201704120556365_NullableDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704120620157_SetTemporaryModifiedBy.cs" />
+    <Compile Include="Migrations\201704120620157_SetTemporaryModifiedBy.Designer.cs">
+      <DependentUpon>201704120620157_SetTemporaryModifiedBy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704120630539_DeleteAllPayments.cs" />
+    <Compile Include="Migrations\201704120630539_DeleteAllPayments.Designer.cs">
+      <DependentUpon>201704120630539_DeleteAllPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170925429_ResetPayments.cs" />
+    <Compile Include="Migrations\201704170925429_ResetPayments.Designer.cs">
+      <DependentUpon>201704170925429_ResetPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170929199_AddPaymentIDinTicket.cs" />
+    <Compile Include="Migrations\201704170929199_AddPaymentIDinTicket.Designer.cs">
+      <DependentUpon>201704170929199_AddPaymentIDinTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704180202082_NullableBeneficiary.cs" />
+    <Compile Include="Migrations\201704180202082_NullableBeneficiary.Designer.cs">
+      <DependentUpon>201704180202082_NullableBeneficiary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704180252146_UndoNullableBeneficiary.cs" />
+    <Compile Include="Migrations\201704180252146_UndoNullableBeneficiary.Designer.cs">
+      <DependentUpon>201704180252146_UndoNullableBeneficiary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704190718365_Reset.cs" />
+    <Compile Include="Migrations\201704190718365_Reset.Designer.cs">
+      <DependentUpon>201704190718365_Reset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Seeder\DBSeeder.cs" />
+    <Compile Include="Migrations\Seeder\IDBSeeder.cs" />
+    <Compile Include="Migrations\Seeder\Seeds\AccountSeed.cs" />
+    <Compile Include="Migrations\Seeder\Seeds\BeneficiarySeed.cs" />
+    <Compile Include="Migrations\Seeder\Seeds\CurrencySeed.cs" />
+    <Compile Include="Migrations\Seeder\Seeds\PaymentSeed.cs" />
+    <Compile Include="Migrations\Seeder\Seeds\PaymentSourceSeed.cs" />
+    <Compile Include="Migrations\Seeder\Seeds\PaymentTypeSeed.cs" />
+    <Compile Include="Migrations\Seeder\Seeds\RoleSeed.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountProfile.cs" />
+    <Compile Include="Models\Beneficiary.cs" />
+    <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\MailQueue.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\PaymentSource.cs" />
+    <Compile Include="Models\PaymentType.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RaisinsContext.cs" />
+    <Compile Include="Repository\AccountRepository.cs" />
+    <Compile Include="Repository\BeneficiaryForTicketRepository.cs" />
+    <Compile Include="Repository\BeneficiaryForPaymentRepository.cs" />
+    <Compile Include="Repository\BeneficiaryRepository.cs" />
+    <Compile Include="Repository\CurrencyRepository.cs" />
+    <Compile Include="Repository\MailQueueRepository.cs" />
+    <Compile Include="Repository\PaymentRepository.cs" />
+    <Compile Include="Repository\PaymentSourceRepository.cs" />
+    <Compile Include="Repository\PaymentTypeRepository.cs" />
+    <Compile Include="Repository\ProfileRepository.cs" />
+    <Compile Include="Repository\RoleForAccountRepository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\TicketRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201702280336499_InitialDatabase.resx">
+      <DependentUpon>201702280336499_InitialDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702280413419_Testing.resx">
+      <DependentUpon>201702280413419_Testing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703010206127_AddedPayments.resx">
+      <DependentUpon>201703010206127_AddedPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020439116_DeletePayments.resx">
+      <DependentUpon>201703020439116_DeletePayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703140228309_DeletePayment2.resx">
+      <DependentUpon>201703140228309_DeletePayment2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703150727435_AddhandledBeneficiariesInAccount.resx">
+      <DependentUpon>201703150727435_AddhandledBeneficiariesInAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703170201010_AddProfiles.resx">
+      <DependentUpon>201703170201010_AddProfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703170223148_TruncateProfiles.resx">
+      <DependentUpon>201703170223148_TruncateProfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703170259454_AddViewPaymentListPermission.resx">
+      <DependentUpon>201703170259454_AddViewPaymentListPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703170533144_AddPermission.resx">
+      <DependentUpon>201703170533144_AddPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703210207057_AddTickets.resx">
+      <DependentUpon>201703210207057_AddTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703220421459_DeleteDataFromTickets.resx">
+      <DependentUpon>201703220421459_DeleteDataFromTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703220854321_AddTicketPermissionAndPublish.resx">
+      <DependentUpon>201703220854321_AddTicketPermissionAndPublish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703230619598_AddedMailQueue.resx">
+      <DependentUpon>201703230619598_AddedMailQueue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703230931583_ChangedStatusToBool.resx">
+      <DependentUpon>201703230931583_ChangedStatusToBool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703270005436_Reformat.resx">
+      <DependentUpon>201703270005436_Reformat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703300227349_AddSuperAdminAndEditRoles.resx">
+      <DependentUpon>201703300227349_AddSuperAdminAndEditRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704060703482_DeleteUsers.resx">
+      <DependentUpon>201704060703482_DeleteUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704110928245_ModifyPayments.resx">
+      <DependentUpon>201704110928245_ModifyPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704120556365_NullableDates.resx">
+      <DependentUpon>201704120556365_NullableDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704120620157_SetTemporaryModifiedBy.resx">
+      <DependentUpon>201704120620157_SetTemporaryModifiedBy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704120630539_DeleteAllPayments.resx">
+      <DependentUpon>201704120630539_DeleteAllPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170925429_ResetPayments.resx">
+      <DependentUpon>201704170925429_ResetPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170929199_AddPaymentIDinTicket.resx">
+      <DependentUpon>201704170929199_AddPaymentIDinTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704180202082_NullableBeneficiary.resx">
+      <DependentUpon>201704180202082_NullableBeneficiary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704180252146_UndoNullableBeneficiary.resx">
+      <DependentUpon>201704180252146_UndoNullableBeneficiary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704190718365_Reset.resx">
+      <DependentUpon>201704190718365_Reset.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Raisins.Accounts\Raisins.Accounts.csproj">
+      <Project>{e04faa9d-3d71-4dc9-9401-577fb0df46ca}</Project>
+      <Name>Raisins.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raisins.Beneficiaries\Raisins.Beneficiaries.csproj">
+      <Project>{9CCFAF6E-8B41-4F80-955B-03963409E48A}</Project>
+      <Name>Raisins.Beneficiaries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raisins.Notifications\Raisins.Notifications.csproj">
+      <Project>{A9907AC5-B4EE-4D49-BD24-CDBEC6E11F75}</Project>
+      <Name>Raisins.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raisins.Payments\Raisins.Payments.csproj">
+      <Project>{fb85c14d-fcff-4cc3-af09-08ac598e5396}</Project>
+      <Name>Raisins.Payments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raisins.Roles\Raisins.Roles.csproj">
+      <Project>{28748972-2423-40C4-AD99-4C91402ED699}</Project>
+      <Name>Raisins.Roles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raisins.Tickets\Raisins.Tickets.csproj">
+      <Project>{25284830-1E10-4EA1-A706-8BA693B5AD65}</Project>
+      <Name>Raisins.Tickets</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

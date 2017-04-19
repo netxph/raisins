@@ -1,0 +1,69 @@
+﻿@using Raisins.Client.ViewModels
+@model RegisterViewModel
+
+@{
+    ViewBag.Title = "Edit Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @using (Html.BeginForm("EditAccount", "Accounts"))
+    {
+        <div class="row">
+            <h2>Edit Account</h2>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
+                <div>
+                    @Html.DropDownListFor(m => m.Role, new SelectList(Model.Roles, "Name", "Name"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <tabLe>
+                    <tr>
+                        <th>@Html.LabelFor(m => m.Checkboxes, new { @class = "col-md-2 control-label" })</th>
+                        <td style="padding-left: 25px;">
+                            @for (var i = 0; i < Model.Checkboxes.Count(); i++)
+                            {
+                                <div>
+                                    @Html.HiddenFor(m => Model.Checkboxes[i].Id)
+                                    @Html.CheckBoxFor(m => Model.Checkboxes[i].Checked)
+                                    @Html.DisplayFor(m => Model.Checkboxes[i].Name)
+                                    @Html.HiddenFor(m => Model.Checkboxes[i].Name)
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                </tabLe>
+            </div>
+            @Html.HiddenFor(m => m.Password, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-3">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default pull-right">Submit</button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2 col-md-offset-3">
+                <div class="pull-right">
+                    @Html.ActionLink("Back to List", "ViewAccountList", "Accounts")
+                </div>
+            </div>
+        </div>
+    }
+</div>

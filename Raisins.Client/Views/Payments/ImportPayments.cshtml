@@ -1,0 +1,28 @@
+﻿@using Raisins.Client.ViewModels
+@model UploadPaymentViewModel
+@{
+    ViewBag.Title = "Import Payments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>    
+    <div class="row">
+        <h3>Import Payments</h3>
+        <hr />
+        <span class="h4">Template: </span>
+        @Html.ActionLink("Download", "ExportToExcel")
+        <br />
+        <br />
+        @using (Html.BeginForm("ImportPayments", "Payments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.CreatedDate, new { @Value = DateTime.Now })
+            @Html.HiddenFor(m => m.CreatedBy, new { @Value = @HttpContext.Current.Session["user"].ToString() })
+            <div class="form-group">
+                <input type="file" id="dataFile" name="upload" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Upload</button>
+            </div>
+        }
+
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿<ul class="nav navbar-nav navbar-right">
+    @if (!Request.IsAuthenticated)
+    {
+        <li>@Html.ActionLink("Login", "Login", "Accounts")</li>
+    }
+    @if (Request.IsAuthenticated)
+    {
+        if (HttpContext.Current.Session["user"] != null)
+        {
+            <li><a href="#">Welcome @HttpContext.Current.Session["user"].ToString()!</a></li>
+        }
+
+        using (Html.BeginForm("Logout", "Accounts", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-nav navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a>
+            </li>
+        }
+    }
+</ul>
+

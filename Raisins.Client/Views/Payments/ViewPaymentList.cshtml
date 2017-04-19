@@ -1,0 +1,119 @@
+﻿@using Raisins.Client.ViewModels
+@model PublishAllViewModel
+
+@{
+    ViewBag.Title = "List of Payments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    function publish(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Payments/PublishPayment?paymentID=" + id,
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data;
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+    function publishAll() {
+        var model = @Html.Raw(Json.Encode(Model.Payments));
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PublishAllPayment", "Payments")',
+            dataType: 'json',
+            data: JSON.stringify(model),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                window.location.href = data;
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+</script>
+
+<div>
+    <div class="row">
+        <h3>List of Payments</h3>
+        <hr />
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Donor's Name
+                    </th>
+                    <th>
+                        Beneficiary
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Currency
+                    </th>
+
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Source
+                    </th>
+                    <th>
+                        Opt Out
+                    </th>
+                    <th>
+                        Tools
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Payments)
+                {
+                    <tr>
+                        @Html.HiddenFor(modelItem => item)
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Beneficiary.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Source.Source)
+                        </td> 
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OptOut)
+                        </td>                      
+                        <td>
+                            @if (!item.Locked)
+                {
+                                @Html.ActionLink("Edit", "EditPayment", "Payments", new { paymentID = item.PaymentID }, null)
+                                <span class="text-primary">| </span><a href="#" onclick="publish(@item.PaymentID)">Publish</a>
+                            }
+                            else
+                            {
+                                <span class="text-danger">Locked</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <input type="button" value="Publish All" class="btn btn-default pull-right" onclick="publishAll()" />
+    </div>
+</div>

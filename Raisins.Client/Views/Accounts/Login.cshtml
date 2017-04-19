@@ -1,0 +1,46 @@
+﻿@using Raisins.Client.ViewModels
+@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Login", "Accounts"))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <h3>Log In</h3>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
+                <div>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        @Html.AntiForgeryToken();
+        <div class="row">
+            <div class="col-md-2 col-md-offset-3">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default pull-right">Log In</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
