@@ -21,11 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Notifications", "Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Beneficiaries", "Raisins.Beneficiaries\Raisins.Beneficiaries.csproj", "{9CCFAF6E-8B41-4F80-955B-03963409E48A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{021875D5-62EE-4337-8247-0CC65D60FDDD}"
-	ProjectSection(SolutionItems) = preProject
-		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Roles", "Raisins.Roles\Raisins.Roles.csproj", "{28748972-2423-40C4-AD99-4C91402ED699}"
 EndProject
 Global
