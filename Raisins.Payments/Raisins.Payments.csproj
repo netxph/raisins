@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FB85C14D-FCFF-4CC3-AF09-08AC598E5396}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Raisins.Payments</RootNamespace>
+    <AssemblyName>Raisins.Payments</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IBeneficiaryForPaymentRepository.cs" />
+    <Compile Include="Interfaces\IBeneficiaryService.cs" />
+    <Compile Include="Interfaces\ICurrencyRepository.cs" />
+    <Compile Include="Interfaces\ICurrencyService.cs" />
+    <Compile Include="Interfaces\IPaymentRepository.cs" />
+    <Compile Include="Interfaces\IPaymentService.cs" />
+    <Compile Include="Interfaces\IPaymentSourceRepository.cs" />
+    <Compile Include="Interfaces\IPaymentSourceService.cs" />
+    <Compile Include="Interfaces\IPaymentTypeRepository.cs" />
+    <Compile Include="Interfaces\IPaymentTypeService.cs" />
+    <Compile Include="Interfaces\IProfileRepository.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountProfile.cs" />
+    <Compile Include="Models\Beneficiary.cs" />
+    <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Payments.cs" />
+    <Compile Include="Models\PaymentSource.cs" />
+    <Compile Include="Models\PaymentSummary.cs" />
+    <Compile Include="Models\PaymentType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BeneficiaryService.cs" />
+    <Compile Include="Services\CurrencyService.cs" />
+    <Compile Include="Services\PaymentService.cs" />
+    <Compile Include="Services\PaymentSourceService.cs" />
+    <Compile Include="Services\PaymentTypeService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

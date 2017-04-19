@@ -1,0 +1,35 @@
+﻿@using Raisins.Client.Models;
+@model List<PaymentSummary>
+@{
+    ViewBag.Title = "Payment Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <div class="row">
+        <h3>Payment Summary</h3>
+        <hr />
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Beneficiary</th>
+                    <th>Total</th>
+                    <th>Currency Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var summary in Model)
+                {
+                    <tr>
+                        <td>@summary.Beneficiary</td>
+                        <td>@summary.Total</td>
+                        <td>@summary.CurrencyCode</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
