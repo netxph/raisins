@@ -189,6 +189,8 @@
     <Compile Include="Repository\PaymentSourceRepository.cs" />
     <Compile Include="Repository\PaymentTypeRepository.cs" />
     <Compile Include="Repository\ProfileRepository.cs" />
+    <Compile Include="Repository\RestrictAccountRepository.cs" />
+    <Compile Include="Repository\RestrictRoleRepository.cs" />
     <Compile Include="Repository\RoleForAccountRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\TicketRepository.cs" />

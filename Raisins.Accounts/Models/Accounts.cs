@@ -14,6 +14,11 @@ namespace Raisins.Accounts.Models
         {
             _accounts = new List<Account>();
         }
+        public Accounts(IEnumerable<Account> accounts)
+            : this()
+        {
+            AddRange(accounts);
+        }
         public void AddRange(IEnumerable<Account> accounts)
         {
             _accounts.AddRange(accounts);

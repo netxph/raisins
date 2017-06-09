@@ -32,7 +32,7 @@ namespace Raisins.Data.Repository
 
         public D.Roles GetList()
         {
-            return ConvertToDomainList(_context.Roles);
+            return ConvertToDomainList(_context.Roles.Where(r => r.Name == "super").ToList());
         }
         public void Add(D.Role role)
         {

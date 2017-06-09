@@ -73,11 +73,12 @@ namespace Raisins.Client.Controllers
             {
                 return RedirectToAction("NewRole", "Roles");
             }
-            else
+            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
-                ModelState.AddModelError("", "Something went wrong");
+                return HttpNotFound();
             }
-            return RedirectToAction("Index", "Home");
+
+            return HttpNotFound();
         }
     }
 }

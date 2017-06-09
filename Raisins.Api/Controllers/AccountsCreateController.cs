@@ -12,6 +12,7 @@ using System.Web.Http;
 using D = Raisins.Accounts.Models;
 using AutoMapper;
 using System.Diagnostics;
+using Raisins.Accounts;
 
 namespace Raisins.Api.Controllers
 {
@@ -19,7 +20,12 @@ namespace Raisins.Api.Controllers
     {
         private readonly IAccountService _service;
         protected IAccountService Service { get { return _service; } }
-        public AccountsCreateController() : this(new AccountService(new CryptProvider("testing"), new DateProvider(), new AccountRepository()))
+        public AccountsCreateController() : this( new RestrictAccountService(
+            new AccountService(
+                new CryptProvider("testing"), 
+                new DateProvider(),
+                new RestrictAccountRepository(
+                    new AccountRepository()))))
         {
         }
 
@@ -41,17 +47,24 @@ namespace Raisins.Api.Controllers
         [HttpPost]
         public HttpResponseMessage Create([FromBody] API.AccountComplete accountComplete)
         {          
-
             var account = Mapper.Map<API.Account, D.Account>(accountComplete.Account);
             var profile = Mapper.Map<API.AccountProfile, D.AccountProfile>(accountComplete.Profile);
-            Service.Create(account, profile);
-            return Request.CreateResponse(HttpStatusCode.OK);
+
+            try
+            {
+                Service.Create(account, profile);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(InvalidUserException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+            
         }
 
         [HttpPut]
         public HttpResponseMessage Edit([FromBody] API.AccountComplete accountComplete)
         {
-
             var account = Mapper.Map<API.Account, D.Account>(accountComplete.Account);
             var profile = Mapper.Map<API.AccountProfile, D.AccountProfile>(accountComplete.Profile);
             Service.Edit(account, profile);

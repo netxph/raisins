@@ -44,6 +44,7 @@
     <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\IRoleForAccountRepository.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
+    <Compile Include="InvalidUserException.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountProfile.cs" />
     <Compile Include="Models\Accounts.cs" />
@@ -52,7 +53,10 @@
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RaisinsErrorCodes.cs" />
+    <Compile Include="RaisinsException.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\RestrictAccountService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="TokenParser.cs" />
   </ItemGroup>

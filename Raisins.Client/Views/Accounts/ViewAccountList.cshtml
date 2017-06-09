@@ -33,7 +33,11 @@
                             @Html.DisplayFor(modelItem => item.Role.Name)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "EditAccount", "Accounts", new { userName = item.UserName }, null)
+                            @{
+                               @Html.ActionLink("Edit", "EditAccount", "Accounts", new { userName = item.UserName }, null)
+                            }
+
+                            
                         </td>
                     </tr>
                 }

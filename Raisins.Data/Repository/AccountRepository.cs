@@ -30,6 +30,11 @@ namespace Raisins.Data.Repository
             return ConvertToDomain(_context.Accounts
                     .FirstOrDefault(a => a.UserName == userName));
         }
+        //public D.Account GetNotSuper(string userName)
+        //{
+        //    return ConvertToDomain(_context.Accounts
+        //            .FirstOrDefault(a => a.Role.Name != "Super"));
+        //}
 
         //public Account GetCurrentUserAccount()
         //{
@@ -85,11 +90,14 @@ namespace Raisins.Data.Repository
 
         public void Add(D.Account account, D.AccountProfile profile)
         {
-            account.AddSalt();
-            _context.Accounts.Add(ConvertToEF(account, profile));
-            _context.SaveChanges();
-            var x = _context.Accounts.FirstOrDefault(a => a.UserName == account.UserName);
-            Debug.WriteLine(x.UserName);
+            if (account.UserName != null || profile.Name != null)
+            {
+                account.AddSalt();
+                _context.Accounts.Add(ConvertToEF(account, profile));
+                _context.SaveChanges();
+                var x = _context.Accounts.FirstOrDefault(a => a.UserName == account.UserName);
+                Debug.WriteLine(x.UserName);
+            }
         }
 
         private EF.Account ConvertToEF(D.Account account, D.AccountProfile profile)

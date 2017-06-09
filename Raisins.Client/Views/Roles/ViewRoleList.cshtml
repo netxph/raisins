@@ -40,7 +40,13 @@
 
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "EditRole", "Roles", new { RoleID = item.RoleID }, null)
+                            @{ if (item.Name != "Super")
+                                    // bawal to, dapat sa roles controller i-edit
+                                {
+                                    @Html.ActionLink("Edit", "EditRole", "Roles", new { RoleID = item.RoleID }, null)
+                                }
+                            }
+                           
                         </td>
                     </tr>
                 }

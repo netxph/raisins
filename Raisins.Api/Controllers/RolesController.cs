@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Raisins.Api.Models;
 using AutoMapper;
+using Raisins.Accounts.Services;
 
 namespace Raisins.Api.Controllers
 {
@@ -18,7 +19,10 @@ namespace Raisins.Api.Controllers
         private readonly IRoleService _service;
         protected IRoleService Service { get { return _service; } }
 
-        public RolesController() : this (new RoleService(new RoleRepository()))
+        public RolesController() : this( new RestrictRoleService(
+            new Roles.Services.RoleService(
+                new RestrictRoleRepository(
+                new RoleRepository()))))
         {
         }
 
@@ -35,7 +39,12 @@ namespace Raisins.Api.Controllers
         {
             D.Role temp = new D.Role(role.Name, role.Permissions);
             Service.Add(temp);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            // to edit
+            if (temp.Name.ToLower() != "super")
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            return Request.CreateResponse(HttpStatusCode.Forbidden);
         }
 
         [HttpGet]
@@ -46,7 +55,7 @@ namespace Raisins.Api.Controllers
         [HttpPut]
         public HttpResponseMessage EditRole([FromBody]Role role)
         {
-            D.Role temp =new D.Role(role.RoleID,role.Name, role.Permissions);
+            D.Role temp = new D.Role(role.RoleID, role.Name, role.Permissions);
             Service.Edit(temp);
             return Request.CreateResponse(HttpStatusCode.OK);
         }

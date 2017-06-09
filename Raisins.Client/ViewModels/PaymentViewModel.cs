@@ -53,12 +53,20 @@ namespace Raisins.Client.ViewModels
         public void InitResources(List<Beneficiary> beneficiaries,
             List<Currency> currencies, List<PaymentSource> sources, List<PaymentType> types, DateTime paymentDate)
         {
+            //List<String> list = new List<String>();
+            //for (int i = 0; i < beneficiaries.Count; i++)
+            //{
+            //    list.Add(beneficiaries[i].Name);
+
+            //}
+            //beneficiaries.Select(c => c.Name).ToList();
+
             List<Beneficiary> benList = new List<Beneficiary>();
             benList.Add(beneficiaries.FirstOrDefault(b => b.Name.ToLower() == "none"));
             benList.AddRange(beneficiaries.Where(b => b.Name.ToLower() != "none"));
             Beneficiaries = benList;
             Currencies = currencies;
-            Beneficiary = benList[0].Name;
+            Beneficiary = beneficiaries[0].Name;
             Currency = currencies[0].CurrencyCode;
 
             

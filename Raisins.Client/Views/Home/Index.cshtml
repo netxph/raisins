@@ -20,10 +20,21 @@
         max-height: 40px;
         overflow: hidden;
     }
+
+    .title{
+        position:relative;
+        left:20px;
+    }
+
+    h4 {
+        position: relative;
+        left: 20px;
+    }
+
 </style>
 <div>
     <div class="row">
-        <h3>@ViewBag.Title</h3>
+        <h3 class="title">@ViewBag.Title</h3>
         <hr />
         <h4 style="color:red">@ViewBag.MyString</h4>
         <h4><b>Goal</b>: ₱ @Convert.ToDecimal(@Model.Total).ToString("#,##0.00") <b>/ ₱ @Convert.ToDecimal(@Model.Needed).ToString("#,##0.00")</b></h4>

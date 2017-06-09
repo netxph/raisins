@@ -35,9 +35,21 @@ namespace Raisins.Client.ActionFilters
                 {
                     if (permission == _permission)
                     {
+                        //if (permission == "accounts_edit" && deserialized.User == "Super" || deserialized.User == "SuperUser")
+                        //{
+                        //    if(clickedRole == "Super")
+                        //    {
+                        //        validate = false;
+                        //        break;
+                        //    }
+                        //}
                         validate = true;
+                        break;
                     }
                 }
+
+                //var hasPermission = ((Controllers.AccountsController)filterContext.Controller).CheckPermission(deserialized.Permissions.ToString(), deserialized.User.ToString());
+                
                 if (!validate)
                 {
                     filterContext.Controller.TempData.Add("message", "Sorry, but you do not have permission to do this action.");

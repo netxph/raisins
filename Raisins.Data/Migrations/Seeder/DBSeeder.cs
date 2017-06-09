@@ -19,6 +19,9 @@ namespace Raisins.Data.Migrations.Seeder
             //Seeders.Add(new PaymentSeed());
             Seeders.Add(new PaymentSourceSeed());
             Seeders.Add(new PaymentTypeSeed());
+            
+            //if (System.Diagnostics.Debugger.IsAttached == false)
+            //    System.Diagnostics.Debugger.Launch();
         }
         public List<IDbSeeder> Seeders { get; set; }
         public void Seed(RaisinsContext context)
