@@ -23,6 +23,7 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
             if (!context.Types.Any(c => c.Type == type))
             {
                 context.Types.Add(new PaymentType() { Type = type});
+                context.SaveChanges();
             }
         }
     }

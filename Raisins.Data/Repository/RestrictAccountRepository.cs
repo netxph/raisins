@@ -64,5 +64,14 @@ namespace Raisins.Data.Repository
             Repository.Edit(account, profile);
         }
 
+        public void AddBeneficiary(string account, Beneficiary beneficiary)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddBeneficiary(Account account, Beneficiary beneficiary)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

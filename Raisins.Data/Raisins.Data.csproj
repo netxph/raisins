@@ -160,6 +160,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeder\DBSeeder.cs" />
     <Compile Include="Migrations\Seeder\IDBSeeder.cs" />
+    <Compile Include="Migrations\Seeder\InvalidDataSeedException.cs" />
+    <Compile Include="Migrations\Seeder\DataSeedErrorCode.cs" />
+    <Compile Include="Migrations\Seeder\DataSeedException.cs" />
     <Compile Include="Migrations\Seeder\Seeds\AccountSeed.cs" />
     <Compile Include="Migrations\Seeder\Seeds\BeneficiarySeed.cs" />
     <Compile Include="Migrations\Seeder\Seeds\CurrencySeed.cs" />

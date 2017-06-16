@@ -48,7 +48,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BeneficiaryService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Raisins.Accounts\Raisins.Accounts.csproj">
+      <Project>{e04faa9d-3d71-4dc9-9401-577fb0df46ca}</Project>
+      <Name>Raisins.Accounts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -23,6 +23,7 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
             if (!context.Sources.Any(c => c.Source == source))
             {
                 context.Sources.Add(new PaymentSource() { Source = source });
+                context.SaveChanges();
             }
         }
     }

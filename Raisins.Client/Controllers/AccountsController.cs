@@ -9,7 +9,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Raisins.Client.ActionFilters;
 using System.Web.Routing;
 
 namespace Raisins.Client.Controllers
@@ -139,22 +138,6 @@ namespace Raisins.Client.Controllers
             return View(model);
         }
 
-        //internal bool CheckPermission(string permission, string User)
-        //{
-        //    //if(permission == "acounts_view" || permission == "accounts_edit")
-        //    //{
-        //    //    if(permission == "accounts_view" && roleName == "Super")
-        //    //    {
-        //    //        return true;
-        //    //    }
-        //        if ( roleName == "Super") //added
-        //        {
-        //            return false;
-        //        }
-        //    //}
-        //    return true;
-        //}
-
         [BasicPermissions("accounts_edit")]
         [HttpGet]
         public ActionResult EditAccount(string userName)
@@ -205,7 +188,6 @@ namespace Raisins.Client.Controllers
 
                 return View(model);
             }
-            // TODO: return default error handling page
             return HttpNotFound();
         }
         public ActionResult EditAccount(RegisterViewModel model)

@@ -20,7 +20,6 @@ namespace Raisins.Accounts.Services
             {
                 throw new ArgumentNullException(nameof(service));
             }
-
             _service = service;
         }
 

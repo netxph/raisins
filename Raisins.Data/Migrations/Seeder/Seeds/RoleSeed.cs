@@ -15,19 +15,19 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
         {
             _context = context;
 
-            AddRole("Super", "payments_lock;payments_unlock;payments_create_new;payments_view_summary;" +
-                "payments_create_new," +
+            AddRole("super", "payments_lock;payments_unlock;payments_create_new;payments_view_summary;" +
+                "payments_create_new;" +
                 "payments_view_list_all;" +
                 "beneficiaries_view;beneficiaries_create;beneficiaries_update;" +
                 "accounts_create;accounts_edit;accounts_view;" +
                 "roles_view;roles_edit;roles_create");
-            AddRole("Administrator", "payments_lock;payments_unlock;payments_create_new;payments_view_summary");
-            AddRole("Accountant", "payments_view_summary");
-            AddRole("Manager", "payments_lock;payments_unlock;payments_create_new;payments_view_summary");
-            AddRole("User", "payments_create_new");
-            AddRole("SuperAccountant", "payments_view_list_all");
-            AddRole("SuperAdmininstrator", "beneficiaries_view;beneficiaries_create;beneficiaries_update");
-            AddRole("SuperUser", "accounts_create;accounts_edit;accounts_view");
+            AddRole("admin", "payments_lock;payments_unlock;payments_create_new;payments_view_summary");
+            AddRole("accountant", "payments_view_summary");
+            AddRole("manager", "payments_lock;payments_unlock;payments_create_new;payments_view_summary");
+            AddRole("user", "payments_create_new");
+            AddRole("superaccountant", "payments_view_list_all");
+            AddRole("superadmin", "beneficiaries_view;beneficiaries_create;beneficiaries_update");
+            AddRole("superuser", "accounts_create;accounts_edit;accounts_view");
         }
 
         private void AddRole(string name, string permissions)

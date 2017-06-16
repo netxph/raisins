@@ -21,9 +21,14 @@ namespace Raisins.Api.Controllers
     {
         private readonly IBeneficiaryService _service;
         protected IBeneficiaryService Service { get { return _service; } }
-        public FileUploaderController() : this(new BeneficiaryService(new BeneficiaryRepository()))
+
+        public FileUploaderController()
+            : this(new BeneficiaryService(
+                        new BeneficiaryRepository(),
+                        new AccountRepository()))
         {
         }
+
         public FileUploaderController(IBeneficiaryService service)
         {
             if (service == null)

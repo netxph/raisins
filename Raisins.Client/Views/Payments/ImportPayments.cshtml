@@ -8,9 +8,6 @@
     <div class="row">
         <h3>Import Payments</h3>
         <hr />
-        <span class="h4">Template: </span>
-        @Html.ActionLink("Download", "ExportToExcel")
-        <br />
         <br />
         @using (Html.BeginForm("ImportPayments", "Payments", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {

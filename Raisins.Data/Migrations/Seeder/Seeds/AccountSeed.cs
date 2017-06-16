@@ -16,20 +16,11 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
         public void Seed(RaisinsContext context)
         {
             _context = context;
-
-            AddAccount("marielle", "1234", "Marielle Lapidario", "Administrator");
-            AddAccount("Super", "1234", "Super User", "Super");
-            AddAccount("natraj", "1234", "Natraj Rajput", "Accountant");
-            AddAccount("john", "1234", "Clarisse Cheng", "Manager");
-            AddAccount("danica", "1234", "Danica Sevilla", "User");
-            AddAccount("geraldine", "1234", "Geraldine Atayan", "SuperAccountant");
-            AddAccount("jm", "1234", "Edward Cullen", "SuperAdmininstrator");
-            AddAccount("jessica", "1234", "Jessica Sanches", "SuperUser");
-
-            AddAccountWithProfile(context, "super", "1234", "super user", "Super", "QaiTS");
-            AddAccountWithProfile(context, "patricia", "1234", "patricia Honrado", "Accountant", "QaiTS");
-            AddAccountWithProfile(context, "gina", "1234", "Gina Co", "Accountant", "MANILEÑOS");
-            AddAccountWithProfile(context, "josiah", "1234", "Josiah Barretto", "Accountant", "The Chronicles of Naina");
+            
+            AddAccount("Super", "1234", "Super", "super");
+            AddAccount("eugene", "1234", "Super Admin", "superadmin");
+            AddAccount("superuser", "1234", "Super User", "superuser");
+            //AddAccountWithProfile(context, "Super", "1234", "Super", "super", "Funny Is The New Pogi");
         }
 
         private void AddAccount(string userName, string password, string name, string title)
@@ -39,8 +30,7 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
                 var role = _context.Roles.Where(r => r.Name == title).FirstOrDefault();
 
                 var salt = GetSalt();
-
-
+                
                 Account account = new Account
                 {
                     UserName = userName,
@@ -61,7 +51,6 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
         {
             if (!_context.Accounts.Any(a => a.UserName == userName))
             {
-                //var role = _context.Roles.FirstOrDefault(r => r.Name == title);
                 var role = _context.Roles.Where(x => x.Name == title).FirstOrDefault();
                 var salt = GetSalt();
                 var assigned = _context.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary);

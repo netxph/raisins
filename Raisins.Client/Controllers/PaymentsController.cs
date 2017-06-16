@@ -143,6 +143,82 @@ namespace Raisins.Client.Controllers
              "payments-template.xls");
         }
 
+        [HttpGet]
+        public ActionResult ExportToExcelByBeneficiaryAssigned(Account user)
+        {
+            //Create new Excel Workbook
+            var workbook = new HSSFWorkbook();
+            
+            //Create new Excel Sheet
+            var sheet = workbook.CreateSheet();
+
+            // get data from user na nakalogin
+
+
+            // find beneficiary under user
+
+            // loop payments list under the beneficiary of the user
+
+
+            JsonDeserializer deserialize = new JsonDeserializer();
+            var client = new RestClient("http://localhost:4000/api/Payments");
+            var request = new RestRequest(Method.GET);
+            var response = client.Execute<Payment>(request);
+            Payment payment = JsonConvert.DeserializeObject<Payment>(response.Content);
+
+            PaymentViewModel model = new PaymentViewModel();
+            //Get beneficiaries for list
+            var clientB = new RestClient("http://localhost:4000/api/beneficiariesall");
+            var requestB = new RestRequest(Method.GET);
+            var responseB = clientB.Execute<List<Beneficiary>>(requestB);
+            List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseB);
+            //Get currencies for list
+            var clientC = new RestClient("http://localhost:4000/api/currencies");
+            var requestC = new RestRequest(Method.GET);
+            var responseC = clientC.Execute<List<Currency>>(requestC);
+            List<Currency> currencies = deserialize.Deserialize<List<Currency>>(responseC);
+
+            var clientP = new RestClient("http://localhost:4000/api/sourceslist");
+            var requestP = new RestRequest(Method.GET);
+            var responseP = clientP.Execute<List<Currency>>(requestP);
+            List<PaymentSource> sources = deserialize.Deserialize<List<PaymentSource>>(responseP);
+
+            var clientT = new RestClient("http://localhost:4000/api/typeslist");
+            var requestT = new RestRequest(Method.GET);
+            var responseT = clientT.Execute<List<Currency>>(requestT);
+            List<PaymentType> types = deserialize.Deserialize<List<PaymentType>>(responseT);
+
+
+            var a = payment.Beneficiary.Name;
+
+            var b = user.UserName;
+
+            model.InitResources(beneficiaries, currencies, sources, types, payment);
+
+            return View(model);
+
+
+            ////Create a header row
+            //var headerRow = sheet.CreateRow(0);
+            //headerRow.CreateCell(0).SetCellValue("Name");
+            //headerRow.CreateCell(1).SetCellValue("Email");
+            //headerRow.CreateCell(2).SetCellValue("Amount");
+            //headerRow.CreateCell(3).SetCellValue("Beneficiary");
+            //headerRow.CreateCell(4).SetCellValue("Currency");
+            //headerRow.CreateCell(5).SetCellValue("Type");
+            //headerRow.CreateCell(6).SetCellValue("Source");
+            //headerRow.CreateCell(7).SetCellValue("Date");
+            //headerRow.CreateCell(8).SetCellValue("Opt Out");
+
+            ////Write the Workbook to a memory stream
+            //MemoryStream output = new MemoryStream();
+            //workbook.Write(output);
+
+            //return File(output.ToArray(),   //The binary data of the XLS file
+            // "application/vnd.ms-excel",//MIME type of Excel files
+            // "payments-template.xls");
+        }
+
 
         [BasicPermissions("payments_create_new")]
         [HttpGet]
