@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EF = Raisins.Data.Models;
+using System.Reflection;
 
 namespace Raisins.Data.Repository
 {
@@ -75,7 +76,26 @@ namespace Raisins.Data.Repository
         public void Edit(D.Payment payment)
         {
             EF.Payment efpayment = ConverToEFwithID(payment);
-            _context.Entry(efpayment).State = EntityState.Modified;
+            
+            var tempPayment = _context.Payments.Single(a => a.PaymentID == efpayment.PaymentID);
+
+            tempPayment.PaymentID = efpayment.PaymentID;
+            tempPayment.Name = efpayment.Name;
+            tempPayment.Amount = efpayment.Amount;
+            tempPayment.BeneficiaryID = efpayment.BeneficiaryID;
+            tempPayment.CurrencyID = efpayment.CurrencyID;
+            tempPayment.Locked = efpayment.Locked;
+            tempPayment.Email = efpayment.Email;
+            //tempPayment.CreatedDate = efpayment.CreatedDate;
+            //tempPayment.PaymentDate = efpayment.PaymentDate;
+            tempPayment.ModifiedDate = efpayment.ModifiedDate;
+            tempPayment.PublishDate = efpayment.PublishDate;
+            tempPayment.CreatedByID = efpayment.CreatedByID;
+            tempPayment.ModifiedByID = efpayment.ModifiedByID;
+            tempPayment.PaymentSourceID = efpayment.PaymentSourceID;
+            tempPayment.PaymentTypeID = efpayment.PaymentTypeID;
+            tempPayment.OptOut = efpayment.OptOut;
+
             _context.SaveChanges();
         }
 
@@ -88,8 +108,12 @@ namespace Raisins.Data.Repository
 
         public void Delete(D.Payment payment)
         {
-            _context.Payments.Remove(ConvertToEF(payment));
-            _context.SaveChanges();
+            throw new NotImplementedException();
+            //EF.Payment efpayment = ConverToEFwithID(payment);
+            //_context.Payments.Attach(ConvertToEF(payment));
+            //_context.Entry(efpayment).State = EntityState.Deleted;
+            //_context.Payments.Remove(ConvertToEF(payment));
+            //_context.SaveChanges();
         }
 
         private D.Payment ConvertToDomain(EF.Payment efPayment)
@@ -138,8 +162,10 @@ namespace Raisins.Data.Repository
             int sourceID = _context.Sources.FirstOrDefault(c => c.Source == payment.Source.Source).PaymentSourceID;
             int typeID = _context.Types.FirstOrDefault(c => c.Type == payment.Type.Type).PaymentTypeID;
             int createdByID = _context.Accounts.FirstOrDefault(c => c.UserName == payment.CreatedBy).AccountID;
+            int modifiedByID = _context.Accounts.FirstOrDefault(c => c.UserName == payment.ModifiedBy).AccountID;
+
             return new EF.Payment(payment.Name, payment.Amount, beneficiaryID, currencyID, payment.Email, payment.CreatedDate,
-                payment.PaymentDate, createdByID, sourceID, typeID, payment.OptOut);
+                payment.PaymentDate, payment.CreatedDate, createdByID, sourceID, typeID, payment.OptOut, modifiedByID);
         }
         private EF.Payment ConverToEFwithID(D.Payment payment)
         {
@@ -148,7 +174,13 @@ namespace Raisins.Data.Repository
             int sourceID = _context.Sources.FirstOrDefault(c => c.Source == payment.Source.Source).PaymentSourceID;
             int typeID = _context.Types.FirstOrDefault(c => c.Type == payment.Type.Type).PaymentTypeID;
             int createdByID = _context.Accounts.FirstOrDefault(c => c.UserName == payment.CreatedBy).AccountID;
-            int modifiedByID = _context.Accounts.FirstOrDefault(c => c.UserName == payment.ModifiedBy).AccountID;
+
+            int paymentID = _context.Payments.FirstOrDefault(p => p.PaymentID == payment.PaymentID).PaymentID;
+
+            var accounts = _context.Accounts;
+            var account = accounts.FirstOrDefault(c => c.UserName == payment.ModifiedBy);
+            int modifiedByID = account.AccountID;
+
             return new EF.Payment(payment.PaymentID, payment.Name, payment.Amount, beneficiaryID, currencyID, payment.Locked,
                 payment.Email, payment.CreatedDate, payment.PaymentDate, payment.ModifiedDate, payment.PublishDate, createdByID,
                 modifiedByID, sourceID, typeID, payment.OptOut);

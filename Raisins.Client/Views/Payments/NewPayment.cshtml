@@ -23,7 +23,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                 <div>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
@@ -59,7 +59,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.PaymentDate, new { @class = "col-md-2 control-label" })
                 <div>
-                    @Html.TextBoxFor(m => m.PaymentDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date"})
+                    @Html.TextBoxFor(m => m.PaymentDate, "{0:yyyy-MM-dd HH:mm:ss}", new { @class = "form-control", type = "date"})
                 </div>
             </div>
             <div class="form-group">

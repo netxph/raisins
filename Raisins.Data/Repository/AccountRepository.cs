@@ -194,17 +194,17 @@ namespace Raisins.Data.Repository
             }
         }
 
-        protected void AddBeneficiaryToSuper(D.Account superAccount, D.Beneficiary beneficiary)
+        protected virtual void AddBeneficiaryToSuper(D.Account superAccount, D.Beneficiary beneficiary)
         {
             var acc = _context.Accounts.FirstOrDefault(a => a.UserName == superAccount.UserName);
 
-            _context.Accounts.Remove(acc);
-            _context.SaveChanges();
+            //_context.Accounts.Remove(acc);
+            //_context.SaveChanges();
 
             var bene = _context.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary.Name);
 
-            _context.Accounts.Add(acc);
-            _context.SaveChanges();
+            //_context.Accounts.Add(acc);
+            //_context.SaveChanges();
 
             acc.Profile.Beneficiaries.Add(bene);
             _context.SaveChanges();

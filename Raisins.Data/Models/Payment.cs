@@ -13,7 +13,7 @@ namespace Raisins.Data.Models
         {
         }
         public Payment(string name, decimal amount, int beneficiaryID, int currencyID, string email,
-            DateTime createdDate, DateTime paymentDate, int createdByID, int sourceID, int typeID, bool optOut)
+            DateTime createdDate, DateTime paymentDate, DateTime modifiedDate, int createdByID, int sourceID, int typeID, bool optOut, int modifiedByID)
         {
             Name = name;
             Amount = amount;
@@ -22,12 +22,12 @@ namespace Raisins.Data.Models
             Email = email;
             CreatedDate = createdDate;
             PaymentDate = paymentDate;
+            ModifiedDate = createdDate;
             CreatedByID = createdByID;
             PaymentSourceID = sourceID;
             PaymentTypeID = typeID;
             OptOut = optOut;
-            //set modify to 0
-            ModifiedByID = 0;
+            ModifiedByID = modifiedByID;
         }
         public Payment(int paymentID, string name, decimal amount, int beneficiaryID, int currencyID, bool locked,
             string email, DateTime createdDate, DateTime paymentDate, DateTime? modifiedDate, DateTime? publishDate,
@@ -42,6 +42,12 @@ namespace Raisins.Data.Models
             Email = email;
             CreatedDate = createdDate;
             PaymentDate = paymentDate;
+            //DateTime convertedModifiedDate = (DateTime)modifiedDate;
+            //convertedModifiedDate = convertedModifiedDate.ToLocalTime();
+            //ModifiedDate = convertedModifiedDate;
+            //DateTime convertedPublishDate = (DateTime)publishDate;
+            //convertedPublishDate = convertedPublishDate.ToLocalTime();
+            //PublishDate = convertedPublishDate;
             ModifiedDate = modifiedDate;
             PublishDate = publishDate;
             CreatedByID = createdByID;

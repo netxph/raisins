@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using T = Raisins.Tickets.Models;
+using API = Raisins.Api.Models;
 
 namespace Raisins.Api.Controllers
 {
@@ -28,7 +29,8 @@ namespace Raisins.Api.Controllers
             _ticketService = ticketService;
         }
         [HttpPost]
-        public HttpResponseMessage GenerateTickets([FromBody]IEnumerable<P.Payment> payments)
+        public HttpResponseMessage GenerateTickets([FromBody]IEnumerable<API.Payment> payments)
+            //nasa Payment class, gawin same sa TicketsController
         {
             foreach (var payment in payments)
             {                

@@ -91,9 +91,46 @@ namespace Raisins.Payments.Services
         
         public void Import(IEnumerable<P.Payment> payments)
         {
+            var dbPayments = PaymentRepository.GetAll();
+
+            var paymentsById = RemoveDuplicate(payments, dbPayments);
+
+            OnImport(paymentsById, dbPayments);
+        }
+
+
+        // Duplicate = Same Payment ID and payment in DB is Locked
+        protected IEnumerable<P.Payment> RemoveDuplicate(IEnumerable<P.Payment> payments, P.Payments dbPayments)
+        {
+            var paymentsById = payments.GroupBy(a => a.PaymentID)
+                                       .Select(b => b.Last());
+
+            var paymentsToImport = paymentsById.ToList();
+
+            foreach (var paymentById in payments)
+            {
+                if (dbPayments.FirstOrDefault(dbPayment => paymentById.PaymentID == dbPayment.PaymentID &&
+                                                           dbPayment.Locked) != null)
+                {
+                    paymentsToImport.Remove(paymentById);
+                }
+            }
+
+            return paymentsToImport;
+        }
+
+        protected virtual void OnImport(IEnumerable<P.Payment> payments, P.Payments dbPayments)
+        {
             foreach (var payment in payments)
             {
-                PaymentRepository.Add(payment);
+                if(dbPayments.FirstOrDefault(dbPayment => dbPayment.PaymentID == payment.PaymentID) != null)
+                {
+                    PaymentRepository.Edit(payment);
+                }
+                else
+                {
+                    PaymentRepository.Add(payment);
+                }
             }
         }
 
@@ -109,7 +146,7 @@ namespace Raisins.Payments.Services
             {
                 payment.Publish();
                 PaymentRepository.Edit(payment);
-            }            
+            }
         }
 
         public void Edit(P.Payment payment)

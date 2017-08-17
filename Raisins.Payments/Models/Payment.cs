@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 namespace Raisins.Payments.Models
 {
     public class Payment
-    {     
+    {
+        public Payment()
+        {
+        }
+
         public Payment(int paymentID, string name, decimal amount, Currency currency, Beneficiary beneficiary, bool locked,
             string email, DateTime createdDate, DateTime? modifiedDate, DateTime paymentDate, DateTime? publishDate, string createdBy, string modifiedBy, PaymentSource source, PaymentType type,
             bool optOut)
@@ -76,24 +80,25 @@ namespace Raisins.Payments.Models
             ModifiedBy = modifiedBy;
         }
 
-        public Beneficiary Beneficiary { get; private set; }
-        public Currency Currency { get; private set; }
-        public string Name { get; private set; }
-        public decimal Amount { get; private set; }
-        public bool Locked { get; private set; }
-        public int PaymentID { get; private set; }
+        public virtual Beneficiary Beneficiary { get; set; }
+        //public Beneficiary Beneficiary { get; set; }
+        public Currency Currency { get; set; }
+        public string Name { get; set; }
+        public decimal Amount { get; set; }
+        public bool Locked { get; set; }
+        public int PaymentID { get; set; }
 
         //added
-        public string Email { get; private set; }
-        public DateTime CreatedDate { get; private set; }
-        public DateTime? ModifiedDate { get; private set; }
-        public DateTime PaymentDate { get; private set; }
-        public DateTime? PublishDate { get; private set; }
-        public string CreatedBy { get; private set; }
-        public string ModifiedBy { get; private set;  }
-        public PaymentSource Source { get; private set; }
-        public PaymentType Type { get; private set; }
-        public bool OptOut { get; private set; }
+        public string Email { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public DateTime PaymentDate { get; set; }
+        public DateTime? PublishDate { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set;  }
+        public PaymentSource Source { get; set; }
+        public PaymentType Type { get; set; }
+        public bool OptOut { get; set; }
 
 
         public void Publish()

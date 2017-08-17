@@ -17,7 +17,7 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
 
             AddRole("super", "payments_lock;payments_unlock;payments_create_new;payments_view_summary;" +
                 "payments_create_new;" +
-                "payments_view_list_all;" +
+                "payments_view_list_all;payments_publish;" +
                 "beneficiaries_view;beneficiaries_create;beneficiaries_update;" +
                 "accounts_create;accounts_edit;accounts_view;" +
                 "roles_view;roles_edit;roles_create");

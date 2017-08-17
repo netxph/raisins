@@ -15,7 +15,6 @@ namespace Raisins.Client.ViewModels
         }
         public BeneficiaryListViewModel(List<Beneficiary> beneficiaries)
         {
-
             Beneficiaries = beneficiaries.Where(b => b.Name.ToLower() != "none").ToList();
         }
     }
