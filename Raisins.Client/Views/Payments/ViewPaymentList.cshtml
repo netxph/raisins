@@ -1,10 +1,131 @@
 ﻿@using Raisins.Client.ViewModels
+@using Raisins.Client.Models
+@using System.Linq;
+@using System.Collections;
+
 @model PublishAllViewModel
 
 @{
     ViewBag.Title = "List of Payments";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{ 
+    var distinct = Model.Payments.Distinct();
+    var payments = Model.Payments;
+}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+<div>
+    <div>
+        @using (Html.BeginForm("Export", "Payments", FormMethod.Get))
+        {
+            <div class="row">
+                <h3 style="float: left">List of Payments</h3>
+                <br />
+            </div>
+            <div class="form-inline">
+                @Html.LabelFor(m => m.Beneficiary, "Beneficiary")
+                @Html.DropDownListFor(m => m.SelectedBeneficiary,
+                 Model.UniqueBeneficiaries,
+                 "Select Beneficiary",
+                 new { @class = "form-control", @id = "selected", @onchange = "showBeneficiaryPayment()" })
+                <input id="ss" style="float:right; margin-left: 10px; margin-right: 40px" type="button" value="Publish All" class="btn btn-default" onclick="publishAll()" />
+                <button id="exportButton" type="submit" style="float:right" class="btn btn-default fa fa-file-excel-o">Export</button>
+            </div>
+        }
+    </div>
+
+    @{
+        string modifiedBy = HttpContext.Current.Session["user"].ToString();
+    }
+
+    <div class="row" id="paymentsTable">
+        @using (Html.BeginForm("PublishPayment", "Payments", FormMethod.Get))
+        {
+            <hr />
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Donor's Name
+                        </th>
+                        <th>
+                            Beneficiary
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Currency
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Source
+                        </th>
+                        <th>
+                            Opt Out
+                        </th>
+                        <th>
+                            Tools
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SelectedPayment())
+                    {
+                        <tr>
+                            @Html.HiddenFor(modelItem => item)
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Beneficiary.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type.Type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Source.Source)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OptOut)
+                            </td>
+                            <td>
+                                @if (!item.Locked)
+                                {
+                                    @Html.ActionLink("Edit", "EditPayment", "Payments", new { paymentID = item.PaymentID }, null)
+                                    @*<button style="float: right" type="submit" class="btn btn-default" value="id = item.paymentID">Publish</button>*@
+                                    <span> | </span>
+                                    @Html.ActionLink("Publish", "PublishPayment", "Payments", new { paymentID = item.PaymentID, modifiedBy }, null)
+                                    @*<span class="text-primary">| </span><a href="#" onclick="publish(@item.PaymentID)">Publish</a>*@
+                                }
+                                else
+                                {
+                                    <span class="text-danger">Locked</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    <hr /><span class="h4">Template: </span>
+    @Html.ActionLink("Download", "ExportTemplate")
+    <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+
+</div>
+
 <script>
     function publish(id) {
         $.ajax({
@@ -12,9 +133,11 @@
             url: "/Payments/PublishPayment?paymentID=" + id,
             dataType: 'json',
             success: function (data) {
+                alert("goods");
                 window.location.href = data;
             },
             error: function (response) {
+                alert(id);
                 console.log(response);
             }
         });
@@ -22,98 +145,91 @@
     function publishAll() {
         var model = @Html.Raw(Json.Encode(Model.Payments));
         $.ajax({
-            type: "POST",
-            url: '@Url.Action("PublishAllPayment", "Payments")',
-            dataType: 'json',
-            data: JSON.stringify(model),
-            contentType: 'application/json; charset=utf-8',
+        type: "POST",
+        url: '@Url.Action("PublishAllPayment", "Payments", new { modifiedBy = modifiedBy})',
+        dataType: 'json',
+        data: JSON.stringify(model),
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            window.location.href = data;
+        },
+        error: function (response) {
+        console.log(response);
+        }
+        });
+    }
+
+    var showBeneficiaryPayment = function () {
+        var selected = $("#selected option:selected").val();
+
+        var url = "ViewPaymentListByBeneficiary3?beneficiarySelected=" + selected;
+
+        //window.history.pushState(null, 'List of Payments', url)
+        location.reload(window.history.pushState(null, 'List of Payments', url));
+
+        //$('#divPartial').load(url);
+        //$('#paymentsTable').hide();
+
+        //$("#paymentsTable").load(url)
+
+        //$.ajax({
+        //    type: "POST",
+        //    url: "ViewPaymentListByBeneficiary3",
+        //    data: { beneficiarySelected: selected },
+        //    success: function (response) {
+        //        $("#myModalBodyDiv").html(response);
+        //        $("#myModal").modal("show");
+        //    }
+        //})
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var selected = $("#selected option:selected").val();
+        if (selected == "") {
+            $("#exportButton").hide();
+        }
+    });
+
+    function test() {
+        var selected = $("#selected option:selected").val();
+        alert(selected);
+
+        $.ajax({
+            url: "@Url.Action("ViewPaymentListByBeneficiary2", "Payments")",
+            data: { beneficiarySelected: selected },
+            type: "GET",
+            dataType: "html",
             success: function (data) {
+                console.log("successful!");
+                $('#paymentsContainer').html(data);
                 window.location.href = data;
             },
             error: function (response) {
+                console.log("error!");
                 console.log(response);
             }
+
         });
+            }
+
+    function checkBeneficiary() {
+        $("#SelectedBeneficiary").change(function (event) {
+            var beneficiaryID = $(this).val();
+            $.ajax({
+                url: "@Url.Action("ViewPaymentListByBeneficiary", "Payments")",
+                data: { id: beneficiaryID },
+                type: "Get",
+                dataType: "html",
+                success: function (data) {
+                    window.location.href = data;
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        })
     }
 </script>
-
-<div>
-    <div class="row">
-        <h3>List of Payments</h3>
-        <hr />
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr>
-                    <th>
-                        Donor's Name
-                    </th>
-                    <th>
-                        Beneficiary
-                    </th>
-                    <th>
-                        Amount
-                    </th>
-                    <th>
-                        Currency
-                    </th>
-
-                    <th>
-                        Type
-                    </th>
-                    <th>
-                        Source
-                    </th>
-                    <th>
-                        Opt Out
-                    </th>
-                    <th>
-                        Tools
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Payments)
-                {
-                    <tr>
-                        @Html.HiddenFor(modelItem => item)
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Beneficiary.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Amount)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Type.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Source.Source)
-                        </td> 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OptOut)
-                        </td>                      
-                        <td>
-                            @if (!item.Locked)
-                {
-                                @Html.ActionLink("Edit", "EditPayment", "Payments", new { paymentID = item.PaymentID }, null)
-                                <span class="text-primary">| </span><a href="#" onclick="publish(@item.PaymentID)">Publish</a>
-                            }
-                            else
-                            {
-                                <span class="text-danger">Locked</span>
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <input type="button" value="Publish All" class="btn btn-default pull-right" onclick="publishAll()" />
-    </div>
-</div>

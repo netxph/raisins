@@ -43,9 +43,13 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Interfaces\IRoleRepository.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
+    <Compile Include="InvalidRoleException.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleException.cs" />
+    <Compile Include="RoleErrorCode.cs" />
+    <Compile Include="Services\RestrictRoleService.cs" />
     <Compile Include="Services\RoleService.cs" />
   </ItemGroup>
   <ItemGroup />

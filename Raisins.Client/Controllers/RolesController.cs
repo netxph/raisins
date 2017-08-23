@@ -6,6 +6,7 @@ using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -73,11 +74,12 @@ namespace Raisins.Client.Controllers
             {
                 return RedirectToAction("NewRole", "Roles");
             }
-            else
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
             {
-                ModelState.AddModelError("", "Something went wrong");
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            return RedirectToAction("Index", "Home");
+
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
     }
 }

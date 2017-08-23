@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Raisins.Client.ViewModels
 {
@@ -14,6 +15,9 @@ namespace Raisins.Client.ViewModels
         [DataType(DataType.Currency)]
         [Display(Name = "Donor's Name")]
         public string Name { get; set; }
+
+        public int[] SelectedValues { get; set; }
+        public IEnumerable<SelectListItem> Values { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
@@ -53,12 +57,20 @@ namespace Raisins.Client.ViewModels
         public void InitResources(List<Beneficiary> beneficiaries,
             List<Currency> currencies, List<PaymentSource> sources, List<PaymentType> types, DateTime paymentDate)
         {
+            //List<String> list = new List<String>();
+            //for (int i = 0; i < beneficiaries.Count; i++)
+            //{
+            //    list.Add(beneficiaries[i].Name);
+
+            //}
+            //beneficiaries.Select(c => c.Name).ToList();
+
             List<Beneficiary> benList = new List<Beneficiary>();
             benList.Add(beneficiaries.FirstOrDefault(b => b.Name.ToLower() == "none"));
             benList.AddRange(beneficiaries.Where(b => b.Name.ToLower() != "none"));
             Beneficiaries = benList;
             Currencies = currencies;
-            Beneficiary = benList[0].Name;
+            Beneficiary = beneficiaries[0].Name;
             Currency = currencies[0].CurrencyCode;
 
             
@@ -99,18 +111,77 @@ namespace Raisins.Client.ViewModels
 
     public class PublishAllViewModel
     {
+        public string SelectedBeneficiary { get; set; }
+        
+        public int paymentID { get; set; }
+
+        public List<string> MultipleBeneficiaries { get; set; }
+
+        public List<Payment> SelectedPayment()
+        {
+            return Payments;
+        }
+
+        [Display(Name = "Role")]
         public List<Payment> Payments { get; set; }
+
+        [Display(Name = "Beneficiary")]
+        public string Beneficiary { get; set; }
+
+        private SelectList _beneficiaries;
+
+        private List<Payment> allpayments;
+
+        public SelectList UniqueBeneficiaries
+        {
+            get
+            {
+                if (_beneficiaries == null)
+                {
+                    _beneficiaries = new SelectList(allpayments.GroupBy(p => p.Beneficiary.Name)
+                                                  .Select(y => y.FirstOrDefault()),
+                                          "Beneficiary.Name",
+                                          "Beneficiary.Name");
+                }
+                return _beneficiaries;
+            }
+            set
+            {
+                _beneficiaries = value;
+            }
+        }
+
         public PublishAllViewModel()
         {
         }
+
         public PublishAllViewModel(List<Payment> payments)
         {
             Payments = payments;
+            allpayments = Payments;
+        }
+
+        // JUST IN CASE
+        //public PublishAllViewModel(/*List<Payment> payments,*/ string beneficiary, List<Payment> paymentsAll)
+        //{
+        //    //payments.FirstOrDefault(a => a.Beneficiary.Name == beneficiary);
+        //    //Payments = payments;
+        //    var s = paymentsAll.Where(b => b.Beneficiary.Name.Contains(beneficiary));
+        //    Payments = s.ToList();
+        //    allpayments = paymentsAll;
+        //}
+
+        public PublishAllViewModel(string beneficiary, List<Payment> paymentsAll)
+        {
+            var s = paymentsAll.Where(b => b.Beneficiary.Name.Contains(beneficiary));
+            Payments = s.ToList();
+            allpayments = paymentsAll;
         }
     }
     public class UploadPaymentViewModel
     {
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }

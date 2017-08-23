@@ -1,13 +1,9 @@
 ﻿using Raisins.Data.Repository;
 using Raisins.Roles.Interfaces;
 using Raisins.Roles.Services;
-using D = Raisins.Roles.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using D = Raisins.Roles.Models;
 
 namespace Raisins.Api.Controllers
 {
@@ -16,7 +12,10 @@ namespace Raisins.Api.Controllers
         private readonly IRoleService _service;
         protected IRoleService Service { get { return _service; } }
 
-        public RolesListController() : this (new RoleService(new RoleRepository()))
+        public RolesListController() : this (
+            new RoleService(
+                new RestrictRoleRepository(
+                    new RoleRepository())))
         {
         }
 

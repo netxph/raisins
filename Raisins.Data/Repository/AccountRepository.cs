@@ -30,6 +30,11 @@ namespace Raisins.Data.Repository
             return ConvertToDomain(_context.Accounts
                     .FirstOrDefault(a => a.UserName == userName));
         }
+        //public D.Account GetNotSuper(string userName)
+        //{
+        //    return ConvertToDomain(_context.Accounts
+        //            .FirstOrDefault(a => a.Role.Name != "Super"));
+        //}
 
         //public Account GetCurrentUserAccount()
         //{
@@ -85,23 +90,38 @@ namespace Raisins.Data.Repository
 
         public void Add(D.Account account, D.AccountProfile profile)
         {
-            account.AddSalt();
-            _context.Accounts.Add(ConvertToEF(account, profile));
-            _context.SaveChanges();
-            var x = _context.Accounts.FirstOrDefault(a => a.UserName == account.UserName);
-            Debug.WriteLine(x.UserName);
+            if (account.UserName != null || profile.Name != null)
+            {
+                account.AddSalt();
+
+                _context.Accounts.Add(ConvertToEF(account, profile));
+                _context.SaveChanges();
+            }
         }
 
-        private EF.Account ConvertToEF(D.Account account, D.AccountProfile profile)
+        protected EF.Account ConvertToEF(D.Account account, D.AccountProfile profile)
         {
             int roleID = _context.Roles.FirstOrDefault(r => r.Name == account.Role.Name).RoleID;
+
+            return new EF.Account(
+                            account.UserName,
+                            GetHash(account.Password,
+                                    account.Salt),
+                            account.Salt,
+                            roleID,
+                            BuildAccountProfile(profile));
+        }
+
+        protected virtual EF.AccountProfile BuildAccountProfile(D.AccountProfile profile)
+        {
             List<EF.Beneficiary> efBeneficiaries = new List<EF.Beneficiary>();
+
             foreach (var beneficiary in profile.Beneficiaries)
             {
                 efBeneficiaries.Add(_context.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary.Name));
             }
-            EF.AccountProfile efProfile = new EF.AccountProfile(profile.Name, efBeneficiaries);
-            return new EF.Account(account.UserName, GetHash(account.Password, account.Salt), account.Salt, roleID, efProfile);
+
+            return new EF.AccountProfile(profile.Name, efBeneficiaries);
         }
 
         private EF.Account ConvertToEFwithID(D.Account account, D.AccountProfile profile)
@@ -162,6 +182,32 @@ namespace Raisins.Data.Repository
             byte[] bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
             string result = BitConverter.ToString(bytes).Replace("-", string.Empty);
             return result.ToLower();
+        }
+
+        public void AddBeneficiary(D.Account superAccount, D.Beneficiary beneficiary)
+        {
+            var superAccountBeneficiary = superAccount.Profile.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary.Name);
+
+            if (superAccountBeneficiary == null)
+            {
+                AddBeneficiaryToSuper(superAccount, beneficiary);
+            }
+        }
+
+        protected virtual void AddBeneficiaryToSuper(D.Account superAccount, D.Beneficiary beneficiary)
+        {
+            var acc = _context.Accounts.FirstOrDefault(a => a.UserName == superAccount.UserName);
+
+            //_context.Accounts.Remove(acc);
+            //_context.SaveChanges();
+
+            var bene = _context.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary.Name);
+
+            //_context.Accounts.Add(acc);
+            //_context.SaveChanges();
+
+            acc.Profile.Beneficiaries.Add(bene);
+            _context.SaveChanges();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Raisins.Payments.Models
             {
                 throw new ArgumentNullException("Beneficiary:name");
             }
-            Name = name;            
+            Name = name;
             Description = description;
         }
         public Beneficiary() { }

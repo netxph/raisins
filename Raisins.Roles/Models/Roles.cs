@@ -14,6 +14,13 @@ namespace Raisins.Roles.Models
         {
             _roles = new List<Role>();
         }
+
+        public Roles(IEnumerable<Role> roles)
+            :this()
+        {
+            AddRange(roles);
+        }
+
         public void AddRange(IEnumerable<Role> roles)
         {
             _roles.AddRange(roles);

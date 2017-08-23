@@ -38,6 +38,7 @@ namespace Raisins.Data.Repository
         public void Add(D.Role role)
         {
             EF.Role efRole = ConvertToEF(role);
+            
             _context.Roles.Add(efRole);
             _context.SaveChanges();
         }

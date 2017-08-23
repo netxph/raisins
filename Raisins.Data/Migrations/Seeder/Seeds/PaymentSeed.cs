@@ -11,16 +11,10 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
     {
         public void Seed(RaisinsContext context)
         {
-            AddPayment(context, "payment1", 1000.5M, 1, 1, 1); //1
-            AddPayment(context, "payment2", 2000.25M, 2, 1, 1); //2
-            AddPayment(context, "payment3", 1500, 2, 1, 1); //3
-            AddPayment(context, "payment4", 1000, 2, 1, 1); //4
-            AddPayment(context, "payment5", 1050, 3, 1, 1); //5
-            AddPayment(context, "payment6", 1000.10M, 3, 1, 2); //6
-            AddPayment(context, "payment7", 1010, 3, 1, 2); //7
-            AddPayment(context, "payment8", 1000, 4, 1, 2); //8
-            AddPayment(context, "payment9", 1000, 5, 1, 2); //9
-            AddPayment(context, "payment10", 500, 6, 1, 3); //10
+            AddPayment(context, "payment1", 1000.5M, 1, 1, 1, "International", "Cash");  //1
+            AddPayment(context, "payment2", 2000.25M, 2, 1, 1, "Local", "PayPal"); //2
+            AddPayment(context, "payment3", 1500, 2, 1, 1, "International", "Bank Deposit");     //3
+            context.SaveChanges();
         }
 
         private void AddPayment(RaisinsContext context,
@@ -28,18 +22,58 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
             decimal amount,
             int beneficiaryID,
             int currencyID,
-            int createdByID)
+            int createdByID,
+            string sourceName,
+            string typeName)
         {
             if (!context.Payments.Any(c => c.Name == name))
             {
+                //context.Payments.Add(new Payment()
+                //{
+                //    Name = name,
+                //    Amount = amount,
+                //    BeneficiaryID = beneficiaryID,
+                //    CurrencyID = currencyID,
+                //    CreatedByID = createdByID
+                //});
+                var source = context.Sources.FirstOrDefault(x => x.Source.ToLower() == sourceName.ToLower());
+                var type = context.Types.FirstOrDefault(x => x.Type.ToLower() == typeName.ToLower());
+
+                if (source == null)
+                {
+                    throw new InvalidDataSeedException("Source not found!" + source );
+                }
+                if (type == null)
+                {
+                    throw new InvalidDataSeedException("Type not found!" + type);
+                }
+
                 context.Payments.Add(new Payment()
                 {
                     Name = name,
                     Amount = amount,
                     BeneficiaryID = beneficiaryID,
                     CurrencyID = currencyID,
-                    CreatedByID = createdByID
+                    CreatedByID = createdByID,
+                    CreatedDate = DateTime.Now,
+                    PaymentDate = DateTime.Now,
+                    PaymentSourceID = source.PaymentSourceID,
+                    PaymentTypeID = type.PaymentTypeID
                 });
+
+
+                //Payment payment = new Payment
+                //{
+                //    Name = name,
+                //    Amount = amount,
+                //    BeneficiaryID = beneficiaryID,
+                //    CurrencyID = currencyID,
+                //    CreatedByID = createdByID,
+                //    CreatedDate = DateTime.Now,
+                //    PaymentDate = DateTime.Now
+                //};
+                //context.Payments.Add(payment);
+                //context.SaveChanges();
             }
         }
     }

@@ -104,11 +104,14 @@ namespace Raisins.Client.ViewModels
     public class AccountsListViewModel
     {
         public List<Account> Accounts { get; set; }
+        public bool IsSuperUser { get; set; }
+
         public AccountsListViewModel()
         {
         }
         public AccountsListViewModel(List<Account> accounts)
         {
+            accounts.Remove(accounts.Where(a => a.Role.Name == "Super").FirstOrDefault()); //added
             Accounts = accounts;
         }
     }

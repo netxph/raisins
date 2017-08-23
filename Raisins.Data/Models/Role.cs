@@ -23,6 +23,7 @@ namespace Raisins.Data.Models
             Name = name;
             Permissions = permissions;
         }
+        
         [Key]
         public int RoleID { get; set; }
 

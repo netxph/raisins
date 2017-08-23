@@ -208,6 +208,7 @@
     <Compile Include="Controllers\GoalController.cs" />
     <Compile Include="Controllers\MailQueuesAllController.cs" />
     <Compile Include="Controllers\MailQueuesController.cs" />
+    <Compile Include="Controllers\PaymentsListByBeneficiaryController.cs" />
     <Compile Include="Controllers\PaymentsPublishAllController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\PaymentsImportController.cs" />

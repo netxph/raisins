@@ -17,7 +17,10 @@ namespace Raisins.Api.Controllers
     {
         private readonly IBeneficiaryService _service;
         protected IBeneficiaryService Service { get { return _service; } }
-        public BeneficiariesController() : this(new BeneficiaryService(new BeneficiaryRepository()))
+        public BeneficiariesController() 
+            : this(new BeneficiaryService(
+                    new BeneficiaryRepository(), 
+                    new AccountRepository()))
         {
         }
         public BeneficiariesController(IBeneficiaryService service)

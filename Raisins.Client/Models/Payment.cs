@@ -33,6 +33,7 @@ namespace Raisins.Client.Models
             Email = email;
             CreatedDate = createdDate;
             PaymentDate = paymentDate;
+            ModifiedDate = createdDate;
             CreatedBy = createdBy;
             Source = source;
             Type = type;
@@ -58,13 +59,30 @@ namespace Raisins.Client.Models
             Type = type;
             OptOut = optOut;
         }
+
+        public Payment(string name, decimal amount, Currency currency, Beneficiary beneficiary,
+            string email, DateTime createdDate, DateTime paymentDate, string createdBy, PaymentSource source, PaymentType type, string optOut)
+        {
+            Name = name;
+            Amount = amount;
+            Beneficiary = beneficiary;
+            Currency = currency;
+            Email = email;
+            CreatedDate = createdDate;
+            PaymentDate = paymentDate;
+            CreatedBy = createdBy;
+            Source = source;
+            Type = type;
+            OptOutStatus = optOut;
+        }
+
         public Payment() { }
 
         public virtual Beneficiary Beneficiary { get; set; }
         public virtual Currency Currency { get; set; }
 
         [Display(Name = "Donor's Name")]
-        public string Name { get; set; }        
+        public string Name { get; set; }
         public decimal Amount { get; set; }
         public bool Locked { get; set; }
         public int PaymentID { get; set; }
@@ -80,5 +98,6 @@ namespace Raisins.Client.Models
         public PaymentSource Source { get; set; }
         public PaymentType Type { get; set; }
         public bool OptOut { get; set; }
+        public string OptOutStatus { get; set; }
     }
 }

@@ -9,6 +9,29 @@
 </head>
 <body>
     @Html.Partial("_Navigation")
+    <style>
+        .title {
+            position: relative;
+            left: 20px;
+        }
+
+        .body-content {
+            position: relative;
+            left: 40px;
+            right: 20px;
+        }
+
+        .row {
+            position: relative;
+            right: 25px;
+            padding-right: 25px;
+        }
+
+        h1,h2,h4{
+            position:relative;
+            left: 20px;
+        }
+    </style>
     <br />
     <div class="container body-content">
         @RenderBody()

@@ -60,7 +60,7 @@ namespace Raisins.Client.ActionFilters
                     var responseP = clientP.Execute(requestP);
                     AccountProfile profile = deserialize.Deserialize<AccountProfile>(responseP);
 
-                    validate = false;
+                    validate = true;
                     if (profile.Beneficiaries != null)
                     {
                         foreach (var ben in profile.Beneficiaries)

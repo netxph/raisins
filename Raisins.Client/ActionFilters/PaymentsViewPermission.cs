@@ -45,7 +45,7 @@ namespace Raisins.Client.ActionFilters
                   new RouteValueDictionary
                   {
                     { "controller", "payments" },
-                    { "action", "ViewPaymentListAll" }
+                    { "action", "ViewPaymentListByBeneficiary" }
                   });
                 }
                 else if (!validate)

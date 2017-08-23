@@ -13,7 +13,7 @@ namespace Raisins.Api
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
-        protected void Application_Start()
+        protected virtual void Application_Start()
         {
             Mapper.Initialize(c => c.AddProfile<MappingProfile>());
             AreaRegistration.RegisterAllAreas();

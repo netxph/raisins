@@ -160,6 +160,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeder\DBSeeder.cs" />
     <Compile Include="Migrations\Seeder\IDBSeeder.cs" />
+    <Compile Include="Migrations\Seeder\InvalidDataSeedException.cs" />
+    <Compile Include="Migrations\Seeder\DataSeedErrorCode.cs" />
+    <Compile Include="Migrations\Seeder\DataSeedException.cs" />
     <Compile Include="Migrations\Seeder\Seeds\AccountSeed.cs" />
     <Compile Include="Migrations\Seeder\Seeds\BeneficiarySeed.cs" />
     <Compile Include="Migrations\Seeder\Seeds\CurrencySeed.cs" />
@@ -189,6 +192,8 @@
     <Compile Include="Repository\PaymentSourceRepository.cs" />
     <Compile Include="Repository\PaymentTypeRepository.cs" />
     <Compile Include="Repository\ProfileRepository.cs" />
+    <Compile Include="Repository\RestrictAccountRepository.cs" />
+    <Compile Include="Repository\RestrictRoleRepository.cs" />
     <Compile Include="Repository\RoleForAccountRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\TicketRepository.cs" />
