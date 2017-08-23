@@ -18,21 +18,20 @@
 
 <div>
     <div>
-        @*http://localhost:3000/payments/Export?beneficiary=club must take something like this in the url*@
         @using (Html.BeginForm("Export", "Payments", FormMethod.Get))
         {
             <div class="row">
                 <h3 style="float: left">List of Payments</h3>
                 <br />
             </div>
-            <div class="row">
+            <div class="form-inline">
                 @Html.LabelFor(m => m.Beneficiary, "Beneficiary")
                 @Html.DropDownListFor(m => m.SelectedBeneficiary,
                  Model.UniqueBeneficiaries,
                  "Select Beneficiary",
                  new { @class = "form-control", @id = "selected", @onchange = "showBeneficiaryPayment()" })
-                <button style="float: right" type="submit" class="btn btn-default">Export</button>
-                <input id="ss" style="padding-right: 10px" type="button" value="Publish All" class="btn btn-default pull-right" onclick="publishAll()" />
+                <input id="ss" style="float:right; margin-left: 10px; margin-right: 40px" type="button" value="Publish All" class="btn btn-default" onclick="publishAll()" />
+                <button id="exportButton" type="submit" style="float:right" class="btn btn-default fa fa-file-excel-o">Export</button>
             </div>
         }
     </div>
@@ -40,20 +39,6 @@
     @{
         string modifiedBy = HttpContext.Current.Session["user"].ToString();
     }
-
-    <div class="modal fade col-lg-10" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body" id="myModalBodyDiv">
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="divPartial">
-
-    </div>
 
     <div class="row" id="paymentsTable">
         @using (Html.BeginForm("PublishPayment", "Payments", FormMethod.Get))
@@ -133,8 +118,12 @@
                 </tbody>
             </table>
         }
-
     </div>
+
+    <hr /><span class="h4">Template: </span>
+    @Html.ActionLink("Download", "ExportTemplate")
+    <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+
 </div>
 
 <script>
@@ -171,7 +160,6 @@
     }
 
     var showBeneficiaryPayment = function () {
-
         var selected = $("#selected option:selected").val();
 
         var url = "ViewPaymentListByBeneficiary3?beneficiarySelected=" + selected;
@@ -198,9 +186,15 @@
 </script>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        var selected = $("#selected option:selected").val();
+        if (selected == "") {
+            $("#exportButton").hide();
+        }
+    });
+
     function test() {
         var selected = $("#selected option:selected").val();
-        //alert($("#selected option:selected").val());
         alert(selected);
 
         $.ajax({

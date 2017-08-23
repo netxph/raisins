@@ -101,7 +101,7 @@ namespace Raisins.Client.Services
                     {
                         payment.Source = new PaymentSource(row[col].ToString());
                     }
-                    if (col.ColumnName == "Date")
+                    if (col.ColumnName == "Payment Date")
                     {
                         if (upload.FileName.EndsWith(".xls"))
                         {

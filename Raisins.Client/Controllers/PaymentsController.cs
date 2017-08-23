@@ -22,6 +22,8 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace Raisins.Client.Controllers
 {
@@ -144,7 +146,7 @@ namespace Raisins.Client.Controllers
 
             var headerRow = sheet.CreateRow(0);
 
-            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out" });
+            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out" });
             
             //Write the Workbook to a memory stream
             MemoryStream output = new MemoryStream();
@@ -154,7 +156,7 @@ namespace Raisins.Client.Controllers
              "application/vnd.ms-excel",//MIME type of Excel files
              "payments-template.xls");
         }
-
+        
         //for beneficiary string url
         [HttpGet]
         public ActionResult ExportListByBeneficiary(string beneficiary)
@@ -198,7 +200,7 @@ namespace Raisins.Client.Controllers
             grid.DataSource = source;
             grid.DataBind();
 
-            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out" });
+            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out" });
             return grid;
         }
 
@@ -310,29 +312,6 @@ namespace Raisins.Client.Controllers
             Response.Output.Write(sw.ToString());
             Response.Flush();
             Response.End();
-
-
-            //var cd = new System.Net.Mime.ContentDisposition
-            //{
-            //    FileName = filename,
-            //    Inline = false,
-            //};
-            //        Response.Clear();
-            //        Response.AppendHeader("Content-Disposition", cd.ToString());
-            //        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            //        Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //        Response.BinaryWrite(stream.ToArray());
-            //        Response.Flush();
-            //        Response.End();
-
-
-
-
-            //grid.RenderControl(htmlTextWriter);
-
-            //Response.Write(sw.ToString());
-
-            //Response.End();
         }
 
         protected virtual string GetFileName(string beneficiary)
@@ -493,26 +472,6 @@ namespace Raisins.Client.Controllers
 
             return PartialView("ViewPaymentList", model);
         }
-
-        //[BasicPermissions("payments_view_list_all")]
-        //[HttpGet]
-        //public ActionResult ViewPaymentListAll()
-        //{
-        //    string token = HttpContext.Session["token"].ToString();
-        //    var clientT = new RestClient("http://localhost:4000/api/accounts/Validate");
-        //    var requestT = new RestRequest(Method.GET);
-        //    requestT.AddParameter("encrypted", token);
-        //    var responseT = clientT.Execute<Token>(requestT);
-        //    JsonDeserializer deserialize = new JsonDeserializer();
-        //    Token deserialized = deserialize.Deserialize<Token>(responseT);
-
-        //    var client = new RestClient("http://localhost:4000/api/paymentslistall");
-        //    var request = new RestRequest(Method.GET);
-        //    var response = client.Execute<List<Payment>>(request);
-        //    List<Payment> payments = deserialize.Deserialize<List<Payment>>(response);
-        //    PublishAllViewModel model = new PublishAllViewModel(payments);
-        //    return View("ViewPaymentList", model);
-        //}
 
         [PaymentPublishPermission("payments_publish")]
         [HttpGet]
