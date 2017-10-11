@@ -17,10 +17,7 @@ namespace Raisins.Data.Migrations.Seeder.Seeds
         {
             _context = context;
             
-            AddAccount("Super", "1234", "Super", "super");
-            AddAccount("eugene", "1234", "Super Admin", "superadmin");
-            AddAccount("superuser", "1234", "Super User", "superuser");
-            //AddAccountWithProfile(context, "Super", "1234", "Super", "super", "Funny Is The New Pogi");
+            AddAccount("super", "$up3r", "Super", "super");
         }
 
         private void AddAccount(string userName, string password, string name, string title)

@@ -10,7 +10,7 @@ namespace Raisins.Data
 {
     public class RaisinsContext : DbContext
     {
-        public RaisinsContext() : base("RaisinsContext")
+        public RaisinsContext() : base("Raisins")
         {
         }
 
