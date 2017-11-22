@@ -13,7 +13,7 @@ namespace Raisins.Data.Repository
     public class RoleRepository : IRoleRepository
     {
         private RaisinsContext _context;
-        public RoleRepository() : this(new RaisinsContext())
+        public RoleRepository() : this(RaisinsContext.Instance)
         {
         }
 

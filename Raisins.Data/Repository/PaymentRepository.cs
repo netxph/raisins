@@ -15,9 +15,10 @@ namespace Raisins.Data.Repository
     {
         private RaisinsContext _context;
 
-        public PaymentRepository() : this(new RaisinsContext())
+        public PaymentRepository() : this(RaisinsContext.Instance)
         {
         }
+
         public PaymentRepository(RaisinsContext context)
         {
             _context = context;
@@ -28,7 +29,12 @@ namespace Raisins.Data.Repository
             return ConvertToDomainList(_context.Payments
                     .Include(p => p.Beneficiary)
                     .Include(p => p.Currency)
-                    .Include(p => p.CreatedBy));
+                    .Include(p => p.CreatedBy)
+                    .Include(p => p.PaymentSource)
+                    .Include(p => p.CreatedBy)
+                    .Include(p => p.ModifiedBy)
+                    .Include(p => p.PaymentType)
+                  );
         }
 
         public D.Payments GetWithCurrency()
@@ -118,21 +124,36 @@ namespace Raisins.Data.Repository
 
         private D.Payment ConvertToDomain(EF.Payment efPayment)
         {
-            EF.Beneficiary efBeneficiary = _context.Beneficiaries.FirstOrDefault(b => b.BeneficiaryID == efPayment.BeneficiaryID);
-            EF.Currency efCurrency = _context.Currencies.FirstOrDefault(c => c.CurrencyID == efPayment.CurrencyID);
+            //EF.Beneficiary efBeneficiary = null;
 
-            D.Beneficiary beneficiary = new D.Beneficiary(efBeneficiary.Name, efBeneficiary.Description);
-            D.Currency currency = new D.Currency(efCurrency.CurrencyCode, efCurrency.Ratio, efCurrency.ExchangeRate);
+            //foreach (var item in _context.Beneficiaries.Local)
+            //{
+            //    if (item.BeneficiaryID == efPayment.BeneficiaryID)
+            //    {
+            //        efBeneficiary = item;
+            //    }
+            //}
 
-            D.PaymentSource source = new D.PaymentSource(efPayment.PaymentSource.Source);
-            D.PaymentType type = new D.PaymentType(efPayment.PaymentType.Type);
+            //EF.Beneficiary efBeneficiary = _context.Beneficiaries.Local.FirstOrDefault(c => c.BeneficiaryID == efPayment.BeneficiaryID);
 
-            string createdBy = _context.Accounts.FirstOrDefault(b => b.AccountID == efPayment.CreatedByID).UserName;
-            string modifiedBy = "";
-            if(efPayment.ModifiedByID > 0)
-            {
-                modifiedBy = _context.Accounts.FirstOrDefault(b => b.AccountID == efPayment.ModifiedByID).UserName;
-            }
+
+            //EF.Currency efCurrency = _context.Currencies.FirstOrDefault(c => c.CurrencyID == efPayment.CurrencyID);
+
+            System.Diagnostics.Debugger.Launch();
+
+            var beneficiary = new D.Beneficiary(efPayment.Beneficiary.Name, efPayment.Beneficiary.Description);
+            var currency = new D.Currency(efPayment.Currency.CurrencyCode, efPayment.Currency.Ratio, efPayment.Currency.ExchangeRate);
+            var source = new D.PaymentSource(efPayment.PaymentSource.Source);
+            var type = new D.PaymentType(efPayment.PaymentType.Type);
+            var createdBy = efPayment.CreatedBy.UserName;
+            var modifiedBy = efPayment.ModifiedBy.UserName;
+
+            //string createdBy = _context.Accounts.FirstOrDefault(b => b.AccountID == efPayment.CreatedByID).UserName;
+            //string modifiedBy = "";
+            //if(efPayment.ModifiedByID > 0)
+            //{
+            //    modifiedBy = _context.Accounts.FirstOrDefault(b => b.AccountID == efPayment.ModifiedByID).UserName;
+            //}
 
             return new D.Payment(efPayment.PaymentID, efPayment.Name, efPayment.Amount, currency, beneficiary, efPayment.Locked,
                 efPayment.Email, efPayment.CreatedDate, efPayment.ModifiedDate, efPayment.PaymentDate, efPayment.PublishDate, createdBy, modifiedBy, source, type, efPayment.OptOut);

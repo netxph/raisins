@@ -12,7 +12,7 @@ namespace Raisins.Data.Repository
     public class PaymentSourceRepository : IPaymentSourceRepository
     {
         public RaisinsContext _context { get; set; }
-        public PaymentSourceRepository() : this(new RaisinsContext())
+        public PaymentSourceRepository() : this(RaisinsContext.Instance)
         {
         }
         public PaymentSourceRepository(RaisinsContext context)

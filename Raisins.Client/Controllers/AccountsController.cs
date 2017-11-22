@@ -128,11 +128,13 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult ViewAccountList()
         {
-            JsonDeserializer deserialize = new JsonDeserializer();
+            JsonDeserializer deserializer = new JsonDeserializer();
+
             var client = new RestClient("http://localhost:4000/api/accountsAll");
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Role>>(request);
-            List<Account> accounts = deserialize.Deserialize<List<Account>>(response);
+            List<Account> accounts = deserializer.Deserialize<List<Account>>(response);
+
             AccountsListViewModel model = new AccountsListViewModel(accounts);
 
             return View(model);

@@ -109,9 +109,15 @@ namespace Raisins.Client.ViewModels
         public AccountsListViewModel()
         {
         }
+
         public AccountsListViewModel(List<Account> accounts)
         {
-            accounts.Remove(accounts.Where(a => a.Role.Name == "Super").FirstOrDefault()); //added
+            accounts.RemoveAll(account =>
+            {
+                return account.Role != null &&
+                       account.Role.Name.Equals("Super", StringComparison.InvariantCultureIgnoreCase);
+            });
+
             Accounts = accounts;
         }
     }

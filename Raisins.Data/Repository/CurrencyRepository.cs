@@ -13,7 +13,7 @@ namespace Raisins.Data.Repository
     public class CurrencyRepository : ICurrencyRepository
     {
         public RaisinsContext _context { get; set; }
-        public CurrencyRepository() : this(new RaisinsContext())
+        public CurrencyRepository() : this(RaisinsContext.Instance)
         {
         }
         public CurrencyRepository(RaisinsContext context)

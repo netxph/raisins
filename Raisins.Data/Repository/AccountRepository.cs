@@ -17,7 +17,7 @@ namespace Raisins.Data.Repository
     public class AccountRepository : IAccountRepository
     {
         private RaisinsContext _context;
-        public AccountRepository() : this(new RaisinsContext())
+        public AccountRepository() : this(RaisinsContext.Instance)
         {
         }
 
@@ -25,11 +25,13 @@ namespace Raisins.Data.Repository
         {
             _context = context;
         }
+
         public D.Account Get(string userName)
         {
             return ConvertToDomain(_context.Accounts
                     .FirstOrDefault(a => a.UserName == userName));
         }
+
         //public D.Account GetNotSuper(string userName)
         //{
         //    return ConvertToDomain(_context.Accounts
@@ -42,6 +44,7 @@ namespace Raisins.Data.Repository
         //    var userName = http.GetCurrentUserName();
         //    return GetUserAccount(userName);
         //}
+
         public D.Accounts GetAll()
         {
             return ConvertToDomainList(_context.Accounts);
@@ -101,7 +104,7 @@ namespace Raisins.Data.Repository
 
         protected EF.Account ConvertToEF(D.Account account, D.AccountProfile profile)
         {
-            int roleID = _context.Roles.FirstOrDefault(r => r.Name == account.Role.Name).RoleID;
+            int roleID = _context.Roles.DefaultIfEmpty().FirstOrDefault(r => r.Name == account.Role.Name).RoleID;
 
             return new EF.Account(
                             account.UserName,
@@ -150,15 +153,13 @@ namespace Raisins.Data.Repository
 
             return new EF.AccountProfile(profileID, profile.Name, efBeneficiaries, profile.IsLocal);
         }
+
         private D.Account ConvertToDomain(EF.Account efAccount)
         {
-            EF.Role efRole = _context.Roles.FirstOrDefault(r => r.RoleID == efAccount.RoleID);
-            EF.AccountProfile efProfile = _context.Profiles.FirstOrDefault(r => r.ProfileID == efAccount.Profile.ProfileID);
-            List<D.Beneficiary> beneficiaries = new List<D.Beneficiary>();
-            foreach (var beneficiary in efProfile.Beneficiaries)
-            {
-                beneficiaries.Add(new D.Beneficiary(beneficiary.Name));
-            }
+            EF.Role efRole = _context.Roles.DefaultIfEmpty().FirstOrDefault(r => r.RoleID == efAccount.RoleID);
+            EF.AccountProfile efProfile = _context.Profiles.DefaultIfEmpty().FirstOrDefault(r => r.ProfileID == efAccount.Profile.ProfileID);
+
+            var beneficiaries = efProfile.Beneficiaries.DefaultIfEmpty().Select(a => new D.Beneficiary(a.Name));
 
             D.Role role = new D.Role(efRole.Name, efRole.Permissions);
             D.AccountProfile profile = new D.AccountProfile(efProfile.Name, beneficiaries);

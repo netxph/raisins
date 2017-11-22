@@ -12,7 +12,7 @@ namespace Raisins.Data.Repository
     public class ProfileRepository : IProfileRepository
     {
         private RaisinsContext _context;
-        public ProfileRepository() : this(new RaisinsContext())
+        public ProfileRepository() : this(RaisinsContext.Instance)
         {
         }
 

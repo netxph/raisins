@@ -13,7 +13,7 @@ namespace Raisins.Data.Repository
     {
         private RaisinsContext _context;
 
-        public TicketRepository() : this(new RaisinsContext())
+        public TicketRepository() : this(RaisinsContext.Instance)
         {
         }
         public TicketRepository(RaisinsContext context)

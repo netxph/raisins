@@ -29,20 +29,28 @@ namespace Raisins.Client.ViewModels
         [Required]
         public string Permissions { get; set; }
 
+        public List<string> PermissionStrings { get; set; }
+
         public RoleEditViewModel(Role role)
         {
+            System.Diagnostics.Debugger.Launch();
+
             RoleID = role.RoleID;
             Name = role.Name;
             Permissions = string.Join(", ", role.Permissions);
+            PermissionStrings = role.Permissions ?? new List<string>();
         }
+
         public RoleEditViewModel()
         {
         }
+
         public IEnumerable<string> Convert()
         {
-            return Array.ConvertAll(
-                Permissions.Split(new char[] { ',', ';' },
-                StringSplitOptions.RemoveEmptyEntries), p => p.Trim());            
+            //return Array.ConvertAll(
+            //    Permissions.Split(new char[] { ',', ';' },
+            //    StringSplitOptions.RemoveEmptyEntries), p => p.Trim());
+            return PermissionStrings;
         }
     }
 }

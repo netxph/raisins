@@ -21,11 +21,12 @@ namespace Raisins.Client.Controllers
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Beneficiary>>(request);
             List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(response);
-           
+
             var clientG = new RestClient("http://localhost:4000/api/goal");
             var requestG = new RestRequest(Method.GET);
             var responseG = clientG.Execute<decimal>(requestG);
             decimal total = deserialize.Deserialize<decimal>(responseG);
+
             HomeViewModel model = new HomeViewModel(beneficiaries, total);
 
             return View(model);

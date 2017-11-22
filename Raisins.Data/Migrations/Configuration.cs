@@ -16,7 +16,6 @@ namespace Raisins.Data.Migrations
 
         protected override void Seed(Raisins.Data.RaisinsContext context)
         {
-
             var seeder = new DBSeeder();
             seeder.Seed(context);
         }

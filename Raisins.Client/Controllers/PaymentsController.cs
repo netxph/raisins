@@ -424,7 +424,7 @@ namespace Raisins.Client.Controllers
             }
             else
             {
-                beneficiarySelected = modelp.Payments.Select(a => a.Beneficiary.Name).FirstOrDefault();
+                beneficiarySelected = modelp.Payments.DefaultIfEmpty().Select(a => a.Beneficiary.Name).FirstOrDefault();
                 request.AddParameter("beneficiarySelected", beneficiarySelected);
             }
             //var response = client.Execute<List<Payment>>(request);

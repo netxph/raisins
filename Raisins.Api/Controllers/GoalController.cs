@@ -25,6 +25,7 @@ namespace Raisins.Api.Controllers
             }
             _service = service;
         }
+
         [HttpGet]
         public decimal GetTotal()
         {
