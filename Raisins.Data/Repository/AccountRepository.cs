@@ -156,13 +156,13 @@ namespace Raisins.Data.Repository
 
         private D.Account ConvertToDomain(EF.Account efAccount)
         {
-            EF.Role efRole = _context.Roles.DefaultIfEmpty().FirstOrDefault(r => r.RoleID == efAccount.RoleID);
-            EF.AccountProfile efProfile = _context.Profiles.DefaultIfEmpty().FirstOrDefault(r => r.ProfileID == efAccount.Profile.ProfileID);
+            //EF.Role efRole = _context.Roles.DefaultIfEmpty().FirstOrDefault(r => r.RoleID == efAccount.RoleID);
+            //EF.AccountProfile efProfile = _context.Profiles.DefaultIfEmpty().FirstOrDefault(r => r.ProfileID == efAccount.Profile.ProfileID);
 
-            var beneficiaries = efProfile.Beneficiaries.DefaultIfEmpty().Select(a => new D.Beneficiary(a.Name));
+            var beneficiaries = efAccount.Profile.Beneficiaries.DefaultIfEmpty().Select(a => new D.Beneficiary(a.Name));
 
-            D.Role role = new D.Role(efRole.Name, efRole.Permissions);
-            D.AccountProfile profile = new D.AccountProfile(efProfile.Name, beneficiaries);
+            var role = new D.Role(efAccount.Role.Name, efAccount.Role.Permissions);
+            var profile = new D.AccountProfile(efAccount.Profile.Name, beneficiaries);
 
             return new D.Account(efAccount.UserName, efAccount.Password, efAccount.Salt, role, profile);
         }

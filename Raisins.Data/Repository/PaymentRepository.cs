@@ -139,8 +139,6 @@ namespace Raisins.Data.Repository
 
             //EF.Currency efCurrency = _context.Currencies.FirstOrDefault(c => c.CurrencyID == efPayment.CurrencyID);
 
-            System.Diagnostics.Debugger.Launch();
-
             var beneficiary = new D.Beneficiary(efPayment.Beneficiary.Name, efPayment.Beneficiary.Description);
             var currency = new D.Currency(efPayment.Currency.CurrencyCode, efPayment.Currency.Ratio, efPayment.Currency.ExchangeRate);
             var source = new D.PaymentSource(efPayment.PaymentSource.Source);
