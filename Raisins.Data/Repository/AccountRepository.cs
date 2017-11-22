@@ -47,7 +47,11 @@ namespace Raisins.Data.Repository
 
         public D.Accounts GetAll()
         {
-            return ConvertToDomainList(_context.Accounts);
+            return ConvertToDomainList(_context.Accounts
+                                        .Include(a => a.Profile)
+                                        .Include(a => a.Profile.Beneficiaries)
+                                        .Include(a => a.Role)
+                                        );
         }
 
         public bool Exists(string userName)
@@ -161,6 +165,13 @@ namespace Raisins.Data.Repository
 
             var beneficiaries = efAccount.Profile.Beneficiaries.DefaultIfEmpty().Select(a => new D.Beneficiary(a.Name));
 
+            //var beneficiaries = new List<D.Beneficiary>();
+
+            //foreach (var item in efAccount.Profile.Beneficiaries)
+            //{
+            //    beneficiaries.Add(new D.Beneficiary(item.Name));
+            //}
+
             var role = new D.Role(efAccount.Role.Name, efAccount.Role.Permissions);
             var profile = new D.AccountProfile(efAccount.Profile.Name, beneficiaries);
 
@@ -170,10 +181,12 @@ namespace Raisins.Data.Repository
         private D.Accounts ConvertToDomainList(IEnumerable<EF.Account> efAccounts)
         {
             D.Accounts accounts = new D.Accounts();
+
             foreach (var efAccount in efAccounts)
             {
                 accounts.Add(ConvertToDomain(efAccount));
             }
+
             return accounts;
         }
 

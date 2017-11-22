@@ -63,11 +63,11 @@ namespace Raisins.Client.Controllers
         {
             JsonDeserializer deserialize = new JsonDeserializer();
 
-            PaymentViewModel model = new PaymentViewModel();
             var clientB = new RestClient("http://localhost:4000/api/beneficiariesall");
             var requestB = new RestRequest(Method.GET);
             var responseB = clientB.Execute<List<Beneficiary>>(requestB);
             List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseB);
+
             var client = new RestClient("http://localhost:4000/api/currencies");
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Currency>>(request);
@@ -83,6 +83,7 @@ namespace Raisins.Client.Controllers
             response = client.Execute<List<Currency>>(request);
             List<PaymentType> types = deserialize.Deserialize<List<PaymentType>>(response);
 
+            PaymentViewModel model = new PaymentViewModel();
 
             model.InitResources(beneficiaries, currencies, sources, types, DateTime.Now);
             return View(model);

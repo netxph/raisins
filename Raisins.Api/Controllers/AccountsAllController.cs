@@ -16,13 +16,15 @@ namespace Raisins.Api.Controllers
     {
         private readonly IAccountService _service;
         protected IAccountService Service { get { return _service; } }
-        public AccountsAllController() : this(new AccountService(
-            new CryptProvider("testing"),
-                new DateProvider(),
+        public AccountsAllController() :
+            this(new AccountService(
+                    new CryptProvider("testing"),
+                    new DateProvider(),
                     new RestrictAccountRepository(
                         new AccountRepository())))
         {
         }
+
         public AccountsAllController(IAccountService service)
         {
             if (service == null)
@@ -31,6 +33,7 @@ namespace Raisins.Api.Controllers
             }
             _service = service;
         }
+
         [HttpGet]
         public D.Accounts GetAll()
         {         

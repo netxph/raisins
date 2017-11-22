@@ -81,7 +81,6 @@ namespace Raisins.Payments.Models
         }
 
         public virtual Beneficiary Beneficiary { get; set; }
-        //public Beneficiary Beneficiary { get; set; }
         public Currency Currency { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
