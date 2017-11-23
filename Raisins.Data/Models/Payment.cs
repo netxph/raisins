@@ -71,9 +71,12 @@ namespace Raisins.Data.Models
         public int CurrencyID { get; set; }
         public virtual Currency Currency { get; set; }
         public int CreatedByID { get; set; }
-        //public virtual Account CreatedBy { get; set; }
         public int ModifiedByID { get; set; }
-        //public virtual Account ModifiedBy { get; set; }
+
+        //TODO to be deleted. Needs to update database
+        public virtual Account CreatedBy { get; set; }
+        public virtual Account ModifiedBy { get; set; }
+
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public DateTime PaymentDate { get; set; }
