@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Raisins.Notifications.Models;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 
 namespace Raisins.Data.Repository
 {
@@ -42,11 +42,11 @@ namespace Raisins.Data.Repository
             return ConvertToDomainList(_context.MailQueues);
         }
 
-        private MailQueue ConvertToDomain(EF.MailQueue efMailQueue)
+        private MailQueue ConvertToDomain(DATA.MailQueue efMailQueue)
         {
             return new MailQueue(efMailQueue.PaymentID, efMailQueue.To, efMailQueue.Status);
         }
-        private MailQueues ConvertToDomainList(IEnumerable<EF.MailQueue> efMailQueues)
+        private MailQueues ConvertToDomainList(IEnumerable<DATA.MailQueue> efMailQueues)
         {
             MailQueues mailQueues = new MailQueues();
             foreach (var efMailQueue in efMailQueues)
@@ -56,14 +56,14 @@ namespace Raisins.Data.Repository
             return mailQueues;
         }
 
-        private EF.MailQueue ConvertToEF(MailQueue mailQueue)
+        private DATA.MailQueue ConvertToEF(MailQueue mailQueue)
         {
-            return new EF.MailQueue(mailQueue.PaymentID, mailQueue.To);
+            return new DATA.MailQueue(mailQueue.PaymentID, mailQueue.To);
         }
 
-        private IEnumerable<EF.MailQueue> ConvertToEFList(MailQueues mailqueues)
+        private IEnumerable<DATA.MailQueue> ConvertToEFList(MailQueues mailqueues)
         {
-            List<EF.MailQueue> efMailqueues = new List<EF.MailQueue>();
+            List<DATA.MailQueue> efMailqueues = new List<DATA.MailQueue>();
             foreach (var mailqueue in mailqueues)
             {
                 efMailqueues.Add(ConvertToEF(mailqueue));

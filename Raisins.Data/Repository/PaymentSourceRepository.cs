@@ -1,4 +1,4 @@
-﻿using EF = Raisins.Data.Models;
+﻿using DATA = Raisins.Data.Models;
 using Raisins.Payments.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,11 +29,11 @@ namespace Raisins.Data.Repository
             return ConverToDomainList(_context.Sources);
         }
 
-        private D.PaymentSource ConvertToDomain(EF.PaymentSource efSource)
+        private D.PaymentSource ConvertToDomain(DATA.PaymentSource efSource)
         {
             return new D.PaymentSource(efSource.Source);
         }
-        public IEnumerable<D.PaymentSource> ConverToDomainList(IEnumerable<EF. PaymentSource> efSources)
+        public IEnumerable<D.PaymentSource> ConverToDomainList(IEnumerable<DATA. PaymentSource> efSources)
         {
             List<D.PaymentSource> sources = new List<D.PaymentSource>();
             foreach (var efSource in efSources)

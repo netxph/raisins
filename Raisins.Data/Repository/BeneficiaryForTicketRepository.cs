@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Raisins.Tickets.Models;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 
 namespace Raisins.Data.Repository
 {
@@ -23,7 +23,7 @@ namespace Raisins.Data.Repository
         {
             return ConvertToDomain(_context.Beneficiaries.FirstOrDefault(b => b.Name == name));
         }
-        private Beneficiary ConvertToDomain(EF.Beneficiary efBeneficiary)
+        private Beneficiary ConvertToDomain(DATA.Beneficiary efBeneficiary)
         {
             return new Beneficiary(efBeneficiary.BeneficiaryID, efBeneficiary.Name);
         }

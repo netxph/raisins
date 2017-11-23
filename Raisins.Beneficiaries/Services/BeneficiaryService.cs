@@ -92,7 +92,7 @@ namespace Raisins.Beneficiaries.Services
 
         public Accounts.Models.Beneficiary Convert(Beneficiaries.Models.Beneficiary beneficiary)
         {
-            return new Accounts.Models.Beneficiary(beneficiary.Name);
+            return new Accounts.Models.Beneficiary(beneficiary.Name, beneficiary.BeneficiaryID, beneficiary.Description);
         }
     }
 }

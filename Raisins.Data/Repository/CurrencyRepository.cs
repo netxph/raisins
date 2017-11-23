@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 
 namespace Raisins.Data.Repository
 {
@@ -50,12 +50,12 @@ namespace Raisins.Data.Repository
             _context.Currencies.Remove(convertCurrencyToEF(currency));
         }
 
-        private Currency convertCurrencyToDomain(EF.Currency efCurrency)
+        private Currency convertCurrencyToDomain(DATA.Currency efCurrency)
         {
             return new Currency(efCurrency.CurrencyCode, efCurrency.Ratio, efCurrency.ExchangeRate);
         }
 
-        private IEnumerable<Currency> ConvertCurrencyList(IEnumerable<EF.Currency> efCurrencies)
+        private IEnumerable<Currency> ConvertCurrencyList(IEnumerable<DATA.Currency> efCurrencies)
         {
             List<Currency> currencies = new List<Currency>();
             foreach (var efCurrency in efCurrencies)
@@ -64,9 +64,9 @@ namespace Raisins.Data.Repository
             }
             return currencies;
         }
-        private EF.Currency convertCurrencyToEF(Currency currency)
+        private DATA.Currency convertCurrencyToEF(Currency currency)
         {
-            return new EF.Currency(currency.CurrencyCode, currency.Ratio, currency.ExchangeRate);
+            return new DATA.Currency(currency.CurrencyCode, currency.Ratio, currency.ExchangeRate);
         }
     }
 }

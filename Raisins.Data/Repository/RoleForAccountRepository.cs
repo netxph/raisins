@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 
 namespace Raisins.Data.Repository
 {
@@ -36,7 +36,7 @@ namespace Raisins.Data.Repository
         }
         public void Add(D.Role role)
         {
-            EF.Role efRole = new EF.Role(role.Name, String.Join(";", role.Permissions));   
+            DATA.Role efRole = new DATA.Role(role.Name, String.Join(";", role.Permissions));   
             _context.Roles.Add(efRole);
         }
 
@@ -45,7 +45,7 @@ namespace Raisins.Data.Repository
             return _context.Roles.Any(a => a.Name == roleName);
         }
 
-        private D.Role ConverToDomain(EF.Role efRole)
+        private D.Role ConverToDomain(DATA.Role efRole)
         {
             D.Role role = new D.Role(efRole.Name);
             IEnumerable<string> permissions = efRole.Permissions.Split(';');
@@ -55,7 +55,7 @@ namespace Raisins.Data.Repository
             }
             return role;
         }
-        private D.Roles ConvertToDomainList(IEnumerable<EF.Role> efRoles)
+        private D.Roles ConvertToDomainList(IEnumerable<DATA.Role> efRoles)
         {
             D.Roles roles = new D.Roles();
             foreach (var efRole in efRoles)

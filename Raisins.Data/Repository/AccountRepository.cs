@@ -1,16 +1,12 @@
-﻿using Raisins.Data.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using EF = Raisins.Data.Models;
-using D = Raisins.Accounts.Models;
+using DATA = Raisins.Data.Models;
+using ACCOUNTS = Raisins.Accounts.Models;
 using System.Data.Entity;
 using Raisins.Accounts.Interfaces;
-using System.IO;
 using System.Security.Cryptography;
-using System.Diagnostics;
 
 namespace Raisins.Data.Repository
 {
@@ -26,26 +22,13 @@ namespace Raisins.Data.Repository
             _context = context;
         }
 
-        public D.Account Get(string userName)
+        public ACCOUNTS.Account Get(string userName)
         {
-            return ConvertToDomain(_context.Accounts
+            return Convert(_context.Accounts
                     .FirstOrDefault(a => a.UserName == userName));
         }
 
-        //public D.Account GetNotSuper(string userName)
-        //{
-        //    return ConvertToDomain(_context.Accounts
-        //            .FirstOrDefault(a => a.Role.Name != "Super"));
-        //}
-
-        //public Account GetCurrentUserAccount()
-        //{
-        //    var http = ObjectProvider.CreateHttpHelper();
-        //    var userName = http.GetCurrentUserName();
-        //    return GetUserAccount(userName);
-        //}
-
-        public D.Accounts GetAll()
+        public ACCOUNTS.Accounts GetAll()
         {
             return ConvertToDomainList(_context.Accounts
                                         .Include(a => a.Profile)
@@ -60,9 +43,9 @@ namespace Raisins.Data.Repository
             else return true;
         }
 
-        public void Edit(D.Account account, D.AccountProfile profile)
+        public void Edit(ACCOUNTS.Account account, ACCOUNTS.AccountProfile profile)
         {
-            EF.Account efAccount = ConvertToEFwithID(account, profile);
+            DATA.Account efAccount = ConvertToEFwithID(account, profile);
 
             //START
             var tempAccount = _context.Accounts.Single(a => a.AccountID == efAccount.AccountID);
@@ -95,7 +78,7 @@ namespace Raisins.Data.Repository
             return _context.Accounts.Any(a => a.UserName == userName);
         }
 
-        public void Add(D.Account account, D.AccountProfile profile)
+        public void Add(ACCOUNTS.Account account, ACCOUNTS.AccountProfile profile)
         {
             if (account.UserName != null || profile.Name != null)
             {
@@ -106,11 +89,11 @@ namespace Raisins.Data.Repository
             }
         }
 
-        protected EF.Account ConvertToEF(D.Account account, D.AccountProfile profile)
+        protected DATA.Account ConvertToEF(ACCOUNTS.Account account, ACCOUNTS.AccountProfile profile)
         {
             int roleID = _context.Roles.DefaultIfEmpty().FirstOrDefault(r => r.Name == account.Role.Name).RoleID;
 
-            return new EF.Account(
+            return new DATA.Account(
                             account.UserName,
                             GetHash(account.Password,
                                     account.Salt),
@@ -119,72 +102,97 @@ namespace Raisins.Data.Repository
                             BuildAccountProfile(profile));
         }
 
-        protected virtual EF.AccountProfile BuildAccountProfile(D.AccountProfile profile)
+        protected virtual DATA.AccountProfile BuildAccountProfile(ACCOUNTS.AccountProfile profile)
         {
-            List<EF.Beneficiary> efBeneficiaries = new List<EF.Beneficiary>();
+            List<DATA.Beneficiary> efBeneficiaries = new List<DATA.Beneficiary>();
 
             foreach (var beneficiary in profile.Beneficiaries)
             {
                 efBeneficiaries.Add(_context.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary.Name));
             }
 
-            return new EF.AccountProfile(profile.Name, efBeneficiaries);
+            return new DATA.AccountProfile(profile.Name, efBeneficiaries);
         }
 
-        private EF.Account ConvertToEFwithID(D.Account account, D.AccountProfile profile)
+        private DATA.Account ConvertToEFwithID(ACCOUNTS.Account account, ACCOUNTS.AccountProfile profile)
         {
-            EF.Role role = _context.Roles.FirstOrDefault(r => r.Name == account.Role.Name);
-            List<EF.Beneficiary> efBeneficiaries = new List<EF.Beneficiary>();
+            DATA.Role role = _context.Roles.FirstOrDefault(r => r.Name == account.Role.Name);
+            List<DATA.Beneficiary> efBeneficiaries = new List<DATA.Beneficiary>();
             foreach (var beneficiary in profile.Beneficiaries)
             {
                 efBeneficiaries.Add(_context.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary.Name));
             }
-            EF.Account current = _context.Accounts.FirstOrDefault(a => a.UserName == account.UserName);
+            DATA.Account current = _context.Accounts.FirstOrDefault(a => a.UserName == account.UserName);
             int profileID = _context.Profiles.FirstOrDefault(a => a.Name == profile.Name).ProfileID;
 
-            EF.AccountProfile efProfile = new EF.AccountProfile(profileID, profile.Name, efBeneficiaries, profile.IsLocal);
-            return new EF.Account(current.AccountID, account.UserName, current.Password, current.Salt, role.RoleID, role, efProfile.ProfileID, efProfile);
+            DATA.AccountProfile efProfile = new DATA.AccountProfile(profileID, profile.Name, efBeneficiaries, profile.IsLocal);
+            return new DATA.Account(current.AccountID, account.UserName, current.Password, current.Salt, role.RoleID, role, efProfile.ProfileID, efProfile);
         }
 
-        private EF.AccountProfile ConvertProfileToEF(D.AccountProfile profile)
+        private DATA.AccountProfile ConvertProfileToEF(ACCOUNTS.AccountProfile profile)
         {
-            List<EF.Beneficiary> efBeneficiaries = new List<EF.Beneficiary>();
+            List<DATA.Beneficiary> efBeneficiaries = new List<DATA.Beneficiary>();
             foreach (var beneficiary in profile.Beneficiaries)
             {
                 efBeneficiaries.Add(_context.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary.Name));
             }
             int profileID = _context.Profiles.FirstOrDefault(a => a.Name == profile.Name).ProfileID;
 
-            return new EF.AccountProfile(profileID, profile.Name, efBeneficiaries, profile.IsLocal);
+            return new DATA.AccountProfile(profileID, profile.Name, efBeneficiaries, profile.IsLocal);
         }
 
-        private D.Account ConvertToDomain(EF.Account efAccount)
+        private ACCOUNTS.Account Convert(DATA.Account efAccount)
         {
-            //EF.Role efRole = _context.Roles.DefaultIfEmpty().FirstOrDefault(r => r.RoleID == efAccount.RoleID);
-            //EF.AccountProfile efProfile = _context.Profiles.DefaultIfEmpty().FirstOrDefault(r => r.ProfileID == efAccount.Profile.ProfileID);
+            var beneficiaries = Convert(efAccount.Profile.Beneficiaries);
 
-            var beneficiaries = efAccount.Profile.Beneficiaries.DefaultIfEmpty().Select(a => new D.Beneficiary(a.Name));
+            var role = Convert(efAccount.Role);
+            var profile = Convert(efAccount, beneficiaries);
 
-            //var beneficiaries = new List<D.Beneficiary>();
-
-            //foreach (var item in efAccount.Profile.Beneficiaries)
-            //{
-            //    beneficiaries.Add(new D.Beneficiary(item.Name));
-            //}
-
-            var role = new D.Role(efAccount.Role.Name, efAccount.Role.Permissions);
-            var profile = new D.AccountProfile(efAccount.Profile.Name, beneficiaries);
-
-            return new D.Account(efAccount.UserName, efAccount.Password, efAccount.Salt, role, profile);
+            return new ACCOUNTS.Account(efAccount.UserName, efAccount.Password, efAccount.Salt, role, profile);
         }
 
-        private D.Accounts ConvertToDomainList(IEnumerable<EF.Account> efAccounts)
+        private IEnumerable<ACCOUNTS.Beneficiary> Convert(ICollection<DATA.Beneficiary> beneficiaries)
         {
-            D.Accounts accounts = new D.Accounts();
+            return beneficiaries.DefaultIfEmpty().Select(b => Convert(b));
+        }
+
+        private static ACCOUNTS.AccountProfile Convert(DATA.Account efAccount, IEnumerable<ACCOUNTS.Beneficiary> beneficiaries)
+        {
+            if (efAccount == null)
+            {
+                return null;
+            }
+
+            return new ACCOUNTS.AccountProfile(efAccount.Profile.Name, beneficiaries);
+        }
+
+        private static ACCOUNTS.Role Convert(DATA.Role role)
+        {
+            if (role == null)
+            {
+                return null;
+            }
+
+            return new ACCOUNTS.Role(role.Name, role.Permissions);
+        }
+
+        private static ACCOUNTS.Beneficiary Convert(DATA.Beneficiary beneficiary)
+        {
+            if (beneficiary == null)
+            {
+                return null;
+            }
+
+            return new ACCOUNTS.Beneficiary(beneficiary.Name, beneficiary.BeneficiaryID, beneficiary.Description);
+        }
+
+        private ACCOUNTS.Accounts ConvertToDomainList(IEnumerable<DATA.Account> efAccounts)
+        {
+            ACCOUNTS.Accounts accounts = new ACCOUNTS.Accounts();
 
             foreach (var efAccount in efAccounts)
             {
-                accounts.Add(ConvertToDomain(efAccount));
+                accounts.Add(Convert(efAccount));
             }
 
             return accounts;
@@ -198,7 +206,7 @@ namespace Raisins.Data.Repository
             return result.ToLower();
         }
 
-        public void AddBeneficiary(D.Account superAccount, D.Beneficiary beneficiary)
+        public void AddBeneficiary(ACCOUNTS.Account superAccount, ACCOUNTS.Beneficiary beneficiary)
         {
             var superAccountBeneficiary = superAccount.Profile.Beneficiaries.FirstOrDefault(b => b.Name == beneficiary.Name);
 
@@ -208,7 +216,7 @@ namespace Raisins.Data.Repository
             }
         }
 
-        protected virtual void AddBeneficiaryToSuper(D.Account superAccount, D.Beneficiary beneficiary)
+        protected virtual void AddBeneficiaryToSuper(ACCOUNTS.Account superAccount, ACCOUNTS.Beneficiary beneficiary)
         {
             var acc = _context.Accounts.FirstOrDefault(a => a.UserName == superAccount.UserName);
 

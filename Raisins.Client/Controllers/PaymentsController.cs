@@ -27,7 +27,7 @@ using System.Runtime.InteropServices;
 
 namespace Raisins.Client.Controllers
 {
-    public class PaymentsController : Controller
+    public class PaymentsController : BaseClientController
     {
         const string EMAIL_PATTERN = @"\w+@[a-zA-Z\d]+.[a-zA-Z]+";
 
@@ -162,10 +162,9 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult ExportListByBeneficiary(string beneficiary)
         {
-            var response = CallAPI<Payment>("http://localhost:4000/api/paymentslistall/GetPaymentsList");
-            var payments = Deserialize<List<Payment>>(response);
+            var payments = CallAPI<Payment, List<Payment>>("http://localhost:4000/api/paymentslistall/GetPaymentsList");
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (RestResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 GridView grid = GenerateExcel(beneficiary, payments);
 
@@ -227,26 +226,14 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult Export(PublishAllViewModel model)
         {
-            var response = CallAPI<Payment>("http://localhost:4000/api/paymentslistall/GetPaymentsList");
-            var payments = Deserialize<List<Payment>>(response);
+            var payments = CallAPI<Payment, List<Payment>>("http://localhost:4000/api/paymentslistall/GetPaymentsList");
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (RestResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return GenerateExcel(model, payments);
             }
 
             return HttpNotFound();
-        }
-        
-        protected virtual T Deserialize<T>(IRestResponse response)
-        {
-            JsonDeserializer deserializer = new JsonDeserializer();
-            return Deserialize<T>(response, deserializer);
-        }
-
-        protected virtual T Deserialize<T>(IRestResponse response, JsonDeserializer deserializer)
-        {
-            return deserializer.Deserialize<T>(response);
         }
 
         protected ActionResult GenerateExcel(PublishAllViewModel model, List<Payment> payments)
@@ -295,7 +282,8 @@ namespace Raisins.Client.Controllers
                 cells.CreateCell(i).SetCellValue(columnNames[i]);
             }
         }
-            protected virtual void WriteExcel(PublishAllViewModel model, GridView grid)
+
+        protected virtual void WriteExcel(PublishAllViewModel model, GridView grid)
         {
             // error: the file format and extension of don't match excel
             StringWriter sw = new StringWriter();
@@ -375,10 +363,9 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult ViewPaymentList()
         {
-            string token = HttpContext.Session["token"].ToString();
             var clientT = new RestClient("http://localhost:4000/api/accounts/Validate");
             var requestT = new RestRequest(Method.GET);
-            requestT.AddParameter("encrypted", token);
+            requestT.AddParameter("encrypted", HttpContext.Session["token"].ToString());
             var responseT = clientT.Execute<Token>(requestT);
             JsonDeserializer deserialize = new JsonDeserializer();
             Token deserialized = deserialize.Deserialize<Token>(responseT);
@@ -389,51 +376,50 @@ namespace Raisins.Client.Controllers
             var response = client.Execute<List<Payment>>(request);
             List<Payment> payments = deserialize.Deserialize<List<Payment>>(response);
 
-            PublishAllViewModel model = new PublishAllViewModel(payments);
-            return View(model);
+            return View(new PublishAllViewModel(payments));
         }
 
         [BasicPermissions("payments_view_list_all")]
         [HttpGet]
         public ActionResult ViewPaymentListByBeneficiary(string beneficiarySelected)
         {
-            string token = HttpContext.Session["token"].ToString();
+            JsonDeserializer deserialize = new JsonDeserializer();
+
             var clientT = new RestClient("http://localhost:4000/api/accounts/Validate");
             var requestT = new RestRequest(Method.GET);
-            requestT.AddParameter("encrypted", token);
+            requestT.AddParameter("encrypted", HttpContext.Session["token"].ToString());
             var responseT = clientT.Execute<Token>(requestT);
-            JsonDeserializer deserialize = new JsonDeserializer();
             Token deserialized = deserialize.Deserialize<Token>(responseT);
 
             var clientp = new RestClient("http://localhost:4000/api/paymentslistall");
             var requestp = new RestRequest(Method.GET);
             var responsep = clientp.Execute<List<Payment>>(requestp);
-            List<Payment> paymentsp = deserialize.Deserialize<List<Payment>>(responsep);
-            PublishAllViewModel modelp = new PublishAllViewModel(paymentsp);
+            List<Payment> payments = deserialize.Deserialize<List<Payment>>(responsep);
 
-            var clientb = new RestClient("http://localhost:4000/api/beneficiariesall");
-            var requestb = new RestRequest(Method.GET);
-            var responseb = clientb.Execute<List<Beneficiary>>(requestb);
-            List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseb);
-            BeneficiaryListViewModel modelb = new BeneficiaryListViewModel(beneficiaries);
-
-            //var client = new RestClient("http://localhost:4000/api/PaymentsListByBeneficiary");
-            var request = new RestRequest(Method.GET);
-            if (beneficiarySelected != null)
+            //TODO Decorate this
+            if (!deserialized.User.Equals("super", StringComparison.InvariantCultureIgnoreCase))
             {
-                request.AddParameter("beneficiarySelected", beneficiarySelected);
+                FilterPayments(payments, deserialized.User);
             }
-            else
-            {
-                beneficiarySelected = modelp.Payments.DefaultIfEmpty().Select(a => a.Beneficiary.Name).FirstOrDefault();
-                request.AddParameter("beneficiarySelected", beneficiarySelected);
-            }
-            //var response = client.Execute<List<Payment>>(request);
-            //List<Payment> payments = deserialize.Deserialize<List<Payment>>(response);
 
-            //PublishAllViewModel model = new PublishAllViewModel(/*payments,*/ beneficiarySelected, paymentsp);
-            PublishAllViewModel model = new PublishAllViewModel(paymentsp);
+            PublishAllViewModel model = new PublishAllViewModel(payments);
             return View("ViewPaymentList", model);
+        }
+
+        protected virtual List<Payment> FilterPayments(List<Payment> payments, string username)
+        {
+            var clientR = new RestClient("http://localhost:4000/api/accountscreate");
+            var requestR = new RestRequest(Method.GET);
+            requestR.AddParameter("username", username);
+
+            var responseR = clientR.Execute<Account>(requestR);
+            var account = new JsonDeserializer().Deserialize<Account>(responseR);
+
+            var assignedBeneficiaryNames = account.Profile.Beneficiaries.Select(b => b.Name);
+
+            payments.RemoveAll(payment => assignedBeneficiaryNames.Any(name => name != payment.Beneficiary.Name));
+
+            return payments;
         }
 
         public ActionResult ViewPaymentListByBeneficiary3(string beneficiarySelected)
@@ -603,34 +589,6 @@ namespace Raisins.Client.Controllers
             return View(model);
         }
 
-        public O CallAPI<I, O>(JsonDeserializer deserializer, string url)
-            where I : new()
-        {
-            return CallAPI<I, O>(deserializer, url, Method.GET);
-        }
-
-        public O CallAPI<I, O>(JsonDeserializer deserializer, string url, Method method)
-            where I : new()
-        {
-            var response = CallAPI<I>(url, method);
-
-            return deserializer.Deserialize<O>(response);
-        }
-
-        public IRestResponse CallAPI<I>(string url)
-            where I : new()
-        {
-            return CallAPI<I>(url, Method.GET);
-        }
-
-        public IRestResponse CallAPI<I>(string url, Method method)
-            where I : new()
-        {
-            var client = new RestClient(url);
-            var request = new RestRequest(method);
-            return client.Execute<I>(request);
-        }
-        
         [EditPermission("payments_create_new")]
         [HttpPost]
         public ActionResult EditPayment(PaymentViewModel model)

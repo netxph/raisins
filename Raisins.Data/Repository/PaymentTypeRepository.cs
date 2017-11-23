@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using D = Raisins.Payments.Models;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 
 namespace Raisins.Data.Repository
 {
@@ -29,11 +29,11 @@ namespace Raisins.Data.Repository
             return ConverToDomainList(_context.Types);
         }
 
-        private D.PaymentType ConvertToDomain(EF.PaymentType efType)
+        private D.PaymentType ConvertToDomain(DATA.PaymentType efType)
         {
             return new D.PaymentType(efType.Type);
         }
-        public IEnumerable<D.PaymentType> ConverToDomainList(IEnumerable<EF.PaymentType> efTypes)
+        public IEnumerable<D.PaymentType> ConverToDomainList(IEnumerable<DATA.PaymentType> efTypes)
         {
             List<D.PaymentType> sources = new List<D.PaymentType>();
             foreach (var efType in efTypes)
