@@ -12,6 +12,7 @@ namespace Raisins.Data.Models
         public Payment()
         {
         }
+
         public Payment(string name, decimal amount, int beneficiaryID, int currencyID, string email,
             DateTime createdDate, DateTime paymentDate, DateTime modifiedDate, int createdByID, int sourceID, int typeID, bool optOut, int modifiedByID)
         {
@@ -29,6 +30,7 @@ namespace Raisins.Data.Models
             OptOut = optOut;
             ModifiedByID = modifiedByID;
         }
+
         public Payment(int paymentID, string name, decimal amount, int beneficiaryID, int currencyID, bool locked,
             string email, DateTime createdDate, DateTime paymentDate, DateTime? modifiedDate, DateTime? publishDate,
             int createdByID, int modifiedByID, int sourceID, int typeID, bool optOut)
@@ -69,9 +71,9 @@ namespace Raisins.Data.Models
         public int CurrencyID { get; set; }
         public virtual Currency Currency { get; set; }
         public int CreatedByID { get; set; }
-        public virtual Account CreatedBy { get; set; }
+        //public virtual Account CreatedBy { get; set; }
         public int ModifiedByID { get; set; }
-        public virtual Account ModifiedBy { get; set; }
+        //public virtual Account ModifiedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public DateTime PaymentDate { get; set; }
@@ -80,6 +82,5 @@ namespace Raisins.Data.Models
         public virtual PaymentSource PaymentSource { get; set; }
         public int PaymentTypeID { get; set; }
         public virtual PaymentType PaymentType { get; set; }
-
     }
 }

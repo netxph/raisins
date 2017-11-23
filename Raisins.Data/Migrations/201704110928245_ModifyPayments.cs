@@ -52,6 +52,7 @@ namespace Raisins.Data.Migrations
             DropIndex("dbo.Payments", new[] { "ModifiedBy_AccountID" });
             DropIndex("dbo.Payments", new[] { "PaymentTypeID" });
             DropIndex("dbo.Payments", new[] { "PaymentSourceID" });
+
             DropColumn("dbo.Payments", "ModifiedBy_AccountID");
             DropColumn("dbo.Payments", "PaymentTypeID");
             DropColumn("dbo.Payments", "PaymentSourceID");
