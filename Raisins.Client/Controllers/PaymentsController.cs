@@ -107,6 +107,7 @@ namespace Raisins.Client.Controllers
             {
                 Payment payment = new Payment(model.Name, model.Amount, currency, beneficiary,
                 model.Email, model.CreatedDate, model.PaymentDate, model.CreatedBy, new PaymentSource(model.Source), new PaymentType(model.Type), model.OptOut);
+                payment.Remarks = model.Remarks;
                 payment.ModifiedBy = model.CreatedBy;
 
                 //TODO: get current user

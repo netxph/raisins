@@ -99,5 +99,6 @@ namespace Raisins.Client.Models
         public PaymentType Type { get; set; }
         public bool OptOut { get; set; }
         public string OptOutStatus { get; set; }
+        public string Remarks { get; set; }
     }
 }

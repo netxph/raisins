@@ -54,6 +54,9 @@ namespace Raisins.Client.ViewModels
         [Display(Name = "Opt Out from Raffle")]
         public bool OptOut { get; set; }
 
+        [Display(Name = "Remarks")]
+        public string Remarks { get; set; }
+
         public void InitResources(List<Beneficiary> beneficiaries,
             List<Currency> currencies, List<PaymentSource> sources, List<PaymentType> types, DateTime paymentDate)
         {

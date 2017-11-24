@@ -163,7 +163,7 @@ namespace Raisins.Data.Repository
             //int modifiedByID  = _context.Accounts.FirstOrDefault(c => c.UserName == payment.ModifiedById).AccountID;
 
             return new DATA.Payment(payment.Name, payment.Amount, beneficiaryID, currencyID, payment.Email, payment.CreatedDate,
-                payment.PaymentDate, payment.CreatedDate, payment.CreatedById, sourceID, typeID, payment.OptOut, payment.ModifiedById);
+                payment.PaymentDate, payment.CreatedDate, payment.CreatedById, sourceID, typeID, payment.OptOut, payment.ModifiedById, payment.Remarks);
         }
 
         private DATA.Payment ConverToEFwithID(D.Payment payment)
@@ -182,7 +182,7 @@ namespace Raisins.Data.Repository
 
             return new DATA.Payment(payment.PaymentID, payment.Name, payment.Amount, beneficiaryID, currencyID, payment.Locked,
                 payment.Email, payment.CreatedDate, payment.PaymentDate, payment.ModifiedDate, payment.PublishDate, payment.CreatedById,
-                payment.ModifiedById, sourceID, typeID, payment.OptOut);
+                payment.ModifiedById, sourceID, typeID, payment.OptOut, payment.Remarks);
         }
     }
 }

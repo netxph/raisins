@@ -157,6 +157,10 @@
     <Compile Include="Migrations\201704190718365_Reset.Designer.cs">
       <DependentUpon>201704190718365_Reset.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711240942361_AddPaymentRemarks.cs" />
+    <Compile Include="Migrations\201711240942361_AddPaymentRemarks.Designer.cs">
+      <DependentUpon>201711240942361_AddPaymentRemarks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeder\DBSeeder.cs" />
     <Compile Include="Migrations\Seeder\IDBSeeder.cs" />
@@ -284,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704190718365_Reset.resx">
       <DependentUpon>201704190718365_Reset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711240942361_AddPaymentRemarks.resx">
+      <DependentUpon>201711240942361_AddPaymentRemarks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

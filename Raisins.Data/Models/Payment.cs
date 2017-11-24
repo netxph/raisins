@@ -14,7 +14,7 @@ namespace Raisins.Data.Models
         }
 
         public Payment(string name, decimal amount, int beneficiaryID, int currencyID, string email,
-            DateTime createdDate, DateTime paymentDate, DateTime modifiedDate, int createdByID, int sourceID, int typeID, bool optOut, int modifiedByID)
+            DateTime createdDate, DateTime paymentDate, DateTime modifiedDate, int createdByID, int sourceID, int typeID, bool optOut, int modifiedByID, string remarks)
         {
             Name = name;
             Amount = amount;
@@ -29,11 +29,12 @@ namespace Raisins.Data.Models
             PaymentTypeID = typeID;
             OptOut = optOut;
             ModifiedByID = modifiedByID;
+            Remarks = remarks;
         }
 
         public Payment(int paymentID, string name, decimal amount, int beneficiaryID, int currencyID, bool locked,
             string email, DateTime createdDate, DateTime paymentDate, DateTime? modifiedDate, DateTime? publishDate,
-            int createdByID, int modifiedByID, int sourceID, int typeID, bool optOut)
+            int createdByID, int modifiedByID, int sourceID, int typeID, bool optOut, string remarks)
         {
             PaymentID = paymentID;
             Name = name;
@@ -57,6 +58,7 @@ namespace Raisins.Data.Models
             PaymentSourceID = sourceID;
             PaymentTypeID = typeID;
             OptOut = optOut;
+            Remarks = remarks;
         }
 
         [Key]
@@ -70,6 +72,7 @@ namespace Raisins.Data.Models
         public virtual Beneficiary Beneficiary { get; set; }
         public int CurrencyID { get; set; }
         public virtual Currency Currency { get; set; }
+        public string Remarks { get; set; }
         public int CreatedByID { get; set; }
         public int ModifiedByID { get; set; }
 

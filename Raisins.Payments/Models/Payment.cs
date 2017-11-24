@@ -99,6 +99,7 @@ namespace Raisins.Payments.Models
         public PaymentSource Source { get; set; }
         public PaymentType Type { get; set; }
         public bool OptOut { get; set; }
+        public string Remarks { get; set; }
 
         public void Publish()
         {
