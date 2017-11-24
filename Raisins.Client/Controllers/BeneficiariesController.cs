@@ -33,7 +33,7 @@ namespace Raisins.Client.Controllers
         [HttpPost]
         public ActionResult NewBeneficiary(Beneficiary beneficiary)
         {
-            var client = new RestClient("http://localhost:4000/api/beneficiaries");
+            var client = new RestClient(AppConfig.GetUrl("beneficiaries"));
             var request = new RestRequest(Method.POST);
             request.AddJsonBody(beneficiary);
             var response = client.Execute(request);
@@ -54,7 +54,7 @@ namespace Raisins.Client.Controllers
         public ActionResult ViewBeneficiaryList()
         {
             JsonDeserializer deserialize = new JsonDeserializer();
-            var client = new RestClient("http://localhost:4000/api/beneficiariesall");
+            var client = new RestClient(AppConfig.GetUrl("beneficiariesall"));
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Beneficiary>>(request);
             List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(response);
@@ -67,7 +67,7 @@ namespace Raisins.Client.Controllers
         public ActionResult EditBeneficiary(int beneficiaryID)
         {
             JsonDeserializer deserialize = new JsonDeserializer();
-            var client = new RestClient("http://localhost:4000/api/beneficiaries");
+            var client = new RestClient(AppConfig.GetUrl("beneficiaries"));
             var request = new RestRequest(Method.GET);
             request.AddParameter("beneficiaryID", beneficiaryID);
             var response = client.Execute<Payment>(request);
@@ -81,7 +81,7 @@ namespace Raisins.Client.Controllers
         public ActionResult EditBeneficiary(BeneficiaryEditViewModel model)
         {
             Beneficiary beneficiary = new Beneficiary(model.BeneficiaryID, model.Name, model.Description);
-            var client = new RestClient("http://localhost:4000/api/Beneficiaries");
+            var client = new RestClient(AppConfig.GetUrl("Beneficiaries"));
             var request = new RestRequest(Method.PUT);
             request.AddJsonBody(beneficiary);
             var response = client.Execute(request);
@@ -92,7 +92,7 @@ namespace Raisins.Client.Controllers
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase upload, string Name)
         {
-            var client = new RestClient("http://localhost:4000/api/FileUploader");
+            var client = new RestClient(AppConfig.GetUrl("FileUploader"));
             var request = new RestRequest(Method.POST);
             byte[] fileData = null;
             using (var binaryReader = new BinaryReader(upload.InputStream))
@@ -109,7 +109,7 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult ViewBeneficiary(int beneficiaryID)
         {
-            var client = new RestClient("http://localhost:4000/api/FileUploader");
+            var client = new RestClient(AppConfig.GetUrl("FileUploader"));
             var request = new RestRequest(Method.GET);
             request.AddParameter("beneficiaryID", beneficiaryID);
             var response = client.Execute(request);

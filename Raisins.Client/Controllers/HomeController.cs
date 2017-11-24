@@ -17,12 +17,12 @@ namespace Raisins.Client.Controllers
             ViewBag.MyString = (string)TempData["message"];
 
             JsonDeserializer deserialize = new JsonDeserializer();
-            var client = new RestClient("http://localhost:4000/api/beneficiariesall");
+            var client = new RestClient(AppConfig.GetUrl("beneficiariesall"));
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Beneficiary>>(request);
             List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(response);
 
-            var clientG = new RestClient("http://localhost:4000/api/goal");
+            var clientG = new RestClient(AppConfig.GetUrl("goal"));
             var requestG = new RestRequest(Method.GET);
             var responseG = clientG.Execute<decimal>(requestG);
             decimal total = deserialize.Deserialize<decimal>(responseG);

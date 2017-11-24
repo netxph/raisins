@@ -19,7 +19,7 @@ namespace Raisins.Client.Controllers
         public ActionResult ViewRoleList()
         {
             JsonDeserializer deserialize = new JsonDeserializer();
-            var client = new RestClient("http://localhost:4000/api/RolesList");
+            var client = new RestClient(AppConfig.GetUrl("RolesList"));
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Role>>(request);
             List<Role> roles = deserialize.Deserialize<List<Role>>(response);
@@ -32,7 +32,7 @@ namespace Raisins.Client.Controllers
         public ActionResult EditRole(int RoleID)
         {
             JsonDeserializer deserialize = new JsonDeserializer();
-            var client = new RestClient("http://localhost:4000/api/roles");
+            var client = new RestClient(AppConfig.GetUrl("roles"));
             var request = new RestRequest(Method.GET);
             request.AddParameter("roleID", RoleID);
             var response = client.Execute<Role>(request);
@@ -46,7 +46,7 @@ namespace Raisins.Client.Controllers
         public ActionResult EditRole(RoleEditViewModel model)
         {
             Role role = new Role(model.RoleID, model.Name, model.Convert());
-            var client = new RestClient("http://localhost:4000/api/roles");
+            var client = new RestClient(AppConfig.GetUrl("roles"));
             var request = new RestRequest(Method.PUT);
             request.AddJsonBody(role);
             var response = client.Execute(request);
@@ -65,7 +65,7 @@ namespace Raisins.Client.Controllers
         public ActionResult NewRole(RoleEditViewModel model)
         {
             Role role = new Role(model.RoleID, model.Name, model.Convert());
-            var client = new RestClient("http://localhost:4000/api/roles");
+            var client = new RestClient(AppConfig.GetUrl("roles"));
             var request = new RestRequest(Method.POST);
             request.AddJsonBody(role);
             var response = client.Execute(request);

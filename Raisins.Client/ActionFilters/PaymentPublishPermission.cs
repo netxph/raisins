@@ -25,7 +25,7 @@ namespace Raisins.Client.ActionFilters
                 int paymentID = (int)filterContext.ActionParameters["paymentID"];
                 string token = filterContext.HttpContext.Session["token"].ToString();
 
-                var clientT = new RestClient("http://localhost:4000/api/accounts/Validate");
+                var clientT = new RestClient(AppConfig.GetUrl("accounts/Validate"));
                 var requestT = new RestRequest(Method.GET);
                 requestT.AddParameter("encrypted", token);
                 var responseT = clientT.Execute<Token>(requestT);
@@ -47,14 +47,14 @@ namespace Raisins.Client.ActionFilters
                 else
                 {
                     //get payment
-                    var client = new RestClient("http://localhost:4000/api/payments");
+                    var client = new RestClient(AppConfig.GetUrl("payments"));
                     var request = new RestRequest(Method.GET);
                     request.AddParameter("paymentID", paymentID);
                     var response = client.Execute<List<Payment>>(request);
                     Payment payment = deserialize.Deserialize<Payment>(response);
 
                     //get profile
-                    var clientP = new RestClient("http://localhost:4000/api/profile");
+                    var clientP = new RestClient(AppConfig.GetUrl("profile"));
                     var requestP = new RestRequest(Method.GET);
                     requestP.AddParameter("userName", deserialized.User);
                     var responseP = clientP.Execute(requestP);

@@ -18,14 +18,14 @@ namespace Raisins.Client.Controllers
         [HttpPost]
         public ActionResult GenerateTickets(int paymentID)
         {
-            var client = new RestClient("http://localhost:4000/api/payments");
+            var client = new RestClient(AppConfig.GetUrl("payments"));
             var request = new RestRequest(Method.GET);
             request.AddParameter("paymentID", paymentID);
             var response = client.Execute<List<Payment>>(request);
             JsonDeserializer deserialize = new JsonDeserializer();
             Payment payment = deserialize.Deserialize<Payment>(response);
 
-            var clientP = new RestClient("http://localhost:4000/api/tickets");
+            var clientP = new RestClient(AppConfig.GetUrl("tickets"));
             var requestP = new RestRequest(Method.POST);
             requestP.AddJsonBody(payment);
             var responseP = clientP.Execute(requestP);

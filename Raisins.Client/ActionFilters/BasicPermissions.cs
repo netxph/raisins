@@ -23,7 +23,7 @@ namespace Raisins.Client.ActionFilters
             if (filterContext.HttpContext.Session["token"] != null)
             {
                 string token = filterContext.HttpContext.Session["token"].ToString();
-                var clientT = new RestClient("http://localhost:4000/api/accounts/Validate");
+                var clientT = new RestClient(AppConfig.GetUrl("accounts/Validate"));
                 var requestT = new RestRequest(Method.GET);
                 requestT.AddParameter("encrypted", token);
                 var responseT = clientT.Execute<Token>(requestT);

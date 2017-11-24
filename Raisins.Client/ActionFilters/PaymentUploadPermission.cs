@@ -26,7 +26,7 @@ namespace Raisins.Client.ActionFilters
                 var model = filterContext.ActionParameters["upload"] as HttpPostedFileBase;
                 string token = filterContext.HttpContext.Session["token"].ToString();
 
-                var clientT = new RestClient("http://localhost:4000/api/accounts/Validate");
+                var clientT = new RestClient(AppConfig.GetUrl("accounts/Validate"));
                 var requestT = new RestRequest(Method.GET);
                 requestT.AddParameter("encrypted", token);
                 var responseT = clientT.Execute<Token>(requestT);
@@ -55,7 +55,7 @@ namespace Raisins.Client.ActionFilters
                 {
                     FileUploader uploader = new FileUploader();
                     IEnumerable<Payment> payments = uploader.ExcelUpload(model);
-                    var client = new RestClient("http://localhost:4000/api/profile");
+                    var client = new RestClient(AppConfig.GetUrl("profile"));
                     var request = new RestRequest(Method.GET);
                     request.AddParameter("userName", deserialized.User);
                     var response = client.Execute(request);

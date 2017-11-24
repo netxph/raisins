@@ -48,7 +48,7 @@ namespace Raisins.Client.Controllers
         public ActionResult GetPaymentSummary()
         {
             JsonDeserializer deserialize = new JsonDeserializer();
-            var client = new RestClient("http://localhost:4000/api/paymentsummaries");
+            var client = new RestClient(AppConfig.GetUrl("paymentsummaries"));
             var request = new RestRequest(Method.GET);
             request.RequestFormat = DataFormat.Json;
             var response = client.Execute<List<PaymentSummary>>(request);
@@ -63,22 +63,22 @@ namespace Raisins.Client.Controllers
         {
             JsonDeserializer deserialize = new JsonDeserializer();
 
-            var clientB = new RestClient("http://localhost:4000/api/beneficiariesall");
+            var clientB = new RestClient(AppConfig.GetUrl("beneficiariesall"));
             var requestB = new RestRequest(Method.GET);
             var responseB = clientB.Execute<List<Beneficiary>>(requestB);
             List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseB);
 
-            var client = new RestClient("http://localhost:4000/api/currencies");
+            var client = new RestClient(AppConfig.GetUrl("currencies"));
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Currency>>(request);
             List<Currency> currencies = deserialize.Deserialize<List<Currency>>(response);
 
-            client = new RestClient("http://localhost:4000/api/sourceslist");
+            client = new RestClient(AppConfig.GetUrl("sourceslist"));
             request = new RestRequest(Method.GET);
             response = client.Execute<List<Currency>>(request);
             List<PaymentSource> sources = deserialize.Deserialize<List<PaymentSource>>(response);
 
-            client = new RestClient("http://localhost:4000/api/typeslist");
+            client = new RestClient(AppConfig.GetUrl("typeslist"));
             request = new RestRequest(Method.GET);
             response = client.Execute<List<Currency>>(request);
             List<PaymentType> types = deserialize.Deserialize<List<PaymentType>>(response);
@@ -110,7 +110,7 @@ namespace Raisins.Client.Controllers
                 payment.ModifiedBy = model.CreatedBy;
 
                 //TODO: get current user
-                var client = new RestClient("http://localhost:4000/api/payments/NewPayment");
+                var client = new RestClient(AppConfig.GetUrl("payments/NewPayment"));
                 var request = new RestRequest(Method.POST);
                 var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
                 string body = JsonConvert.SerializeObject(payment, settings);
@@ -167,7 +167,7 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult ExportListByBeneficiary(string beneficiary)
         {
-            var payments = CallAPI<Payment, List<Payment>>("http://localhost:4000/api/paymentslistall/GetPaymentsList");
+            var payments = CallAPI<Payment, List<Payment>>(AppConfig.GetUrl("paymentslistall/GetPaymentsList"));
 
             if (RestResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -231,7 +231,7 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult Export(PublishAllViewModel model)
         {
-            var payments = CallAPI<Payment, List<Payment>>("http://localhost:4000/api/paymentslistall/GetPaymentsList");
+            var payments = CallAPI<Payment, List<Payment>>(AppConfig.GetUrl("paymentslistall/GetPaymentsList"));
 
             if (RestResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -338,7 +338,7 @@ namespace Raisins.Client.Controllers
                     payment.ModifiedDate = model.CreatedDate;
                 }
 
-                var client = new RestClient("http://localhost:4000/api/paymentsimport");
+                var client = new RestClient(AppConfig.GetUrl("paymentsimport"));
                 var request = new RestRequest(Method.POST);
                 var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
                 string body = JsonConvert.SerializeObject(payments, settings);
@@ -368,14 +368,14 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult ViewPaymentList()
         {
-            var clientT = new RestClient("http://localhost:4000/api/accounts/Validate");
+            var clientT = new RestClient(AppConfig.GetUrl("accounts/Validate"));
             var requestT = new RestRequest(Method.GET);
             requestT.AddParameter("encrypted", HttpContext.Session["token"].ToString());
             var responseT = clientT.Execute<Token>(requestT);
             JsonDeserializer deserialize = new JsonDeserializer();
             Token deserialized = deserialize.Deserialize<Token>(responseT);
 
-            var client = new RestClient("http://localhost:4000/api/paymentslist");
+            var client = new RestClient(AppConfig.GetUrl("paymentslist"));
             var request = new RestRequest(Method.GET);
             request.AddParameter("userName", deserialized.User);
             var response = client.Execute<List<Payment>>(request);
@@ -390,13 +390,13 @@ namespace Raisins.Client.Controllers
         {
             JsonDeserializer deserialize = new JsonDeserializer();
 
-            var clientT = new RestClient("http://localhost:4000/api/accounts/Validate");
+            var clientT = new RestClient(AppConfig.GetUrl("accounts/Validate"));
             var requestT = new RestRequest(Method.GET);
             requestT.AddParameter("encrypted", HttpContext.Session["token"].ToString());
             var responseT = clientT.Execute<Token>(requestT);
             Token deserialized = deserialize.Deserialize<Token>(responseT);
 
-            var clientp = new RestClient("http://localhost:4000/api/paymentslistall");
+            var clientp = new RestClient(AppConfig.GetUrl("paymentslistall"));
             var requestp = new RestRequest(Method.GET);
             var responsep = clientp.Execute<List<Payment>>(requestp);
             List<Payment> payments = deserialize.Deserialize<List<Payment>>(responsep);
@@ -413,7 +413,7 @@ namespace Raisins.Client.Controllers
 
         protected virtual List<Payment> FilterPayments(List<Payment> payments, string username)
         {
-            var clientR = new RestClient("http://localhost:4000/api/accountscreate");
+            var clientR = new RestClient(AppConfig.GetUrl("accountscreate"));
             var requestR = new RestRequest(Method.GET);
             requestR.AddParameter("username", username);
 
@@ -431,19 +431,19 @@ namespace Raisins.Client.Controllers
         {
             JsonDeserializer deserialize = new JsonDeserializer();
 
-            var clientp = new RestClient("http://localhost:4000/api/paymentslistall");
+            var clientp = new RestClient(AppConfig.GetUrl("paymentslistall"));
             var requestp = new RestRequest(Method.GET);
             var responsep = clientp.Execute<List<Payment>>(requestp);
             List<Payment> paymentsp = deserialize.Deserialize<List<Payment>>(responsep);
             PublishAllViewModel modelp = new PublishAllViewModel(paymentsp);
 
-            var clientb = new RestClient("http://localhost:4000/api/beneficiariesall");
+            var clientb = new RestClient(AppConfig.GetUrl("beneficiariesall"));
             var requestb = new RestRequest(Method.GET);
             var responseb = clientb.Execute<List<Beneficiary>>(requestb);
             List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseb);
             BeneficiaryListViewModel modelb = new BeneficiaryListViewModel(beneficiaries);
 
-            //var client = new RestClient("http://localhost:4000/api/PaymentsListByBeneficiary");
+            //var client = new RestClient(AppConfig.GetUrl("PaymentsListByBeneficiary");
             var request = new RestRequest(Method.GET);
             PublishAllViewModel model;
 
@@ -469,7 +469,7 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult PublishPayment(int paymentID, string modifiedBy)
         {
-            var client = new RestClient("http://localhost:4000/api/payments");
+            var client = new RestClient(AppConfig.GetUrl("payments"));
             var request = new RestRequest(Method.GET);
             request.AddParameter("paymentID", paymentID);
             var response = client.Execute<List<Payment>>(request);
@@ -479,19 +479,19 @@ namespace Raisins.Client.Controllers
             payment.ModifiedDate = DateTime.Now;
             payment.ModifiedBy = modifiedBy;
 
-            var clientP = new RestClient("http://localhost:4000/api/PaymentsPublish");
+            var clientP = new RestClient(AppConfig.GetUrl("PaymentsPublish"));
             var requestP = new RestRequest(Method.PUT);
             var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
             string body = JsonConvert.SerializeObject(payment, settings);
             requestP.AddParameter("Application/Json", body, ParameterType.RequestBody);
             var responseP = clientP.Execute(requestP);
 
-            var clientT = new RestClient("http://localhost:4000/api/Tickets");
+            var clientT = new RestClient(AppConfig.GetUrl("Tickets"));
             var requestT = new RestRequest(Method.POST);
             requestT.AddParameter("Application/Json", body, ParameterType.RequestBody);
             var responseT = clientT.Execute(requestT);
 
-            var clientM = new RestClient("http://localhost:4000/api/MailQueues");
+            var clientM = new RestClient(AppConfig.GetUrl("MailQueues"));
             var requestM = new RestRequest(Method.POST);
             requestM.AddParameter("Application/Json", body, ParameterType.RequestBody);
             var responseM = clientM.Execute(requestM);
@@ -503,7 +503,7 @@ namespace Raisins.Client.Controllers
         [HttpPost]
         public ActionResult PublishAllPayment(List<Payment> payments, string modifiedBy)
         {
-            var clientPA = new RestClient("http://localhost:4000/api/paymentslistall");
+            var clientPA = new RestClient(AppConfig.GetUrl("paymentslistall"));
             var requestPA = new RestRequest(Method.GET);
             var responsePA = clientPA.Execute<List<Payment>>(requestPA);
 
@@ -514,21 +514,21 @@ namespace Raisins.Client.Controllers
 
             List<Payment> paymentsPublish = BuildPaymentsToPublish(modifiedBy, payments);
 
-            var clientP = new RestClient("http://localhost:4000/api/PaymentsPublishAll");
+            var clientP = new RestClient(AppConfig.GetUrl("PaymentsPublishAll"));
             var requestP = new RestRequest(Method.PUT);
             var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
             string body = JsonConvert.SerializeObject(paymentsPublish, settings);
             requestP.AddJsonBody(paymentsPublish);
             var responseP = clientP.Execute(requestP);
 
-            var clientT = new RestClient("http://localhost:4000/api/TicketsAll");
+            var clientT = new RestClient(AppConfig.GetUrl("TicketsAll"));
             var requestT = new RestRequest(Method.POST);
             requestT.AddParameter("Application/Json", body, ParameterType.RequestBody);
             requestT.AddJsonBody(paymentsPublish);
             var responseT = clientT.Execute<List<Payment>>(requestT);
             //var responseT = clientT.Execute(requestT);
 
-            var clientM = new RestClient("http://localhost:4000/api/MailQueuesAll");
+            var clientM = new RestClient(AppConfig.GetUrl("MailQueuesAll"));
             var requestM = new RestRequest(Method.POST);
             requestM.AddJsonBody(paymentsPublish);
             var responseM = clientM.Execute(requestM);
@@ -559,7 +559,7 @@ namespace Raisins.Client.Controllers
         {
             JsonDeserializer deserialize = new JsonDeserializer();
 
-            var client = new RestClient("http://localhost:4000/api/Payments");
+            var client = new RestClient(AppConfig.GetUrl("Payments"));
             var request = new RestRequest(Method.GET);
             request.AddParameter("paymentID", paymentID);
             var response = client.Execute<Payment>(request);
@@ -567,27 +567,27 @@ namespace Raisins.Client.Controllers
 
             PaymentViewModel model = new PaymentViewModel();
             //Get beneficiaries for list
-            var clientB = new RestClient("http://localhost:4000/api/beneficiariesall");
+            var clientB = new RestClient(AppConfig.GetUrl("beneficiariesall"));
             var requestB = new RestRequest(Method.GET);
             var responseB = clientB.Execute<List<Beneficiary>>(requestB);
             List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseB);
             //Get currencies for list
-            var clientC = new RestClient("http://localhost:4000/api/currencies");
+            var clientC = new RestClient(AppConfig.GetUrl("currencies"));
             var requestC = new RestRequest(Method.GET);
             var responseC = clientC.Execute<List<Currency>>(requestC);
             List<Currency> currencies = deserialize.Deserialize<List<Currency>>(responseC);
 
-            var clientP = new RestClient("http://localhost:4000/api/sourceslist");
+            var clientP = new RestClient(AppConfig.GetUrl("sourceslist"));
             var requestP = new RestRequest(Method.GET);
             var responseP = clientP.Execute<List<Currency>>(requestP);
             List<PaymentSource> sources = deserialize.Deserialize<List<PaymentSource>>(responseP);
 
-            var clientT = new RestClient("http://localhost:4000/api/typeslist");
+            var clientT = new RestClient(AppConfig.GetUrl("typeslist"));
             var requestT = new RestRequest(Method.GET);
             var responseT = clientT.Execute<List<Currency>>(requestT);
             List<PaymentType> types = deserialize.Deserialize<List<PaymentType>>(responseT);
 
-            //var types2 = CallAPI<List<Currency>,List<PaymentType>>(deserialize,"http://localhost:4000/api/typeslist", Method.POST); alternative way
+            //var types2 = CallAPI<List<Currency>,List<PaymentType>>(deserialize,AppConfig.GetUrl("typeslist", Method.POST); alternative way
 
             model.InitResources(beneficiaries, currencies, sources, types, payment);
 
@@ -605,7 +605,7 @@ namespace Raisins.Client.Controllers
             Payment payment = new Payment(model.PaymentID, model.Name, model.Amount, currency, beneficiary, model.Email, model.CreatedDate,
                 model.ModifiedDate, model.PaymentDate, model.CreatedBy, model.ModifiedBy, new PaymentSource(model.Source), new PaymentType(model.Type), model.OptOut);
 
-            var client = new RestClient("http://localhost:4000/api/Payments");
+            var client = new RestClient(AppConfig.GetUrl("Payments"));
             var request = new RestRequest(Method.PUT);
             var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
             string body = JsonConvert.SerializeObject(payment, settings);
