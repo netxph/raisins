@@ -93,10 +93,15 @@ namespace Raisins.Client.Controllers
         [HttpPost]
         public ActionResult NewPayment(PaymentViewModel model)
         {
-            Beneficiary beneficiary = new Beneficiary();
-            Currency currency = new Currency();
-            beneficiary.Name = model.Beneficiary;
-            currency.CurrencyCode = model.Currency;
+            Beneficiary beneficiary = new Beneficiary()
+            {
+                Name = model.Beneficiary
+            };
+
+            Currency currency = new Currency()
+            {
+                CurrencyCode = model.Currency
+            };
 
             if (EmailIsValid(model.Email))
             {
