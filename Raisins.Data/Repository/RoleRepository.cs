@@ -42,10 +42,14 @@ namespace Raisins.Data.Repository
             _context.Roles.Add(efRole);
             _context.SaveChanges();
         }
+
         public void Edit(D.Role role)
         {
-            DATA.Role efRole = ConvertToEFwithID(role);
-            _context.Entry(efRole).State = EntityState.Modified;
+            var data = _context.Roles.FirstOrDefault(r => r.RoleID == role.RoleID);
+            data.Permissions = string.Join(";", role.Permissions);
+
+            _context.Entry(data).State = EntityState.Modified;
+            
             _context.SaveChanges();
         }
 
@@ -79,7 +83,9 @@ namespace Raisins.Data.Repository
         }
         private DATA.Role ConvertToEFwithID(D.Role role)
         {
-            return new DATA.Role(role.RoleID, role.Name, string.Join(";", role.Permissions));
+            var data = new DATA.Role(role.RoleID, role.Name, string.Join(";", role.Permissions));
+
+            return data;
         }        
     }
 }
