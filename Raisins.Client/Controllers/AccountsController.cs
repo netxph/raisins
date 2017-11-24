@@ -32,7 +32,7 @@ namespace Raisins.Client.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            var client = new RestClient("http://localhost:4000/api/accounts/login");
+            var client = new RestClient(AppConfig.GetUrl("accounts/login"));
             var request = new RestRequest(Method.POST);
             request.AddJsonBody(model);
             var response = client.Execute(request);
@@ -67,13 +67,13 @@ namespace Raisins.Client.Controllers
         {
             JsonDeserializer deserialize = new JsonDeserializer();
             RegisterViewModel model = new RegisterViewModel();
-            var clientR = new RestClient("http://localhost:4000/api/roleslist");
+            var clientR = new RestClient(AppConfig.GetUrl("roleslist"));
             var requestR = new RestRequest(Method.GET);
             var responseR = clientR.Execute<List<Role>>(requestR);
             List<Role> roles = deserialize.Deserialize<List<Role>>(responseR);
             //roles.Remove(roles.Where(a => a.Name == "Super").FirstOrDefault()); // added
 
-            var clientB = new RestClient("http://localhost:4000/api/beneficiariesall");
+            var clientB = new RestClient(AppConfig.GetUrl("beneficiariesall"));
             var requestB = new RestRequest(Method.GET);
             var responseB = clientB.Execute<List<Beneficiary>>(requestB);
             List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseB);
@@ -106,7 +106,7 @@ namespace Raisins.Client.Controllers
             AccountProfile profile = new AccountProfile(model.Name, list);
             AccountComplete complete = new AccountComplete(account, profile);
 
-            var client = new RestClient("http://localhost:4000/api/AccountsCreate");
+            var client = new RestClient(AppConfig.GetUrl("AccountsCreate"));
             var request = new RestRequest(Method.POST);
             request.AddJsonBody(complete);
             var response = client.Execute<Account>(request);
@@ -130,7 +130,7 @@ namespace Raisins.Client.Controllers
         {
             JsonDeserializer deserializer = new JsonDeserializer();
 
-            var client = new RestClient("http://localhost:4000/api/accountsAll");
+            var client = new RestClient(AppConfig.GetUrl("accountsAll"));
             var request = new RestRequest(Method.GET);
             var response = client.Execute<List<Role>>(request);
             List<Account> accounts = deserializer.Deserialize<List<Account>>(response);
@@ -148,7 +148,7 @@ namespace Raisins.Client.Controllers
             JsonDeserializer deserialize = new JsonDeserializer();
 
 
-            var client = new RestClient("http://localhost:4000/api/AccountsCreate");
+            var client = new RestClient(AppConfig.GetUrl("AccountsCreate"));
             var request = new RestRequest(Method.GET);
             request.AddParameter("userName", userName);
             var response = client.Execute<Account>(request);
@@ -157,13 +157,13 @@ namespace Raisins.Client.Controllers
                 Account account = deserialize.Deserialize<Account>(response);
                 roleName = account.Role.Name;
 
-                var clientR = new RestClient("http://localhost:4000/api/roleslist");
+                var clientR = new RestClient(AppConfig.GetUrl("roleslist"));
                 var requestR = new RestRequest(Method.GET);
                 var responseR = clientR.Execute<List<Role>>(requestR);
                 List<Role> roles = deserialize.Deserialize<List<Role>>(responseR);
                 //roles.Remove(roles.Where(a => a.Name == "Super").FirstOrDefault()); // added
 
-                var clientB = new RestClient("http://localhost:4000/api/beneficiariesall");
+                var clientB = new RestClient(AppConfig.GetUrl("beneficiariesall"));
                 var requestB = new RestRequest(Method.GET);
                 var responseB = clientB.Execute<List<Beneficiary>>(requestB);
                 List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseB);
@@ -207,7 +207,7 @@ namespace Raisins.Client.Controllers
             AccountProfile profile = new AccountProfile(model.Name, list);
             AccountComplete complete = new AccountComplete(account, profile);
 
-            var client = new RestClient("http://localhost:4000/api/AccountsCreate");
+            var client = new RestClient(AppConfig.GetUrl("AccountsCreate"));
             var request = new RestRequest(Method.PUT);
             request.AddJsonBody(complete);
             var response = client.Execute(request);

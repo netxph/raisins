@@ -186,6 +186,7 @@
     <Compile Include="ActionFilters\PaymentsViewPermission.cs" />
     <Compile Include="ActionFilters\PaymentUploadPermission.cs" />
     <Compile Include="ActionFilters\TicketPermission.cs" />
+    <Compile Include="AppConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
