@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 using System.Reflection;
 
 namespace Raisins.Data.Repository
@@ -15,9 +15,10 @@ namespace Raisins.Data.Repository
     {
         private RaisinsContext _context;
 
-        public PaymentRepository() : this(new RaisinsContext())
+        public PaymentRepository() : this(RaisinsContext.Instance)
         {
         }
+
         public PaymentRepository(RaisinsContext context)
         {
             _context = context;
@@ -28,13 +29,18 @@ namespace Raisins.Data.Repository
             return ConvertToDomainList(_context.Payments
                     .Include(p => p.Beneficiary)
                     .Include(p => p.Currency)
-                    .Include(p => p.CreatedBy));
+                    .Include(p => p.PaymentSource)
+                    //.Include(p => p.CreatedBy)
+                    //.Include(p => p.ModifiedBy)
+                    .Include(p => p.PaymentType)
+                  );
         }
 
         public D.Payments GetWithCurrency()
         {
             return ConvertToDomainList(_context.Payments.Include(path => path.Currency));
         }
+
         public D.Payments GetByAccount(string userName)
         {
             int accountID = _context.Accounts.FirstOrDefault(a => a.UserName == userName).AccountID;
@@ -50,6 +56,7 @@ namespace Raisins.Data.Repository
         {
             return ConvertToDomainList(GetAllEF().Where(p => p.BeneficiaryID == beneficiaryID));
         }
+
         public D.Payments GetByBeneficiary(string name)
         {
             return ConvertToDomainList(GetAllEF().Where(p => p.Beneficiary.Name == name));
@@ -75,26 +82,26 @@ namespace Raisins.Data.Repository
         //TODO: payment.CreatedByID = Account.GetCurrentUser().ID; before edit payment
         public void Edit(D.Payment payment)
         {
-            EF.Payment efpayment = ConverToEFwithID(payment);
+            DATA.Payment efpayment = ConverToEFwithID(payment);
             
             var tempPayment = _context.Payments.Single(a => a.PaymentID == efpayment.PaymentID);
 
-            tempPayment.PaymentID = efpayment.PaymentID;
-            tempPayment.Name = efpayment.Name;
-            tempPayment.Amount = efpayment.Amount;
-            tempPayment.BeneficiaryID = efpayment.BeneficiaryID;
-            tempPayment.CurrencyID = efpayment.CurrencyID;
-            tempPayment.Locked = efpayment.Locked;
-            tempPayment.Email = efpayment.Email;
-            //tempPayment.CreatedDate = efpayment.CreatedDate;
-            //tempPayment.PaymentDate = efpayment.PaymentDate;
-            tempPayment.ModifiedDate = efpayment.ModifiedDate;
-            tempPayment.PublishDate = efpayment.PublishDate;
-            tempPayment.CreatedByID = efpayment.CreatedByID;
-            tempPayment.ModifiedByID = efpayment.ModifiedByID;
+            tempPayment.PaymentID       = efpayment.PaymentID;
+            tempPayment.Name            = efpayment.Name;
+            tempPayment.Amount          = efpayment.Amount;
+            tempPayment.BeneficiaryID   = efpayment.BeneficiaryID;
+            tempPayment.CurrencyID      = efpayment.CurrencyID;
+            tempPayment.Locked          = efpayment.Locked;
+            tempPayment.Email           = efpayment.Email;
+            //tempPayment.CreatedDate   = efpayment.CreatedDate;
+            //tempPayment.PaymentDate   = efpayment.PaymentDate;
+            tempPayment.ModifiedDate    = efpayment.ModifiedDate;
+            tempPayment.PublishDate     = efpayment.PublishDate;
+            tempPayment.CreatedByID     = efpayment.CreatedByID;
+            tempPayment.ModifiedByID    = efpayment.ModifiedByID;
             tempPayment.PaymentSourceID = efpayment.PaymentSourceID;
-            tempPayment.PaymentTypeID = efpayment.PaymentTypeID;
-            tempPayment.OptOut = efpayment.OptOut;
+            tempPayment.PaymentTypeID   = efpayment.PaymentTypeID;
+            tempPayment.OptOut          = efpayment.OptOut;
 
             _context.SaveChanges();
         }
@@ -109,36 +116,27 @@ namespace Raisins.Data.Repository
         public void Delete(D.Payment payment)
         {
             throw new NotImplementedException();
-            //EF.Payment efpayment = ConverToEFwithID(payment);
+            //DATA.Payment efpayment = ConverToEFwithID(payment);
             //_context.Payments.Attach(ConvertToEF(payment));
             //_context.Entry(efpayment).State = EntityState.Deleted;
             //_context.Payments.Remove(ConvertToEF(payment));
             //_context.SaveChanges();
         }
 
-        private D.Payment ConvertToDomain(EF.Payment efPayment)
+        private D.Payment ConvertToDomain(DATA.Payment efPayment)
         {
-            EF.Beneficiary efBeneficiary = _context.Beneficiaries.FirstOrDefault(b => b.BeneficiaryID == efPayment.BeneficiaryID);
-            EF.Currency efCurrency = _context.Currencies.FirstOrDefault(c => c.CurrencyID == efPayment.CurrencyID);
-
-            D.Beneficiary beneficiary = new D.Beneficiary(efBeneficiary.Name, efBeneficiary.Description);
-            D.Currency currency = new D.Currency(efCurrency.CurrencyCode, efCurrency.Ratio, efCurrency.ExchangeRate);
-
-            D.PaymentSource source = new D.PaymentSource(efPayment.PaymentSource.Source);
-            D.PaymentType type = new D.PaymentType(efPayment.PaymentType.Type);
-
-            string createdBy = _context.Accounts.FirstOrDefault(b => b.AccountID == efPayment.CreatedByID).UserName;
-            string modifiedBy = "";
-            if(efPayment.ModifiedByID > 0)
-            {
-                modifiedBy = _context.Accounts.FirstOrDefault(b => b.AccountID == efPayment.ModifiedByID).UserName;
-            }
+            var beneficiary = new D.Beneficiary(efPayment.Beneficiary.Name, efPayment.Beneficiary.Description);
+            var currency = new D.Currency(efPayment.Currency.CurrencyCode, efPayment.Currency.Ratio, efPayment.Currency.ExchangeRate);
+            var source = new D.PaymentSource(efPayment.PaymentSource.Source);
+            var type = new D.PaymentType(efPayment.PaymentType.Type);
+            var createdBy = efPayment.CreatedByID;
+            var modifiedBy = efPayment.ModifiedByID;
 
             return new D.Payment(efPayment.PaymentID, efPayment.Name, efPayment.Amount, currency, beneficiary, efPayment.Locked,
                 efPayment.Email, efPayment.CreatedDate, efPayment.ModifiedDate, efPayment.PaymentDate, efPayment.PublishDate, createdBy, modifiedBy, source, type, efPayment.OptOut);
         }
 
-        private D.Payments ConvertToDomainList(IEnumerable<EF.Payment> efPaymets)
+        private D.Payments ConvertToDomainList(IEnumerable<DATA.Payment> efPaymets)
         {
             D.Payments payments = new D.Payments();
             foreach (var efPayment in efPaymets)
@@ -148,42 +146,43 @@ namespace Raisins.Data.Repository
             return payments;
         }
 
-        private IEnumerable<EF.Payment> GetAllEF()
+        private IEnumerable<DATA.Payment> GetAllEF()
         {
             return _context.Payments
                     .Include(p => p.Beneficiary)
-                    .Include(p => p.Currency)
-                    .Include(p => p.CreatedBy);
+                    .Include(p => p.Currency);
         }
-        private EF.Payment ConvertToEF(D.Payment payment)
-        {
-            int beneficiaryID = _context.Beneficiaries.FirstOrDefault(b => b.Name == payment.Beneficiary.Name).BeneficiaryID;
-            int currencyID = _context.Currencies.FirstOrDefault(c => c.CurrencyCode == payment.Currency.CurrencyCode).CurrencyID;
-            int sourceID = _context.Sources.FirstOrDefault(c => c.Source == payment.Source.Source).PaymentSourceID;
-            int typeID = _context.Types.FirstOrDefault(c => c.Type == payment.Type.Type).PaymentTypeID;
-            int createdByID = _context.Accounts.FirstOrDefault(c => c.UserName == payment.CreatedBy).AccountID;
-            int modifiedByID = _context.Accounts.FirstOrDefault(c => c.UserName == payment.ModifiedBy).AccountID;
 
-            return new EF.Payment(payment.Name, payment.Amount, beneficiaryID, currencyID, payment.Email, payment.CreatedDate,
-                payment.PaymentDate, payment.CreatedDate, createdByID, sourceID, typeID, payment.OptOut, modifiedByID);
-        }
-        private EF.Payment ConverToEFwithID(D.Payment payment)
+        private DATA.Payment ConvertToEF(D.Payment payment)
         {
             int beneficiaryID = _context.Beneficiaries.FirstOrDefault(b => b.Name == payment.Beneficiary.Name).BeneficiaryID;
-            int currencyID = _context.Currencies.FirstOrDefault(c => c.CurrencyCode == payment.Currency.CurrencyCode).CurrencyID;
-            int sourceID = _context.Sources.FirstOrDefault(c => c.Source == payment.Source.Source).PaymentSourceID;
-            int typeID = _context.Types.FirstOrDefault(c => c.Type == payment.Type.Type).PaymentTypeID;
-            int createdByID = _context.Accounts.FirstOrDefault(c => c.UserName == payment.CreatedBy).AccountID;
+            int currencyID    = _context.Currencies.FirstOrDefault(c => c.CurrencyCode == payment.Currency.CurrencyCode).CurrencyID;
+            int sourceID      = _context.Sources.FirstOrDefault(c => c.Source == payment.Source.Source).PaymentSourceID;
+            int typeID        = _context.Types.FirstOrDefault(c => c.Type == payment.Type.Type).PaymentTypeID;
+            //int createdByID   = _context.Accounts.FirstOrDefault(c => c.UserName == payment.CreatedById).AccountID;
+            //int modifiedByID  = _context.Accounts.FirstOrDefault(c => c.UserName == payment.ModifiedById).AccountID;
+
+            return new DATA.Payment(payment.Name, payment.Amount, beneficiaryID, currencyID, payment.Email, payment.CreatedDate,
+                payment.PaymentDate, payment.CreatedDate, payment.CreatedById, sourceID, typeID, payment.OptOut, payment.ModifiedById);
+        }
+
+        private DATA.Payment ConverToEFwithID(D.Payment payment)
+        {
+            int beneficiaryID = _context.Beneficiaries.FirstOrDefault(b => b.Name == payment.Beneficiary.Name).BeneficiaryID;
+            int currencyID    = _context.Currencies.FirstOrDefault(c => c.CurrencyCode == payment.Currency.CurrencyCode).CurrencyID;
+            int sourceID      = _context.Sources.FirstOrDefault(c => c.Source == payment.Source.Source).PaymentSourceID;
+            int typeID        = _context.Types.FirstOrDefault(c => c.Type == payment.Type.Type).PaymentTypeID;
+            //int createdByID   = _context.Accounts.FirstOrDefault(c => c.UserName == payment.CreatedById).AccountID;
 
             int paymentID = _context.Payments.FirstOrDefault(p => p.PaymentID == payment.PaymentID).PaymentID;
 
-            var accounts = _context.Accounts;
-            var account = accounts.FirstOrDefault(c => c.UserName == payment.ModifiedBy);
-            int modifiedByID = account.AccountID;
+            var accounts     = _context.Accounts;
+            //var account      = accounts.FirstOrDefault(c => c.UserName == payment.ModifiedById);
+            //int modifiedByID = account.AccountID;
 
-            return new EF.Payment(payment.PaymentID, payment.Name, payment.Amount, beneficiaryID, currencyID, payment.Locked,
-                payment.Email, payment.CreatedDate, payment.PaymentDate, payment.ModifiedDate, payment.PublishDate, createdByID,
-                modifiedByID, sourceID, typeID, payment.OptOut);
+            return new DATA.Payment(payment.PaymentID, payment.Name, payment.Amount, beneficiaryID, currencyID, payment.Locked,
+                payment.Email, payment.CreatedDate, payment.PaymentDate, payment.ModifiedDate, payment.PublishDate, payment.CreatedById,
+                payment.ModifiedById, sourceID, typeID, payment.OptOut);
         }
     }
 }

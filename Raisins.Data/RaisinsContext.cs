@@ -10,6 +10,25 @@ namespace Raisins.Data
 {
     public class RaisinsContext : DbContext
     {
+        private static RaisinsContext _instance;
+
+        public static RaisinsContext Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new RaisinsContext();
+                }
+
+                return _instance;
+            }
+            set
+            {
+                _instance = value;
+            }
+        }
+
         public RaisinsContext() : base("Raisins")
         {
         }

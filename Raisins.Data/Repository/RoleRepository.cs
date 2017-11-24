@@ -1,6 +1,6 @@
 ﻿using Raisins.Roles.Interfaces;
 using D = Raisins.Roles.Models;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Raisins.Data.Repository
     public class RoleRepository : IRoleRepository
     {
         private RaisinsContext _context;
-        public RoleRepository() : this(new RaisinsContext())
+        public RoleRepository() : this(RaisinsContext.Instance)
         {
         }
 
@@ -37,14 +37,14 @@ namespace Raisins.Data.Repository
         }
         public void Add(D.Role role)
         {
-            EF.Role efRole = ConvertToEF(role);
+            DATA.Role efRole = ConvertToEF(role);
             
             _context.Roles.Add(efRole);
             _context.SaveChanges();
         }
         public void Edit(D.Role role)
         {
-            EF.Role efRole = ConvertToEFwithID(role);
+            DATA.Role efRole = ConvertToEFwithID(role);
             _context.Entry(efRole).State = EntityState.Modified;
             _context.SaveChanges();
         }
@@ -54,7 +54,7 @@ namespace Raisins.Data.Repository
             return _context.Roles.Any(a => a.Name == roleName);
         }
 
-        private D.Role ConverToDomain(EF.Role efRole)
+        private D.Role ConverToDomain(DATA.Role efRole)
         {
             D.Role role = new D.Role(efRole.RoleID, efRole.Name);
             IEnumerable<string> permissions = efRole.Permissions.Split(';');
@@ -64,7 +64,7 @@ namespace Raisins.Data.Repository
             }
             return role;
         }
-        private D.Roles ConvertToDomainList(IEnumerable<EF.Role> efRoles)
+        private D.Roles ConvertToDomainList(IEnumerable<DATA.Role> efRoles)
         {
             D.Roles roles = new D.Roles();
             foreach (var efRole in efRoles)
@@ -73,13 +73,13 @@ namespace Raisins.Data.Repository
             }
             return roles;
         }
-        private EF.Role ConvertToEF(D.Role role)
+        private DATA.Role ConvertToEF(D.Role role)
         {
-            return new EF.Role(role.Name, string.Join(";", role.Permissions));
+            return new DATA.Role(role.Name, string.Join(";", role.Permissions));
         }
-        private EF.Role ConvertToEFwithID(D.Role role)
+        private DATA.Role ConvertToEFwithID(D.Role role)
         {
-            return new EF.Role(role.RoleID, role.Name, string.Join(";", role.Permissions));
+            return new DATA.Role(role.RoleID, role.Name, string.Join(";", role.Permissions));
         }        
     }
 }

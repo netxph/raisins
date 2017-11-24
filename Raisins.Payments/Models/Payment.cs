@@ -13,7 +13,7 @@ namespace Raisins.Payments.Models
         }
 
         public Payment(int paymentID, string name, decimal amount, Currency currency, Beneficiary beneficiary, bool locked,
-            string email, DateTime createdDate, DateTime? modifiedDate, DateTime paymentDate, DateTime? publishDate, string createdBy, string modifiedBy, PaymentSource source, PaymentType type,
+            string email, DateTime createdDate, DateTime? modifiedDate, DateTime paymentDate, DateTime? publishDate, int createdById, int modifiedById, PaymentSource source, PaymentType type,
             bool optOut)
         {
             if (paymentID < 0)
@@ -48,40 +48,40 @@ namespace Raisins.Payments.Models
                 throw new ArgumentNullException("Payment:email");
             }
             Email = email;
+
             if (createdDate == null)
             {
                 throw new ArgumentNullException("Payment:createdDate");
             }
             CreatedDate = createdDate;
+
             if (paymentDate == null)
             {
                 throw new ArgumentNullException("Payment:paymentDate");
             }
             PaymentDate = paymentDate;
-            if (string.IsNullOrEmpty(createdBy))
-            {
-                throw new ArgumentNullException("Payment:createdBy");
-            }
-            CreatedBy = createdBy;
+
             if (source == null)
             {
                 throw new ArgumentNullException("Payment:source");
             }
             Source = source;
+
             if (type == null)
             {
                 throw new ArgumentNullException("Payment:type");
             }
+
             Type = type;
             Locked = locked;
             OptOut = optOut;
             ModifiedDate = modifiedDate;
             PublishDate = publishDate;
-            ModifiedBy = modifiedBy;
+            CreatedById = createdById;
+            ModifiedById = modifiedById;
         }
 
         public virtual Beneficiary Beneficiary { get; set; }
-        //public Beneficiary Beneficiary { get; set; }
         public Currency Currency { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
@@ -94,12 +94,11 @@ namespace Raisins.Payments.Models
         public DateTime? ModifiedDate { get; set; }
         public DateTime PaymentDate { get; set; }
         public DateTime? PublishDate { get; set; }
-        public string CreatedBy { get; set; }
-        public string ModifiedBy { get; set;  }
+        public int CreatedById { get; set; }
+        public int ModifiedById { get; set;  }
         public PaymentSource Source { get; set; }
         public PaymentType Type { get; set; }
         public bool OptOut { get; set; }
-
 
         public void Publish()
         {

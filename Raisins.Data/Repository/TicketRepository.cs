@@ -1,4 +1,4 @@
-﻿using EF = Raisins.Data.Models;
+﻿using DATA = Raisins.Data.Models;
 using Raisins.Tickets.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Raisins.Data.Repository
     {
         private RaisinsContext _context;
 
-        public TicketRepository() : this(new RaisinsContext())
+        public TicketRepository() : this(RaisinsContext.Instance)
         {
         }
         public TicketRepository(RaisinsContext context)
@@ -46,11 +46,11 @@ namespace Raisins.Data.Repository
             return ConvertToDomain(_context.Tickets.FirstOrDefault(t => t.TicketID == ticketID));
         }
 
-        private D.Ticket ConvertToDomain(EF.Ticket efTicket)
+        private D.Ticket ConvertToDomain(DATA.Ticket efTicket)
         {
             return new D.Ticket(efTicket.TicketCode, efTicket.Name, efTicket.PaymentID);
         }
-        private D.Tickets ConvertToDomainList(IEnumerable<EF.Ticket> efTickets)
+        private D.Tickets ConvertToDomainList(IEnumerable<DATA.Ticket> efTickets)
         {
             D.Tickets tickets = new D.Tickets();
             foreach (var efTicket in efTickets)
@@ -59,13 +59,13 @@ namespace Raisins.Data.Repository
             }
             return tickets;
         }
-        private EF.Ticket ConvertToEF(D.Ticket ticket)
+        private DATA.Ticket ConvertToEF(D.Ticket ticket)
         {
-            return new EF.Ticket(ticket.TicketCode, ticket.Name, ticket.PaymentID);
+            return new DATA.Ticket(ticket.TicketCode, ticket.Name, ticket.PaymentID);
         }
-        private IEnumerable<EF.Ticket> ConvertToEFList(D.Tickets tickets)
+        private IEnumerable<DATA.Ticket> ConvertToEFList(D.Tickets tickets)
         {
-            List<EF.Ticket> eftickets = new List<EF.Ticket>();
+            List<DATA.Ticket> eftickets = new List<DATA.Ticket>();
             foreach (var ticket in tickets)
             {
                 eftickets.Add(ConvertToEF(ticket));

@@ -26,19 +26,21 @@ namespace Raisins.Client.ActionFilters
 
                 bool validate = false;
                 bool viewAll = false;
+
                 foreach (var permission in deserialized.Permissions)
                 {
-                    if (permission == "payments_view_list")
-                    {
-                        validate = true;
-                        break;
-                    }
+                    //if (permission == "payments_view_list")
+                    //{
+                    //    validate = true;
+                    //    break;
+                    //}
                     if (permission == "payments_view_list_all")
                     {
                         viewAll = true;
                         validate = true;
                     }
                 }
+
                 if (viewAll)
                 {
                     filterContext.Result = new RedirectToRouteResult(

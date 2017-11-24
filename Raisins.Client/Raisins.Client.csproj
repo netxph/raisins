@@ -190,6 +190,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\BaseClientController.cs" />
     <Compile Include="Controllers\BeneficiariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
@@ -216,10 +217,14 @@
     <Compile Include="Services\FileUploader.cs" />
     <Compile Include="Services\IFileUploader.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\BeneficiaryEditViewModel.cs" />
     <Compile Include="ViewModels\BeneficiaryViewModel.cs" />
     <Compile Include="ViewModels\CheckModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PaymentViewModel.cs" />
+    <Compile Include="ViewModels\PublishAllViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\UploadPaymentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

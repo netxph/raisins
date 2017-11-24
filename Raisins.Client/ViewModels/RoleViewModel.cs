@@ -35,14 +35,16 @@ namespace Raisins.Client.ViewModels
             Name = role.Name;
             Permissions = string.Join(", ", role.Permissions);
         }
+
         public RoleEditViewModel()
         {
         }
+
         public IEnumerable<string> Convert()
         {
             return Array.ConvertAll(
                 Permissions.Split(new char[] { ',', ';' },
-                StringSplitOptions.RemoveEmptyEntries), p => p.Trim());            
+                StringSplitOptions.RemoveEmptyEntries), p => p.Trim());
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Raisins.Beneficiaries.Interfaces;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace Raisins.Data.Repository
     public class BeneficiaryRepository : IBeneficiaryRepository
     {
         public RaisinsContext _context { get; set; }
-        public BeneficiaryRepository() : this(new RaisinsContext())
+        public BeneficiaryRepository() : this(RaisinsContext.Instance)
         {
         }
         public BeneficiaryRepository(RaisinsContext context)
@@ -35,7 +35,7 @@ namespace Raisins.Data.Repository
 
         public void Edit(D.Beneficiary beneficiary)
         {
-            EF.Beneficiary efBeneficiary = ConvertToEFwithID(beneficiary);
+            DATA.Beneficiary efBeneficiary = ConvertToEFwithID(beneficiary);
 
 
             _context.Entry(efBeneficiary).State = EntityState.Modified;
@@ -58,12 +58,12 @@ namespace Raisins.Data.Repository
             return ConvertToDomainList(_context.Beneficiaries);
         }
 
-        private D.Beneficiary ConvertToDomain(EF.Beneficiary efBeneficiary)
+        private D.Beneficiary ConvertToDomain(DATA.Beneficiary efBeneficiary)
         {
             return new D.Beneficiary(efBeneficiary.BeneficiaryID, efBeneficiary.Name, efBeneficiary.Description);
         }
 
-        private D.Beneficiaries ConvertToDomainList(IEnumerable<EF.Beneficiary> efBeneficiaries)
+        private D.Beneficiaries ConvertToDomainList(IEnumerable<DATA.Beneficiary> efBeneficiaries)
         {
             D.Beneficiaries beneficiaries = new D.Beneficiaries();
             foreach (var efBeneficiary in efBeneficiaries)
@@ -73,13 +73,13 @@ namespace Raisins.Data.Repository
             return beneficiaries;
         }
 
-        private EF.Beneficiary ConvertToEF(D.Beneficiary beneficiary)
+        private DATA.Beneficiary ConvertToEF(D.Beneficiary beneficiary)
         {
-            return new EF.Beneficiary(beneficiary.Name, beneficiary.Description);
+            return new DATA.Beneficiary(beneficiary.Name, beneficiary.Description);
         }
-        private EF.Beneficiary ConvertToEFwithID(D.Beneficiary beneficiary)
+        private DATA.Beneficiary ConvertToEFwithID(D.Beneficiary beneficiary)
         {
-            return new EF.Beneficiary(beneficiary.BeneficiaryID, beneficiary.Name, beneficiary.Description);
+            return new DATA.Beneficiary(beneficiary.BeneficiaryID, beneficiary.Name, beneficiary.Description);
         }
 
     }

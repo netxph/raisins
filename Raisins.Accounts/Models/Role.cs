@@ -27,6 +27,7 @@ namespace Raisins.Accounts.Models
                 throw new ArgumentNullException("Role:name");
             }
             Name = name;
+
             if (!string.IsNullOrEmpty(permissions))
             {
                 IEnumerable<string> tempPermissions = permissions.Split(';');
@@ -36,8 +37,8 @@ namespace Raisins.Accounts.Models
                     AddPermission(permission);
                 }
             }
- 
         }
+
         public Role() { }
 
         public string Name { get; private set; }

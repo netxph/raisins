@@ -93,7 +93,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 						parsedSheets[ href ] = true;
 					} else {
 						if( (!/^([a-zA-Z:]*\/\/)/.test( href ) && !base)
-							|| href.replace( RegExp.$1, "" ).split( "/" )[0] === win.location.host ){
+							|| hrDATA.replace( RegExp.$1, "" ).split( "/" )[0] === win.location.host ){
 							requestQueue.push( {
 								href: href,
 								media: media
@@ -123,7 +123,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 			var qs			= styles.match(  /@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi ),
 				ql			= qs && qs.length || 0,
 				//try to get CSS path
-				href		= href.substring( 0, href.lastIndexOf( "/" )),
+				href		= hrDATA.substring( 0, hrDATA.lastIndexOf( "/" )),
 				repUrls		= function( css ){
 					return css.replace( /(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g, "$1" + href + "$2$3" );
 				},
@@ -133,7 +133,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 				j, fullq, thisq, eachq, eql;
 
 			//if path exists, tack on trailing slash
-			if( href.length ){ href += "/"; }	
+			if( hrDATA.length ){ href += "/"; }	
 				
 			//if no internal queries exist, but media attr does, use that	
 			//note: this currently lacks support for situations where a media attr is specified on a link AND

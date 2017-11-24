@@ -9,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using D = Raisins.Accounts.Models;
+using ACCOUNTS = Raisins.Accounts.Models;
 using AutoMapper;
 using System.Diagnostics;
 using Raisins.Accounts;
@@ -39,7 +39,7 @@ namespace Raisins.Api.Controllers
         }
 
         [HttpGet]
-        public D.Account Get(string userName)
+        public ACCOUNTS.Account Get(string userName)
         {
             return Service.Get(userName);
         }
@@ -47,8 +47,8 @@ namespace Raisins.Api.Controllers
         [HttpPost]
         public HttpResponseMessage Create([FromBody] API.AccountComplete accountComplete)
         {          
-            var account = Mapper.Map<API.Account, D.Account>(accountComplete.Account);
-            var profile = Mapper.Map<API.AccountProfile, D.AccountProfile>(accountComplete.Profile);
+            var account = Mapper.Map<API.Account, ACCOUNTS.Account>(accountComplete.Account);
+            var profile = Mapper.Map<API.AccountProfile, ACCOUNTS.AccountProfile>(accountComplete.Profile);
 
             try
             {
@@ -65,8 +65,8 @@ namespace Raisins.Api.Controllers
         [HttpPut]
         public HttpResponseMessage Edit([FromBody] API.AccountComplete accountComplete)
         {
-            var account = Mapper.Map<API.Account, D.Account>(accountComplete.Account);
-            var profile = Mapper.Map<API.AccountProfile, D.AccountProfile>(accountComplete.Profile);
+            var account = Mapper.Map<API.Account, ACCOUNTS.Account>(accountComplete.Account);
+            var profile = Mapper.Map<API.AccountProfile, ACCOUNTS.AccountProfile>(accountComplete.Profile);
             Service.Edit(account, profile);
             return Request.CreateResponse(HttpStatusCode.OK);
         }

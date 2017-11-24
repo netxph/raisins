@@ -6,14 +6,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 
 namespace Raisins.Data.Repository
 {
     public class BeneficiaryForPaymentRepository : IBeneficiaryForPaymentRepository
     {
         public RaisinsContext _context { get; set; }
-        public BeneficiaryForPaymentRepository() : this(new RaisinsContext())
+        public BeneficiaryForPaymentRepository() : this(RaisinsContext.Instance)
         {
         }
         public BeneficiaryForPaymentRepository(RaisinsContext context)
@@ -53,12 +53,12 @@ namespace Raisins.Data.Repository
             _context.Beneficiaries.Remove(ConvertToEF(beneficiary));
         }
 
-        private Beneficiary ConvertToDomain(EF.Beneficiary efBeneficiary)
+        private Beneficiary ConvertToDomain(DATA.Beneficiary efBeneficiary)
         {
             return new Beneficiary(efBeneficiary.Name, efBeneficiary.Description);
         }
 
-        private IEnumerable<Beneficiary> ConvertList(IEnumerable<EF.Beneficiary> efBeneficiaries)
+        private IEnumerable<Beneficiary> ConvertList(IEnumerable<DATA.Beneficiary> efBeneficiaries)
         {
             List<Beneficiary> beneficiaries = new List<Beneficiary>();
             foreach (var efBeneficiary in efBeneficiaries)
@@ -67,9 +67,9 @@ namespace Raisins.Data.Repository
             }
             return beneficiaries;
         }
-        private EF.Beneficiary ConvertToEF(Beneficiary beneficiary)
+        private DATA.Beneficiary ConvertToEF(Beneficiary beneficiary)
         {
-            return new EF.Beneficiary(beneficiary.Name, beneficiary.Description);
+            return new DATA.Beneficiary(beneficiary.Name, beneficiary.Description);
         }
     }
 }

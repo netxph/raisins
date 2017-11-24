@@ -32,6 +32,7 @@ namespace Raisins.Api.Controllers
             }
             _service = service;
         }
+
         [HttpPost]
         public HttpResponseMessage Login(
             [FromBody]
@@ -50,7 +51,7 @@ namespace Raisins.Api.Controllers
 
         [HttpGet]
         public Token Validate(string encrypted)
-        {           
+        {
             var token = Service.Validate(encrypted);
 
             return token; 

@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Raisins.Payments.Models;
-using EF = Raisins.Data.Models;
+using DATA = Raisins.Data.Models;
 
 namespace Raisins.Data.Repository
 {
     public class ProfileRepository : IProfileRepository
     {
         private RaisinsContext _context;
-        public ProfileRepository() : this(new RaisinsContext())
+        public ProfileRepository() : this(RaisinsContext.Instance)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Raisins.Data.Repository
         }
         public IEnumerable<AccountProfile> GetAll()
         {
-            List<EF.AccountProfile> efProfiles = _context.Profiles.ToList();
+            List<DATA.AccountProfile> efProfiles = _context.Profiles.ToList();
             List<AccountProfile> profile = new List<AccountProfile>();
             foreach (var efprofile in efProfiles)
             {
@@ -38,17 +38,17 @@ namespace Raisins.Data.Repository
             return ConverToDomain(_context.Accounts.FirstOrDefault(a => a.UserName == userName).Profile);
         }
 
-        private AccountProfile ConverToDomain(EF.AccountProfile efProfile)
+        private AccountProfile ConverToDomain(DATA.AccountProfile efProfile)
         {
             return new AccountProfile(efProfile.Name, ConvertBeneficiaryList(efProfile.Beneficiaries.ToList()));
         }
 
-        private Beneficiary ConvertBeneficiaryToDomain(EF.Beneficiary efBeneficiary)
+        private Beneficiary ConvertBeneficiaryToDomain(DATA.Beneficiary efBeneficiary)
         {
             return new Beneficiary(efBeneficiary.Name, efBeneficiary.Description);
         }
 
-        private IEnumerable<Beneficiary> ConvertBeneficiaryList(IEnumerable<EF.Beneficiary> efBeneficiaries)
+        private IEnumerable<Beneficiary> ConvertBeneficiaryList(IEnumerable<DATA.Beneficiary> efBeneficiaries)
         {
             List<Beneficiary> beneficiaries = new List<Beneficiary>();
             foreach (var efBeneficiary in efBeneficiaries)
