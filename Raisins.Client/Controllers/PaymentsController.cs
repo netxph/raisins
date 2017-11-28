@@ -153,7 +153,7 @@ namespace Raisins.Client.Controllers
 
             var headerRow = sheet.CreateRow(0);
 
-            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out", "Remarks" });
+            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out", "Remarks" });
             
             //Write the Workbook to a memory stream
             MemoryStream output = new MemoryStream();
