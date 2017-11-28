@@ -37,7 +37,7 @@ namespace Raisins.Client.Services
                 
                 foreach (DataRow row in result.Tables[0].Rows)
                 {
-                    if (!string.IsNullOrEmpty(row[0].ToString()))
+                    if (!string.IsNullOrEmpty(row.ToString()))
                     {
                         payment = new Payment();
 
@@ -67,7 +67,14 @@ namespace Raisins.Client.Services
 
                     if (col.ColumnName == "ID")
                     {
-                        payment.PaymentID = int.Parse(row[col].ToString());
+                        if (string.IsNullOrWhiteSpace(row[col].ToString()))
+                        {
+                            payment.PaymentID = 0;
+                        }
+                        else
+                        {
+                            payment.PaymentID = int.Parse(row[col].ToString());
+                        }
                     }
                     if (col.ColumnName == "Donor Name")
                     {
@@ -101,7 +108,7 @@ namespace Raisins.Client.Services
                     {
                         payment.Source = new PaymentSource(row[col].ToString());
                     }
-                    if (col.ColumnName == "Payment Date")
+                    if (col.ColumnName == "Date")
                     {
                         if (upload.FileName.EndsWith(".xls"))
                         {
@@ -122,6 +129,10 @@ namespace Raisins.Client.Services
                         {
                             payment.OptOut = false;
                         }
+                    }
+                    if (col.ColumnName == "Remarks")
+                    {
+                        payment.Remarks = row[col].ToString();
                     }
                 }
                 

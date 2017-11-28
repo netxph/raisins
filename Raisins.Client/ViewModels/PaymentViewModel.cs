@@ -90,7 +90,6 @@ namespace Raisins.Client.ViewModels
             Amount = payment.Amount;
             PaymentID = payment.PaymentID;
             Locked = payment.Locked;
-
             Sources = sources;
             Source = payment.Source.Source;
             Types = types;
@@ -100,6 +99,7 @@ namespace Raisins.Client.ViewModels
             CreatedDate = payment.CreatedDate;
             CreatedBy = payment.CreatedBy;
             ModifiedBy = payment.ModifiedBy;
+            Remarks = payment.Remarks;
             OptOut = payment.OptOut;
         }
     }

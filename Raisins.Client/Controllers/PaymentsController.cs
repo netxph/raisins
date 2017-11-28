@@ -153,7 +153,7 @@ namespace Raisins.Client.Controllers
 
             var headerRow = sheet.CreateRow(0);
 
-            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out" });
+            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out", "Remarks" });
             
             //Write the Workbook to a memory stream
             MemoryStream output = new MemoryStream();
@@ -200,13 +200,14 @@ namespace Raisins.Client.Controllers
                              data.Type.Type,
                              data.Source.Source,
                              data.PaymentDate,
-                             optOutStatus = data.OptOut.ToString()
+                             optOutStatus = data.OptOut.ToString(),
+                             data.Remarks
                          };
 
             grid.DataSource = source;
             grid.DataBind();
 
-            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out" });
+            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out", "Remarks" });
             return grid;
         }
 
@@ -260,13 +261,14 @@ namespace Raisins.Client.Controllers
                              data.Type.Type,
                              data.Source.Source,
                              data.PaymentDate,
-                             optOutStatus = data.OptOut.ToString()
+                             optOutStatus = data.OptOut.ToString(),
+                             data.Remarks
                          };
 
             grid.DataSource = source;
             grid.DataBind();
 
-            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out"});
+            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out", "Remarks"});
 
             WriteExcel(model, grid);
 
@@ -605,6 +607,7 @@ namespace Raisins.Client.Controllers
             currency.CurrencyCode = model.Currency;
             Payment payment = new Payment(model.PaymentID, model.Name, model.Amount, currency, beneficiary, model.Email, model.CreatedDate,
                 model.ModifiedDate, model.PaymentDate, model.CreatedBy, model.ModifiedBy, new PaymentSource(model.Source), new PaymentType(model.Type), model.OptOut);
+            payment.Remarks = model.Remarks;
 
             var client = new RestClient(AppConfig.GetUrl("Payments"));
             var request = new RestRequest(Method.PUT);
