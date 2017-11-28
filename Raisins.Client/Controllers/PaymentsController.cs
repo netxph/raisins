@@ -605,6 +605,7 @@ namespace Raisins.Client.Controllers
             currency.CurrencyCode = model.Currency;
             Payment payment = new Payment(model.PaymentID, model.Name, model.Amount, currency, beneficiary, model.Email, model.CreatedDate,
                 model.ModifiedDate, model.PaymentDate, model.CreatedBy, model.ModifiedBy, new PaymentSource(model.Source), new PaymentType(model.Type), model.OptOut);
+            payment.Remarks = model.Remarks;
 
             var client = new RestClient(AppConfig.GetUrl("Payments"));
             var request = new RestRequest(Method.PUT);

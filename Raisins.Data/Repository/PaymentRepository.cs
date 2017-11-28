@@ -101,6 +101,7 @@ namespace Raisins.Data.Repository
             tempPayment.ModifiedByID    = efpayment.ModifiedByID;
             tempPayment.PaymentSourceID = efpayment.PaymentSourceID;
             tempPayment.PaymentTypeID   = efpayment.PaymentTypeID;
+            tempPayment.Remarks = efpayment.Remarks;
             tempPayment.OptOut          = efpayment.OptOut;
 
             _context.SaveChanges();
@@ -132,8 +133,12 @@ namespace Raisins.Data.Repository
             var createdBy = efPayment.CreatedByID;
             var modifiedBy = efPayment.ModifiedByID;
 
-            return new D.Payment(efPayment.PaymentID, efPayment.Name, efPayment.Amount, currency, beneficiary, efPayment.Locked,
+            var payment = new D.Payment(efPayment.PaymentID, efPayment.Name, efPayment.Amount, currency, beneficiary, efPayment.Locked,
                 efPayment.Email, efPayment.CreatedDate, efPayment.ModifiedDate, efPayment.PaymentDate, efPayment.PublishDate, createdBy, modifiedBy, source, type, efPayment.OptOut);
+
+            payment.Remarks = efPayment.Remarks;
+
+            return payment;
         }
 
         private D.Payments ConvertToDomainList(IEnumerable<DATA.Payment> efPaymets)
