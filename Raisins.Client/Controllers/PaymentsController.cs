@@ -153,7 +153,7 @@ namespace Raisins.Client.Controllers
 
             var headerRow = sheet.CreateRow(0);
 
-            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out" });
+            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out", "Remarks" });
             
             //Write the Workbook to a memory stream
             MemoryStream output = new MemoryStream();
@@ -200,13 +200,14 @@ namespace Raisins.Client.Controllers
                              data.Type.Type,
                              data.Source.Source,
                              data.PaymentDate,
-                             optOutStatus = data.OptOut.ToString()
+                             optOutStatus = data.OptOut.ToString(),
+                             data.Remarks
                          };
 
             grid.DataSource = source;
             grid.DataBind();
 
-            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out" });
+            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Payment Date", "Opt Out", "Remarks" });
             return grid;
         }
 
@@ -260,13 +261,14 @@ namespace Raisins.Client.Controllers
                              data.Type.Type,
                              data.Source.Source,
                              data.PaymentDate,
-                             optOutStatus = data.OptOut.ToString()
+                             optOutStatus = data.OptOut.ToString(),
+                             data.Remarks
                          };
 
             grid.DataSource = source;
             grid.DataBind();
 
-            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out"});
+            SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out", "Remarks"});
 
             WriteExcel(model, grid);
 

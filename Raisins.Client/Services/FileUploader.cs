@@ -123,6 +123,10 @@ namespace Raisins.Client.Services
                             payment.OptOut = false;
                         }
                     }
+                    if (col.ColumnName == "Remarks")
+                    {
+                        payment.Remarks = row[col].ToString();
+                    }
                 }
                 
             }
