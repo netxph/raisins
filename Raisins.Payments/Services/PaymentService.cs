@@ -102,10 +102,7 @@ namespace Raisins.Payments.Services
         // Duplicate = Same Payment ID and payment in DB is Locked
         protected IEnumerable<P.Payment> RemoveDuplicate(IEnumerable<P.Payment> payments, P.Payments dbPayments)
         {
-            var paymentsById = payments.GroupBy(a => a.PaymentID)
-                                       .Select(b => b.Last());
-
-            var paymentsToImport = paymentsById.ToList();
+            var paymentsToImport = payments.ToList();
 
             foreach (var paymentById in payments)
             {
