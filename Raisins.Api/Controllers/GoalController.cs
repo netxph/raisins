@@ -1,6 +1,7 @@
 ﻿using Raisins.Data.Repository;
 using Raisins.Payments.Interfaces;
 using Raisins.Payments.Services;
+using Raisins.Tickets.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,10 @@ namespace Raisins.Api.Controllers
     {
         private readonly IPaymentService _service;
         protected IPaymentService Service { get { return _service; } }
-        public GoalController() : this(new PaymentService(new PaymentRepository(), new BeneficiaryForPaymentRepository(), new ProfileRepository()))
+        public GoalController() : this(new ApiResolver().PaymentService)
         {
         }
+
         public GoalController(IPaymentService service)
         {
             if (service == null)

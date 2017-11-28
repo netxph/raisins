@@ -18,9 +18,11 @@ namespace Raisins.Api.Controllers
     {
         private readonly ITicketService _ticketService;
         protected ITicketService TicketService { get { return _ticketService; } }
-        public TicketsController() : this(new TicketService(new TicketRepository(), new BeneficiaryForTicketRepository()))
+
+        public TicketsController() : this(new ApiResolver().TicketService)
         {
         }
+
         public TicketsController (ITicketService ticketService)
         {
             if (ticketService == null)
@@ -29,6 +31,7 @@ namespace Raisins.Api.Controllers
             }
             _ticketService = ticketService;
         }
+
         [HttpPost]
         public HttpResponseMessage GenerateTickets([FromBody]API.Payment payment)
         {

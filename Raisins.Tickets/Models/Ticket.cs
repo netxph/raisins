@@ -45,7 +45,6 @@ namespace Raisins.Tickets.Models
         public string Name { get; private set; }
 
         public int PaymentID { get; private set; }
-        public virtual Payment Payment { get; private set; }
 
         private string GenerateCode(int paymentID, int beneficiaryID, int iteration)
         {

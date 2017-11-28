@@ -44,20 +44,14 @@
     <Compile Include="Interfaces\IBeneficiaryForTicketRepository.cs" />
     <Compile Include="Interfaces\ITicketRepository.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
-    <Compile Include="ITicketCalculator.cs" />
+    <Compile Include="Interfaces\ITicketCalculator.cs" />
     <Compile Include="Models\Beneficiary.cs" />
-    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\Tickets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\TicketService.cs" />
-    <Compile Include="TicketCalculator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Raisins.Payments\Raisins.Payments.csproj">
-      <Project>{FB85C14D-FCFF-4CC3-AF09-08AC598E5396}</Project>
-      <Name>Raisins.Payments</Name>
-    </ProjectReference>
+    <Compile Include="Services\TicketCalculator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

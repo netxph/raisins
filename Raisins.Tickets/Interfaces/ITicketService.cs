@@ -1,4 +1,4 @@
-﻿using D = Raisins.Tickets.Models;
+﻿using MODELS = Raisins.Tickets.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,9 @@ namespace Raisins.Tickets.Interfaces
 {
     public interface ITicketService
     {
-        D.Tickets GetAll();
+        MODELS.Tickets GetAll();
         void GenerateTickets(int paymentID, int beneficiaryID, decimal amount, decimal exchangeRate, string name);
-        D.Beneficiary GetBeneficiary(string name);
+        MODELS.Beneficiary GetBeneficiary(string name);
+        int CalculateTickets(decimal amount, MODELS.Currency currency);
     }
 }

@@ -18,9 +18,9 @@ namespace Raisins.Tickets.Models
         {
             _tickets.AddRange(tickets);
         }
-        public void Add(Ticket payment)
+        public void Add(Ticket ticket)
         {
-            _tickets.Add(payment);
+            _tickets.Add(ticket);
         }
 
         public IEnumerator<Ticket> GetEnumerator()

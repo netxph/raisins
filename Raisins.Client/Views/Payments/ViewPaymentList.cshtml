@@ -54,13 +54,13 @@
                             Beneficiary
                         </th>
                         <th>
+                            Currency
+                        </th>
+                        <th>
                             Amount
                         </th>
                         <th>
                             Tickets
-                        </th>
-                        <th>
-                            Currency
                         </th>
                         <th>
                             Type
@@ -91,13 +91,13 @@
                                 @Html.DisplayFor(modelItem => item.Beneficiary.Name)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Amount)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Tickets)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Type.Type)

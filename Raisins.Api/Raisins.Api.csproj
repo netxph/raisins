@@ -202,6 +202,7 @@
     <Compile Include="Controllers\AccountsAllController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AccountsCreateController.cs" />
+    <Compile Include="Controllers\ApiResolver.cs" />
     <Compile Include="Controllers\BeneficiariesAllController.cs" />
     <Compile Include="Controllers\BeneficiariesController.cs" />
     <Compile Include="Controllers\CurrenciesController.cs" />
@@ -268,6 +269,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\apiprofile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

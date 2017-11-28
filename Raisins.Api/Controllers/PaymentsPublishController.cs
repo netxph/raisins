@@ -17,7 +17,7 @@ namespace Raisins.Api.Controllers
     {
         private readonly IPaymentService _service;
         protected IPaymentService Service { get { return _service; } }
-        public PaymentsPublishController() : this(new PaymentService(new PaymentRepository(), new BeneficiaryForPaymentRepository(), new ProfileRepository()))
+        public PaymentsPublishController() : this(new ApiResolver().PaymentService)
         {
         }
         public PaymentsPublishController(IPaymentService service)

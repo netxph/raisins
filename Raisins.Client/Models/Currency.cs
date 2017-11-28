@@ -14,5 +14,10 @@ namespace Raisins.Client.Models
         public string CurrencyCode { get; set; }
         public decimal Ratio { get; set; }
         public decimal ExchangeRate { get; set; }
+
+        public bool IsBulkEligible()
+        {
+            return CurrencyCode.Equals("PHP", StringComparison.InvariantCultureIgnoreCase);
+        }
     }
 }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Raisins.Tickets;
+using Raisins.Tickets.Interfaces;
 
 namespace Raisins.Payments.Services
 {
@@ -13,26 +15,42 @@ namespace Raisins.Payments.Services
         private readonly IPaymentRepository _paymentRepository;
         private readonly IBeneficiaryForPaymentRepository _beneficiaryRepository;
         private readonly IProfileRepository _profileRepository;
+        private readonly ITicketService _tickerService;
+
         protected IPaymentRepository PaymentRepository { get { return _paymentRepository; } }
         protected IBeneficiaryForPaymentRepository BeneficiaryRepository { get { return _beneficiaryRepository; } }
         protected IProfileRepository ProfileRepository { get { return _profileRepository; } }
-        public PaymentService(IPaymentRepository paymentRepository, IBeneficiaryForPaymentRepository beneficiaryRepository, IProfileRepository profileRepository)
+        protected ITicketService TicketService { get { return _tickerService; } }
+
+        public PaymentService(
+            IPaymentRepository paymentRepository,
+            IBeneficiaryForPaymentRepository beneficiaryRepository,
+            IProfileRepository profileRepository,
+            ITicketService ticketService)
         {
             if (paymentRepository == null)
             {
                 throw new ArgumentNullException("PaymentService:paymentRepository");
             }
             _paymentRepository = paymentRepository;
+
             if (beneficiaryRepository == null)
             {
                 throw new ArgumentNullException("PaymentService:beneficiaryRepository");
             }
             _beneficiaryRepository = beneficiaryRepository;
+
             if (profileRepository == null)
             {
                 throw new ArgumentNullException("PaymentService:profileRepository");
             }
             _profileRepository = profileRepository;
+
+            if (ticketService == null)
+            {
+                throw new ArgumentNullException("PaymentService:ticketService");
+            }
+            _tickerService = ticketService;
         }
 
         public P.Payment Get(int paymentID)
@@ -62,14 +80,29 @@ namespace Raisins.Payments.Services
         {
             var payments = PaymentRepository.GetAll();
 
-            int pricePerTicket = 50;
-
-            foreach (var payment in payments)
-            {
-                payment.Tickets = (int)payment.Amount / pricePerTicket;
-            }
+            FillTickets(payments);
 
             return payments;
+        }
+
+        private void FillTickets(P.Payments payments)
+        {
+            foreach (var payment in payments)
+            {
+                if (!payment.OptOut)
+                {
+                    payment.Tickets = TicketService.CalculateTickets(
+                                                        payment.Amount,
+                                                        new Tickets.Models.Currency(
+                                                                    payment.Currency.CurrencyCode,
+                                                                    payment.Currency.Ratio,
+                                                                    payment.Currency.ExchangeRate));
+                }
+                else
+                {
+                    payment.Tickets = 0;
+                }
+            }
         }
 
         public P.Payments GetByAccount(string userName)

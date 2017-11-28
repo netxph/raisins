@@ -74,6 +74,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Raisins.Client\Raisins.Client.csproj">
+      <Project>{5999D137-F9DC-4A13-B2D8-9297CFB1DA7B}</Project>
+      <Name>Raisins.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raisins.Tickets\Raisins.Tickets.csproj">
+      <Project>{25284830-1e10-4ea1-a706-8ba693b5ad65}</Project>
+      <Name>Raisins.Tickets</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -17,9 +17,11 @@ namespace Raisins.Api.Controllers
     {
         private readonly ITicketService _ticketService;
         protected ITicketService TicketService { get { return _ticketService; } }
-        public TicketsAllController() : this(new TicketService(new TicketRepository(), new BeneficiaryForTicketRepository()))
+
+        public TicketsAllController() : this(new ApiResolver().TicketService)
         {
         }
+
         public TicketsAllController(ITicketService ticketService)
         {
             if (ticketService == null)
@@ -28,6 +30,7 @@ namespace Raisins.Api.Controllers
             }
             _ticketService = ticketService;
         }
+
         [HttpPost]
         public HttpResponseMessage GenerateTickets([FromBody]IEnumerable<API.Payment> payments)
             //nasa Payment class, gawin same sa TicketsController
