@@ -69,6 +69,9 @@
                             Opt Out
                         </th>
                         <th>
+                            Remarks
+                        </th>
+                        <th>
                             Tools
                         </th>
                     </tr>
@@ -98,6 +101,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.OptOut)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remarks)
                             </td>
                             <td>
                                 @if (!item.Locked)
