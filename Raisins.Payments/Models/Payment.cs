@@ -85,6 +85,7 @@ namespace Raisins.Payments.Models
         public Currency Currency { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
+        public int Tickets { get; set; }
         public bool Locked { get; set; }
         public int PaymentID { get; set; }
 

@@ -34,28 +34,44 @@ namespace Raisins.Payments.Services
             }
             _profileRepository = profileRepository;
         }
+
         public P.Payment Get(int paymentID)
         {
             return PaymentRepository.GetByID(paymentID);
         }
+
         public IEnumerable<P.PaymentSummary> GetSummary()
         {
             var beneficiaries = BeneficiaryRepository.GetAll();
+
             var summaries = new List<P.PaymentSummary>();
+
             foreach (var beneficiary in beneficiaries)
             {
                 summaries.Add(new P.PaymentSummary(beneficiary.Name, _paymentRepository.GetByBeneficiary(beneficiary.Name), "PHP"));
             }
             return summaries;
         }
+
         public decimal GetTotal()
         {
             return _paymentRepository.GetAll().GetTotal();
         }
+
         public P.Payments GetAll()
         {
-            return PaymentRepository.GetAll();
+            var payments = PaymentRepository.GetAll();
+
+            int pricePerTicket = 50;
+
+            foreach (var payment in payments)
+            {
+                payment.Tickets = (int)payment.Amount / pricePerTicket;
+            }
+
+            return payments;
         }
+
         public P.Payments GetByAccount(string userName)
         {
             return PaymentRepository.GetByAccount(userName);

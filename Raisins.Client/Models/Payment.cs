@@ -84,6 +84,7 @@ namespace Raisins.Client.Models
         [Display(Name = "Donor's Name")]
         public string Name { get; set; }
         public decimal Amount { get; set; }
+        public int Tickets { get; set; }
         public bool Locked { get; set; }
         public int PaymentID { get; set; }
 

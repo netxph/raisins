@@ -57,6 +57,9 @@
                             Amount
                         </th>
                         <th>
+                            Tickets
+                        </th>
+                        <th>
                             Currency
                         </th>
                         <th>
@@ -86,6 +89,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tickets)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Currency.CurrencyCode)
