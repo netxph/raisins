@@ -12,6 +12,7 @@ namespace Raisins.MailJob
         public bool Status { get; set; }
         public string To { get; set; }
         public string Name { get; set; }
+        public string Beneficiary { get; set; }
         public decimal Amount { get; set; }
         public List<Ticket> Tickets { get; set; }
     }

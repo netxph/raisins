@@ -44,6 +44,13 @@ namespace Raisins.Notifications.Models
         public bool Status { get; private set; }
         public string To { get; private set; }
 
+        public void SetBeneficiary(string beneficiary)
+        {
+            Beneficiary = beneficiary;
+        }
+
+        public string Beneficiary { get; private set; }
+
         public void SetName(string name)
         {
             Name = name;

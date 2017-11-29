@@ -1,0 +1,27 @@
+﻿[Do the HMS Move 2017] - Ticket Notification
+<h1>Thank you for voting {Beneficiary}, {Name}</h1>
+
+<p>
+Ticket Number(s) for your vote(s) is/are:
+</p>
+
+<code>
+{Tickets}
+</code>
+
+<p>
+Let's beat our record last year and raise Php 1,000,000 for scholars of the Food for Hungry Minds.
+</p>
+
+<p>
+All votes will be part of the raffle draw (1 vote = 1 entry). More votes, more chances of winning.
+</p>
+
+<p>
+Voting period ends on December 01.
+</p>
+
+<p>
+<strong>DO THE HMS MOVE 2017</strong><br>
+<a href="http://foodforhungryminds.org">http://foodforhungryminds.org</a>
+</p>

@@ -52,14 +52,16 @@ namespace Raisins.Data.Repository
                     if (tickets.Any())
                     {
                         var mail = new MailQueue(item.PaymentID, item.To, item.Status);
+                        mail.SetBeneficiary(payment.Beneficiary.Name);
                         mail.SetName(payment.Name);
                         mail.SetAmount(payment.Amount);
                         mail.SetTickets(tickets.ConvertAll(t => new Ticket(t.TicketCode)));
                          
                         mails.Add(mail);
 
-                        item.Status = true;
                     }
+
+                    item.Status = true;
 
                 }
 
