@@ -425,7 +425,7 @@ namespace Raisins.Client.Controllers
 
             var assignedBeneficiaryNames = account.Profile.Beneficiaries.Select(b => b.Name);
 
-            payments.RemoveAll(payment => assignedBeneficiaryNames.Any(name => name != payment.Beneficiary.Name));
+            payments.RemoveAll(payment => !assignedBeneficiaryNames.Any(name => name.Trim().Equals(payment.Beneficiary.Name.Trim(), StringComparison.InvariantCultureIgnoreCase)));
 
             return payments;
         }
