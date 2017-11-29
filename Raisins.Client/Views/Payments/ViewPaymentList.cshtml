@@ -40,10 +40,14 @@
         string modifiedBy = HttpContext.Current.Session["user"].ToString();
     }
 
+    <div class="row">
+        <hr \>
+        <b>Total:</b> ₱ @Html.DisplayFor(viewModel => Model.Total)
+    </div>
+
     <div class="row" id="paymentsTable">
         @using (Html.BeginForm("PublishPayment", "Payments", FormMethod.Get))
         {
-            <hr />
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
