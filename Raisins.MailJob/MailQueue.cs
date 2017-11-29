@@ -11,5 +11,13 @@ namespace Raisins.MailJob
         public int PaymentID { get; set; }
         public bool Status { get; set; }
         public string To { get; set; }
+        public string Name { get; set; }
+        public decimal Amount { get; set; }
+        public List<Ticket> Tickets { get; set; }
+    }
+
+    public class Ticket
+    {
+        public string Code { get; set; }
     }
 }

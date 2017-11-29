@@ -37,6 +37,9 @@ namespace Raisins.MailJob
                 foreach (var mailQueue in response.Data)
                 {
                     Console.WriteLine(mailQueue.PaymentID);
+                    Console.WriteLine(mailQueue.Name);
+                    Console.WriteLine(mailQueue.Amount);
+                    Console.WriteLine(mailQueue.Tickets.Count);
                 }
 
                 Console.WriteLine($"Sleeping for {Interval}ms...");
