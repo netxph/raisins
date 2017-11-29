@@ -39,15 +39,16 @@ namespace Raisins.Tickets.Services
             _ticketCalculator = ticketCalculator;
         }
 
-        public void GenerateTickets(int paymentID, int beneficiaryID, decimal amount, decimal exchangeRate, string name)
+        public void GenerateTickets(int paymentID, int beneficiaryID, decimal amount, D.Currency currency, string name)
         {
             D.Tickets tickets = new D.Tickets();
-            int iteration = TicketCalculator.Count(amount, exchangeRate);
+            int iteration = CalculateTickets(amount, currency);
 
             for (int i = 0; i < iteration; i++)
             {
                 tickets.Add(new D.Ticket(paymentID, beneficiaryID, i, name));
             }
+
             TicketRepository.Add(tickets);
         }
 

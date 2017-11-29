@@ -8,7 +8,6 @@ namespace Raisins.Tickets.Interfaces
 {
     public interface ITicketCalculator
     {
-        int Count(decimal amount, decimal exchangeRate);
         int CalculateSilver(decimal amount);
         int CalculateGold(decimal amount);
         int CalculatePlatinum(decimal amount);

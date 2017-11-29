@@ -57,16 +57,6 @@ namespace Raisins.Tickets.Services
             return (bulks * tickets) + CalculateBasic(excess, TICKET_PRICE);
         }
 
-        public int Count(decimal amount, decimal exchangeRate)
-        {
-            int count = (((int)((amount) * exchangeRate) / 2000) * (40 + 15))
-                + ((((int)((amount) * exchangeRate) % 2000) / 1000) * (20 + 5))
-                + ((((((int)((amount) * exchangeRate) % 2000) % 1000)) / 500) * (20 + 5))
-                + (((((((int)((amount) * exchangeRate) % 2000) % 1000)) % 500) / 50) * 1);
-
-            return count;
-        }
-
         public int CalculateBasic(decimal amount, int ratio)
         {
             return (int)(amount / ratio);

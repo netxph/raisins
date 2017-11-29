@@ -39,7 +39,12 @@ namespace Raisins.Api.Controllers
             {                
                 T.Beneficiary beneficiary = TicketService.GetBeneficiary(payment.Beneficiary.Name);
 
-                TicketService.GenerateTickets(payment.PaymentID, beneficiary.BeneficiaryID, payment.Amount, payment.Currency.ExchangeRate, payment.Name);
+                TicketService.GenerateTickets(
+                                payment.PaymentID,
+                                beneficiary.BeneficiaryID,
+                                payment.Amount,
+                                new T.Currency(payment.Currency.CurrencyCode, payment.Currency.Ratio, payment.Currency.ExchangeRate),
+                                payment.Name);
             }
             
             return Request.CreateResponse(HttpStatusCode.OK);
