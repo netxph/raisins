@@ -12,7 +12,7 @@ namespace Raisins.MailJob
         static void Main(string[] args)
         {
             var tokenSource = new CancellationTokenSource();
-            var job = new Job(10, 10000, "localhost", 2525);
+            var job = new Job(10, 10000, "localhost", 2525, "http://localhost:4000/api");
 
             Console.WriteLine("Raisins MailJob");
             Console.WriteLine("Type [Q] to exit.");

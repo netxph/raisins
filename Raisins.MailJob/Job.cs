@@ -15,13 +15,13 @@ namespace Raisins.MailJob
         public int SmtpPort { get; private set; }
         public string ServerBaseUri { get; private set; }
 
-        public Job(int count, int interval, string smtpHost, int smtpPort)
+        public Job(int count, int interval, string smtpHost, int smtpPort, string serverBaseUri)
         {
             Count = count;
             Interval = interval;
             SmtpHost = smtpHost;
             SmtpPort = smtpPort;
-            ServerBaseUri = "http://localhost:4000/api";
+            ServerBaseUri = serverBaseUri;
         }
 
         public void Run(CancellationToken token)
