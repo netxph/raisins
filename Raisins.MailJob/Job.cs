@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using RestSharp;
@@ -14,19 +13,14 @@ namespace Raisins.MailJob
         
         public int Count { get; private set; }
         public int Interval { get; private set; }
-        public string SmtpHost { get; private set; }
-        public int SmtpPort { get; private set; }
         public string ServerBaseUri { get; private set; }
 
-        public Job(int count, int interval, string smtpHost, int smtpPort, string serverBaseUri)
+        public Job(int count, int interval, string serverBaseUri)
         {
             Count = count;
             Interval = interval;
-            SmtpHost = smtpHost;
-            SmtpPort = smtpPort;
             ServerBaseUri = serverBaseUri;
 
-            Mailer.Instance = new SmtpMailer(smtpHost, smtpPort);
         }
 
         public void Run(CancellationToken token)
@@ -65,7 +59,7 @@ namespace Raisins.MailJob
                         Mailer.Send(message);
 
                         Console.WriteLine("DONE.");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(5000);
                     }
                     catch (Exception ex)
                     {
@@ -78,65 +72,5 @@ namespace Raisins.MailJob
                 Thread.Sleep(Interval);
             }
         }
-    }
-
-    public class SmtpMailer : IMailProvider
-    {
-
-        private readonly SmtpClient _client;
-
-        public SmtpMailer(string smtpHost, int smtpPort)
-        {
-            _client = new SmtpClient(smtpHost, smtpPort);
-            _client.UseDefaultCredentials = true;
-        }
-
-        public void OnSend(Mail message)
-        {
-            var mail = new MailMessage(message.From, message.To);
-            mail.Body = message.Body;
-            mail.IsBodyHtml = true;
-
-            _client.Send(mail);
-        }
-    }
-
-    public abstract class Mailer
-    {
-
-        private static IMailProvider _mailProvider;
-
-        public static IMailProvider Instance
-        {
-            get { return _mailProvider; }
-            set { _mailProvider = value; }
-        }
-
-        public static void Send(Mail message)
-        {
-            Instance.OnSend(message);
-        }
-    }
-
-    public class Mail
-    {
-
-        public string From { get; private set; }
-        public string To { get; private set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
-
-        public Mail(string from, string to)
-        {
-            From = from;
-            To = to;
-            Subject = string.Empty;
-            Body = string.Empty;
-        }
-    }
-
-    public interface IMailProvider
-    {
-        void OnSend(Mail message);
     }
 }

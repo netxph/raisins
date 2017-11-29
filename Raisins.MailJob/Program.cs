@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,7 +13,15 @@ namespace Raisins.MailJob
         static void Main(string[] args)
         {
             var tokenSource = new CancellationTokenSource();
-            var job = new Job(10, 10000, "localhost", 2525, "http://localhost:4000/api");
+
+            //Mailer.Instance = new SmtpMailer("localhost", 2525);
+            Mailer.Instance = new OutlookMailer();
+
+            var count = int.Parse(ConfigurationManager.AppSettings["MailCount"]);
+            var sleep = int.Parse(ConfigurationManager.AppSettings["SleepTime"]);
+            var baseUri = ConfigurationManager.AppSettings["ServiceBaseUri"];
+
+            var job = new Job(count, sleep, baseUri);
 
             Console.WriteLine("Raisins MailJob");
             Console.WriteLine("Type [Q] to exit.");
