@@ -8,27 +8,16 @@ namespace Raisins.Notifications.Models
 {
     public class MailQueue
     {
+        private readonly List<Ticket> _tickets;
+
+
         public MailQueue(int paymentID, string to)
+            : this(paymentID, to, false)
         {
-            if (paymentID < 0)
-            {
-                throw new ArgumentNullException("MailQueue:paymentID");
-            }
-            PaymentID = paymentID;
-            if (string.IsNullOrEmpty(to))
-            {
-                throw new ArgumentNullException("MailQueue:to");
-            }
-            To = to;           
         }
         public MailQueue(int paymentID, bool status)
+            : this(paymentID, string.Empty, status)
         {
-            if (paymentID < 0)
-            {
-                throw new ArgumentNullException("MailQueue:paymentID");
-            }
-            PaymentID = paymentID;
-            Status = status;
         }
 
         public MailQueue(int paymentID, string to, bool status)
@@ -39,13 +28,52 @@ namespace Raisins.Notifications.Models
             }
             PaymentID = paymentID;
             Status = status;
+
+            if (string.IsNullOrEmpty(to))
+            {
+                throw new ArgumentNullException("MailQueue:to");
+            }
+
             To = to;
+
+            _tickets = new List<Ticket>();
+            Name = string.Empty;
         }
+
         public int PaymentID { get; private set; }
         public bool Status { get; private set; }
-        public string From { get; private set; }
         public string To { get; private set; }
-        public string Subject { get; private set; }
-        public string Content { get; private set; }
+
+        public void SetName(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; private set; }
+
+        public decimal Amount { get; private set; }
+
+        public void SetAmount(decimal amount)
+        {
+            Amount = amount;
+        }
+
+        public IEnumerable<Ticket> Tickets { get { return _tickets; } }
+
+        public void SetTickets(IEnumerable<Ticket> tickets)
+        {
+            _tickets.Clear();
+            _tickets.AddRange(tickets);
+        }
+    }
+
+    public class Ticket
+    {
+        public Ticket(string code)
+        {
+            Code = code;
+        }
+
+        public string Code { get; private set; }
     }
 }

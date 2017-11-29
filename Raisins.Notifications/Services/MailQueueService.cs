@@ -34,7 +34,7 @@ namespace Raisins.Notifications.Services
 
         public MailQueues GetAll(int count)
         {
-            return MailQueueRepository.GetAll();
+            return MailQueueRepository.GetAll(count);
         }
     }
 }

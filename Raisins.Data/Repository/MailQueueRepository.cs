@@ -37,9 +37,36 @@ namespace Raisins.Data.Repository
             throw new NotImplementedException();
         }
 
-        public MailQueues GetAll()
+        public MailQueues GetAll(int count)
         {
-            return ConvertToDomainList(_context.MailQueues);
+            var mails = new MailQueues();
+            var data = _context.MailQueues.Where(m => !m.Status && string.IsNullOrEmpty(m.Content)).Take(count);
+
+            foreach (var item in data)
+            {
+                var payment = _context.Payments.FirstOrDefault(p => p.PaymentID == item.PaymentID);
+                if (payment != null)
+                {
+                    var tickets = _context.Tickets.Where(t => t.PaymentID == payment.PaymentID).ToList();
+
+                    if (tickets.Any())
+                    {
+                        var mail = new MailQueue(item.PaymentID, item.To, item.Status);
+                        mail.SetName(payment.Name);
+                        mail.SetAmount(payment.Amount);
+                        mail.SetTickets(tickets.ConvertAll(t => new Ticket(t.TicketCode)));
+                         
+                        mails.Add(mail);
+
+                        item.Status = true;
+                    }
+
+                }
+
+            }
+
+            _context.SaveChanges();
+            return mails;
         }
 
         private MailQueue ConvertToDomain(DATA.MailQueue efMailQueue)

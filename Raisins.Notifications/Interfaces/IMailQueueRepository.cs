@@ -9,7 +9,7 @@ namespace Raisins.Notifications.Interfaces
 {
     public interface IMailQueueRepository
     {
-        MailQueues GetAll();
+        MailQueues GetAll(int count);
         void DeleteMultiple(MailQueues mailQueue);
         void Add(MailQueue mailQueue);
         void Add(MailQueues mailQueues);
