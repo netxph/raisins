@@ -44,7 +44,7 @@ namespace Raisins.MailJob
                 {
                     try
                     {
-                        Console.Write($"Sending email to {mailQueue.Name} [{mailQueue.To}]... ");
+                        Console.Write($"[{mailQueue.PaymentID}] Sending email to {mailQueue.Name} [{mailQueue.To}]... ");
 
                         var message = new MailMessage("no-reply@navitaire.com", mailQueue.To)
                         {
