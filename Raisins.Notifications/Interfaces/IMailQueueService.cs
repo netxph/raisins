@@ -11,6 +11,6 @@ namespace Raisins.Notifications.Interfaces
     {
         void AddToQueue(MailQueue mail);
         void AddListToQueue(MailQueues mails);
-        MailQueues GetAll();
+        MailQueues GetAll(int count);
     }
 }

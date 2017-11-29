@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Routing;
 
 namespace Raisins.Api.Controllers
 {
@@ -42,9 +43,9 @@ namespace Raisins.Api.Controllers
         }
 
         [HttpGet]
-        public MailQueues GetMailQueues()
+        public MailQueues GetMailQueues(int count)
         {
-            return MailQueueService.GetAll();
+            return MailQueueService.GetAll(count);
         }
     }
 }
