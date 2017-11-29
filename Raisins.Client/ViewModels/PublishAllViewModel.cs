@@ -50,7 +50,7 @@ namespace Raisins.Client.ViewModels
             }
         }
 
-        public decimal Total { get { return SelectedPayment().Select(payment => payment.Amount * payment.Currency.ExchangeRate).Sum(); } }
+        public string Total { get { return SelectedPayment().Select(payment => payment.Amount * payment.Currency.ExchangeRate).Sum().ToString("#,##0.00"); } }
 
         public PublishAllViewModel()
         {
