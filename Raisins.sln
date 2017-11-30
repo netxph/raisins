@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Data", "Raisins.Data\Raisins.Data.csproj", "{A4C8770A-A48F-4017-B94A-B6F401AB1F05}"
 EndProject
@@ -24,6 +24,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Roles", "Raisins.Roles\Raisins.Roles.csproj", "{28748972-2423-40C4-AD99-4C91402ED699}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.MailJob", "Raisins.MailJob\Raisins.MailJob.csproj", "{014A7DB1-FDDB-4256-AFEC-87CC88E2DDE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Client.Randomizer", "Raisins.Client.Randomizer\Raisins.Client.Randomizer.csproj", "{95885566-7B8E-4808-9B50-5816D8994237}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raisins.Raffles", "Raisins.Raffles\Raisins.Raffles.csproj", "{953C120A-7934-40C9-8347-79ADCDDC75DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,14 @@ Global
 		{014A7DB1-FDDB-4256-AFEC-87CC88E2DDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{014A7DB1-FDDB-4256-AFEC-87CC88E2DDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{014A7DB1-FDDB-4256-AFEC-87CC88E2DDE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95885566-7B8E-4808-9B50-5816D8994237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95885566-7B8E-4808-9B50-5816D8994237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95885566-7B8E-4808-9B50-5816D8994237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95885566-7B8E-4808-9B50-5816D8994237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{953C120A-7934-40C9-8347-79ADCDDC75DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{953C120A-7934-40C9-8347-79ADCDDC75DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{953C120A-7934-40C9-8347-79ADCDDC75DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{953C120A-7934-40C9-8347-79ADCDDC75DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

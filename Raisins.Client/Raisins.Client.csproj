@@ -195,6 +195,7 @@
     <Compile Include="Controllers\BeneficiariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\RaffleController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="ErrorMessageResult.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PaymentViewModel.cs" />
     <Compile Include="ViewModels\PublishAllViewModel.cs" />
+    <Compile Include="ViewModels\RaffleViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\UploadPaymentViewModel.cs" />
   </ItemGroup>
@@ -232,6 +234,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\bg6.png" />
     <Content Include="Content\Images\cute_puppy.jpg" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -311,6 +314,10 @@
     <Content Include="Views\Roles\ViewRoleList.cshtml" />
     <Content Include="Views\Roles\EditRole.cshtml" />
     <Content Include="Views\Roles\NewRole.cshtml" />
+    <Content Include="Views\Raffle\RaffleView.cshtml" />
+    <Content Include="Views\Raffle\RaffleLocal.cshtml" />
+    <Content Include="Views\Raffle\RaffleExternal.cshtml" />
+    <Content Include="Views\Raffle\RaffleInternational.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -349,6 +356,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Raisins.Tickets\Raisins.Tickets.csproj">
+      <Project>{25284830-1E10-4EA1-A706-8BA693B5AD65}</Project>
+      <Name>Raisins.Tickets</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

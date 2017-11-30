@@ -219,6 +219,7 @@
     <Compile Include="Controllers\PaymentsPublishController.cs" />
     <Compile Include="Controllers\PaymentSummariesController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RaffleController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\RolesListController.cs" />
     <Compile Include="Controllers\SourcesController.cs" />
@@ -297,6 +298,10 @@
       <Project>{9CCFAF6E-8B41-4F80-955B-03963409E48A}</Project>
       <Name>Raisins.Beneficiaries</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Raisins.Client.Randomizer\Raisins.Client.Randomizer.csproj">
+      <Project>{95885566-7b8e-4808-9b50-5816d8994237}</Project>
+      <Name>Raisins.Client.Randomizer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Raisins.Data\Raisins.Data.csproj">
       <Project>{A4C8770A-A48F-4017-B94A-B6F401AB1F05}</Project>
       <Name>Raisins.Data</Name>
@@ -312,6 +317,10 @@
     <ProjectReference Include="..\Raisins.Payments\Raisins.Payments.csproj">
       <Project>{FB85C14D-FCFF-4CC3-AF09-08AC598E5396}</Project>
       <Name>Raisins.Payments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raisins.Raffles\Raisins.Raffles.csproj">
+      <Project>{953C120A-7934-40C9-8347-79ADCDDC75DD}</Project>
+      <Name>Raisins.Raffles</Name>
     </ProjectReference>
     <ProjectReference Include="..\Raisins.Roles\Raisins.Roles.csproj">
       <Project>{28748972-2423-40C4-AD99-4C91402ED699}</Project>

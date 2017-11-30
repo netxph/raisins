@@ -16,15 +16,18 @@ namespace Raisins.Data.Repository
         public TicketRepository() : this(RaisinsContext.Instance)
         {
         }
+
         public TicketRepository(RaisinsContext context)
         {
             _context = context;
         }
+
         public void Add(D.Ticket ticket)
         {
             _context.Tickets.Add(ConvertToEF(ticket));
             _context.SaveChanges();
         }
+
         public void Add(D.Tickets tickets)
         {
             _context.Tickets.AddRange(ConvertToEFList(tickets));
@@ -34,6 +37,24 @@ namespace Raisins.Data.Repository
         public D.Tickets GetAll()
         {
             return ConvertToDomainList(_context.Tickets);
+        }
+
+        //TODO: Rework on this if you can integrate to other methods
+        public D.Tickets GetAll(string paymentSource)
+        {
+            D.Tickets tickets = new D.Tickets();
+
+            foreach (var efTicket in _context.Tickets)
+            {
+                var ticket = ConvertToDomain(efTicket);
+
+                if (ticket.PaymentSource.Equals(paymentSource, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    tickets.Add(ticket);
+                }
+            }
+
+            return tickets;
         }
 
         public D.Ticket GetByCode(string ticketCode)
@@ -46,23 +67,28 @@ namespace Raisins.Data.Repository
             return ConvertToDomain(_context.Tickets.FirstOrDefault(t => t.TicketID == ticketID));
         }
 
-        private D.Ticket ConvertToDomain(DATA.Ticket efTicket)
-        {
-            return new D.Ticket(efTicket.TicketCode, efTicket.Name, efTicket.PaymentID);
-        }
         private D.Tickets ConvertToDomainList(IEnumerable<DATA.Ticket> efTickets)
         {
             D.Tickets tickets = new D.Tickets();
+
             foreach (var efTicket in efTickets)
             {
                 tickets.Add(ConvertToDomain(efTicket));
             }
+
             return tickets;
         }
+
+        private D.Ticket ConvertToDomain(DATA.Ticket efTicket)
+        {
+            return new D.Ticket(efTicket.TicketCode, efTicket.Name, efTicket.PaymentID);
+        }
+
         private DATA.Ticket ConvertToEF(D.Ticket ticket)
         {
             return new DATA.Ticket(ticket.TicketCode, ticket.Name, ticket.PaymentID);
         }
+
         private IEnumerable<DATA.Ticket> ConvertToEFList(D.Tickets tickets)
         {
             List<DATA.Ticket> eftickets = new List<DATA.Ticket>();
@@ -70,7 +96,7 @@ namespace Raisins.Data.Repository
             {
                 eftickets.Add(ConvertToEF(ticket));
             }
-            return eftickets;            
+            return eftickets;
         }
     }
 }

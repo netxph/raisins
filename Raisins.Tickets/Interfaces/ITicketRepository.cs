@@ -10,6 +10,7 @@ namespace Raisins.Tickets.Interfaces
     public interface ITicketRepository
     {
         M.Tickets GetAll();
+        M.Tickets GetAll(string paymentSource);
         M.Ticket GetByCode(string ticketCode);
         M.Ticket GetByID(int ticketID);
         void Add(M.Ticket ticket);

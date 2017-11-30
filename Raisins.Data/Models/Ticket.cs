@@ -12,12 +12,14 @@ namespace Raisins.Data.Models
         public Ticket()
         {
         }
+
         public Ticket(string ticketCode, string name, int paymentID)
         {
             TicketCode = ticketCode;
             Name = name;
             PaymentID = paymentID;
         }
+
         [Key]
         public long TicketID { get; set; }
 

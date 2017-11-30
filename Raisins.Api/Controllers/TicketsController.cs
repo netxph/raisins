@@ -38,6 +38,7 @@ namespace Raisins.Api.Controllers
             T.Beneficiary beneficiary = TicketService.GetBeneficiary(payment.Beneficiary.Name);
 
             TicketService.GenerateTickets(
+                payment.Source.Source,
                 payment.PaymentID,
                 beneficiary.BeneficiaryID,
                 payment.Amount,

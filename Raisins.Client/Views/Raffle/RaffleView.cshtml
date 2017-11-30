@@ -1,0 +1,39 @@
+﻿@using Raisins.Client.ViewModels
+@using Raisins.Client.Controllers
+
+@model RaffleViewModel
+@{
+    ViewBag.Title = "HMS Raffle";
+}
+
+<div>
+    <div class="table-bordered" style="width:inherit">
+        <div class="col-lg-offset-1">
+            <div class="mx-auto">
+                <div class="col-xs-4">
+                    @using (Html.BeginForm("RaffleLocal", "Raffle", FormMethod.Get))
+                    {
+                        <button type="submit" class="btn btn-default" style="width:200px">Local</button>
+                    }
+                </div>
+                <div class="col-xs-4">
+                    @using (Html.BeginForm("RaffleExternal", "Raffle", FormMethod.Get))
+                    {
+                        <button type="submit" class="btn btn-default" style="width:200px">External</button>
+                    }
+                </div>
+                <div class="col-xs-4">
+                    @using (Html.BeginForm("RaffleInternational", "Raffle", FormMethod.Get))
+                    {
+                        <button type="submit" class="btn btn-default" style="width:200px">International</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-bordered" style="padding-top: 200px">
+        <h1 class="text-center">
+            Congratulations...
+        </h1>
+    </div>
+</div>
