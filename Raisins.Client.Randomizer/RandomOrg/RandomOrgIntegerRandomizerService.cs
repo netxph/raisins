@@ -42,16 +42,14 @@ namespace Raisins.Client.Randomizer.RandomOrg
 
             request.AddJsonBody(CreateIntegerRequest(min, max));
 
-            //var response = client.Execute<GenerateIntegerResponse>(request).Data;
+            var response = client.Execute<GenerateIntegerResponse>(request).Data;
 
-            //if(response.Error != null)
-            //{
-            //    throw new InvalidOperationException(response.Error.Message);
-            //}
+            if (response.Error != null)
+            {
+                throw new InvalidOperationException(response.Error.Message);
+            }
 
-            //return response.Result.Random.Data.First();
-
-            return min;
+            return response.Result.Random.Data.First();
         }
 
         protected virtual GenerateIntegerRequest CreateIntegerRequest(int min, int max)

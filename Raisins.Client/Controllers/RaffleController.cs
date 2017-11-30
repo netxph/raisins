@@ -1,4 +1,5 @@
-﻿using Raisins.Client.ViewModels;
+﻿using Raisins.Client.ActionFilters;
+using Raisins.Client.ViewModels;
 using Raisins.Tickets.Models;
 using RestSharp;
 using RestSharp.Deserializers;
@@ -12,21 +13,25 @@ namespace Raisins.Client.Controllers
 {
     public class RaffleController : BaseClientController
     {
+        [BasicPermissions("raffle_ticket")]
         public ActionResult RaffleView()
         {
             return View();
         }
 
+        [BasicPermissions("raffle_ticket")]
         public ActionResult RaffleLocal()
         {
             return Raffle("Local");
         }
 
+        [BasicPermissions("raffle_ticket")]
         public ActionResult RaffleExternal()
         {
             return Raffle("External");
         }
 
+        [BasicPermissions("raffle_ticket")]
         public ActionResult RaffleInternational()
         {
             return Raffle("International");
