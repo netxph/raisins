@@ -7,11 +7,8 @@
 }
 <div>
     <div>
-        Raffle - External
-    </div>
-    <div class="table-bordered" style="width:inherit">
         <div class="col-lg-offset-1">
-            <div class="mx-auto">
+            <div class="row">
                 <div class="col-xs-4">
                     @using (Html.BeginForm("RaffleLocal", "Raffle", FormMethod.Get))
                     {
@@ -32,10 +29,20 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="padding:15px">
+
+        </div>
+        <div class="row">
+            <div style="background-image:url(../../Content/Images/bg6.png)">
+                <div class="row" style="padding:10%">
+
+                 </div>
+                <h1 class="text-center" style="color:azure">
+                    @Model.Winner
+                </h1>
+                <div class="row" style="padding:10%"/>
+            </div>
+        </div>
     </div>
-    <div class="table-bordered" style="padding-top: 200px">
-        <h1 class="text-center">
-            @Model.Winner
-        </h1>
-    </div>
+
 </div>
