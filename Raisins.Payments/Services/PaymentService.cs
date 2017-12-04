@@ -82,6 +82,8 @@ namespace Raisins.Payments.Services
 
             FillTickets(payments);
 
+            payments.TotalTickets = payments.Select(t => t.Tickets).Sum();
+
             return payments;
         }
 

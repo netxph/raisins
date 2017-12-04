@@ -50,6 +50,7 @@ namespace Raisins.Client.Controllers
 
             var viewModel = new RaffleViewModel();
             viewModel.Winner = ticket.Name ?? string.Empty;
+            viewModel.TicketCode = ticket.TicketCode ?? string.Empty;
 
             return View(viewModel);
         }

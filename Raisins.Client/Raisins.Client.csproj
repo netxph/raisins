@@ -195,6 +195,7 @@
     <Compile Include="Controllers\BeneficiariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Controllers\RaffleController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TicketsController.cs" />

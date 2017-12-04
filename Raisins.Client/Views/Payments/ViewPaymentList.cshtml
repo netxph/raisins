@@ -18,22 +18,33 @@
 
 <div>
     <div>
-        @using (Html.BeginForm("Export", "Payments", FormMethod.Get))
-        {
-            <div class="row">
-                <h3 style="float: left">List of Payments</h3>
-                <br />
-            </div>
-            <div class="form-inline">
+        <div class="row">
+            <h3 style="float: left">List of Payments</h3>
+            <br />
+        </div>
+        <div class="row" >
+            <div class="col-xs-4">
                 @Html.LabelFor(m => m.Beneficiary, "Beneficiary")
+            </div>
+            <div class="col-xs-4">
                 @Html.DropDownListFor(m => m.SelectedBeneficiary,
                  Model.UniqueBeneficiaries,
-                 "Select Beneficiary",
+                 "All Beneficiary",
                  new { @class = "form-control", @id = "selected", @onchange = "showBeneficiaryPayment()" })
-                <input id="ss" style="float:right; margin-left: 10px; margin-right: 40px" type="button" value="Publish All" class="btn btn-default" onclick="publishAll()" />
-                <button id="exportButton" type="submit" style="float:right" class="btn btn-default fa fa-file-excel-o">Export</button>
             </div>
-        }
+            <div class="col-xs-4">
+                @using (Html.BeginForm("PublishAllPayments", "Publish", Model.Payments, FormMethod.Post))
+                {
+                    <button class="btn btn-default">Publish All</button>
+                }
+            </div>
+            <div class="col-xs-4">
+                @using (Html.BeginForm("Export", "Payments", FormMethod.Get))
+                {
+                    <button id="exportButton" type="submit" style="float:right" class="btn btn-default fa fa-file-excel-o">Export</button>
+                }
+            </div>
+        </div>
     </div>
 
     @{
@@ -44,7 +55,7 @@
         <hr \>
         <b>Total:</b> ₱ @Html.DisplayFor(viewModel => Model.Total)
     </div>
-
+    Total Tickets: @Model.TotalTickets
     <div class="row" id="paymentsTable">
         @using (Html.BeginForm("PublishPayment", "Payments", FormMethod.Get))
         {
@@ -119,10 +130,8 @@
                                 @if (!item.Locked)
                                 {
                                     @Html.ActionLink("Edit", "EditPayment", "Payments", new { paymentID = item.PaymentID }, null)
-                                    @*<button style="float: right" type="submit" class="btn btn-default" value="id = item.paymentID">Publish</button>*@
                                     <span> | </span>
                                     @Html.ActionLink("Publish", "PublishPayment", "Payments", new { paymentID = item.PaymentID, modifiedBy }, null)
-                                    @*<span class="text-primary">| </span><a href="#" onclick="publish(@item.PaymentID)">Publish</a>*@
                                 }
                                 else
                                 {
@@ -156,22 +165,6 @@
                 alert(id);
                 console.log(response);
             }
-        });
-    }
-    function publishAll() {
-        var model = @Html.Raw(Json.Encode(Model.Payments));
-        $.ajax({
-        type: "POST",
-        url: '@Url.Action("PublishAllPayment", "Payments", new { modifiedBy = modifiedBy})',
-        dataType: 'json',
-        data: JSON.stringify(model),
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            window.location.href = data;
-        },
-        error: function (response) {
-        console.log(response);
-        }
         });
     }
 

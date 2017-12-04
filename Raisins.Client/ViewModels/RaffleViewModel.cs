@@ -25,5 +25,20 @@ namespace Raisins.Client.ViewModels
                 _winner = value;
             }
         }
+
+        private string _ticketCode;
+
+        public string TicketCode
+        {
+            get
+            {
+                if(string.IsNullOrEmpty(_ticketCode))
+                {
+                    return "(-----)";
+                }
+                return _ticketCode;
+            }
+            set { _ticketCode = value; }
+        }
     }
 }

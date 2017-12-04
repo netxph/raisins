@@ -50,7 +50,23 @@ namespace Raisins.Client.ViewModels
             }
         }
 
+        public SelectList Sources
+        {
+            get
+            {
+                return new SelectList(new List<string>()
+                {
+                    "Local",
+                    "International",
+                    "External"
+                });
+            }
+        }
+
+
         public string Total { get { return SelectedPayment().Select(payment => payment.Amount * payment.Currency.ExchangeRate).Sum().ToString("#,##0.00"); } }
+
+        public string TotalTickets { get { return SelectedPayment().Select(payment => payment.Tickets).Sum().ToString(); }  }
 
         public PublishAllViewModel()
         {

@@ -32,7 +32,31 @@ namespace Raisins.Api.Controllers
         [HttpGet]
         public IEnumerable<Payment> GetPaymentsList()
         {
-            return Service.GetAll();
+            var payments = Service.GetAll();
+
+            //var filteredPayments = new Payments.Models.Payments();
+
+            //filteredPayments.AddRange( payments.Where(p => p.Source.Source.Equals("Local", StringComparison.InvariantCultureIgnoreCase)));
+
+            //int index = 100;
+            //int counter = 0;
+
+            //foreach (var payment in filteredPayments)
+            //{
+            //    var ticketCount = payment.Tickets;
+
+            //    counter += ticketCount;
+
+            //    if(counter == index)
+            //    {
+            //        var winnerName = payment.Name;
+            //        var paymentid = payment.PaymentID;
+            //    }
+            //}
+
+            //return filteredPayments;
+
+            return payments;
         }
     }
 }

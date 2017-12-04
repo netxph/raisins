@@ -36,6 +36,7 @@ namespace Raisins.Client.Controllers
         {
             return View();
         }
+
         [BasicPermissions("payments_view_summary")]
         public ActionResult PaymentSummary()
         {
@@ -329,42 +330,51 @@ namespace Raisins.Client.Controllers
         [HttpPost]
         public ActionResult ImportPayments(HttpPostedFileBase upload, UploadPaymentViewModel model)
         {
-            if (upload != null)
-            {
-                FileUploader uploader = new FileUploader();
-                var payments = uploader.ExcelUpload(upload);
-                foreach (var payment in payments)
-                {
-                    payment.CreatedBy = model.CreatedBy;
-                    payment.CreatedDate = model.CreatedDate;
-                    payment.ModifiedBy = model.ModifiedBy;
-                    payment.ModifiedDate = model.CreatedDate;
-                }
+            ActionResult result = null;
 
-                var client = new RestClient(AppConfig.GetUrl("paymentsimport"));
-                var request = new RestRequest(Method.POST);
-                var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
-                string body = JsonConvert.SerializeObject(payments, settings);
-                request.AddParameter("Application/Json", body, ParameterType.RequestBody);
-                var response = client.Execute(request);
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            try
+            {
+                if (upload != null)
                 {
-                    TempData["message"] = "Successfully uploaded!";
-                    return RedirectToAction("ImportPayments", "Payments");
-                    //return RedirectToAction("Index", "Home");
+                    FileUploader uploader = new FileUploader();
+                    var payments = uploader.ExcelUpload(upload);
+                    foreach (var payment in payments)
+                    {
+                        payment.CreatedBy = model.CreatedBy;
+                        payment.CreatedDate = model.CreatedDate;
+                        payment.ModifiedBy = model.ModifiedBy;
+                        payment.ModifiedDate = model.CreatedDate;
+                    }
+
+                    var client = new RestClient(AppConfig.GetUrl("paymentsimport"));
+                    var request = new RestRequest(Method.POST);
+                    var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
+                    string body = JsonConvert.SerializeObject(payments, settings);
+                    request.AddParameter("Application/Json", body, ParameterType.RequestBody);
+                    var response = client.Execute(request);
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        TempData["message"] = "Successfully uploaded!";
+                        result = RedirectToAction("ImportPayments", "Payments");
+                    }
+                    else
+                    {
+                        TempData["message"] = "Error! Cannot upload file!";
+                    }
                 }
                 else
                 {
-                    TempData["message"] = "Error! Cannot upload file!";
-                    //return RedirectToAction("Index", "Home");
+                    TempData["message"] = "Sorry, but you did not upload a file.";
                 }
             }
-            else
+            catch (Exception e)
             {
-                TempData["message"] = "Sorry, but you did not upload a file.";
+
             }
-            //return RedirectToAction("Index", "Home");
-            return RedirectToAction("ImportPayments", "Payments");
+
+            result = RedirectToAction("ImportPayments", "Payments");
+
+            return result;
         }
 
         [PaymentsViewPermission()]
@@ -500,61 +510,6 @@ namespace Raisins.Client.Controllers
             var responseM = clientM.Execute(requestM);
             
             return RedirectToAction("ViewPaymentList", "Payments");
-        }
-
-        [PaymentMultiplePermission("payments_publish")]
-        [HttpPost]
-        public ActionResult PublishAllPayment(List<Payment> payments, string modifiedBy)
-        {
-            var clientPA = new RestClient(AppConfig.GetUrl("paymentslistall"));
-            var requestPA = new RestRequest(Method.GET);
-            var responsePA = clientPA.Execute<List<Payment>>(requestPA);
-
-            List<Payment> payment = JsonConvert.DeserializeObject<List<Payment>>(responsePA.Content);
-
-            JsonDeserializer deserialize = new JsonDeserializer();
-            List<Payment> paymentsList = deserialize.Deserialize<List<Payment>>(responsePA);
-
-            List<Payment> paymentsPublish = BuildPaymentsToPublish(modifiedBy, payments);
-
-            var clientP = new RestClient(AppConfig.GetUrl("PaymentsPublishAll"));
-            var requestP = new RestRequest(Method.PUT);
-            var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
-            string body = JsonConvert.SerializeObject(paymentsPublish, settings);
-            requestP.AddJsonBody(paymentsPublish);
-            var responseP = clientP.Execute(requestP);
-
-            var clientT = new RestClient(AppConfig.GetUrl("TicketsAll"));
-            var requestT = new RestRequest(Method.POST);
-            requestT.AddParameter("Application/Json", body, ParameterType.RequestBody);
-            requestT.AddJsonBody(paymentsPublish);
-            var responseT = clientT.Execute<List<Payment>>(requestT);
-            //var responseT = clientT.Execute(requestT);
-
-            var clientM = new RestClient(AppConfig.GetUrl("MailQueuesAll"));
-            var requestM = new RestRequest(Method.POST);
-            requestM.AddJsonBody(paymentsPublish);
-            var responseM = clientM.Execute(requestM);
-
-            return Json(Url.Action("ViewPaymentList", "Payments"));
-        }
-
-        private static List<Payment> BuildPaymentsToPublish(string modifiedBy, List<Payment> paymentsList)
-        {
-            List<Payment> paymentsPublish = new List<Payment>();
-
-            foreach (var payment in paymentsList)
-            {
-                if (!payment.Locked)
-                {
-                    payment.PublishDate = DateTime.Now;
-                    payment.ModifiedDate = DateTime.Now;
-                    payment.ModifiedBy = modifiedBy;
-
-                    paymentsPublish.Add(payment);
-                }
-            }
-            return paymentsPublish;
         }
 
         [HttpGet]

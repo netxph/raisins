@@ -28,7 +28,8 @@ namespace Raisins.Api.Controllers
             }
             _service = service;
         }
-        [HttpPut]
+
+        [HttpPost]
         public HttpResponseMessage PublishAllPayment([FromBody]List<API.Payment> payments)
         {
             Service.PublishAll(Mapper.Map<List<API.Payment>, List<D.Payment>>(payments));

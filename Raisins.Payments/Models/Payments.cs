@@ -10,6 +10,9 @@ namespace Raisins.Payments.Models
     public class Payments : IEnumerable<Payment>
     {
         private readonly List<Payment> _payments;
+
+        public int TotalTickets { get; internal set; }
+
         public Payments()
         {
             _payments = new List<Payment>();
