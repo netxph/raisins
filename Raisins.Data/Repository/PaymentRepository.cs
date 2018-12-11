@@ -93,8 +93,8 @@ namespace Raisins.Data.Repository
             tempPayment.CurrencyID      = efpayment.CurrencyID;
             tempPayment.Locked          = efpayment.Locked;
             tempPayment.Email           = efpayment.Email;
-            //tempPayment.CreatedDate   = efpayment.CreatedDate;
-            //tempPayment.PaymentDate   = efpayment.PaymentDate;
+            tempPayment.CreatedDate   = efpayment.CreatedDate;
+            tempPayment.PaymentDate   = efpayment.PaymentDate;
             tempPayment.ModifiedDate    = efpayment.ModifiedDate;
             tempPayment.PublishDate     = efpayment.PublishDate;
             tempPayment.CreatedByID     = efpayment.CreatedByID;

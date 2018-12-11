@@ -417,11 +417,23 @@ namespace Raisins.Client.Controllers
             //TODO Decorate this
             if (!deserialized.User.Equals("super", StringComparison.InvariantCultureIgnoreCase))
             {
-                FilterPayments(payments, deserialized.User);
+                FilterPayments(payments, deserialized.User, beneficiarySelected);
             }
 
             PublishAllViewModel model = new PublishAllViewModel(payments);
             return View("ViewPaymentList", model);
+        }
+
+        protected virtual List<Payment> FilterPayments(List<Payment> payments, string deserializedUser, string beneficiarySelected)
+        {
+            FilterPayments(payments, deserializedUser);
+
+            if (!string.IsNullOrEmpty(beneficiarySelected))
+            {
+                payments.RemoveAll(r => r.Beneficiary.Name != beneficiarySelected);
+            }
+
+            return payments;
         }
 
         protected virtual List<Payment> FilterPayments(List<Payment> payments, string username)
