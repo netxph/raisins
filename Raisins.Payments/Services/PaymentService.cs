@@ -171,13 +171,16 @@ namespace Raisins.Payments.Services
         {
             foreach (var payment in payments)
             {
-                if(dbPayments.FirstOrDefault(dbPayment => dbPayment.PaymentID == payment.PaymentID) != null)
+                if (!string.IsNullOrEmpty(payment.Name))
                 {
-                    PaymentRepository.Edit(payment);
-                }
-                else
-                {
-                    PaymentRepository.Add(payment);
+                    if (dbPayments.FirstOrDefault(dbPayment => dbPayment.PaymentID == payment.PaymentID) != null)
+                    {
+                        PaymentRepository.Edit(payment);
+                    }
+                    else
+                    {
+                        PaymentRepository.Add(payment);
+                    }
                 }
             }
         }

@@ -1,27 +1,32 @@
-﻿[Do the HMS Move 2017] - Ticket Notification
-<h1>Thank you for voting {Beneficiary}, {Name}</h1>
+﻿<SING-ALONG for HMS> Donation Receipt
+
+***This is a computer-generated e-mail. Please do not reply to this e-mail address. ***
 
 <p>
-Ticket Number(s) for your vote(s) is/are:
+Dear <strong>{Name}</strong>,
 </p>
 
+<p>
+Thank you for your kind donation and voting for <strong>{Beneficiary}</strong>. 
+</p>
+
+<p>
+This donation generated the following ticket numbers that will have a chance to win a <strong>Nintendo Switch</strong>.
+</p>
+
+<p>
 <code>
 {Tickets}
 </code>
-
-<p>
-Let's beat our record last year and raise Php 1,000,000 for scholars of the Food for Hungry Minds.
 </p>
 
 <p>
-All votes will be part of the raffle draw (1 vote = 1 entry). More votes, more chances of winning.
+If you wish to increase your chances of winning, kindly contact our representatives. Voting ends on December 13.
 </p>
 
 <p>
-Voting period ends on December 01.
-</p>
-
-<p>
-<strong>DO THE HMS MOVE 2017</strong><br>
-<a href="http://foodforhungryminds.org">http://foodforhungryminds.org</a>
+Regards,<br>
+Navitaire<br>
+SING-ALONG FOR HMS<br>
+<a href="http://foodforhungryminds.org">http://foodforhungryminds.org</a><br>
 </p>
