@@ -232,13 +232,32 @@ namespace Raisins.Client.Controllers
         }
 
         [HttpGet]
-        public ActionResult Export(PublishAllViewModel model)
+        public ActionResult Export(PublishAllViewModel model, String selectedBeneficiary)
         {
+
             var payments = CallAPI<Payment, List<Payment>>(AppConfig.GetUrl("paymentslistall/GetPaymentsList"));
+            var chosenPayments = new List<Payment>();
+
+            System.Diagnostics.Debug.WriteLine(selectedBeneficiary);
+
+            if (selectedBeneficiary == "" || selectedBeneficiary == null)
+            {
+                chosenPayments = payments;
+            }
+            else
+            {
+                for (var i = 0; i < payments.Count; i++)
+                {
+                    if (payments[i].Beneficiary.Name == selectedBeneficiary)
+                    {
+                        chosenPayments.Add(payments[i]);
+                    }
+                }
+            }
 
             if (RestResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return GenerateExcel(model, payments);
+                return GenerateExcel(model, chosenPayments);
             }
 
             return HttpNotFound();
@@ -246,7 +265,7 @@ namespace Raisins.Client.Controllers
 
         protected ActionResult GenerateExcel(PublishAllViewModel model, List<Payment> payments)
         {
-            var grid = new GridView();
+            /*var grid = new GridView();
             string donorName, beneficiaryName, optOutStatus;
 
             var source = from data in payments
@@ -268,12 +287,48 @@ namespace Raisins.Client.Controllers
 
             grid.DataSource = source;
             grid.DataBind();
-
+            
             SetHeader(grid.HeaderRow.Cells, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out", "Remarks"});
 
             WriteExcel(model, grid);
 
-            return RedirectToAction("NewPayment", "Payments");
+            return RedirectToAction("NewPayment", "Payments");*/
+
+            /*JsonDeserializer deserialize = new JsonDeserializer();
+
+            var clientp = new RestClient(AppConfig.GetUrl("paymentslistall"));
+            var requestp = new RestRequest(Method.GET);
+            var responsep = clientp.Execute<List<Payment>>(requestp);
+            List<Payment> paymentsList = deserialize.Deserialize<List<Payment>>(responsep);
+            */
+
+            //Create new Excel Workbook
+            var workbook = new HSSFWorkbook();
+
+            //Create new Excel Sheet
+            var sheet = workbook.CreateSheet();
+
+            //Create a header row
+            //TODO
+
+            var headerRow = sheet.CreateRow(0);
+
+            SetHeader(headerRow, new string[] { "ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out", "Remarks" });
+            
+            for(var i=1;i<=payments.Count;i++)
+            {
+                var Row = sheet.CreateRow(i);
+                
+                SetHeader(Row, new string[] { payments[i-1].PaymentID.ToString(), payments[i - 1].Name, payments[i - 1].Email, payments[i - 1].Amount.ToString(), payments[i - 1].Beneficiary.Name, payments[i - 1].Currency.CurrencyCode, payments[i - 1].Type.Type, payments[i - 1].Source.Source, payments[i - 1].PaymentDate.ToString(), payments[i - 1].OptOut.ToString(), payments[i - 1].Remarks });
+            }
+
+            //Write the Workbook to a memory stream
+            MemoryStream output = new MemoryStream();
+            workbook.Write(output);
+
+            return File(output.ToArray(),   //The binary data of the XLS file
+             "application/vnd.ms-excel",//MIME type of Excel files
+             "payments.xls");
         }
 
         protected virtual void SetHeader(TableCellCollection cells, string[] columnNames)
@@ -338,28 +393,113 @@ namespace Raisins.Client.Controllers
                 {
                     FileUploader uploader = new FileUploader();
                     var payments = uploader.ExcelUpload(upload);
+                    JsonDeserializer deserialize = new JsonDeserializer();
+                    //Get beneficiaries for list
+                    var clientB = new RestClient(AppConfig.GetUrl("beneficiariesall"));
+                    var requestB = new RestRequest(Method.GET);
+                    var responseB = clientB.Execute<List<Beneficiary>>(requestB);
+                    List<Beneficiary> beneficiaries = deserialize.Deserialize<List<Beneficiary>>(responseB);
+                    //Get currencies for list
+                    var clientC = new RestClient(AppConfig.GetUrl("currencies"));
+                    var requestC = new RestRequest(Method.GET);
+                    var responseC = clientC.Execute<List<Currency>>(requestC);
+                    List<Currency> currencies = deserialize.Deserialize<List<Currency>>(responseC);
+
+                    var clientP = new RestClient(AppConfig.GetUrl("sourceslist"));
+                    var requestP = new RestRequest(Method.GET);
+                    var responseP = clientP.Execute<List<Currency>>(requestP);
+                    List<PaymentSource> sources = deserialize.Deserialize<List<PaymentSource>>(responseP);
+
+                    var clientT = new RestClient(AppConfig.GetUrl("typeslist"));
+                    var requestT = new RestRequest(Method.GET);
+                    var responseT = clientT.Execute<List<Currency>>(requestT);
+                    List<PaymentType> types = deserialize.Deserialize<List<PaymentType>>(responseT);
+
+                    var isContentValid = true;
                     foreach (var payment in payments)
                     {
                         payment.CreatedBy = model.CreatedBy;
                         payment.CreatedDate = model.CreatedDate;
                         payment.ModifiedBy = model.ModifiedBy;
                         payment.ModifiedDate = model.CreatedDate;
+
+                        if (payment.Name == "" || payment.Name == null)
+                        {
+                            isContentValid = false;
+                        }
+                        if (!EmailIsValid(payment.Email) || payment.Email == null)
+                        {
+                            isContentValid = false;
+                        }
+                        if (payment.Amount <= 0)
+                        {
+                            isContentValid = false;
+                        }
+                        var beneficiaryExist = false;
+                        foreach(var beneficiary in beneficiaries)
+                        {
+                            if (payment.Beneficiary.Name == beneficiary.Name)
+                                beneficiaryExist = true;
+                        }
+                        if (beneficiaryExist==false || payment.Beneficiary.Name == null)
+                        {
+                            isContentValid = false;
+                        }
+                        var currencyExist = false;
+                        foreach (var currency in currencies)
+                        {
+                            if (payment.Currency.CurrencyCode == currency.CurrencyCode)
+                                currencyExist = true;
+                        }
+                        if (currencyExist == false || payment.Currency.CurrencyCode == null)
+                        {
+                            isContentValid = false;
+                        }
+                        var typeExist = false;
+                        foreach (var type in types)
+                        {
+                            if (payment.Type.Type == type.Type)
+                                typeExist = true;
+                        }
+                        if (typeExist == false || payment.Type.Type == null)
+                        {
+                            isContentValid = false;
+                        }
+                        var sourceExist = false;
+                        foreach (var source in sources)
+                        {
+                            if (payment.Source.Source == source.Source)
+                                sourceExist = true;
+                        }
+                        if (sourceExist == false || payment.Source.Source == null)
+                        {
+                            isContentValid = false;
+                        }
                     }
 
-                    var client = new RestClient(AppConfig.GetUrl("paymentsimport"));
-                    var request = new RestRequest(Method.POST);
-                    var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
-                    string body = JsonConvert.SerializeObject(payments, settings);
-                    request.AddParameter("Application/Json", body, ParameterType.RequestBody);
-                    var response = client.Execute(request);
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    if (isContentValid == false)
                     {
-                        TempData["message"] = "Successfully uploaded!";
-                        result = RedirectToAction("ImportPayments", "Payments");
+                        TempData["message"] = "Error! File content is not valid!";
                     }
                     else
                     {
-                        TempData["message"] = "Error! Cannot upload file!";
+                        var client = new RestClient(AppConfig.GetUrl("paymentsimport"));
+                        var request = new RestRequest(Method.POST);
+                        var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
+                        string body = JsonConvert.SerializeObject(payments, settings);
+                        request.AddParameter("Application/Json", body, ParameterType.RequestBody);
+                        var response = client.Execute(request);
+
+
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            TempData["message"] = "Successfully uploaded!";
+                            result = RedirectToAction("ImportPayments", "Payments");
+                        }
+                        else
+                        {
+                            TempData["message"] = "Error! Cannot upload file!";
+                        }
                     }
                 }
                 else

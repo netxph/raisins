@@ -10,7 +10,14 @@ namespace Raisins.Client.ViewModels
 {
     public class PublishAllViewModel
     {
-        public string SelectedBeneficiary { get; set; }
+
+        private string _selected;
+
+        public string SelectedBeneficiary
+        {
+            get { return _selected; }
+            set { _selected = value; }
+        }
 
         public int paymentID { get; set; }
 

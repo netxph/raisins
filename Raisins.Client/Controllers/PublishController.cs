@@ -47,7 +47,7 @@ namespace Raisins.Client.Controllers
             requestM.AddJsonBody(paymentsToPublish);
             var responseM = clientM.Execute(requestM);
 
-            return Json(Url.Action("ViewPaymentList", "Payments"));
+            return Redirect("/Payments/ViewPaymentList");
         }
 
         private List<Payment> BuildPaymentsToPublish(List<Payment> paymentsList)
