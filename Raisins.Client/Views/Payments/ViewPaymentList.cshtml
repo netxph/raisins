@@ -39,9 +39,9 @@
                 }
             </div>
             <div class="col-xs-4">
-                @using (Html.BeginForm("Export", "Payments", FormMethod.Get))
+                @using (Html.BeginForm("Export", "Payments", Model, FormMethod.Get))
                 {
-                    <button id="exportButton" type="submit" style="float:right" class="btn btn-default fa fa-file-excel-o">Export</button>
+                    <button id="exportButton" name="selectedBeneficiary" value="@Model.SelectedBeneficiary" type="submit" style="float:right;white-space: normal!important;" class="btn btn-default fa fa-file-excel-o">Export</button>
                 }
             </div>
         </div>
@@ -55,7 +55,11 @@
         <hr \>
         <b>Total:</b> ₱ @Html.DisplayFor(viewModel => Model.Total)
     </div>
-    Total Tickets: @Model.TotalTickets
+    <div style="float:left">
+        Total Tickets: @Model.TotalTickets
+    </div>
+    
+
     <div class="row" id="paymentsTable">
         @using (Html.BeginForm("PublishPayment", "Payments", FormMethod.Get))
         {
@@ -148,7 +152,10 @@
     <hr /><span class="h4">Template: </span>
     @Html.ActionLink("Download", "ExportTemplate")
     <i class="fa fa-file-excel-o" aria-hidden="true"></i>
-
+    <!--</br>
+    <span class="h4">Payments List: </span>
+    @Html.ActionLink("Download", "ExportPaymentsList")
+    <i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
 </div>
 
 <script>
@@ -172,7 +179,7 @@
         var selected = $("#selected option:selected").val();
         console.log(selected);
 
-        var url = "ViewPaymentListByBeneficiary?beneficiarySelected=" + selected;
+        var url = encodeURI("ViewPaymentListByBeneficiary3?beneficiarySelected=" + selected);
 
         //window.history.pushState(null, 'List of Payments', url)
         location.reload(window.history.pushState(null, 'List of Payments', url));
@@ -193,15 +200,17 @@
         //})
     }
 
+    
+
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         var selected = $("#selected option:selected").val();
         if (selected == "") {
             $("#exportButton").hide();
         }
-    });
+    });*/
 
     function test() {
         var selected = $("#selected option:selected").val();

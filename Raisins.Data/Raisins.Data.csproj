@@ -205,7 +205,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702280336499_InitialDatabase.resx">
