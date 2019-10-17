@@ -40,9 +40,9 @@ namespace Raisins.Api.Controllers
         }
 
         [HttpGet]
-        public Ticket GetRandomTicket(string paymentSource)
+        public List<Ticket> GetAllTickets(string paymentSource)
         {
-            return Service.GetRandomTicket(paymentSource);
+            return Service.GetTickets(paymentSource).ToList();
         }
     }
 }

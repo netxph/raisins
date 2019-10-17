@@ -33,5 +33,24 @@ namespace Raisins.Tickets.Models
             return _tickets.GetEnumerator();
         }
 
+        public List<Ticket> GetAll()
+        {
+            return _tickets;
+        }
+
+        /*public Ticket GetRandomTicket(string paymentSource)
+        {
+            Random random = new Random();
+            List<Ticket> chosenTickets = new List<Ticket>();
+            foreach(Ticket t in _tickets)
+            {
+                if(t.PaymentSource==paymentSource)
+                {
+                    chosenTickets.Add(t);
+                }
+            }
+            int index = random.Next() % (chosenTickets.Count);
+            return _tickets[index];
+        }*/
     }
 }

@@ -8,16 +8,16 @@ namespace Raisins.Client.ViewModels
 {
     public class RaffleViewModel
     {
-        private string _winner;
+        private List<string> _winner;
 
-        public string Winner
+        public List<string> Winner
         {
             get
             {
-                if(string.IsNullOrEmpty(_winner))
+                /*if(_winner == null)
                 {
                     return "---";
-                }
+                }*/
                 return _winner;
             }
             set
@@ -26,16 +26,16 @@ namespace Raisins.Client.ViewModels
             }
         }
 
-        private string _ticketCode;
+        private List<string> _ticketCode;
 
-        public string TicketCode
+        public List<string> TicketCode
         {
             get
             {
-                if(string.IsNullOrEmpty(_ticketCode))
+                /*if(string.IsNullOrEmpty(_ticketCode))
                 {
                     return "(-----)";
-                }
+                }*/
                 return _ticketCode;
             }
             set { _ticketCode = value; }

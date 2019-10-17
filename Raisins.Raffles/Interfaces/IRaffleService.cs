@@ -1,4 +1,4 @@
-﻿using Raisins.Tickets.Models;
+﻿using T = Raisins.Tickets.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ namespace Raisins.Raffles.Interfaces
 {
     public interface IRaffleService
     {
-        Ticket GetRandomTicket(string paymentSource);
+        T.Ticket GetRandomTicket(string paymentSource);
+        IEnumerable<T.Ticket> GetTickets(string paymentSource);
     }
 }

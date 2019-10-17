@@ -161,6 +161,54 @@
     <Compile Include="Migrations\201711240942361_AddPaymentRemarks.Designer.cs">
       <DependentUpon>201711240942361_AddPaymentRemarks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909240726019_InitialCreate.cs" />
+    <Compile Include="Migrations\201909240726019_InitialCreate.Designer.cs">
+      <DependentUpon>201909240726019_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909240742316_InitialCreate1.cs" />
+    <Compile Include="Migrations\201909240742316_InitialCreate1.Designer.cs">
+      <DependentUpon>201909240742316_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909240744067_InitialCreate2.cs" />
+    <Compile Include="Migrations\201909240744067_InitialCreate2.Designer.cs">
+      <DependentUpon>201909240744067_InitialCreate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909250542283_InitialCreate3.cs" />
+    <Compile Include="Migrations\201909250542283_InitialCreate3.Designer.cs">
+      <DependentUpon>201909250542283_InitialCreate3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910100721179_InitialCreate4.cs" />
+    <Compile Include="Migrations\201910100721179_InitialCreate4.Designer.cs">
+      <DependentUpon>201910100721179_InitialCreate4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910100723288_InitialCreate5.cs" />
+    <Compile Include="Migrations\201910100723288_InitialCreate5.Designer.cs">
+      <DependentUpon>201910100723288_InitialCreate5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140200425_InitialCreate6.cs" />
+    <Compile Include="Migrations\201910140200425_InitialCreate6.Designer.cs">
+      <DependentUpon>201910140200425_InitialCreate6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140201352_InitialCreate7.cs" />
+    <Compile Include="Migrations\201910140201352_InitialCreate7.Designer.cs">
+      <DependentUpon>201910140201352_InitialCreate7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140202141_InitialCreate8.cs" />
+    <Compile Include="Migrations\201910140202141_InitialCreate8.Designer.cs">
+      <DependentUpon>201910140202141_InitialCreate8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140207240_InitialCreate9.cs" />
+    <Compile Include="Migrations\201910140207240_InitialCreate9.Designer.cs">
+      <DependentUpon>201910140207240_InitialCreate9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140208516_Migrate.cs" />
+    <Compile Include="Migrations\201910140208516_Migrate.Designer.cs">
+      <DependentUpon>201910140208516_Migrate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140241572_Migration.cs" />
+    <Compile Include="Migrations\201910140241572_Migration.Designer.cs">
+      <DependentUpon>201910140241572_Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeder\DBSeeder.cs" />
     <Compile Include="Migrations\Seeder\IDBSeeder.cs" />
@@ -203,8 +251,12 @@
     <Compile Include="Repository\TicketRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702280336499_InitialDatabase.resx">
@@ -290,6 +342,42 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711240942361_AddPaymentRemarks.resx">
       <DependentUpon>201711240942361_AddPaymentRemarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909240726019_InitialCreate.resx">
+      <DependentUpon>201909240726019_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909240742316_InitialCreate1.resx">
+      <DependentUpon>201909240742316_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909240744067_InitialCreate2.resx">
+      <DependentUpon>201909240744067_InitialCreate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909250542283_InitialCreate3.resx">
+      <DependentUpon>201909250542283_InitialCreate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910100721179_InitialCreate4.resx">
+      <DependentUpon>201910100721179_InitialCreate4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910100723288_InitialCreate5.resx">
+      <DependentUpon>201910100723288_InitialCreate5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140200425_InitialCreate6.resx">
+      <DependentUpon>201910140200425_InitialCreate6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140201352_InitialCreate7.resx">
+      <DependentUpon>201910140201352_InitialCreate7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140202141_InitialCreate8.resx">
+      <DependentUpon>201910140202141_InitialCreate8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140207240_InitialCreate9.resx">
+      <DependentUpon>201910140207240_InitialCreate9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140208516_Migrate.resx">
+      <DependentUpon>201910140208516_Migrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140241572_Migration.resx">
+      <DependentUpon>201910140241572_Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

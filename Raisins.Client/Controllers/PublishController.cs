@@ -15,7 +15,7 @@ namespace Raisins.Client.Controllers
     {
         //[PaymentMultiplePermission("payments_publish")]
         [HttpPost]
-        public ActionResult PublishAllPayments()
+        public ActionResult PublishAllPayments(String selectedBeneficiary)
         {
             var clientPA = new RestClient(AppConfig.GetUrl("paymentslistall"));
             var requestPA = new RestRequest(Method.GET);
@@ -26,7 +26,24 @@ namespace Raisins.Client.Controllers
             JsonDeserializer deserialize = new JsonDeserializer();
             List<Payment> paymentsList = deserialize.Deserialize<List<Payment>>(responsePA);
 
-            List<Payment> paymentsToPublish = BuildPaymentsToPublish(paymentsList);
+            var chosenPayments = new List<Payment>();
+
+            if (selectedBeneficiary == "" || selectedBeneficiary == null)
+            {
+                chosenPayments = paymentsList;
+            }
+            else
+            {
+                foreach (var payment in paymentsList)
+                {
+                    if (payment.Beneficiary.Name == selectedBeneficiary)
+                    {
+                        chosenPayments.Add(payment);
+                    }
+                }
+            }
+
+            List<Payment> paymentsToPublish = BuildPaymentsToPublish(chosenPayments);
 
             var clientP = new RestClient(AppConfig.GetUrl("PaymentsPublishAll"));
             var requestP = new RestRequest(Method.POST);
@@ -47,7 +64,7 @@ namespace Raisins.Client.Controllers
             requestM.AddJsonBody(paymentsToPublish);
             var responseM = clientM.Execute(requestM);
 
-            return Redirect("/Payments/ViewPaymentList");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         private List<Payment> BuildPaymentsToPublish(List<Payment> paymentsList)
