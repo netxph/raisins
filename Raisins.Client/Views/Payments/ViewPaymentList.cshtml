@@ -21,27 +21,28 @@
         <div class="row">
             <h3 style="float: left">List of Payments</h3>
             <br />
+            @if (TempData["message"] == "Sorry, but you cannot set a beneficiary not assigned to you.")
+            {
+                <h4 style="color:red">@Html.Raw(@TempData["message"])</h4>
+            }
+            
         </div>
         <div class="row" >
-            <div class="col-xs-4">
+            <div class="col-xs-4" style="float:left">
                 @Html.LabelFor(m => m.Beneficiary, "Beneficiary")
-            </div>
-            <div class="col-xs-4">
                 @Html.DropDownListFor(m => m.SelectedBeneficiary,
                  Model.UniqueBeneficiaries,
                  "All Beneficiary",
                  new { @class = "form-control", @id = "selected", @onchange = "showBeneficiaryPayment()" })
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-4" style="float:right">
                 @using (Html.BeginForm("PublishAllPayments", "Publish", Model.Payments, FormMethod.Post))
                 {
-                    <button class="btn btn-default">Publish All</button>
+                    <button class="btn btn-default" style="float:right" name="selectedBeneficiary" value="@Model.SelectedBeneficiary">Publish All @Model.SelectedBeneficiary</button>
                 }
-            </div>
-            <div class="col-xs-4">
                 @using (Html.BeginForm("Export", "Payments", Model, FormMethod.Get))
                 {
-                    <button id="exportButton" name="selectedBeneficiary" value="@Model.SelectedBeneficiary" type="submit" style="float:right;white-space: normal!important;" class="btn btn-default fa fa-file-excel-o">Export</button>
+                    <button id="exportButton" name="selectedBeneficiary" value="@Model.SelectedBeneficiary" type="submit" style="float:right" class="btn btn-default"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Export</button>
                 }
             </div>
         </div>
@@ -66,6 +67,9 @@
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
+                        <th>
+                            ID
+                        </th>
                         <th>
                             Donor's Name
                         </th>
@@ -104,6 +108,9 @@
                         <tr>
                             @Html.HiddenFor(modelItem => item)
                             <td>
+                                @Html.DisplayFor(modelItem => item.PaymentID)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
@@ -135,13 +142,25 @@
                                 {
                                     @Html.ActionLink("Edit", "EditPayment", "Payments", new { paymentID = item.PaymentID }, null)
                                     <span> | </span>
-                                    @Html.ActionLink("Publish", "PublishPayment", "Payments", new { paymentID = item.PaymentID, modifiedBy }, null)
+                                    @Html.ActionLink("Publish", "PublishPayment", "Payments", new { paymentID = item.PaymentID, modifiedBy, beneficiarySelected = Model.SelectedBeneficiary }, null)
+                                    <span> | </span>
+                                    <a href="@Url.Action("DeletePayment", "Payments", new { paymentID = item.PaymentID, beneficiarySelected = Model.SelectedBeneficiary }, null)">
+                                        <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                    </a>
                                 }
                                 else
                                 {
                                     <span class="text-danger">Locked</span>
                                 }
                             </td>
+                            <!--@if (!item.Locked)
+                            {
+                                <td style="background-color:indianred;text-align:center;">
+                                    <a href="@Url.Action("DeletePayment", "Payments", new { paymentID = item.PaymentID }, null)">
+                                        <i class="fa fa-trash" aria-hidden="true" style="color:black;"></i>
+                                    </a>
+                                </td>
+                            }-->
                         </tr>
                     }
                 </tbody>
@@ -179,7 +198,7 @@
         var selected = $("#selected option:selected").val();
         console.log(selected);
 
-        var url = encodeURI("ViewPaymentListByBeneficiary3?beneficiarySelected=" + selected);
+        var url = encodeURI("ViewPaymentListByBeneficiary?beneficiarySelected=" + selected);
 
         //window.history.pushState(null, 'List of Payments', url)
         location.reload(window.history.pushState(null, 'List of Payments', url));

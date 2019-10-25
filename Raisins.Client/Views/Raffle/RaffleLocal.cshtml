@@ -5,47 +5,189 @@
 @{
     ViewBag.Title = "HMS Raffle";
 }
-<div>
+
+<style>
+    #RaffleResult.fullscreen {
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    #RaffleResult {
+        background-image: url(../../Content/Images/bg6.png);
+    }
+
+    button, input {
+        z-index: 10;
+    }
+</style>
+
+<body onLoad="generateWinner()">
     <div>
-        <div class="col-lg-offset-1">
+        <div>
+            <div class="col-lg-offset-1">
+                <div class="row">
+                    <div class="col-xs-4">
+                        @using (Html.BeginForm("RaffleLocal", "Raffle", FormMethod.Get))
+                        {
+                            <button type="submit" class="btn btn-default" style="width:200px">Local</button>
+                        }
+                    </div>
+                    <div class="col-xs-4">
+                        @using (Html.BeginForm("RaffleExternal", "Raffle", FormMethod.Get))
+                        {
+                            <button type="submit" class="btn btn-default" style="width:200px">External</button>
+                        }
+                    </div>
+                    <div class="col-xs-4">
+                        @using (Html.BeginForm("RaffleInternational", "Raffle", FormMethod.Get))
+                        {
+                            <button type="submit" class="btn btn-default" style="width:200px">International</button>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding:15px">
+
+            </div>
             <div class="row">
-                <div class="col-xs-4">
-                    @using (Html.BeginForm("RaffleLocal", "Raffle", FormMethod.Get))
-                    {
-                        <button type="submit" class="btn btn-default" style="width:200px">Local</button>
-                    }
-                </div>
-                <div class="col-xs-4">
-                    @using (Html.BeginForm("RaffleExternal", "Raffle", FormMethod.Get))
-                    {
-                        <button type="submit" class="btn btn-default" style="width:200px">External</button>
-                    }
-                </div>
-                <div class="col-xs-4">
-                    @using (Html.BeginForm("RaffleInternational", "Raffle", FormMethod.Get))
-                    {
-                        <button type="submit" class="btn btn-default" style="width:200px">International</button>
-                    }
+                <div id="RaffleResult">
+                    <button id="FullscreenButton" class="btn btn-default" type="button" onclick="toggleFullscreen(); return false;" style="position:absolute;top:10px;left:10px;"><i class="fa fa-expand" aria-hidden="true"></i></button>
+                    <div class="row" style="padding:10%">
+
+                    </div>
+                    <div class="text-center" style="color:azure;font-size:40px;">
+                        The Winner is
+                    </div>
+                    <div class="text-center" id="Winner" style="color:azure;font-size:40px;">
+
+                    </div>
+                    <div class="text-center" id="TicketCode" style="color:azure;font-size:40px;">
+
+                    </div>
+                    <div class="row" style="padding:10%" />
                 </div>
             </div>
         </div>
-        <div class="row" style="padding:15px">
 
-        </div>
-        <div class="row">
-            <div style="background-image:url(../../Content/Images/bg6.png)">
-                <div class="row" style="padding:10%">
-
-                </div>
-                <h1 class="text-center" style="color:azure">
-                    @Model.Winner
-                </h1>
-                <h3 class="text-center" style="color:azure">
-                    (@Model.TicketCode)
-                </h3>
-                <div class="row" style="padding:10%"/>
-            </div>
-        </div>
     </div>
+</body>
 
-</div>
+<script type="text/javascript">
+    function generateWinner() {
+        toggleFullscreen();
+        sleep(300);
+        var WinnerArr = [];
+        var TicketCodeArr = [];
+
+        @foreach (var d in Model.Winner)
+        {
+            @:WinnerArr.push("@d");
+        }
+
+        @foreach (var d in Model.TicketCode)
+        {
+            @:TicketCodeArr.push("@d");
+        }
+        /*for (var i = 0; i < 100; i++) {
+            var random = getRandomNumber(0, WinnerArr.length);
+            document.getElementById("Winner").value = WinnerArr[random];
+            document.getElementById("Ticket Code").value = TicketCodeArr[random];
+        }*/
+        var output1 = $('#Winner');
+        var output2 = $('#TicketCode');
+        if (WinnerArr == null) {
+            output2.text("---");
+            output2.text("(----)");
+        }
+        else {
+
+            /*var duration = 10000;
+            var started = new Date().getTime();
+            animationTimer = setInterval(function () {
+                if (new Date().getTime() - started > duration) {
+                    clearInterval(animationTimer); // Stop the loop
+                }
+                var random = getRandomNumber(0, WinnerArr.length - 1);
+                output1.text(WinnerArr[random]);
+                output2.text(TicketCodeArr[random]);
+            }, 100);*/
+
+            var i = -1; //index (for looping purpose)
+            var interval; //for setInterval
+            var duration = 5; //for setInterval duration
+
+            function randomize() { //define a function
+                i += 1; //increment the index
+                interval = setInterval(function () {
+                    clearInterval(interval); //clear
+                    var random = getRandomNumber(0, WinnerArr.length - 1);
+                    output1.text(WinnerArr[random]);
+                    output2.text(TicketCodeArr[random]);
+                    if(i < 1000)
+                    {
+                        randomize();
+                    }
+                    else if (i >= 1000 && i < 1500)
+                    {
+                        duration = 10;
+                        randomize();
+                    }
+                    else if(i >= 1500 && i < 1550)
+                    {
+                        duration = 100;
+                        randomize();
+                    }
+                    else if (i >= 1550 && i < 1560) {
+                        duration = 100 * (i - 1549);
+                        randomize();
+                    }
+                    else
+                    {
+                        duration = 5;
+                        i = -1; //reset
+                    }
+                }, duration);
+            }
+
+            randomize();
+        }
+    }
+
+    function getRandomNumber(low, high) {
+        var r = Math.floor(Math.random() * (high - low + 1)) + low;
+        return r;
+    }
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            }
+        }
+    }
+
+    function toggleFullscreen() {
+        $('#RaffleResult').toggleClass('fullscreen');
+        var button = document.getElementById("FullscreenButton");
+        if(button.innerHTML == '<i class="fa fa-expand" aria-hidden="true"></i>')
+        {
+            button.innerHTML = '<i class="fa fa-compress" aria-hidden="true"></i>';
+        }
+        else
+        {
+            button.innerHTML = '<i class="fa fa-expand" aria-hidden="true"></i>';
+        }
+        /*var b = $('#FullscreenButton');
+        if (b == "Exit") {
+            b.text("Fullscreen");
+        }
+        else {
+            b.text("Exit");
+        }*/
+    }
+</script>

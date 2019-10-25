@@ -10,16 +10,16 @@
 <div>    
     @using (Html.BeginForm("EditPayment", "Payments"))
     {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.PaymentID)
+        @Html.HiddenFor(m => m.Locked)
+        @Html.HiddenFor(m => m.CreatedDate)
+        @Html.HiddenFor(m => m.CreatedBy)
+        @Html.HiddenFor(m => m.ModifiedDate, new { @Value = DateTime.Now })
+        @Html.HiddenFor(m => m.ModifiedBy, new { @Value = @HttpContext.Current.Session["user"].ToString() })
         <div class="row">
             <h3>Edit Payment</h3>
             <hr />
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(m => m.PaymentID)
-            @Html.HiddenFor(m => m.Locked)
-            @Html.HiddenFor(m => m.CreatedDate)
-            @Html.HiddenFor(m => m.CreatedBy)
-            @Html.HiddenFor(m => m.ModifiedDate, new { @Value = DateTime.Now })
-            @Html.HiddenFor(m => m.ModifiedBy, new { @Value = @HttpContext.Current.Session["user"].ToString() })
             <div class="form-group">
                 @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
                 <div>

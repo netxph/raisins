@@ -1,7 +1,7 @@
 ﻿using Raisins.Client.Randomizer.Interfaces;
 using Raisins.Raffles.Interfaces;
 using Raisins.Tickets.Interfaces;
-using Raisins.Tickets.Models;
+using T = Raisins.Tickets.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Raisins.Raffles.Services
 {
     public class RaffleService : IRaffleService
     {
-        private readonly IEnumerable<Ticket> _tickets;
+        private readonly IEnumerable<T.Ticket> _tickets;
 
         private readonly IIntegerRandomizerService _randomizer;
 
@@ -45,26 +45,28 @@ namespace Raisins.Raffles.Services
             }
             _randomizer = randomizer;
 
-            _tickets = new List<Ticket>();
+            _tickets = new List<T.Ticket>();
         }
 
-        public Ticket GetRandomTicket(string paymentSource)
+        public T.Ticket GetRandomTicket(string paymentSource)
         {
             var tickets = GetTickets(paymentSource);
 
             if (tickets.Count() > 0)
             {
-                var index = Randomizer.GetNext(0, tickets.Count() - 1);
+                Random r = new Random();
+                var index = r.Next(0,tickets.Count()-1);
+                //var index = Randomizer.GetNext(0, tickets.Count() - 1);
 
                 return tickets.ElementAt(index);
             }
             else
             {
-                return new Ticket();
+                return new T.Ticket();
             }
         }
 
-        protected virtual IEnumerable<Ticket> GetTickets(string paymentSource)
+        public IEnumerable<T.Ticket> GetTickets(string paymentSource)
         {
             return Repository.GetAll(paymentSource);
         }

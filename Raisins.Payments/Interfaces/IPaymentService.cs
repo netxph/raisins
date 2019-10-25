@@ -24,6 +24,6 @@ namespace Raisins.Payments.Interfaces
         void Publish(D.Payment payment);
         void PublishAll(IEnumerable<D.Payment> payments);
         void Edit(D.Payment payment);
-        
+        void Delete(D.Payment payment);
     }
 }

@@ -97,7 +97,7 @@ namespace Raisins.Client.ViewModels
 
         public PublishAllViewModel(string beneficiary, List<Payment> paymentsAll)
         {
-            var s = paymentsAll.Where(b => b.Beneficiary.Name.Contains(beneficiary));
+            var s = paymentsAll.Where(b => b.Beneficiary.Name.Equals(beneficiary));
             Payments = s.ToList();
             allpayments = paymentsAll;
         }

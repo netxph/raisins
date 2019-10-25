@@ -168,6 +168,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\BeneficiariesAll\" />
+    <Folder Include="Views\PaymentsDelete\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Controllers\GoalController.cs" />
     <Compile Include="Controllers\MailQueuesAllController.cs" />
     <Compile Include="Controllers\MailQueuesController.cs" />
+    <Compile Include="Controllers\PaymentsDeleteController.cs" />
     <Compile Include="Controllers\PaymentsListByBeneficiaryController.cs" />
     <Compile Include="Controllers\PaymentsPublishAllController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
@@ -276,31 +278,40 @@
     </Content>
     <None Include="Properties\PublishProfiles\apiprofile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Raisins - FTP %2810%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Raisins - FTP %2811%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %287%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Raisins - FTP %288%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Raisins - FTP %289%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Raisins - Web Deploy %2810%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Raisins - Web Deploy %2811%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy %287%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Raisins - Web Deploy %288%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Raisins - Web Deploy %289%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\raisins-raisins2 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\raisins-raisins2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Release.config">
+    <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
@@ -353,6 +364,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

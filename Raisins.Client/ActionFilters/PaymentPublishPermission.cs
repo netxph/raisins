@@ -42,7 +42,13 @@ namespace Raisins.Client.ActionFilters
                 }
                 if (!validate)
                 {
-                    filterContext.Result = new HttpNotFoundResult();
+                    filterContext.Controller.TempData.Add("message", "Sorry, but you do not have permission to do this action.");
+                    filterContext.Result = new RedirectToRouteResult(
+                            new RouteValueDictionary
+                            {
+                                { "controller", "home" },
+                                { "action", "index" }
+                            });
                 }
                 else
                 {

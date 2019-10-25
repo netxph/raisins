@@ -116,12 +116,38 @@ namespace Raisins.Data.Repository
 
         public void Delete(D.Payment payment)
         {
-            throw new NotImplementedException();
-            //DATA.Payment efpayment = ConverToEFwithID(payment);
+            /*//throw new NotImplementedException();
+            DATA.Payment efpayment = ConverToEFwithID(payment);
             //_context.Payments.Attach(ConvertToEF(payment));
             //_context.Entry(efpayment).State = EntityState.Deleted;
-            //_context.Payments.Remove(ConvertToEF(payment));
-            //_context.SaveChanges();
+            _context.Payments.Remove(ConvertToEF(payment));
+            _context.SaveChanges();
+            */
+            /*bool oldValidateOnSaveEnabled = _context.Configuration.ValidateOnSaveEnabled;
+
+            try
+            {*/
+            //DATA.Payment efpayment = ConverToEFwithID(payment);
+            //_context.Configuration.ValidateOnSaveEnabled = false;
+
+            var efpayment = new DATA.Payment();
+            foreach(DATA.Payment p in _context.Payments)
+            {
+                if(p.PaymentID == payment.PaymentID)
+                {
+                    efpayment = p;
+                }
+            }
+            
+            _context.Payments.Attach(efpayment);
+            _context.Entry(efpayment).State = EntityState.Deleted;
+            _context.Payments.Remove(efpayment);
+            _context.SaveChanges();
+            /*}
+            finally
+            {
+                _context.Configuration.ValidateOnSaveEnabled = oldValidateOnSaveEnabled;
+            }*/
         }
 
         private D.Payment ConvertToDomain(DATA.Payment efPayment)

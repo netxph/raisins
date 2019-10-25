@@ -43,7 +43,13 @@ namespace Raisins.Client.ActionFilters
                 }
                 if (!validate)
                 {
-                    filterContext.Result = new HttpNotFoundResult();
+                    filterContext.Controller.TempData.Add("message", "Sorry, but you do not have permission to do this action.");
+                    filterContext.Result = new RedirectToRouteResult(
+                        new RouteValueDictionary
+                        {
+                                { "controller", "home" },
+                                { "action", "index" }
+                        });
                 }
                 else
                 {
@@ -73,12 +79,12 @@ namespace Raisins.Client.ActionFilters
                     }
                     if (!validate)
                     {
-                        filterContext.Controller.TempData.Add("message", "Sorry, but you do not have permission to do this action.");
+                        filterContext.Controller.TempData.Add("message", "Sorry, but you cannot set a beneficiary not assigned to you.");
                         filterContext.Result = new RedirectToRouteResult(
                             new RouteValueDictionary
                             {
-                                { "controller", "home" },
-                                { "action", "index" }
+                                { "controller", "Payments" },
+                                { "action", "ViewPaymentList" }
                             });
                     }
                 }

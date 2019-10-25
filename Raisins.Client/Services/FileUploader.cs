@@ -88,7 +88,14 @@ namespace Raisins.Client.Services
                         }
                         if (col.ColumnName == "Amount")
                         {
-                            payment.Amount = decimal.Parse(row[col].ToString());
+                            if (string.IsNullOrWhiteSpace(row[col].ToString()))
+                            {
+                                payment.Amount = 0;
+                            }
+                            else
+                            {
+                                payment.Amount = decimal.Parse(row[col].ToString());
+                            }
                         }
                         if (col.ColumnName == "Beneficiary")
                         {
@@ -112,13 +119,20 @@ namespace Raisins.Client.Services
                         }
                         if (col.ColumnName == "Date")
                         {
-                            if (upload.FileName.EndsWith(".xls"))
+                            if (string.IsNullOrWhiteSpace(row[col].ToString()))
                             {
-                                payment.PaymentDate = DateTime.FromOADate(double.Parse(row[col].ToString()));
+                                payment.PaymentDate = default(DateTime);
                             }
                             else
                             {
-                                payment.PaymentDate = DateTime.Parse(row[col].ToString(), new CultureInfo("en-US", true));
+                                if (upload.FileName.EndsWith(".xls"))
+                                {
+                                    payment.PaymentDate = DateTime.FromOADate(double.Parse(row[col].ToString()));
+                                }
+                                else
+                                {
+                                    payment.PaymentDate = DateTime.Parse(row[col].ToString(), new CultureInfo("en-US", true));
+                                }
                             }
                         }
                         if (col.ColumnName == "Opt Out")
@@ -135,6 +149,17 @@ namespace Raisins.Client.Services
                         if (col.ColumnName == "Remarks")
                         {
                             payment.Remarks = row[col].ToString();
+                        }
+                        if (col.ColumnName == "Delete")
+                        {
+                            if(row[col].ToString().ToLower() == "yes")
+                            {
+                                payment.Locked = true;
+                            }
+                            else
+                            {
+                                payment.Locked = false;
+                            }
                         }
                     }
                 }

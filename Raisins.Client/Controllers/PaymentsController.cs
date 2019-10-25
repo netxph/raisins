@@ -154,7 +154,7 @@ namespace Raisins.Client.Controllers
 
             var headerRow = sheet.CreateRow(0);
 
-            SetHeader(headerRow, new string[] { "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out", "Remarks" });
+            SetHeader(headerRow, new string[] {"ID", "Donor Name", "Email", "Amount", "Beneficiary", "Currency", "Type", "Source", "Date", "Opt Out", "Remarks", "Delete" });
             
             //Write the Workbook to a memory stream
             MemoryStream output = new MemoryStream();
@@ -234,11 +234,22 @@ namespace Raisins.Client.Controllers
         [HttpGet]
         public ActionResult Export(PublishAllViewModel model, String selectedBeneficiary)
         {
+            JsonDeserializer deserialize = new JsonDeserializer();
+
+            var clientT = new RestClient(AppConfig.GetUrl("accounts/Validate"));
+            var requestT = new RestRequest(Method.GET);
+            requestT.AddParameter("encrypted", HttpContext.Session["token"].ToString());
+            var responseT = clientT.Execute<Token>(requestT);
+            Token deserialized = deserialize.Deserialize<Token>(responseT);
 
             var payments = CallAPI<Payment, List<Payment>>(AppConfig.GetUrl("paymentslistall/GetPaymentsList"));
-            var chosenPayments = new List<Payment>();
 
-            System.Diagnostics.Debug.WriteLine(selectedBeneficiary);
+            if (!deserialized.User.Equals("super", StringComparison.InvariantCultureIgnoreCase))
+            {
+                FilterPayments(payments, deserialized.User);
+            }
+
+            var chosenPayments = new List<Payment>();
 
             if (selectedBeneficiary == "" || selectedBeneficiary == null)
             {
@@ -246,11 +257,11 @@ namespace Raisins.Client.Controllers
             }
             else
             {
-                for (var i = 0; i < payments.Count; i++)
+                foreach(var payment in payments)
                 {
-                    if (payments[i].Beneficiary.Name == selectedBeneficiary)
+                    if (payment.Beneficiary.Name == selectedBeneficiary)
                     {
-                        chosenPayments.Add(payments[i]);
+                        chosenPayments.Add(payment);
                     }
                 }
             }
@@ -318,8 +329,16 @@ namespace Raisins.Client.Controllers
             for(var i=1;i<=payments.Count;i++)
             {
                 var Row = sheet.CreateRow(i);
-                
-                SetHeader(Row, new string[] { payments[i-1].PaymentID.ToString(), payments[i - 1].Name, payments[i - 1].Email, payments[i - 1].Amount.ToString(), payments[i - 1].Beneficiary.Name, payments[i - 1].Currency.CurrencyCode, payments[i - 1].Type.Type, payments[i - 1].Source.Source, payments[i - 1].PaymentDate.ToString(), payments[i - 1].OptOut.ToString(), payments[i - 1].Remarks });
+                string optOut;
+                if(payments[i - 1].OptOut==true)
+                {
+                    optOut = "yes";
+                }
+                else
+                {
+                    optOut = "no";
+                }
+                SetHeader(Row, new string[] { payments[i-1].PaymentID.ToString(), payments[i - 1].Name, payments[i - 1].Email, payments[i - 1].Amount.ToString(), payments[i - 1].Beneficiary.Name, payments[i - 1].Currency.CurrencyCode, payments[i - 1].Type.Type, payments[i - 1].Source.Source, payments[i - 1].PaymentDate.ToString(), optOut, payments[i - 1].Remarks });
             }
 
             //Write the Workbook to a memory stream
@@ -391,9 +410,34 @@ namespace Raisins.Client.Controllers
             {
                 if (upload != null)
                 {
+                    string InvalidContentMessage = "";
                     FileUploader uploader = new FileUploader();
-                    var payments = uploader.ExcelUpload(upload);
+                    List<Payment> payments = uploader.ExcelUpload(upload).ToList();
                     JsonDeserializer deserialize = new JsonDeserializer();
+                    
+                    var clientA = new RestClient(AppConfig.GetUrl("accounts/Validate"));
+                    var requestA = new RestRequest(Method.GET);
+                    requestA.AddParameter("encrypted", HttpContext.Session["token"].ToString());
+                    var responseA = clientA.Execute<Token>(requestA);
+                    Token deserialized = deserialize.Deserialize<Token>(responseA);
+
+                    Account account = new Account();
+                    if (!deserialized.User.Equals("super", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        var clientR = new RestClient(AppConfig.GetUrl("accountscreate"));
+                        var requestR = new RestRequest(Method.GET);
+
+                        requestR.AddParameter("username", deserialized.User);
+
+                        var responseR = clientR.Execute<Account>(requestR);
+                        account = new JsonDeserializer().Deserialize<Account>(responseR);
+                    }
+
+                    //Get payments for list
+                    var clientP = new RestClient(AppConfig.GetUrl("paymentslistall"));
+                    var requestP = new RestRequest(Method.GET);
+                    var responseP = clientP.Execute<List<Beneficiary>>(requestP);
+                    List<Payment> allPayments = deserialize.Deserialize<List<Payment>>(responseP);
                     //Get beneficiaries for list
                     var clientB = new RestClient(AppConfig.GetUrl("beneficiariesall"));
                     var requestB = new RestRequest(Method.GET);
@@ -405,10 +449,10 @@ namespace Raisins.Client.Controllers
                     var responseC = clientC.Execute<List<Currency>>(requestC);
                     List<Currency> currencies = deserialize.Deserialize<List<Currency>>(responseC);
 
-                    var clientP = new RestClient(AppConfig.GetUrl("sourceslist"));
-                    var requestP = new RestRequest(Method.GET);
-                    var responseP = clientP.Execute<List<Currency>>(requestP);
-                    List<PaymentSource> sources = deserialize.Deserialize<List<PaymentSource>>(responseP);
+                    var clientS = new RestClient(AppConfig.GetUrl("sourceslist"));
+                    var requestS = new RestRequest(Method.GET);
+                    var responseS = clientS.Execute<List<Currency>>(requestS);
+                    List<PaymentSource> sources = deserialize.Deserialize<List<PaymentSource>>(responseS);
 
                     var clientT = new RestClient(AppConfig.GetUrl("typeslist"));
                     var requestT = new RestRequest(Method.GET);
@@ -416,70 +460,192 @@ namespace Raisins.Client.Controllers
                     List<PaymentType> types = deserialize.Deserialize<List<PaymentType>>(responseT);
 
                     var isContentValid = true;
+                    var count = 2;
+                    List<Payment> IgnoredPayments = new List<Payment>();
+
+                    bool notContainPayment;
+
                     foreach (var payment in payments)
                     {
+                        var ifFirstError = true;
                         payment.CreatedBy = model.CreatedBy;
                         payment.CreatedDate = model.CreatedDate;
                         payment.ModifiedBy = model.ModifiedBy;
                         payment.ModifiedDate = model.CreatedDate;
 
-                        if (payment.Name == "" || payment.Name == null)
+                        if(payment.PaymentID<0)
                         {
                             isContentValid = false;
+                            ifFirstError = false;
+                            InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":" + "<br />ID cannot be less than 1";
                         }
-                        if (!EmailIsValid(payment.Email) || payment.Email == null)
+                        var paymentIDs = allPayments.Select(b => b.PaymentID);
+
+                        notContainPayment = !paymentIDs.Contains(payment.PaymentID) && payment.PaymentID != 0;
+                        if(notContainPayment)
                         {
-                            isContentValid = false;
+                            if (ifFirstError)
+                            {
+                                isContentValid = false;
+                                ifFirstError = false;
+                                InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                            }
+                            InvalidContentMessage = InvalidContentMessage + "<br />The payment ID does not exist. Leave it blank to create new payment";
                         }
-                        if (payment.Amount <= 0)
+                        if(!notContainPayment && payment.Locked)
                         {
-                            isContentValid = false;
+                            Payment temp = new Payment();
+                            foreach(Payment p in allPayments)
+                            {
+                                if(p.PaymentID == payment.PaymentID)
+                                {
+                                    temp = p;
+                                }
+                            }
+
+                            if (!deserialized.User.Equals("super", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var assignedBeneficiaryNames = account.Profile.Beneficiaries.Select(b => b.Name);
+                                if (!assignedBeneficiaryNames.Contains(temp.Beneficiary.Name))
+                                {
+                                    if (ifFirstError)
+                                    {
+                                        isContentValid = false;
+                                        InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                    }
+                                    InvalidContentMessage = InvalidContentMessage + "<br />Beneficiary is not Assigned to User";
+                                }
+                                else
+                                {
+                                    Delete(payment.PaymentID);
+                                }
+                            }
+                            else
+                            {
+                                Delete(payment.PaymentID);
+                            }
+
+                            ifFirstError = false;
                         }
-                        var beneficiaryExist = false;
-                        foreach(var beneficiary in beneficiaries)
+                        else
                         {
-                            if (payment.Beneficiary.Name == beneficiary.Name)
-                                beneficiaryExist = true;
+                            if (payment.Name == "" || payment.Name == null)
+                            {
+                                if (ifFirstError)
+                                {
+                                    isContentValid = false;
+                                    ifFirstError = false;
+                                    InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                }
+                                InvalidContentMessage = InvalidContentMessage + "<br />Name cannot be blank";
+                            }
+                            if (!EmailIsValid(payment.Email) || payment.Email == null)
+                            {
+                                if (ifFirstError)
+                                {
+                                    isContentValid = false;
+                                    ifFirstError = false;
+                                    InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                }
+                                InvalidContentMessage = InvalidContentMessage + "<br />Invalid Email";
+                            }
+                            if (payment.Amount <= 0)
+                            {
+                                if (ifFirstError)
+                                {
+                                    isContentValid = false;
+                                    ifFirstError = false;
+                                    InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                }
+                                InvalidContentMessage = InvalidContentMessage + "<br />Amount must be above 0";
+                            }
+                            if (!deserialized.User.Equals("super", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var assignedBeneficiaryNames = account.Profile.Beneficiaries.Select(b => b.Name);
+                                if (!assignedBeneficiaryNames.Contains(payment.Beneficiary.Name))
+                                {
+                                    if (ifFirstError)
+                                    {
+                                        isContentValid = false;
+                                        ifFirstError = false;
+                                        InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                    }
+                                    InvalidContentMessage = InvalidContentMessage + "<br />Beneficiary is not Assigned to User";
+                                }
+                            }
+                            var beneficiaryNames = beneficiaries.Select(b => b.Name);
+                            if (!beneficiaryNames.Contains(payment.Beneficiary.Name))
+                            {
+                                if (ifFirstError)
+                                {
+                                    isContentValid = false;
+                                    ifFirstError = false;
+                                    InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                }
+                                InvalidContentMessage = InvalidContentMessage + "<br />Invalid Beneficiary";
+                            }
+                            var currencyCodes = currencies.Select(b => b.CurrencyCode);
+                            if (!currencyCodes.Contains(payment.Currency.CurrencyCode))
+                            {
+                                if (ifFirstError)
+                                {
+                                    isContentValid = false;
+                                    ifFirstError = false;
+                                    InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                }
+                                InvalidContentMessage = InvalidContentMessage + "<br />Invalid Currency";
+                            }
+                            var typeNames = types.Select(b => b.Type);
+                            if (!typeNames.Contains(payment.Type.Type))
+                            {
+                                if (ifFirstError)
+                                {
+                                    isContentValid = false;
+                                    ifFirstError = false;
+                                    InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                }
+                                InvalidContentMessage = InvalidContentMessage + "<br />Invalid Payment Type";
+                            }
+                            var sourceNames = sources.Select(b => b.Source);
+                            if (!sourceNames.Contains(payment.Source.Source))
+                            {
+                                if (ifFirstError)
+                                {
+                                    isContentValid = false;
+                                    ifFirstError = false;
+                                    InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                }
+                                InvalidContentMessage = InvalidContentMessage + "<br />Invalid Payment Source";
+                            }
+                            if (payment.PaymentDate == default(DateTime))
+                            {
+                                if (ifFirstError)
+                                {
+                                    isContentValid = false;
+                                    ifFirstError = false;
+                                    InvalidContentMessage = InvalidContentMessage + "<br /><br />Row " + count.ToString() + ":";
+                                }
+                                InvalidContentMessage = InvalidContentMessage + "<br />Invalid Date Format";
+                            }
                         }
-                        if (beneficiaryExist==false || payment.Beneficiary.Name == null)
+                        
+                        /*if(ifFirstError==false)
                         {
-                            isContentValid = false;
-                        }
-                        var currencyExist = false;
-                        foreach (var currency in currencies)
-                        {
-                            if (payment.Currency.CurrencyCode == currency.CurrencyCode)
-                                currencyExist = true;
-                        }
-                        if (currencyExist == false || payment.Currency.CurrencyCode == null)
-                        {
-                            isContentValid = false;
-                        }
-                        var typeExist = false;
-                        foreach (var type in types)
-                        {
-                            if (payment.Type.Type == type.Type)
-                                typeExist = true;
-                        }
-                        if (typeExist == false || payment.Type.Type == null)
-                        {
-                            isContentValid = false;
-                        }
-                        var sourceExist = false;
-                        foreach (var source in sources)
-                        {
-                            if (payment.Source.Source == source.Source)
-                                sourceExist = true;
-                        }
-                        if (sourceExist == false || payment.Source.Source == null)
-                        {
-                            isContentValid = false;
-                        }
+                            IgnoredPayments.Add(payment);
+                        }*/
+
+                        count++;
                     }
+
+                    /*foreach(Payment payment in IgnoredPayments)
+                    {
+                        payments.Remove(payment);
+                    }*/
 
                     if (isContentValid == false)
                     {
-                        TempData["message"] = "Error! File content is not valid!";
+                        TempData["message"] = "Invalid File Content!";
+                        TempData["ContentError"] = InvalidContentMessage.Remove(0, 12);
                     }
                     else
                     {
@@ -490,16 +656,14 @@ namespace Raisins.Client.Controllers
                         request.AddParameter("Application/Json", body, ParameterType.RequestBody);
                         var response = client.Execute(request);
 
-
-                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                        {
+                        /*if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {*/
                             TempData["message"] = "Successfully uploaded!";
-                            result = RedirectToAction("ImportPayments", "Payments");
-                        }
+                        /*}
                         else
                         {
                             TempData["message"] = "Error! Cannot upload file!";
-                        }
+                        }*/
                     }
                 }
                 else
@@ -509,7 +673,7 @@ namespace Raisins.Client.Controllers
             }
             catch (Exception e)
             {
-
+                TempData["message"] = "File is Empty or missing a column";
             }
 
             result = RedirectToAction("ImportPayments", "Payments");
@@ -554,13 +718,22 @@ namespace Raisins.Client.Controllers
             var responsep = clientp.Execute<List<Payment>>(requestp);
             List<Payment> payments = deserialize.Deserialize<List<Payment>>(responsep);
 
+            PublishAllViewModel model;
+
             //TODO Decorate this
             if (!deserialized.User.Equals("super", StringComparison.InvariantCultureIgnoreCase))
             {
-                FilterPayments(payments, deserialized.User, beneficiarySelected);
+                FilterPayments(payments, deserialized.User);
             }
-
-            PublishAllViewModel model = new PublishAllViewModel(payments);
+            if (beneficiarySelected == "0" || beneficiarySelected == "" || beneficiarySelected == null)
+            {
+                model = new PublishAllViewModel(payments);
+            }
+            else
+            {
+                model = new PublishAllViewModel(beneficiarySelected, payments);
+            }
+            model.SelectedBeneficiary = beneficiarySelected;
             return View("ViewPaymentList", model);
         }
 
@@ -612,7 +785,7 @@ namespace Raisins.Client.Controllers
             var request = new RestRequest(Method.GET);
             PublishAllViewModel model;
 
-            if (beneficiarySelected == "0")
+            if (beneficiarySelected == "0"||beneficiarySelected == "")
             {
                 model = new PublishAllViewModel(paymentsp);
             }
@@ -632,7 +805,7 @@ namespace Raisins.Client.Controllers
 
         [PaymentPublishPermission("payments_publish")]
         [HttpGet]
-        public ActionResult PublishPayment(int paymentID, string modifiedBy)
+        public ActionResult PublishPayment(int paymentID, string modifiedBy, string beneficiarySelected)
         {
             var client = new RestClient(AppConfig.GetUrl("payments"));
             var request = new RestRequest(Method.GET);
@@ -660,8 +833,33 @@ namespace Raisins.Client.Controllers
             var requestM = new RestRequest(Method.POST);
             requestM.AddParameter("Application/Json", body, ParameterType.RequestBody);
             var responseM = clientM.Execute(requestM);
-            
-            return RedirectToAction("ViewPaymentList", "Payments");
+
+            return ViewPaymentListByBeneficiary(beneficiarySelected);
+        }
+
+        [HttpGet]
+        public ActionResult DeletePayment(int paymentID, string beneficiarySelected)
+        {
+            Delete(paymentID);
+
+            return ViewPaymentListByBeneficiary(beneficiarySelected);
+        }
+
+        public void Delete(int paymentID)
+        {
+            var client = new RestClient(AppConfig.GetUrl("payments"));
+            var request = new RestRequest(Method.GET);
+            request.AddParameter("paymentID", paymentID);
+            var response = client.Execute<List<Payment>>(request);
+
+            Payment payment = JsonConvert.DeserializeObject<Payment>(response.Content);
+
+            var clientP = new RestClient(AppConfig.GetUrl("PaymentsDelete"));
+            var requestP = new RestRequest(Method.PUT);
+            //var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
+            string body = JsonConvert.SerializeObject(payment);
+            requestP.AddParameter("Application/Json", body, ParameterType.RequestBody);
+            var responseP = clientP.Execute(requestP);
         }
 
         [HttpGet]

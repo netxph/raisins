@@ -204,5 +204,9 @@ namespace Raisins.Payments.Services
         {
             PaymentRepository.Edit(payment);
         }
+        public void Delete(P.Payment payment)
+        {
+            PaymentRepository.Delete(payment);
+        }
     }
 }
