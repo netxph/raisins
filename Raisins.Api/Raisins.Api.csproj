@@ -300,6 +300,7 @@
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy %288%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy %289%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\raisins-api - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\raisins-raisins2 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\raisins-raisins2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
