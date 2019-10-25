@@ -629,40 +629,41 @@ namespace Raisins.Client.Controllers
                             }
                         }
                         
-                        if(ifFirstError==false)
+                        /*if(ifFirstError==false)
                         {
                             IgnoredPayments.Add(payment);
-                        }
+                        }*/
 
                         count++;
                     }
 
-                    foreach(Payment payment in IgnoredPayments)
+                    /*foreach(Payment payment in IgnoredPayments)
                     {
                         payments.Remove(payment);
-                    }
+                    }*/
 
                     if (isContentValid == false)
                     {
-                        TempData["message2"] = "Invalid File Content! Ignoring cases";
-                        TempData["ContentError"] = InvalidContentMessage.Remove(0,12);
-                    }
-                    var client = new RestClient(AppConfig.GetUrl("paymentsimport"));
-                    var request = new RestRequest(Method.POST);
-                    var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
-                    string body = JsonConvert.SerializeObject(payments, settings);
-                    request.AddParameter("Application/Json", body, ParameterType.RequestBody);
-                    var response = client.Execute(request);
-
-
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        TempData["message"] = "Successfully uploaded!";
-                        result = RedirectToAction("ImportPayments", "Payments");
+                        TempData["message"] = "Invalid File Content!";
+                        TempData["ContentError"] = InvalidContentMessage.Remove(0, 12);
                     }
                     else
                     {
-                        TempData["message"] = "Error! Cannot upload file!";
+                        var client = new RestClient(AppConfig.GetUrl("paymentsimport"));
+                        var request = new RestRequest(Method.POST);
+                        var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
+                        string body = JsonConvert.SerializeObject(payments, settings);
+                        request.AddParameter("Application/Json", body, ParameterType.RequestBody);
+                        var response = client.Execute(request);
+
+                        /*if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {*/
+                            TempData["message"] = "Successfully uploaded!";
+                        /*}
+                        else
+                        {
+                            TempData["message"] = "Error! Cannot upload file!";
+                        }*/
                     }
                 }
                 else
@@ -804,7 +805,7 @@ namespace Raisins.Client.Controllers
 
         [PaymentPublishPermission("payments_publish")]
         [HttpGet]
-        public ActionResult PublishPayment(int paymentID, string modifiedBy)
+        public ActionResult PublishPayment(int paymentID, string modifiedBy, string beneficiarySelected)
         {
             var client = new RestClient(AppConfig.GetUrl("payments"));
             var request = new RestRequest(Method.GET);
@@ -832,16 +833,16 @@ namespace Raisins.Client.Controllers
             var requestM = new RestRequest(Method.POST);
             requestM.AddParameter("Application/Json", body, ParameterType.RequestBody);
             var responseM = clientM.Execute(requestM);
-            
-            return RedirectToAction("ViewPaymentList", "Payments");
+
+            return ViewPaymentListByBeneficiary(beneficiarySelected);
         }
 
         [HttpGet]
-        public ActionResult DeletePayment(int paymentID)
+        public ActionResult DeletePayment(int paymentID, string beneficiarySelected)
         {
             Delete(paymentID);
-            
-            return RedirectToAction("ViewPaymentList", "Payments");
+
+            return ViewPaymentListByBeneficiary(beneficiarySelected);
         }
 
         public void Delete(int paymentID)

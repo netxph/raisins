@@ -13,17 +13,18 @@
         {
             <h4 style="color:green">@TempData["message"]</h4>
         }
+        else if (TempData["message"] == "Invalid File Content!")
+        {
+            <h4 style="color:red">@Html.Raw(@TempData["message"])</h4>
+            <div style="height:200px;width:500px;overflow:auto;scrollbar-base-color:gold;font-family:sans-serif;font-size:10px;border-style:ridge;border-width: 3px;padding:10px;">
+                @Html.Raw(@TempData["ContentError"])
+            </div>
+        }
         else
         {
             <h4 style="color:red">@Html.Raw(@TempData["message"])</h4>
         }
-        @if (TempData["message2"] == "Invalid File Content! Ignoring cases")
-        {
-        <h4 style="color:red">@Html.Raw(@TempData["message2"])</h4>
-        <div style="height:200px;width:500px;overflow:auto;scrollbar-base-color:gold;font-family:sans-serif;font-size:10px;border-style:ridge;border-width: 3px;padding:10px;">
-            @Html.Raw(@TempData["ContentError"])
-        </div>
-        }
+        
         <br />
         <br />
         @using (Html.BeginForm("ImportPayments", "Payments", FormMethod.Post, new { enctype = "multipart/form-data" }))

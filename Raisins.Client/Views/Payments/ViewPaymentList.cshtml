@@ -142,21 +142,25 @@
                                 {
                                     @Html.ActionLink("Edit", "EditPayment", "Payments", new { paymentID = item.PaymentID }, null)
                                     <span> | </span>
-                                    @Html.ActionLink("Publish", "PublishPayment", "Payments", new { paymentID = item.PaymentID, modifiedBy }, null)
+                                    @Html.ActionLink("Publish", "PublishPayment", "Payments", new { paymentID = item.PaymentID, modifiedBy, beneficiarySelected = Model.SelectedBeneficiary }, null)
+                                    <span> | </span>
+                                    <a href="@Url.Action("DeletePayment", "Payments", new { paymentID = item.PaymentID, beneficiarySelected = Model.SelectedBeneficiary }, null)">
+                                        <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                    </a>
                                 }
                                 else
                                 {
                                     <span class="text-danger">Locked</span>
                                 }
                             </td>
-                            @if (!item.Locked)
+                            <!--@if (!item.Locked)
                             {
                                 <td style="background-color:indianred;text-align:center;">
                                     <a href="@Url.Action("DeletePayment", "Payments", new { paymentID = item.PaymentID }, null)">
                                         <i class="fa fa-trash" aria-hidden="true" style="color:black;"></i>
                                     </a>
                                 </td>
-                            }
+                            }-->
                         </tr>
                     }
                 </tbody>
