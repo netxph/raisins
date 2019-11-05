@@ -144,7 +144,7 @@
                                     <span> | </span>
                                     @Html.ActionLink("Publish", "PublishPayment", "Payments", new { paymentID = item.PaymentID, modifiedBy, beneficiarySelected = Model.SelectedBeneficiary }, null)
                                     <span> | </span>
-                                    <a href="@Url.Action("DeletePayment", "Payments", new { paymentID = item.PaymentID, beneficiarySelected = Model.SelectedBeneficiary }, null)">
+                                    <a href="@Url.Action("DeletePayment", "Payments", new { paymentID = item.PaymentID, beneficiarySelected = Model.SelectedBeneficiary }, null)" onclick="return confirm('Are you sure?')">
                                         <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                                     </a>
                                 }

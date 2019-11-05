@@ -31,6 +31,13 @@ namespace Raisins.Api.Controllers
             }
             _mailQueueService = mailQueueService;
         }
+        
+
+        [HttpGet]
+        public MailQueues GetMailQueues([FromUri] int count)
+        {
+            return MailQueueService.GetAll(count);
+        }
 
         [HttpPost]
         public HttpResponseMessage AddAllToMailQueue([FromBody]IEnumerable<API.Payment> payments)
@@ -41,11 +48,8 @@ namespace Raisins.Api.Controllers
             }           
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-
-        [HttpGet]
-        public MailQueues GetMailQueues(int count)
-        {
-            return MailQueueService.GetAll(count);
-        }
+        
+        //[Route("MailQueuesAll/GetMailQueues")]
+        
     }
 }
