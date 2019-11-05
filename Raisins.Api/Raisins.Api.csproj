@@ -278,6 +278,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\apiprofile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %2810%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %2811%29.pubxml" />
     <None Include="Properties\PublishProfiles\Raisins - FTP %282%29.pubxml" />
