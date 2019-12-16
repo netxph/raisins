@@ -40,7 +40,7 @@ namespace Raisins.Data.Repository
         public MailQueues GetAll(int count)
         {
             var mails = new MailQueues();
-            var data = _context.MailQueues.Where(m => !m.Status).Take(count);
+            var data = _context.MailQueues.Where(m => !m.Status).Take(count).ToList();
 
             foreach (var item in data)
             {

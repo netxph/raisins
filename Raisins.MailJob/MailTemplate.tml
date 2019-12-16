@@ -1,4 +1,4 @@
-﻿<SING-ALONG for HMS>Donation Receipt
+﻿<Harmonize for HMS>Donation Receipt
 
     ***This is a computer-generated e-mail. Please do not reply to this e-mail address. ***
     <br />
@@ -7,38 +7,30 @@
     </p>
     <p>
         Thank you for your kind donation and voting for <strong>{Beneficiary}</strong>. Your donation will be sent to Food For Hungry Minds.<br/>
-        If you have any specific questions regarding your donation or about the organization, please don’t hesitate to contact [Name] through [contact information].<br/>
+        If you have any specific questions regarding your donation or about the organization, please don’t hesitate to contact <strong>John Pasquin</strong> through <strong>john.pasquin@navitaire.com</strong>.<br/>
     </p>
     <h3>
-        This donation generated the following ticket numbers that will have a chance to win a <strong style="color:red;">Nintendo Switch</strong>.
+        This donation generated the following ticket numbers that will have a chance to win a <strong style="color:red;">Nintendo Switch</strong> or <strong style="color:red;">Airpods Pro</strong>.
     </h3>
 
         <code>
-            <div style="border-style:groove;border-color:aliceblue;height:190px;width:450px;position:relative;background-color:white;">
+            <div style="border-style:groove;height:190px;width:450px;position:relative;background-color:white;">
                 <div style="height:140px;width:170px;float:left;margin-left:5px;color:black;">   
                     <h3 style="text-align:left;">Raffle Ticket</h3>
-                    <p style="margin:0;font-size:12px;">Ticket #XX</p>
+                    <p style="margin:0;font-size:12px;">Ticket(s):</p>
+					<p>
+					{Tickets}
+					</p>
+					<br>
                     <p style="margin:0;font-size:12px;">Name: {Name}</p>
-                    <p style="margin:0;font-size:12px;">Role: {role}</p>
                     <p style="margin:0;font-size:12px;">Beneficiary: {Beneficiary}</p>
                 </div>
                 
-                <div style="width:160px;height:120px;float:left;color:black;z-index">
-                    <img src="navitaire.png" style="width:160px;height:auto;margin-top:30px;opacity:0.5;" />
-                </div>
-                <div style="width:90.963px;height:136.5px;float:left;margin-top:5px;margin-left:20px;">
-                    <img src="Logo.png" style="width:90.963px;height:180px;"/>
-                </div>
-
-                <div style="border-style:groove;border-color:aliceblue;height:30px;width:335px;bottom:6px;position:absolute;margin-left:5px;background-color:white;">   
-                    <label for="ticketPoints" style="margin-top:4px;font-size:25px;">Ticket Points: </label>
-                    <input id="ticketPoints" type="text" value="3" style="float:right;text-align:center;margin-right:3px;margin-top:4px;" size="4" readonly />
-                </div>
             </div>
         </code>
 
     <p>
-        If you wish to increase your chances of winning, kindly contact our representatives. Voting ends on December 13.
+        If you wish to increase your chances of winning, kindly contact our representatives. Voting ends on December 16.
     </p>
 
     <p>
