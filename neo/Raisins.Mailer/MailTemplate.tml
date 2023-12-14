@@ -1,0 +1,41 @@
+﻿<Harmonize for HMS>Donation Receipt
+
+    ***This is a computer-generated e-mail. Please do not reply to this e-mail address. ***
+    <br />
+    <p>
+        Dear <strong>{Name}</strong>,
+    </p>
+    <p>
+        Thank you for your kind donation and voting for <strong>{Beneficiary}</strong>. Your donation will be sent to Food For Hungry Minds.<br/>
+        If you have any specific questions regarding your donation or about the organization, please don’t hesitate to contact <strong>John Pasquin</strong> through <strong>john.pasquin@navitaire.com</strong>.<br/>
+    </p>
+    <h3>
+        This donation generated the following ticket numbers that will have a chance to win a <strong style="color:red;">Nintendo Switch</strong> or <strong style="color:red;">Airpods Pro</strong>.
+    </h3>
+
+        <code>
+            <div style="border-style:groove;height:190px;width:450px;position:relative;background-color:white;">
+                <div style="height:140px;width:170px;float:left;margin-left:5px;color:black;">   
+                    <h3 style="text-align:left;">Raffle Ticket</h3>
+                    <p style="margin:0;font-size:12px;">Ticket(s):</p>
+					<p>
+					{Tickets}
+					</p>
+					<br>
+                    <p style="margin:0;font-size:12px;">Name: {Name}</p>
+                    <p style="margin:0;font-size:12px;">Beneficiary: {Beneficiary}</p>
+                </div>
+                
+            </div>
+        </code>
+
+    <p>
+        If you wish to increase your chances of winning, kindly contact our representatives. Voting ends on December 16.
+    </p>
+
+    <p>
+        Regards,<br>
+        Navitaire<br>
+        SING-ALONG FOR HMS<br>
+        <a href="http://foodforhungryminds.org">http://foodforhungryminds.org</a><br>
+    </p>
